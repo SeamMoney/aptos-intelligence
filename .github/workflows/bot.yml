@@ -1,0 +1,50 @@
+name: Aptos Intelligence Bot
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: "0 */6 * * *"
+    # Weekly recap on Sundays at 18:00 UTC
+    - cron: "0 18 * * 0"
+    # Feature status report on Wednesdays at 15:00 UTC
+    - cron: "0 15 * * 3"
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Cache the SQLite database between runs so it remembers what it already posted
+      - name: Restore bot database
+        uses: actions/cache@v4
+        with:
+          path: aptos-intelligence.db
+          key: bot-db-${{ github.ref }}
+          restore-keys: bot-db-
+
+      - run: npm ci
+
+      - name: Run bot (single cycle, then exit)
+        run: node --import tsx src/run-once.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+
+      # Save database back so next run knows what was posted
+      - name: Save bot database
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: aptos-intelligence.db
+          key: bot-db-${{ github.ref }}-${{ github.run_id }}
