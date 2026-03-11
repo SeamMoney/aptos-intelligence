@@ -1,0 +1,30 @@
+{
+  "name": "aptos-intelligence",
+  "version": "1.0.0",
+  "description": "AI-powered Aptos Core changelog & feature tracker Twitter bot",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "dry-run": "DRY_RUN=true tsx src/index.ts"
+  },
+  "keywords": ["aptos", "blockchain", "twitter-bot", "changelog"],
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^21.0.0",
+    "better-sqlite3": "^11.0.0",
+    "dotenv": "^16.4.0",
+    "groq-sdk": "^0.8.0",
+    "node-cron": "^3.0.3",
+    "twitter-api-v2": "^1.17.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.0.0",
+    "typescript": "^5.6.0"
+  }
+}
