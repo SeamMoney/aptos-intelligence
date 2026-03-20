@@ -1,11 +1,28 @@
 import { createServer } from "node:http";
-import { readFileSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { readFileSync, existsSync, statSync } from "node:fs";
+import { join, dirname, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { config } from "./config.js";
 import { initDb, getReports, getReportById, getReportsByCategory, getAllFeatureStatuses } from "./db.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Resolve the frontend dist directory (built Vite app)
+const distDir = join(__dirname, "..", "web", "dist");
+const legacyHtml = join(__dirname, "public", "index.html");
+
+const MIME_TYPES: Record<string, string> = {
+  ".html": "text/html",
+  ".js": "application/javascript",
+  ".css": "text/css",
+  ".json": "application/json",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".woff": "font/woff",
+  ".woff2": "font/woff2",
+  ".ico": "image/x-icon",
+};
 
 function sendJson(res: any, data: any, status = 200) {
   res.writeHead(status, {
@@ -15,16 +32,27 @@ function sendJson(res: any, data: any, status = 200) {
   res.end(JSON.stringify(data));
 }
 
-function sendHtml(res: any, html: string) {
-  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-  res.end(html);
+function serveStatic(res: any, filePath: string): boolean {
+  if (!existsSync(filePath) || !statSync(filePath).isFile()) return false;
+  const ext = extname(filePath);
+  const mime = MIME_TYPES[ext] || "application/octet-stream";
+  const content = readFileSync(filePath);
+  res.writeHead(200, {
+    "Content-Type": mime,
+    "Cache-Control": ext === ".html" ? "no-cache" : "public, max-age=31536000, immutable",
+  });
+  res.end(content);
+  return true;
 }
 
-let indexHtml: string;
-try {
-  indexHtml = readFileSync(join(__dirname, "public", "index.html"), "utf-8");
-} catch {
-  indexHtml = "<h1>Aptos Intelligence</h1><p>Frontend not found.</p>";
+// Load the index.html (React SPA fallback)
+function getIndexHtml(): string {
+  // Prefer built React app
+  const reactIndex = join(distDir, "index.html");
+  if (existsSync(reactIndex)) return readFileSync(reactIndex, "utf-8");
+  // Fallback to legacy static HTML
+  if (existsSync(legacyHtml)) return readFileSync(legacyHtml, "utf-8");
+  return "<h1>Aptos Intelligence</h1><p>Frontend not built. Run: cd web && npm run build</p>";
 }
 
 const server = createServer((req, res) => {
@@ -51,12 +79,26 @@ const server = createServer((req, res) => {
     return sendJson(res, getAllFeatureStatuses());
   }
 
-  // Serve frontend
-  sendHtml(res, indexHtml);
+  // Static files from Vite build
+  if (path !== "/" && existsSync(distDir)) {
+    const staticPath = join(distDir, path);
+    if (serveStatic(res, staticPath)) return;
+  }
+
+  // SPA fallback — serve index.html for all non-API, non-asset routes
+  const html = getIndexHtml();
+  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+  res.end(html);
 });
 
 initDb();
 
 server.listen(config.web.port, () => {
-  console.log(`Aptos Intelligence web UI: http://localhost:${config.web.port}`);
+  console.log(`Aptos Intelligence: http://localhost:${config.web.port}`);
+  if (existsSync(distDir)) {
+    console.log("  Serving React dashboard from web/dist/");
+  } else {
+    console.log("  React app not built. Run: cd web && npm run build");
+    console.log("  Falling back to legacy HTML.");
+  }
 });

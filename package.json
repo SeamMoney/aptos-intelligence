@@ -11,7 +11,9 @@
     "dry-run": "DRY_RUN=true tsx src/index.ts",
     "run-once": "tsx src/run-once.ts",
     "web": "WEB_ONLY=true tsx src/web.ts",
-    "dev:web": "WEB_ONLY=true tsx watch src/web.ts"
+    "web:build": "cd web && npm run build",
+    "web:dev": "cd web && npm run dev",
+    "web:serve": "npm run web:build && npm run web"
   },
   "keywords": ["aptos", "blockchain", "twitter-bot", "changelog"],
   "license": "MIT",
