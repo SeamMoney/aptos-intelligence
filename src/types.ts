@@ -61,3 +61,18 @@ export interface MonthlyUsage {
   month: string;
   count: number;
 }
+
+export interface WebReport {
+  id: number;
+  githubId: string;
+  title: string;
+  author: string;
+  date: string;
+  category: string;
+  importance: number;
+  sourceUrl: string;
+  advanced: string;
+  eli5: string;
+  relatedFeatures: string[];
+  labels: string[];
+}

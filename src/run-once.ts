@@ -11,9 +11,10 @@ import {
   getRecentChangelog,
   getMonthlyPostCount,
   closeDb,
+  upsertReport,
 } from "./db.js";
 import { fetchLatestReleases, fetchRecentMergedPRs } from "./github.js";
-import { analyzeUpdate, generateWeeklyRecap } from "./llm.js";
+import { analyzeUpdate, generateWeeklyRecap, generateWebReport } from "./llm.js";
 import { refreshAIPStatuses, updateFeatureFromPR, getFeatureDashboard } from "./features.js";
 import { buildThread, buildWeeklyRecapThread, buildStatusCheckThread } from "./formatter.js";
 import { initTwitter, postThread } from "./twitter.js";
@@ -42,6 +43,27 @@ async function processItem(item: GitHubItem): Promise<void> {
     relatedFeatures: analysis.relatedFeatures,
     sourceUrl: item.html_url,
   });
+
+  // Generate web report (Advanced + ELI5)
+  try {
+    const webContent = await generateWebReport(item, analysis);
+    upsertReport({
+      githubId: itemId,
+      title: item.title || item.tag_name || "Unknown",
+      author: item.user?.login || "unknown",
+      date: new Date().toISOString(),
+      category: analysis.category,
+      importance: analysis.importance,
+      sourceUrl: item.html_url,
+      advanced: webContent.advanced,
+      eli5: webContent.eli5,
+      relatedFeatures: analysis.relatedFeatures,
+      labels: item.labels?.map((l) => l.name) || [],
+    });
+    console.log(`  Web report generated`);
+  } catch (err) {
+    console.error(`  Web report failed:`, err);
+  }
 
   const hasFeatureUpdate = featureUpdates.some((u) => u.statusChanged);
   const shouldPost =

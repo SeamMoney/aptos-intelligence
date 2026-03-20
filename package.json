@@ -9,7 +9,9 @@
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "dry-run": "DRY_RUN=true tsx src/index.ts",
-    "run-once": "tsx src/run-once.ts"
+    "run-once": "tsx src/run-once.ts",
+    "web": "WEB_ONLY=true tsx src/web.ts",
+    "dev:web": "WEB_ONLY=true tsx watch src/web.ts"
   },
   "keywords": ["aptos", "blockchain", "twitter-bot", "changelog"],
   "license": "MIT",

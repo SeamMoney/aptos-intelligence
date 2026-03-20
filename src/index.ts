@@ -1,8 +1,8 @@
 import cron from "node-cron";
 import { config } from "./config.js";
-import { initDb, isAlreadyPosted, markPosted, addChangelogEntry, getRecentChangelog, getMonthlyPostCount } from "./db.js";
+import { initDb, isAlreadyPosted, markPosted, addChangelogEntry, getRecentChangelog, getMonthlyPostCount, upsertReport } from "./db.js";
 import { fetchLatestReleases, fetchRecentMergedPRs } from "./github.js";
-import { analyzeUpdate, generateWeeklyRecap } from "./llm.js";
+import { analyzeUpdate, generateWeeklyRecap, generateWebReport } from "./llm.js";
 import { refreshAIPStatuses, updateFeatureFromPR, getFeatureDashboard } from "./features.js";
 import { buildThread, buildWeeklyRecapThread, buildStatusCheckThread } from "./formatter.js";
 import { initTwitter, postThread } from "./twitter.js";
@@ -34,6 +34,27 @@ async function processItem(item: GitHubItem): Promise<void> {
     relatedFeatures: analysis.relatedFeatures,
     sourceUrl: item.html_url,
   });
+
+  // Generate web report (Advanced + ELI5) for the website
+  try {
+    const webContent = await generateWebReport(item, analysis);
+    upsertReport({
+      githubId: itemId,
+      title: item.title || item.tag_name || "Unknown",
+      author: item.user?.login || "unknown",
+      date: new Date().toISOString(),
+      category: analysis.category,
+      importance: analysis.importance,
+      sourceUrl: item.html_url,
+      advanced: webContent.advanced,
+      eli5: webContent.eli5,
+      relatedFeatures: analysis.relatedFeatures,
+      labels: item.labels?.map((l) => l.name) || [],
+    });
+    console.log(`  Web report generated (Advanced + ELI5)`);
+  } catch (err) {
+    console.error(`  Web report generation failed:`, err);
+  }
 
   // Decide whether to post based on importance + feature relevance
   const hasFeatureUpdate = featureUpdates.some((u) => u.statusChanged);

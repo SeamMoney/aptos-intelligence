@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 import { config } from "./config.js";
-import type { FeatureStatus, FeatureHistoryEntry, PostRecord, MonthlyUsage } from "./types.js";
+import type { FeatureStatus, FeatureHistoryEntry, PostRecord, MonthlyUsage, WebReport } from "./types.js";
 
 let db: Database.Database;
 
@@ -41,6 +41,21 @@ export function initDb(): void {
       importance INTEGER NOT NULL,
       related_features TEXT NOT NULL DEFAULT '[]',
       source_url TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      github_id TEXT NOT NULL UNIQUE,
+      title TEXT NOT NULL,
+      author TEXT NOT NULL DEFAULT 'unknown',
+      date TEXT NOT NULL,
+      category TEXT NOT NULL,
+      importance INTEGER NOT NULL,
+      source_url TEXT,
+      advanced TEXT NOT NULL,
+      eli5 TEXT NOT NULL,
+      related_features TEXT NOT NULL DEFAULT '[]',
+      labels TEXT NOT NULL DEFAULT '[]'
     );
   `);
 }
@@ -134,6 +149,63 @@ export function addChangelogEntry(entry: {
 
 export function getRecentChangelog(limit: number = 20): any[] {
   return db.prepare("SELECT * FROM changelog ORDER BY date DESC LIMIT ?").all(limit);
+}
+
+export function upsertReport(report: Omit<WebReport, "id">): void {
+  db.prepare(`
+    INSERT INTO reports (github_id, title, author, date, category, importance, source_url, advanced, eli5, related_features, labels)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(github_id) DO UPDATE SET
+      advanced = excluded.advanced,
+      eli5 = excluded.eli5,
+      importance = excluded.importance,
+      category = excluded.category,
+      related_features = excluded.related_features
+  `).run(
+    report.githubId,
+    report.title,
+    report.author,
+    report.date,
+    report.category,
+    report.importance,
+    report.sourceUrl,
+    report.advanced,
+    report.eli5,
+    JSON.stringify(report.relatedFeatures),
+    JSON.stringify(report.labels)
+  );
+}
+
+export function getReports(limit: number = 50): WebReport[] {
+  const rows = db.prepare("SELECT * FROM reports ORDER BY date DESC LIMIT ?").all(limit) as any[];
+  return rows.map(rowToReport);
+}
+
+export function getReportById(id: number): WebReport | undefined {
+  const row = db.prepare("SELECT * FROM reports WHERE id = ?").get(id) as any;
+  return row ? rowToReport(row) : undefined;
+}
+
+export function getReportsByCategory(category: string): WebReport[] {
+  const rows = db.prepare("SELECT * FROM reports WHERE category = ? ORDER BY date DESC").all(category) as any[];
+  return rows.map(rowToReport);
+}
+
+function rowToReport(row: any): WebReport {
+  return {
+    id: row.id,
+    githubId: row.github_id,
+    title: row.title,
+    author: row.author,
+    date: row.date,
+    category: row.category,
+    importance: row.importance,
+    sourceUrl: row.source_url,
+    advanced: row.advanced,
+    eli5: row.eli5,
+    relatedFeatures: JSON.parse(row.related_features),
+    labels: JSON.parse(row.labels),
+  };
 }
 
 export function closeDb(): void {

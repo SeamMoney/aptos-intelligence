@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aptos Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-hover: #1a1a26;
+      --bg-active: #1e1e2e;
+      --border: #2a2a3a;
+      --text: #e0e0e8;
+      --text-dim: #8888a0;
+      --text-muted: #555568;
+      --accent: #00e89d;
+      --accent-dim: #00c882;
+      --accent-bg: rgba(0, 232, 157, 0.08);
+      --red: #ff5555;
+      --orange: #ffaa33;
+      --blue: #5599ff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 380px;
+      min-width: 380px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+
+    .sidebar-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .filter-bar {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-chip:hover { border-color: var(--accent-dim); color: var(--text); }
+    .filter-chip.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+
+    .report-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .report-list::-webkit-scrollbar { width: 4px; }
+    .report-list::-webkit-scrollbar-track { background: transparent; }
+    .report-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .report-card {
+      padding: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: 4px;
+      border: 1px solid transparent;
+    }
+
+    .report-card:hover { background: var(--bg-hover); }
+    .report-card.active { background: var(--bg-active); border-color: var(--accent); }
+
+    .report-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .report-card-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-release { background: rgba(85, 153, 255, 0.15); color: var(--blue); }
+    .badge-feature { background: rgba(0, 232, 157, 0.15); color: var(--accent); }
+    .badge-security { background: rgba(255, 85, 85, 0.15); color: var(--red); }
+    .badge-performance { background: rgba(255, 170, 51, 0.15); color: var(--orange); }
+    .badge-infra { background: rgba(136, 136, 160, 0.15); color: var(--text-dim); }
+    .badge-other { background: rgba(136, 136, 160, 0.1); color: var(--text-muted); }
+
+    .importance {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .importance.high { color: var(--red); }
+    .importance.medium { color: var(--orange); }
+
+    .report-card-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .report-card-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .report-card-author { color: var(--text-dim); }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .main-header {
+      padding: 24px 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .main-title {
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .main-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .main-meta a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .main-meta a:hover { text-decoration: underline; }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dim);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+    }
+
+    .main-content::-webkit-scrollbar { width: 6px; }
+    .main-content::-webkit-scrollbar-track { background: transparent; }
+    .main-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .content-panel { display: none; }
+    .content-panel.active { display: block; }
+
+    /* Content styling */
+    .content-panel h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 24px 0 12px;
+    }
+
+    .content-panel h3:first-child { margin-top: 0; }
+
+    .content-panel p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .content-panel ul, .content-panel ol {
+      margin: 12px 0 16px 24px;
+      line-height: 1.7;
+    }
+
+    .content-panel li { margin-bottom: 6px; font-size: 15px; }
+
+    .content-panel code {
+      background: var(--bg-hover);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    .content-panel pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      margin: 16px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .content-panel pre code {
+      background: none;
+      padding: 0;
+      color: var(--text);
+    }
+
+    /* Features sidebar in content */
+    .related-features {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .related-features h4 {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      background: var(--accent-bg);
+      border: 1px solid rgba(0, 232, 157, 0.2);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin: 0 6px 6px 0;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 40px;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    .empty-state p { font-size: 15px; }
+
+    /* ELI5 styling */
+    #panel-eli5 p {
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; min-width: auto; height: 40vh; border-right: none; border-bottom: 1px solid var(--border); }
+      .main { height: 60vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">AI</div>
+        Aptos Intelligence
+      </div>
+      <div class="subtitle">Every commit that matters — explained</div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="Release">Releases</button>
+      <button class="filter-chip" data-filter="Feature Progress">Features</button>
+      <button class="filter-chip" data-filter="Security">Security</button>
+      <button class="filter-chip" data-filter="Performance">Perf</button>
+      <button class="filter-chip" data-filter="Infrastructure">Infra</button>
+    </div>
+
+    <div class="report-list" id="report-list"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="main-area">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-state-icon">AI</div>
+      <p>Select a report from the sidebar to view the analysis.</p>
+      <p style="margin-top: 8px; color: var(--text-muted); font-size: 13px;">Each update has Advanced and ELI5 explanations.</p>
+    </div>
+
+    <div id="report-view" style="display: none; flex: 1; display: none; flex-direction: column; overflow: hidden;">
+      <div class="main-header">
+        <h1 class="main-title" id="report-title"></h1>
+        <div class="main-meta">
+          <span id="report-author"></span>
+          <span id="report-date"></span>
+          <span id="report-category-badge"></span>
+          <a id="report-link" href="#" target="_blank">View on GitHub</a>
+        </div>
+        <div class="tabs">
+          <div class="tab active" data-tab="advanced">Advanced</div>
+          <div class="tab" data-tab="eli5">ELI5</div>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="content-panel active" id="panel-advanced"></div>
+        <div class="content-panel" id="panel-eli5"></div>
+        <div class="related-features" id="related-features" style="display: none;">
+          <h4>Related Features</h4>
+          <div id="feature-tags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+let reports = [];
+let activeFilter = "all";
+let activeReportId = null;
+
+async function fetchReports() {
+  try {
+    const res = await fetch("/api/reports");
+    reports = await res.json();
+    renderList();
+    if (reports.length > 0) loadReport(reports[0].id);
+  } catch (err) {
+    console.error("Failed to fetch reports:", err);
+  }
+}
+
+function renderList() {
+  const container = document.getElementById("report-list");
+  const filtered = activeFilter === "all"
+    ? reports
+    : reports.filter(r => r.category === activeFilter);
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-muted);">No reports yet. The bot will populate this as it analyzes commits.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(r => `
+    <div class="report-card ${r.id === activeReportId ? 'active' : ''}" onclick="loadReport(${r.id})">
+      <div class="report-card-header">
+        <div class="report-card-meta">
+          <span class="badge badge-${badgeClass(r.category)}">${r.category}</span>
+        </div>
+        <span class="importance ${r.importance >= 8 ? 'high' : r.importance >= 6 ? 'medium' : ''}">${r.importance}/10</span>
+      </div>
+      <div class="report-card-title">${escapeHtml(r.title)}</div>
+      <div class="report-card-footer">
+        <span class="report-card-author">${escapeHtml(r.author)}</span>
+        <span>${formatDate(r.date)}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+function loadReport(id) {
+  const report = reports.find(r => r.id === id);
+  if (!report) return;
+
+  activeReportId = id;
+  renderList();
+
+  document.getElementById("empty-state").style.display = "none";
+  const view = document.getElementById("report-view");
+  view.style.display = "flex";
+
+  document.getElementById("report-title").textContent = report.title;
+  document.getElementById("report-author").textContent = report.author;
+  document.getElementById("report-date").textContent = formatDate(report.date);
+  document.getElementById("report-category-badge").innerHTML =
+    `<span class="badge badge-${badgeClass(report.category)}">${report.category}</span>`;
+  document.getElementById("report-link").href = report.sourceUrl;
+
+  document.getElementById("panel-advanced").innerHTML = report.advanced;
+  document.getElementById("panel-eli5").innerHTML = report.eli5;
+
+  const featuresEl = document.getElementById("related-features");
+  const tagsEl = document.getElementById("feature-tags");
+  if (report.relatedFeatures && report.relatedFeatures.length > 0) {
+    featuresEl.style.display = "block";
+    tagsEl.innerHTML = report.relatedFeatures.map(f =>
+      `<span class="feature-tag">${escapeHtml(f)}</span>`
+    ).join("");
+  } else {
+    featuresEl.style.display = "none";
+  }
+
+  // Reset to advanced tab
+  switchTab("advanced");
+}
+
+function switchTab(tab) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+  document.querySelectorAll(".content-panel").forEach(p => p.classList.toggle("active", p.id === `panel-${tab}`));
+}
+
+// Tab click handlers
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => switchTab(tab.dataset.tab));
+});
+
+// Filter click handlers
+document.querySelectorAll(".filter-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    renderList();
+  });
+});
+
+function badgeClass(category) {
+  const map = {
+    "Release": "release",
+    "Feature Progress": "feature",
+    "Security": "security",
+    "Performance": "performance",
+    "Infrastructure": "infra",
+  };
+  return map[category] || "other";
+}
+
+function formatDate(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str || "";
+  return div.innerHTML;
+}
+
+fetchReports();
+</script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 import Groq from "groq-sdk";
 import { config, TRACKED_FEATURES } from "./config.js";
-import type { UpdateAnalysis, GitHubItem } from "./types.js";
+import type { UpdateAnalysis, GitHubItem, WebReport } from "./types.js";
 
 const groq = new Groq({ apiKey: config.groq.apiKey });
 
@@ -80,6 +80,71 @@ ${extraContext ? `Additional context:\n${extraContext}` : ""}`;
       relatedFeatures: [],
       breakingChanges: false,
       nodeOperatorAction: !!item.tag_name,
+    };
+  }
+}
+
+const WEB_REPORT_PROMPT = `You are writing a detailed technical report about an Aptos blockchain code change for the "Aptos Intelligence" website.
+
+Generate TWO versions of the analysis — return ONLY valid JSON (no markdown fences):
+
+{
+  "advanced": "A detailed technical analysis in HTML. Use <h3>, <p>, <ul>/<li>, <code>, and <pre> tags. Cover: (1) What exactly changed in the code (name specific structs, functions, files if mentioned), (2) How it works technically, (3) Why this matters for the Aptos network, (4) How it connects to the bigger picture (Raptr/Archon consensus, Zaptos pipelining, Block-STM execution, encrypted mempool, Shardines). Be specific about code patterns and architectural decisions. 4-6 paragraphs.",
+  "eli5": "An ELI5 (Explain Like I'm 5) analysis in HTML. Use <p> tags and simple analogies. Explain what happened as if talking to someone who knows nothing about blockchain. Use everyday metaphors (mailboxes, traffic lights, assembly lines, etc). Make it fun and clear. 3-4 short paragraphs. No jargon."
+}
+
+The Aptos stack context:
+- Prefix Consensus / Raptr: Leaderless multi-proposer BFT consensus (censorship resistant)
+- Archon: Next-gen validator coordination with proxy-primary architecture
+- Zaptos: Optimistic execution pipelining for low latency
+- Block-STM v2: Parallel transaction execution engine
+- Shardines: Internal validator sharding for 1M+ TPS
+- Encrypted Mempool: Confidential transaction ordering (anti-MEV)
+
+Be accurate. Don't speculate.`;
+
+export async function generateWebReport(item: GitHubItem, analysis: UpdateAnalysis): Promise<{ advanced: string; eli5: string }> {
+  const title = item.tag_name ? `Release ${item.tag_name}` : item.title || "Unknown";
+  const body = (item.body || "").slice(0, 4000);
+  const labels = item.labels?.map((l) => l.name).join(", ") || "none";
+
+  const userMessage = `Title: ${title}
+Author: ${item.user?.login || "unknown"}
+Category: ${analysis.category}
+Importance: ${analysis.importance}/10
+Labels: ${labels}
+Related features: ${analysis.relatedFeatures.join(", ") || "none"}
+Summary: ${analysis.summary}
+${item.merged_at ? `Merged: ${item.merged_at}` : ""}
+${item.tag_name ? "Type: Release" : "Type: Merged PR"}
+
+Full description:
+${body}`;
+
+  try {
+    const completion = await groq.chat.completions.create({
+      model: config.groq.model,
+      messages: [
+        { role: "system", content: WEB_REPORT_PROMPT },
+        { role: "user", content: userMessage },
+      ],
+      max_tokens: 2000,
+      temperature: 0.4,
+    });
+
+    const raw = completion.choices[0]?.message?.content?.trim() || "";
+    const cleaned = raw.replace(/```json?\n?/g, "").replace(/```/g, "").trim();
+    const parsed = JSON.parse(cleaned);
+
+    return {
+      advanced: parsed.advanced || `<p>${analysis.summary}</p>`,
+      eli5: parsed.eli5 || `<p>${analysis.summary}</p>`,
+    };
+  } catch (err) {
+    console.error("Web report generation failed:", err);
+    return {
+      advanced: `<h3>What changed</h3><p>${analysis.summary}</p>`,
+      eli5: `<p>${analysis.summary}</p>`,
     };
   }
 }

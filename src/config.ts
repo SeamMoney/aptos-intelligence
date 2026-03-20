@@ -13,6 +13,8 @@ function optionalEnv(key: string, fallback: string): string {
   return process.env[key] || fallback;
 }
 
+const isWebOnly = process.env.WEB_ONLY === "true";
+
 export const config = {
   github: {
     token: requireEnv("GITHUB_TOKEN"),
@@ -28,10 +30,10 @@ export const config = {
   },
 
   twitter: {
-    apiKey: requireEnv("X_API_KEY"),
-    apiSecret: requireEnv("X_API_SECRET"),
-    accessToken: requireEnv("X_ACCESS_TOKEN"),
-    accessSecret: requireEnv("X_ACCESS_SECRET"),
+    apiKey: isWebOnly ? "" : requireEnv("X_API_KEY"),
+    apiSecret: isWebOnly ? "" : requireEnv("X_API_SECRET"),
+    accessToken: isWebOnly ? "" : requireEnv("X_ACCESS_TOKEN"),
+    accessSecret: isWebOnly ? "" : requireEnv("X_ACCESS_SECRET"),
   },
 
   bot: {
@@ -43,6 +45,10 @@ export const config = {
     maxPRsToFetch: 20,
     threadDelayMs: 1500,
     maxThreadParts: 6,
+  },
+
+  web: {
+    port: parseInt(optionalEnv("WEB_PORT", "3000")),
   },
 
   db: {
