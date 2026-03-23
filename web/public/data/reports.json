@@ -1,0 +1,205 @@
+[
+  {
+    "githubId": "297966303",
+    "title": "[Mainnet] Aptos Node Release v1.41.9",
+    "author": "JoshLind",
+    "date": "2026-03-23T03:00:20.396Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/releases/tag/aptos-node-v1.41.9",
+    "advanced": "<h3>What changed</h3><p>The aptos-node-v1.41.9 release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flush improvements, and fixes for constant size computation and closure load. These changes enhance the security and stability of the Aptos network. The release also includes a gas cost multiplier update, which affects the economics of the network. Validators are required to upgrade to this version.</p>",
+    "eli5": "<p>The aptos-node-v1.41.9 release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flush improvements, and fixes for constant size computation and closure load. These changes enhance the security and stability of the Aptos network. The release also includes a gas cost multiplier update, which affects the economics of the network. Validators are required to upgrade to this version.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 2
+  },
+  {
+    "githubId": "297982933",
+    "title": "[Testnet] Aptos Node Release v1.42.1-rc",
+    "author": "JoshLind",
+    "date": "2026-03-23T03:00:26.354Z",
+    "category": "Release",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/releases/tag/aptos-node-v1.42.1-rc",
+    "advanced": "<h3>What changed</h3><p>This release, aptos-node-v1.42.1-rc, includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flush improvements, and fixes for constant size computation and closure load. Consensus improvements address race conditions and transient serialization issues. These changes are crucial for maintaining the integrity and stability of the Aptos network. The release also includes various other fixes, such as state KV truncation fixes and gas cost adjustments.</p>",
+    "eli5": "<p>This release, aptos-node-v1.42.1-rc, includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flush improvements, and fixes for constant size computation and closure load. Consensus improvements address race conditions and transient serialization issues. These changes are crucial for maintaining the integrity and stability of the Aptos network. The release also includes various other fixes, such as state KV truncation fixes and gas cost adjustments.</p>",
+    "relatedFeatures": [
+      "move-vm",
+      "block-stm-v2",
+      "consensus"
+    ],
+    "labels": [],
+    "id": 4
+  },
+  {
+    "githubId": "297720165",
+    "title": "Aptos CLI Release v9.0.0",
+    "author": "github-actions[bot]",
+    "date": "2026-03-23T03:00:31.379Z",
+    "category": "Release",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/releases/tag/aptos-cli-v9.0.0",
+    "advanced": "<h3>What changed</h3><p>The aptos-cli-v9.0.0 release includes various bug fixes, security updates, and feature enhancements, such as adding linter rules to detect unused items, updating Python dependencies to resolve security vulnerabilities, and improving the chunky verifier speed. These changes contribute to the overall stability and performance of the Aptos network. The release also includes updates to the gas version, storage cleanup, and randomness share verification, which are crucial for the network's functionality and security. The improvements in this release are essential for maintaining the integrity and efficiency of the Aptos ecosystem.</p>",
+    "eli5": "<p>The aptos-cli-v9.0.0 release includes various bug fixes, security updates, and feature enhancements, such as adding linter rules to detect unused items, updating Python dependencies to resolve security vulnerabilities, and improving the chunky verifier speed. These changes contribute to the overall stability and performance of the Aptos network. The release also includes updates to the gas version, storage cleanup, and randomness share verification, which are crucial for the network's functionality and security. The improvements in this release are essential for maintaining the integrity and efficiency of the Aptos ecosystem.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 6
+  },
+  {
+    "githubId": "295824310",
+    "title": "[Mainnet] Aptos Node Release v1.41.9-hotfix",
+    "author": "ibalajiarun",
+    "date": "2026-03-23T03:00:42.965Z",
+    "category": "Release",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/releases/tag/aptos-node-v1.41.9-hotfix",
+    "advanced": "<h3>What changed</h3><p>A private hotfix release aptos-node-v1.41.9-hotfix has been made available, targeting a specific issue that requires immediate attention, particularly for validators. The hotfix is optional for full nodes. The exact changes are not publicly disclosed, but the urgency suggests it addresses a critical problem. This hotfix is distributed as binaries or a docker image, bypassing the usual open-source code review process.</p>",
+    "eli5": "<p>A private hotfix release aptos-node-v1.41.9-hotfix has been made available, targeting a specific issue that requires immediate attention, particularly for validators. The hotfix is optional for full nodes. The exact changes are not publicly disclosed, but the urgency suggests it addresses a critical problem. This hotfix is distributed as binaries or a docker image, bypassing the usual open-source code review process.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 8
+  },
+  {
+    "githubId": "295329811",
+    "title": "[Testnet] Aptos Node Release v1.42.1-rc-hotfix",
+    "author": "ibalajiarun",
+    "date": "2026-03-23T03:00:57.582Z",
+    "category": "Release",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/releases/tag/aptos-node-v1.42.1-rc-hotfix",
+    "advanced": "<h3>Release aptos-node-v1.42.1-rc-hotfix: A Private Hotfix for Validator Stability</h3><p>The recent release of aptos-node-v1.42.1-rc-hotfix is a private hotfix that addresses a specific issue, with the hotfix commit <code>6cfdd878d6212443904ba06bbb89c2f6f6e7178b</code> being made available to validators and full nodes. The update is crucial for validators to ensure the stability and security of the network, and is recommended for all validators to upgrade.</p><p>The hotfix is part of the broader Aptos stack, which includes <code>Prefix Consensus</code> / <code>Raptr</code> for censorship-resistant proposal mechanisms, <code>Archon</code> for next-gen validator coordination, <code>Zaptos</code> for optimistic pipelining, <code>Block-STM v2</code> for parallel transaction execution, <code>Shardines</code> for sharding, and an <code>encrypted mempool</code> for secure trade management.</p><ul><li>The <code>Prefix Consensus</code> mechanism allows for multiple proposals to be submitted simultaneously, ensuring that no single leader can censor transactions.</li><li>The <code>Archon</code> coordination mechanism enables efficient communication between validators, ensuring that the network remains stable and secure.</li><li>The <code>Zaptos</code> pipelining mechanism enables optimistic execution of transactions, allowing for faster processing times.</li></ul><p>The code changes in this hotfix are not publicly available due to the private nature of the release. However, the update is expected to have a positive impact on the overall stability and security of the network.</p><h3>Architectural Impact</h3><p>The hotfix is expected to have a minimal impact on the overall architecture of the Aptos network. However, the update is crucial for ensuring the stability and security of the network, particularly for validators.</p><pre><code>git checkout 6cfdd878d6212443904ba06bbb89c2f6f6e7178b</code></pre><p>Validators can upgrade to the new version using the attached binaries or by upgrading using the docker image.</p>",
+    "eli5": "<p>Imagine you're sending a very important letter to someone, and you want to make sure it gets to them safely and quickly. The Aptos network is like a special kind of mail system that helps make sure all the letters (or transactions) get to where they need to go. Recently, a small problem was found in the system, so a hotfix was released to fix it.</p><p>The hotfix is like a special patch that helps keep the mail system running smoothly. It's especially important for the people who help run the mail system (called validators) to get this patch, so they can keep everything working properly. The patch helps keep the system stable and secure, which means all the letters (or transactions) can get to where they need to go without any problems.</p><p>The Aptos network is made up of many different parts, like a big team working together to get all the letters delivered. There's the <code>Prefix Consensus</code> team that helps make sure all the letters get sent at the same time, the <code>Archon</code> team that helps the validators work together, and the <code>Zaptos</code> team that helps get the letters delivered quickly. The hotfix helps make sure all these teams can work together smoothly and efficiently.</p><p>So, to sum it up, the hotfix is like a special patch that helps keep the Aptos mail system running smoothly and securely. It's especially important for validators to get this patch, so they can help keep everything working properly.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 10
+  },
+  {
+    "githubId": "3366941053",
+    "title": "[prover] Global memory support for behavioral predicates",
+    "author": "wrwg",
+    "date": "2026-03-23T03:01:38.566Z",
+    "category": "Feature Progress",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/18979",
+    "advanced": "<h3>What changed</h3><p>This update enables the Move prover to reason about functions that modify global state by introducing state labels, which track how global state evolves across sequential opaque calls. The update also supports function parameters with access_of, allowing higher-order functions to declare which resources a function-typed parameter may access. This change enhances the prover's ability to verify and infer code, enabling a recursive improvement loop for AI-generated code.</p>",
+    "eli5": "<p>This update enables the Move prover to reason about functions that modify global state by introducing state labels, which track how global state evolves across sequential opaque calls. The update also supports function parameters with access_of, allowing higher-order functions to declare which resources a function-typed parameter may access. This change enhances the prover's ability to verify and infer code, enabling a recursive improvement loop for AI-generated code.</p>",
+    "relatedFeatures": [
+      "move-vm",
+      "aptos-framework"
+    ],
+    "labels": [],
+    "id": 12
+  },
+  {
+    "githubId": "3145594331",
+    "title": "Update Docker images",
+    "author": "github-actions[bot]",
+    "date": "2026-03-23T03:02:09.172Z",
+    "category": "Infrastructure",
+    "importance": 2,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/18402",
+    "advanced": "<h3>Update Docker Images for Enhanced Security and Stability</h3><p>The recent update to the Docker images used in the Aptos CI/CD pipeline is a crucial step towards maintaining the security and integrity of the build environment. This update involves modifying the <code>docker/builder/docker-bake-rust-all.hcl</code> file to include the latest versions of Debian and Rust, ensuring that the build process is protected against potential vulnerabilities.</p><p>The update includes new hashes for the Debian and Rust images, which are used in the <code>target &quot;debian-base&quot;</code> and <code>target &quot;builder-base&quot;</code> sections of the <code>docker-bake-rust-all.hcl</code> file. Specifically, the Debian image is updated from <code>sha256:2c91e484d93f0830a7e05a2b9d92a7b102be7cab562198b984a84fdbc7806d91</code> to <code>sha256:55a15a112b42be10bfc8092fcc40b6748dc236f7ef46a358d9392b339e9d60e8</code>, and the Rust image is updated from <code>sha256:51c04d7a2b38418ba23ecbfb373c40d3bd493dec1ddfae00ab5669527320195e</code> to <code>sha256:ecbe59a8408895edd02d9ef422504b8501dd9fa1526de27a45b73406d734d659</code>.</p><p>The code pattern and control flow of this update are straightforward, involving the modification of the <code>docker/builder/docker-bake-rust-all.hcl</code> file to reflect the new image hashes. This update is part of the ongoing effort to keep the Aptos pipeline up-to-date and secure, ensuring that the build environment remains stable and protected against potential security threats.</p><p>The architectural impact of this update is significant, as it ensures that the Aptos pipeline is built on a secure and stable foundation. This update is connected to the bigger picture of the Aptos stack, which includes components such as Prefix Consensus, Archon, Zaptos, Block-STM v2, Shardines, and the encrypted mempool. By keeping the build environment up-to-date and secure, this update helps to maintain the integrity of the entire Aptos ecosystem.</p><pre><code>target &quot;debian-base&quot; {<br>  dockerfile = &quot;docker/builder/debian-base.Dockerfile&quot;<br>  contexts = {<br>    # Run `docker buildx imagetools inspect debian:trixie` to find the latest multi-platform hash<br>    debian = &quot;docker-image://debian:trixie@sha256:55a15a112b42be10bfc8092fcc40b6748dc236f7ef46a358d9392b339e9d60e8&quot;<br>  }<br>}<br><br>target &quot;builder-base&quot; {<br>  context    = &quot;.&quot;<br>  contexts = {<br>    # Run `docker buildx imagetools inspect rust:1.93.1-trixie` to find the latest multi-platform hash<br>    rust = &quot;docker-image://rust:1.93.1-trixie@sha256:ecbe59a8408895edd02d9ef422504b8501dd9fa1526de27a45b73406d734d659&quot;<br>  }<br>  args = {<br>    PROFILE            = &quot;${PROFILE}&quot;<br>  }<br>}",
+    "eli5": "<p>Imagine you have a special box where you build all your toys. This box needs to be safe and secure so that your toys don't get broken or stolen. The box is like the Aptos build environment, and it uses special tools called Docker images to help build the toys.</p><p>Recently, the people in charge of the box decided to update the tools to make sure they are the latest and most secure versions. This is like getting new, shiny tools to help build the toys faster and better. The update includes new codes, called hashes, that help keep the box and the tools safe from bad people who might try to break in.</p><p>This update is important because it helps keep the whole toy-building process safe and secure. It's like having a strong lock on the box that keeps all the toys and tools inside safe. The people in charge of the box are always looking for ways to make it better and more secure, so they can build the best toys possible.</p><p>The update is also connected to other important parts of the toy-building process, like the special way the toys are made (Prefix Consensus), the team of builders (Archon), the fast way the toys are made (Zaptos), and the special way the toys are kept safe (encrypted mempool). All these parts work together to make sure the toys are built quickly, safely, and securely.</p>",
+    "relatedFeatures": [],
+    "labels": [
+      "CICD:run-e2e-tests",
+      "CICD:run-forge-e2e-perf",
+      "CICD:run-all-unit-tests"
+    ],
+    "id": 14
+  },
+  {
+    "githubId": "3417442230",
+    "title": "[forge] bump deployer version",
+    "author": "aptos-bot",
+    "date": "2026-03-23T03:02:22.279Z",
+    "category": "Infrastructure",
+    "importance": 2,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/19128",
+    "advanced": "<h3>Introduction</h3><p>The forge deployer version has been updated by bumping the <code>DEFAULT_FORGE_DEPLOYER_IMAGE_TAG</code> constant in <code>testsuite/forge/src/backend/k8s_deployer/constants.rs</code> to a newer stable release tag. This change is low risk and only affects the default image version used when the k8s deployer job doesn’t specify an explicit tag.</p><h3>Code Changes</h3><p>The update is reflected in the <code>DEFAULT_FORGE_DEPLOYER_IMAGE_TAG</code> constant, which is now set to <code>release_e72a2bd62ade8dec1be5263632001cab0bc05599</code>, the latest stable build as of 2026-03-21.</p><pre><code>pub const DEFAULT_FORGE_DEPLOYER_IMAGE_TAG: &str =\n    \"release_e72a2bd62ade8dec1be5263632001cab0bc05599\"; // latest stable build (2026-03-21)</code></pre><p>This change is part of the continuous integration and continuous deployment (CICD) process, ensuring that the forge deployer uses the latest stable version. The <code>DEFAULT_FORGE_DEPLOYER_IMAGE_TAG</code> constant is used in the k8s deployer job to determine the default image version to use when no explicit tag is specified.</p><h3>Architectural Impact</h3><p>The update to the <code>DEFAULT_FORGE_DEPLOYER_IMAGE_TAG</code> constant has a minimal impact on the overall architecture of the Aptos stack. However, it is essential to ensure that the latest stable version of the forge deployer is used to take advantage of any bug fixes and improvements.</p><p>The Aptos stack, which includes components such as Prefix Consensus, Archon, Zaptos, Block-STM v2, Shardines, and the encrypted mempool, relies on the forge deployer to manage the deployment of forge components. By keeping the forge deployer up-to-date, we can ensure that the entire stack remains stable and secure.</p><h3>Connection to Bigger Picture</h3><p>The update to the <code>DEFAULT_FORGE_DEPLOYER_IMAGE_TAG</code> constant is connected to the bigger picture of the Aptos stack. The forge deployer plays a crucial role in ensuring that the latest stable version of the forge components is deployed, which in turn affects the overall performance and security of the stack.</p><p>For example, the <code>Block-STM v2</code> execution engine relies on the forge deployer to manage the deployment of forge components. By keeping the forge deployer up-to-date, we can ensure that the <code>Block-STM v2</code> execution engine remains stable and secure.</p><h3>Conclusion</h3><p>In conclusion, the update to the <code>DEFAULT_FORGE_DEPLOYER_IMAGE_TAG</code> constant is a low-risk change that ensures the forge deployer uses the latest stable version. This change is part of the CICD process and has a minimal impact on the overall architecture of the Aptos stack. However, it is essential to keep the forge deployer up-to-date to ensure the stability and security of the entire stack.</p>",
+    "eli5": "<p>Imagine you have a mailbox where you receive important letters. The mailbox has a special label on it that says what kind of letters it can receive. In this case, the label is like a special tag that says what version of the forge deployer to use. The tag has been updated to a newer version, which is like getting a new label that says you can receive even more important letters.</p><p>This change is like getting a new pair of shoes that are more comfortable and better suited for walking. It doesn't change how you walk, but it makes the journey more pleasant. In this case, the new version of the forge deployer might have some bug fixes and improvements that make it work better.</p><p>The forge deployer is like a special helper that makes sure all the different parts of the Aptos stack are working together smoothly. It's like a conductor in an orchestra, making sure all the musicians are playing the right notes at the right time. By keeping the forge deployer up-to-date, we can ensure that the entire orchestra is playing in harmony.</p><p>So, this change is like a small adjustment to the orchestra's sheet music. It doesn't change the overall melody, but it makes sure that everyone is playing the right notes. And that's important for keeping the entire Aptos stack working smoothly and securely.</p>",
+    "relatedFeatures": [],
+    "labels": [
+      "CICD:run-e2e-tests",
+      "CICD:run-framework-upgrade-test"
+    ],
+    "id": 16
+  },
+  {
+    "githubId": "3409577692",
+    "title": "[aptos-release-v1.41] Bump version to 1.41.9",
+    "author": "aptos-bot",
+    "date": "2026-03-23T03:02:35.694Z",
+    "category": "Release",
+    "importance": 2,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/19110",
+    "advanced": "<h3>Introduction</h3><p>The recent update to the Aptos stack, specifically the bump of the aptos-node version from 1.41.8 to 1.41.9, is a low-risk change with no functional code modifications. This update is reflected in the <code>aptos-node/Cargo.toml</code> file and the corresponding entry in <code>Cargo.lock</code>. The version update is primarily administrative and does not impact the node's functionality or performance.</p><h3>Code Changes</h3><p>The code changes are limited to two files: <code>aptos-node/Cargo.toml</code> and <code>Cargo.lock</code>. In <code>aptos-node/Cargo.toml</code>, the <code>version</code> field is updated from <code>1.41.8</code> to <code>1.41.9</code>. Similarly, in <code>Cargo.lock</code>, the <code>version</code> field for the <code>aptos-node</code> package is updated to <code>1.41.9</code>.</p><pre><code>--- aptos-node/Cargo.toml (modified, +1/-1)</code></pre><pre><code>@@ -1,7 +1,7 @@</code></pre><pre><code>[package]</code></pre><pre><code>name = &quot;aptos-node&quot;</code></pre><pre><code>description = &quot;Aptos node&quot;</code></pre><pre><code>-version = &quot;1.41.8&quot;</code></pre><pre><code>+version = &quot;1.41.9&quot;</code></pre><p>This update ensures that the version number is consistent across the Aptos ecosystem and allows for easier tracking of changes.</p><h3>Architectural Impact</h3><p>The update does not have any significant architectural impact on the Aptos stack. The Prefix Consensus, Archon, Zaptos, Block-STM v2, Shardines, and encrypted mempool components remain unaffected by this change.</p><h3>Connection to the Bigger Picture</h3><p>Although this update is administrative in nature, it is essential for maintaining the overall health and consistency of the Aptos ecosystem. The Aptos stack relies on the coordination of multiple components, including Prefix Consensus, Archon, Zaptos, Block-STM v2, Shardines, and encrypted mempool. This update ensures that the aptos-node version is consistent with the rest of the ecosystem, which is crucial for the proper functioning of these components.</p><h3>Conclusion</h3><p>In conclusion, the update to the aptos-node version from 1.41.8 to 1.41.9 is a low-risk change with no functional code modifications. The update is primarily administrative and ensures that the version number is consistent across the Aptos ecosystem. This change does not have any significant architectural impact and is essential for maintaining the overall health and consistency of the Aptos stack.</p>",
+    "eli5": "<p>Imagine you have a lot of different workers doing different jobs, and they all need to know what version of the instructions they're using. This update is like changing the version number on the instructions, so all the workers know they're using the same one. It's like updating the address on a mailbox, so everyone knows where to send their messages.</p><p>This change doesn't affect how the workers do their jobs, it just helps keep everything organized and consistent. It's like updating the traffic lights in a city, so all the cars know when to stop and go. It's an important job, but it doesn't change how the cars drive.</p><p>The Aptos stack is like a big team of workers, and this update helps keep the team working together smoothly. It's not a big change, but it's an important one for keeping everything running properly.</p><p>So, this update is like a small adjustment to the team's playbook, to make sure everyone is on the same page. It's not exciting, but it's necessary for the team to work well together.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 18
+  },
+  {
+    "githubId": "3426107757",
+    "title": "[forge] Add auto-restart, pre-built binary support, and use clang linker on Linux",
+    "author": "wqfish",
+    "date": "2026-03-23T03:03:07.233Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/19150",
+    "advanced": "<h3>What changed</h3><p>This update introduces three key improvements to the Aptos Forge testing framework: auto-restart of crashed validator nodes, support for pre-built binary usage, and the use of the clang linker on Linux. The auto-restart feature enables a background monitor to detect and restart crashed nodes, ensuring continuous testing. The pre-built binary support allows for faster iteration on custom builds by skipping the cargo build process. The switch to the clang linker on Linux completes the transition to using clang for CC/CXX and rustflags, eliminating the need for gcc. These changes enhance the efficiency and reliability of local testing and development on the Aptos network.</p>",
+    "eli5": "<p>This update introduces three key improvements to the Aptos Forge testing framework: auto-restart of crashed validator nodes, support for pre-built binary usage, and the use of the clang linker on Linux. The auto-restart feature enables a background monitor to detect and restart crashed nodes, ensuring continuous testing. The pre-built binary support allows for faster iteration on custom builds by skipping the cargo build process. The switch to the clang linker on Linux completes the transition to using clang for CC/CXX and rustflags, eliminating the need for gcc. These changes enhance the efficiency and reliability of local testing and development on the Aptos network.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 20
+  },
+  {
+    "githubId": "3426034965",
+    "title": "Fix replay_protection_nonce for encrypted transactions",
+    "author": "ibalajiarun",
+    "date": "2026-03-23T03:03:32.898Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/19149",
+    "advanced": "<h3>Fixing Replay Protection Nonce for Encrypted Transactions</h3><p>The recent update to the `TransactionPayload` struct in the `types/src/transaction/mod.rs` file has fixed a critical issue with the `replay_protection_nonce` function. Previously, the function used a wildcard match that returned `None` for `EncryptedPayload`, effectively ignoring the replay protection nonce for encrypted orderless transactions. This was rectified by delegating the function to `extra_config()`, which exhaustively handles all payload variants, including `EncryptedPayload`.</p><p>The code change involves replacing the match statement with a direct call to `self.extra_config().replay_protection_nonce()`. This ensures that the replay protection nonce is correctly handled for encrypted transactions, maintaining the security and integrity of the Aptos network.</p><ul><li>The `replay_protection_nonce` function is now correctly implemented for `EncryptedPayload`.</li><li>The `extra_config()` function is used to handle all payload variants, including `EncryptedPayload`.</li></ul><p>The impact of this change is significant, as it improves the security of encrypted transactions and prevents potential replay attacks. This is particularly important in the context of confidential transactions and anti-MEV mechanisms, which rely on the correct handling of encrypted transactions.</p><p>The updated code is as follows: <pre><code>pub fn replay_protection_nonce(&self) -> Option<u64> {<br>    self.extra_config().replay_protection_nonce()<br>}</code></pre></p><p>This change is related to the `encrypted-mempool` feature, which relies on correct handling of encrypted transactions. The fix ensures that the Aptos network maintains its security and integrity, particularly in the context of confidential transactions.</p><p>In the bigger picture, this change is connected to the Raptr/Prefix Consensus, Zaptos pipelining, Archon coordination, Block-STM v2 execution, Shardines sharding, and encrypted mempool. The correct handling of replay protection nonces is crucial for maintaining the security and integrity of the network, and this change ensures that the Aptos network remains secure and resilient.</p><p>The test plan for this change includes running `cargo check -p aptos-types` and `cargo test -p aptos-types`, which both pass. Additionally, an audit of other `_ =>` wildcards on `TransactionPayload` was conducted, and no similar issues were found.</p><p>The architectural impact of this change is significant, as it improves the security and integrity of the Aptos network. The correct handling of replay protection nonces is crucial for maintaining the security of encrypted transactions, and this change ensures that the network remains secure and resilient.</p>",
+    "eli5": "<p>Imagine you're sending a secret message to a friend, and you want to make sure that the message can't be sent again by someone else. That's kind of like what the `replay_protection_nonce` function does for encrypted transactions on the Aptos network.</p><p>Before, there was a problem with this function that made it ignore the secret code for some types of encrypted messages. This was like having a security guard who wasn't doing their job properly.</p><p>The recent update fixed this problem by making sure that the security guard (the `replay_protection_nonce` function) checks the secret code for all types of encrypted messages. This makes the Aptos network more secure and helps prevent bad people from sending fake messages.</p><p>This change is important because it helps keep the Aptos network safe and secure, especially when it comes to secret transactions. It's like having a special lock on your mailbox that makes sure only the right person can open it and read the message.</p><p>The Aptos network is like a big team working together to make sure everything runs smoothly. This change is like making sure that one of the team members (the `replay_protection_nonce` function) is doing their job correctly, which helps the whole team work better and keep everything secure.</p>",
+    "relatedFeatures": [
+      "encrypted-mempool",
+      "aip-143"
+    ],
+    "labels": [],
+    "id": 22
+  },
+  {
+    "githubId": "3424787125",
+    "title": "[localnet] Add --use-internal-fullnode-data-interface",
+    "author": "banool",
+    "date": "2026-03-23T03:04:01.115Z",
+    "category": "Feature Progress",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/19147",
+    "advanced": "<h3>Introduction to the New CLI Flag</h3><p>The recent update introduces a new CLI flag, <code>--use-internal-fullnode-data-interface</code>, for localnet. This flag allows localnet to expose the internal FullnodeData interface instead of the external RawData interface for the transaction stream.</p><h3>Impact on the Codebase</h3><p>The update modifies the <code>node.rs</code> and <code>managed_node.rs</code> files. In <code>node.rs</code>, a new flag, <code>use_internal_fullnode_data_interface</code>, is added to the <code>NodeArgs</code> struct. This flag is used to determine whether to expose the internal FullnodeData interface or the external RawData interface.</p><pre><code>pub struct NodeArgs {<br>    #[clap(long, default_value_t = DEFAULT_GRPC_STREAM_PORT)]<br>    txn_stream_port: u16,<br><br>    /// Use the internal FullnodeData gRPC interface instead of the RawData (data<br>    /// service) interface for the transaction stream.<br>    #[clap(long)]<br>    use_internal_fullnode_data_interface: bool,<br>}</code></pre><p>In the <code>NodeManager</code> implementation, the <code>build_node_config</code> function is updated to include the new flag. The <code>indexer_grpc.use_data_service_interface</code> field is set to <code>run_txn_stream && !use_internal_fullnode_data_interface</code>, which means that the internal FullnodeData interface is exposed when the flag is set.</p><pre><code>impl NodeManager {<br>    pub fn build_node_config(<br>        // ...<br>        run_txn_stream: bool,<br>        txn_stream_port: u16,<br>        no_node: bool,<br>        use_internal_fullnode_data_interface: bool,<br>    ) -> Result&lt;Self&gt; {<br>        // ...<br>        node_config.indexer_grpc.use_data_service_interface =<br>            run_txn_stream && !use_internal_fullnode_data_interface;<br>        // ...<br>    }<br>}</code></pre><h3>Architectural Impact</h3><p>The introduction of the new CLI flag has an impact on the architectural design of the system. The internal FullnodeData interface is now exposed, which can be useful for testing cases, such as using localnet with the grpc v2 stack. This change affects the indexer gRPC transaction stream interface configuration and requires updates to the <code>indexer-transaction-generator</code> to pass the new <code>NodeManager::new_with_config</code> parameter.</p><h3>Connection to the Bigger Picture</h3><p>The update is connected to the bigger picture of the Aptos stack, which includes Prefix Consensus/Raptr, Zaptos pipelining, Archon coordination, Block-STM v2 execution, Shardines sharding, and encrypted mempool. The internal FullnodeData interface is used in the grpc v2 stack, which is a part of the Zaptos pipelining. The update enables the use of localnet with the grpc v2 stack, which can improve the performance and scalability of the system.</p><h3>Conclusion</h3><p>In conclusion, the introduction of the new CLI flag, <code>--use-internal-fullnode-data-interface</code>, is a significant update that affects the architectural design of the system. The update enables the exposure of the internal FullnodeData interface, which can be useful for testing cases and improves the performance and scalability of the system.</p>",
+    "eli5": "<p>Imagine you have a mailbox where you receive letters. Normally, you would use a special mailbox that is designed for receiving letters from the outside world. But, sometimes you might want to use a different mailbox that is only for internal use, like a mailbox that is only for letters from your family members.</p><p>The new update is like adding a special switch to your mailbox that allows you to choose which mailbox to use. If you turn on the switch, you will use the internal mailbox. If you leave it off, you will use the regular mailbox.</p><p>This update is useful for testing and can help make the system work better. It's like having a special tool that helps you manage your mailboxes and make sure everything runs smoothly.</p><p>The system is like a big factory that has many different parts working together. The update is like adding a new button to the control panel that allows you to choose which part of the factory to use. It's a small change, but it can make a big difference in how the factory runs.</p><p>So, the new update is like a special tool that helps you manage your mailboxes and make the system work better. It's a small change, but it can make a big difference in how the system runs.</p>",
+    "relatedFeatures": [],
+    "labels": [],
+    "id": 24
+  },
+  {
+    "githubId": "3327120048",
+    "title": "[move-flow] Spec inference tool, shared templates, and agent split",
+    "author": "wrwg",
+    "date": "2026-03-23T03:04:37.949Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/pull/18855",
+    "advanced": "<h3>Introduction to Move Flow Updates</h3><p>The recent update to the Aptos Move Flow introduces several significant changes, including the addition of a new MCP tool, `move_package_spec_infer`, which runs the Move Prover's WP inference pipeline and injects inferred specs back into package source files. This update also refactors the MoveFlow plugin content generation to use shared Tera templates and replaces the monolithic `move-dev` agent with dedicated agents.</p><p>The `move_package_spec_infer` tool is designed to improve the development experience by providing a more efficient way to infer specifications for Move packages. The tool uses the Move Prover's WP inference pipeline to generate inferred specs, which are then injected back into the package source files. This process is followed by the same formatting/AST checks used by the edit hook.</p><h3>Refactoring of MoveFlow Plugin Content Generation</h3><p>The MoveFlow plugin content generation has been refactored to use shared Tera templates, reducing duplication and improving maintainability. The `cont/` directory now contains source templates organized by category, including `agents/`, `skills/`, and `hooks/`, as well as shared `templates/` containing reusable content fragments.</p><p>The `render.rs` file discovers all template files under `cont/` and renders each with a context containing the platform name, allowing for more flexible and customizable plugin generation.</p><h3>Dedicated Agents</h3><p>The monolithic `move-dev` agent has been replaced with dedicated agents, including `move-verify`, `move-inf`, and `move-check`. Each agent has its own specific role and responsibilities, making it easier to manage and maintain the Move development workflow.</p><h3>Code Changes</h3><p>The update includes several code changes, including the addition of new dependencies, such as `tracing-log`, and the modification of existing files, such as `Cargo.toml` and `README.md`. The `aptos-move/flow/cont/agents/` directory now contains new agent files, including `move-check.md`, `move-inf-v2.md`, `move-inf-v3.md`, and `move-verify.md`.</p><pre><code>--- aptos-move/flow/cont/agents/move-verify.md (added, +18/-0)</code></pre><p>The `move-verify` agent is responsible for verifying the correctness of Move packages, using the `move_package_verify` tool. The agent supports `exclude` and enforces a max timeout, and caches results with timeout-aware reuse.</p><h3>Architectural Impact</h3><p>The updates to the Move Flow have a significant impact on the overall architecture of the Aptos system. The introduction of dedicated agents and the refactoring of plugin content generation improve the maintainability and flexibility of the system. The addition of the `move_package_spec_infer` tool enhances the development experience, making it easier to infer specifications for Move packages.</p><p>The updates also improve the performance of the Move Prover, with the addition of new prover constants and the standardization of inferred-condition property constants. The fixes to sourcification of complex behavior-predicate targets and the correct injection of inferred conditions into single-line `spec {}` blocks also contribute to the overall improvement of the system.</p><h3>Connection to Bigger Picture</h3><p>The updates to the Move Flow are part of the larger effort to improve the Aptos system, which includes the development of Raptr/Prefix Consensus, Zaptos pipelining, Archon coordination, Block-STM v2 execution, Shardines sharding, and encrypted mempool. The introduction of dedicated agents and the refactoring of plugin content generation are steps towards creating a more modular and maintainable system, which is essential for the overall performance and security of the Aptos network.</p>",
+    "eli5": "<p>Imagine you're working on a big project, and you need to make sure all the pieces fit together correctly. The Move Flow is like a special tool that helps you do that. It's been updated to make it easier to use and more efficient.</p><p>The update added a new feature that helps you figure out how all the pieces fit together. It's like having a special helper that looks at your work and says, 'oh, you're missing this one thing, let me add it for you.' This makes it easier to get your project done and makes sure it's correct.</p><p>The update also changed the way the tool generates instructions for you. It's like a recipe book that gives you step-by-step instructions on how to do something. The new way of generating instructions is more flexible and easier to understand.</p><p>The tool now has different helpers that specialize in different tasks. It's like having a team of experts that work together to help you with your project. Each helper has its own job, and they all work together to make sure your project is complete and correct.</p><p>All these changes make the Move Flow a more powerful tool that can help you get your project done faster and with fewer mistakes. It's like having a special assistant that helps you every step of the way.</p>",
+    "relatedFeatures": [
+      "move-verify",
+      "move-inf",
+      "move-check"
+    ],
+    "labels": [],
+    "id": 26
+  }
+]

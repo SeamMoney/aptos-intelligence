@@ -22,20 +22,19 @@ export interface FeatureStatus {
   history: Array<{ date: string; status: string; source: string }>;
 }
 
-const BASE = "/api";
-
 export async function fetchReports(category?: string): Promise<WebReport[]> {
-  const params = category ? `?category=${encodeURIComponent(category)}` : "";
-  const res = await fetch(`${BASE}/reports${params}`);
-  return res.json();
+  const res = await fetch("/data/reports.json");
+  const reports: WebReport[] = await res.json();
+  if (category) return reports.filter((r) => r.category === category);
+  return reports;
 }
 
-export async function fetchReport(id: number): Promise<WebReport> {
-  const res = await fetch(`${BASE}/reports/${id}`);
-  return res.json();
+export async function fetchReport(id: number): Promise<WebReport | undefined> {
+  const reports = await fetchReports();
+  return reports.find((r) => r.id === id);
 }
 
 export async function fetchFeatures(): Promise<FeatureStatus[]> {
-  const res = await fetch(`${BASE}/features`);
+  const res = await fetch("/data/features.json");
   return res.json();
 }
