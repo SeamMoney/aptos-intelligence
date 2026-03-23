@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ChevronRight, Layers } from "lucide-react";
 import type { WebReport, FeatureStatus } from "./api";
@@ -148,6 +148,8 @@ export default function Dashboard() {
   const archScale = useTransform(x, [-DRAWER_W, 0], [1, 0.9]);
   const fabOpacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const handleDragEnd = (_: any, { offset, velocity }: any) => {
     const t = 50, v = 400;
     let target = 0;
@@ -155,10 +157,14 @@ export default function Dashboard() {
     else if (offset.x < -t || velocity.x < -v) target = -DRAWER_W;
     if (x.get() > 100 && (offset.x < -t || velocity.x < -v)) target = 0;
     if (x.get() < -100 && (offset.x > t || velocity.x > v)) target = 0;
+    setDrawerOpen(target !== 0);
     animate(x, target, { type: "spring", stiffness: 250, damping: 28, mass: 0.8 });
   };
 
-  const closeDrawer = () => animate(x, 0, { type: "spring", stiffness: 250, damping: 28 });
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+    animate(x, 0, { type: "spring", stiffness: 250, damping: 28 });
+  };
 
   function openReport(r: WebReport) {
     setActive(r); setTab("advanced"); setShowDetail(true);
@@ -167,12 +173,17 @@ export default function Dashboard() {
   /* ── If showing report detail ── */
   if (showDetail && active) {
     return (
-      <div className="h-[100dvh] w-full bg-[var(--color-background)] flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]" style={{ background: "var(--color-surface)" }}>
-          <button onClick={() => setShowDetail(false)} className="label-specimen text-[var(--color-accent)]">← BACK</button>
+      <div className="h-[100dvh] w-full flex flex-col overflow-hidden" style={{ background: "var(--color-background)" }}>
+        {/* Background layers */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-grid-adaptive bg-[size:3rem_3rem] opacity-15" />
+          <div className="tyvek-texture" style={{ opacity: 0.06 }} />
+        </div>
+        <div className="relative z-10 flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]" style={{ background: "var(--color-surface)" }}>
+          <button onClick={() => setShowDetail(false)} className="label-specimen text-[var(--color-accent)] py-2 px-1">← BACK</button>
           <span className="label-specimen text-[var(--color-text-faint)]">RPT-{String(active.id).padStart(4, "0")}</span>
         </div>
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <div className="relative z-10 flex-1 overflow-y-auto px-5 py-5 pb-20">
           <ReportView r={active} tab={tab} setTab={setTab} />
         </div>
       </div>
@@ -345,7 +356,9 @@ export default function Dashboard() {
                 {/* Events column */}
                 <div className={`flex-1 flex flex-col justify-center py-4 pl-4 pr-5 ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
                   {dayReports.map((r) => (
-                    <div key={r.id} className="flex items-start gap-3 mb-4 last:mb-0 cursor-pointer active:opacity-70" onClick={() => openReport(r)}>
+                    <div key={r.id} className="flex items-start gap-3 mb-4 last:mb-0 cursor-pointer active:opacity-70"
+                      onClick={(e) => { e.stopPropagation(); openReport(r); }}
+                      onPointerDown={(e) => e.stopPropagation()}>
                       {/* Category marker */}
                       <div className="mt-1 shrink-0">
                         <div className="w-[6px] h-[20px] rounded-full" style={{ background: catColor(r.category) }} />
@@ -380,12 +393,14 @@ export default function Dashboard() {
           </button>
         </motion.div>
 
-        {/* Close overlay */}
-        <motion.div
-          className="absolute inset-0 z-30"
-          style={{ display: useTransform(x, (val: number) => val === 0 ? "none" : "block") }}
-          onClick={closeDrawer}
-        />
+        {/* Close overlay — only blocks touches when a drawer is open */}
+        {drawerOpen && (
+          <div
+            className="absolute inset-0 z-30"
+            onClick={closeDrawer}
+            onTouchEnd={closeDrawer}
+          />
+        )}
       </motion.div>
 
       <style dangerouslySetInnerHTML={{ __html: `.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}` }} />
