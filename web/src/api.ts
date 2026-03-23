@@ -38,3 +38,17 @@ export async function fetchFeatures(): Promise<FeatureStatus[]> {
   const res = await fetch("/data/features.json");
   return res.json();
 }
+
+export interface Commit {
+  sha: string;
+  title: string;
+  author: string;
+  date: string;
+  url: string;
+  category: string;
+}
+
+export async function fetchCommits(): Promise<Commit[]> {
+  const res = await fetch("/data/commits.json");
+  return res.json();
+}

@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ChevronRight, Layers } from "lucide-react";
-import type { WebReport, FeatureStatus } from "./api";
-import { fetchReports, fetchFeatures } from "./api";
+import type { WebReport, FeatureStatus, Commit } from "./api";
+import { fetchReports, fetchFeatures, fetchCommits } from "./api";
 
 /* ── Helpers ── */
 const CATEGORIES = ["All", "Release", "Feature Progress", "Security", "Performance", "Infrastructure"];
@@ -103,6 +103,7 @@ function buildCalendarDays(year: number, month: number, reportDates: Set<string>
 export default function Dashboard() {
   const [reports, setReports] = useState<WebReport[]>([]);
   const [features, setFeatures] = useState<FeatureStatus[]>([]);
+  const [commits, setCommits] = useState<Commit[]>([]);
   const [active, setActive] = useState<WebReport | null>(null);
   const [tab, setTab] = useState<"advanced" | "eli5">("advanced");
   const [loading, setLoading] = useState(true);
@@ -112,32 +113,45 @@ export default function Dashboard() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [r, f] = await Promise.all([fetchReports(), fetchFeatures()]);
-      setReports(r); setFeatures(f);
+      const [r, f, c] = await Promise.all([fetchReports(), fetchFeatures(), fetchCommits()]);
+      setReports(r); setFeatures(f); setCommits(c);
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   }, []);
 
   useEffect(() => { load(); }, [load]);
 
-  const grouped = useMemo(() => groupByDate(reports), [reports]);
-  const reportDates = useMemo(() => new Set(reports.map(r => r.date.slice(0, 10))), [reports]);
+  // Group commits by date for the calendar and timeline
+  const commitsByDate = useMemo(() => {
+    const map = new Map<string, Commit[]>();
+    for (const c of commits) {
+      const key = c.date.slice(0, 10);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(c);
+    }
+    return new Map([...map.entries()].sort((a, b) => b[0].localeCompare(a[0])));
+  }, [commits]);
+
+  const commitDates = useMemo(() => new Set(commits.map(c => c.date.slice(0, 10))), [commits]);
+
+  // Also keep report grouping for linking to detailed reports
+  const reportsByDate = useMemo(() => groupByDate(reports), [reports]);
 
   // Current month for calendar
   const now = new Date();
   const calDays = useMemo(
-    () => buildCalendarDays(now.getFullYear(), now.getMonth(), reportDates, selectedDate),
-    [reportDates, selectedDate]
+    () => buildCalendarDays(now.getFullYear(), now.getMonth(), commitDates, selectedDate),
+    [commitDates, selectedDate]
   );
 
   const monthName = now.toLocaleDateString("en-US", { month: "long" }).toUpperCase();
   const yearStr = String(now.getFullYear());
 
-  // Contributors for selected date
-  const selectedReports = selectedDate ? (grouped.get(selectedDate) || []) : [];
   const todayStr = now.toISOString().slice(0, 10);
-  const todayReports = grouped.get(todayStr) || [];
-  const displayReports = selectedDate ? selectedReports : todayReports;
+
+  // Commits for selected date (or today)
+  const displayDate = selectedDate || todayStr;
+  const displayCommits = commitsByDate.get(displayDate) || [];
 
   /* ── Swipe physics ── */
   const x = useMotionValue(0);
@@ -234,30 +248,39 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* TODAY / Selected date label */}
+          {/* Selected date label */}
           <div className="mt-8 flex items-center justify-between px-1">
             <span className="text-[18px] font-bold tracking-wide text-white">
               {selectedDate ? fmtDate(selectedDate) : "TODAY"}
             </span>
-            <span className="label-specimen text-[var(--color-text-faint)]">{displayReports.length} commits</span>
+            <span className="label-specimen text-[var(--color-text-faint)]">{displayCommits.length} commits</span>
           </div>
 
-          {/* Contributors for selected date */}
+          {/* Commits for selected date */}
           <div className="mt-5 px-1 space-y-4 overflow-y-auto" style={{ maxHeight: "calc(100dvh - 520px)" }}>
-            {displayReports.length === 0 ? (
+            {displayCommits.length === 0 ? (
               <p className="label-specimen-sm text-[var(--color-text-faint)]">NO COMMITS THIS DAY</p>
-            ) : displayReports.map((r) => (
-              <div key={r.id} className="flex items-start gap-3 cursor-pointer" onClick={() => { openReport(r); closeDrawer(); }}>
-                <div className="w-[6px] h-[19px] rounded-full mt-[1px] shrink-0" style={{ background: catColor(r.category) }} />
-                <div>
-                  <div className="text-[14px] font-medium text-white leading-tight">{r.title.slice(0, 50)}{r.title.length > 50 ? "..." : ""}</div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <img src={`https://github.com/${r.author}.png`} alt="" className="w-4 h-4 rounded-full" />
-                    <span className="text-[11px] font-medium text-white/60">{r.author}</span>
+            ) : displayCommits.map((c) => {
+              // Check if there's a detailed report for this commit
+              const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
+              return (
+                <div key={c.sha} className="flex items-start gap-3 cursor-pointer"
+                  onClick={() => {
+                    if (report) { openReport(report); closeDrawer(); }
+                    else { window.open(c.url, "_blank"); }
+                  }}>
+                  <div className="w-[6px] h-[19px] rounded-full mt-[1px] shrink-0" style={{ background: catColor(c.category) }} />
+                  <div>
+                    <div className="text-[14px] font-medium text-white leading-tight">{c.title.slice(0, 60)}{c.title.length > 60 ? "..." : ""}</div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <img src={`https://github.com/${c.author}.png`} alt="" className="w-4 h-4 rounded-full" />
+                      <span className="text-[11px] font-medium text-white/60">{c.author}</span>
+                      {report && <span className="label-specimen-sm text-[var(--color-accent)]">REPORT</span>}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Nav pill */}
@@ -335,7 +358,7 @@ export default function Dashboard() {
             <div className="p-8 ml-[90px]">
               {[1,2,3,4,5].map(i => <div key={i} className="skeleton-mech mb-3" style={{ height: 12, width: `${50+i*8}%` }} />)}
             </div>
-          ) : [...grouped.entries()].map(([dateStr, dayReports], idx) => {
+          ) : [...commitsByDate.entries()].map(([dateStr, dayCommits], idx) => {
             const d = new Date(dateStr + "T12:00:00");
             const dayName = DAY_NAMES[d.getDay()];
             const dateNum = String(d.getDate());
@@ -357,30 +380,30 @@ export default function Dashboard() {
 
                 {/* Events column */}
                 <div className={`flex-1 flex flex-col justify-center py-4 pl-4 pr-5 ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
-                  {dayReports.map((r) => (
-                    <div key={r.id} className="flex items-start gap-3 mb-4 last:mb-0 cursor-pointer active:opacity-70"
-                      onClick={(e) => { e.stopPropagation(); openReport(r); }}
-                      onPointerDown={(e) => e.stopPropagation()}>
-                      {/* Category marker */}
-                      <div className="mt-1 shrink-0">
-                        <div className="w-[6px] h-[20px] rounded-full" style={{ background: catColor(r.category) }} />
-                      </div>
-                      {/* Details */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-[15px] font-medium text-white leading-tight tracking-wide">{r.title}</h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          <img src={`https://github.com/${r.author}.png`} alt="" className="w-3.5 h-3.5 rounded-full" />
-                          <p className="text-[12px] text-white/60 font-medium leading-snug tracking-wide">{r.author} · {fmtTime(r.date)}</p>
+                  {dayCommits.map((c) => {
+                    const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
+                    return (
+                      <div key={c.sha} className="flex items-start gap-3 mb-4 last:mb-0 cursor-pointer active:opacity-70"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (report) openReport(report);
+                          else window.open(c.url, "_blank");
+                        }}
+                        onPointerDown={(e) => e.stopPropagation()}>
+                        <div className="mt-1 shrink-0">
+                          <div className="w-[6px] h-[20px] rounded-full" style={{ background: catColor(c.category) }} />
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="label-specimen-sm" style={{ color: catColor(r.category) }}>{r.category}</span>
-                          <span className={`label-specimen-sm ${r.importance >= 8 ? "text-[var(--color-danger)]" : r.importance >= 6 ? "text-[var(--color-warning)]" : "text-white/30"}`}>
-                            {r.importance}/10
-                          </span>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-[15px] font-medium text-white leading-tight tracking-wide">{c.title}</h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            <img src={`https://github.com/${c.author}.png`} alt="" className="w-3.5 h-3.5 rounded-full" />
+                            <p className="text-[12px] text-white/60 font-medium leading-snug tracking-wide">{c.author}</p>
+                            {report && <span className="label-specimen-sm text-[var(--color-accent)]">REPORT</span>}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             );
