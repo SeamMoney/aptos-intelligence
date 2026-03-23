@@ -225,51 +225,47 @@ export default function Dashboard() {
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden bg-black select-none">
 
-      {/* ═══ LEFT DRAWER — Calendar + Contributors ═══ */}
+      {/* ═══ LEFT DRAWER — Calendar (exact Timepage colors) ═══ */}
       <motion.div
-        className="absolute inset-0 bg-black text-white px-6 pt-[env(safe-area-inset-top,16px)]"
+        className="absolute inset-0 bg-black text-white px-7 pt-[70px]"
         style={{ opacity: calOpacity, scale: calScale, pointerEvents: drawerState === "left" ? "auto" : "none" }}
       >
-        <div className="pt-6">
-          {/* Year + Month header */}
+        <div>
+          {/* Year + Month — exact Timepage #CBB696 */}
           <div className="text-left ml-1">
-            <h2 className="text-[40px] font-light tracking-wide leading-[1.1]" style={{ color: "var(--color-accent)" }}>{yearStr}</h2>
-            <h1 className="text-[40px] font-bold tracking-wide leading-[1.1]" style={{ color: "var(--color-accent)" }}>{monthName}</h1>
+            <h2 className="text-[44px] font-light tracking-wide leading-[1.1] text-[#CBB696]">{yearStr}</h2>
+            <h1 className="text-[44px] font-bold tracking-wide leading-[1.1] text-[#CBB696]">{monthName}</h1>
           </div>
 
           {/* Calendar grid */}
-          <div className="mt-7 w-[275px]">
-            <div className="grid grid-cols-7 mb-4 px-1">
+          <div className="mt-8 w-[275px]">
+            <div className="grid grid-cols-7 mb-[18px] px-1">
               {DAY_HEADERS.map((d, i) => (
                 <div key={i} className="text-center text-[11px] font-medium text-white/50">{d}</div>
               ))}
             </div>
-            <div className="grid grid-cols-7 gap-y-3 px-1">
+            <div className="grid grid-cols-7 gap-y-[13px] px-1">
               {calDays.map((day, i) => {
-                // Compute intensity: 0.15 (1 commit) to 1.0 (max commits)
-                const intensity = day.count > 0 ? 0.15 + (day.count / maxCommits) * 0.85 : 0;
-
-                let cls = "w-[33px] h-[33px] flex items-center justify-center text-[15px] font-medium rounded-full cursor-pointer transition-all ";
-                let style: React.CSSProperties = {};
+                let cls = "w-[33px] h-[33px] flex items-center justify-center text-[15px] font-medium rounded-full cursor-pointer transition-colors ";
 
                 if (day.type === "prev" || day.type === "next") {
                   cls += "text-[#4B4B4B]";
                 } else if (day.type === "active") {
-                  cls += "text-[var(--color-accent-foreground)] font-bold ring-[1px] ring-[var(--color-accent)] ring-offset-[2.5px] ring-offset-black";
-                  style.background = "var(--color-accent)";
+                  // Exact Timepage: white bg, white ring, white glow
+                  cls += "bg-white text-black font-bold ring-[1px] ring-white ring-offset-[2.5px] ring-offset-black shadow-[0_0_15px_rgba(255,255,255,0.4)]";
                 } else if (day.type === "today-dim") {
-                  cls += "border-[1.5px] border-[var(--color-accent)] text-[var(--color-text)]";
+                  // Outline ring when another date is selected
+                  cls += "border-[1.5px] border-[#CBB696] text-[#F0F0F0]";
                 } else if (day.type === "has-commits") {
-                  cls += "text-[var(--color-text)]";
-                  // Green tint scaled by commit count
-                  style.background = `rgba(204, 255, 0, ${intensity * 0.35})`;
+                  // Exact Timepage: brown circle #474031
+                  cls += "bg-[#474031] text-[#F0F0F0] hover:bg-[#5a5240]";
                 } else {
-                  cls += "text-[var(--color-text-faint)]";
+                  cls += "text-[#F0F0F0] hover:bg-white/10";
                 }
 
                 return (
                   <div key={i} className="flex justify-center items-center">
-                    <div className={cls} style={style}
+                    <div className={cls}
                       onClick={() => day.dateStr && setSelectedDate(day.dateStr === selectedDate ? null : day.dateStr)}>
                       {day.d}
                     </div>
@@ -279,40 +275,31 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Selected date label */}
-          <div className="mt-8 flex items-center justify-between px-1">
-            <span className="text-[18px] font-bold tracking-wide text-white">
-              {selectedDate ? fmtDate(selectedDate) : "TODAY"}
+          {/* TODAY label — exact Timepage */}
+          <div className="mt-[36px] flex items-center justify-between px-1">
+            <span className="text-[20px] font-bold tracking-wide text-white">
+              {selectedDate ? fmtDate(selectedDate).toUpperCase() : "TODAY"}
             </span>
-            <div className="flex items-center gap-2">
-              {displayCommits.length > 0 && (
-                <div className="w-2 h-2 rounded-full" style={{ background: `rgba(204, 255, 0, ${Math.min(1, 0.3 + (displayCommits.length / maxCommits) * 0.7)})` }} />
-              )}
-              <span className="label-specimen text-[var(--color-text-faint)]">{displayCommits.length} commits</span>
-            </div>
+            <Plus className="w-[26px] h-[26px] text-white" strokeWidth={2.5} />
           </div>
 
-          {/* Commits for selected date */}
-          <div className="mt-5 px-1 space-y-4 overflow-y-auto" style={{ maxHeight: "calc(100dvh - 520px)" }}>
+          {/* Commits — exact Timepage orange markers */}
+          <div className="mt-6 px-1 space-y-[18px] overflow-y-auto" style={{ maxHeight: "calc(100dvh - 560px)" }}>
             {displayCommits.length === 0 ? (
-              <p className="label-specimen-sm text-[var(--color-text-faint)]">NO COMMITS THIS DAY</p>
+              <p className="text-[14px] text-white/40">No commits this day</p>
             ) : displayCommits.map((c) => {
-              // Check if there's a detailed report for this commit
               const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
               return (
-                <div key={c.sha} className="flex items-start gap-3 cursor-pointer"
+                <div key={c.sha} className="flex items-start gap-[14px] cursor-pointer"
                   onClick={() => {
                     if (report) { openReport(report); closeDrawer(); }
                     else { window.open(c.url, "_blank"); }
                   }}>
-                  <div className="w-[6px] h-[19px] rounded-full mt-[1px] shrink-0" style={{ background: catColor(c.category) }} />
+                  {/* Exact Timepage orange marker */}
+                  <div className="w-[6px] h-[19px] bg-[#F28140] rounded-full mt-[1px]" />
                   <div>
-                    <div className="text-[14px] font-medium text-white leading-tight">{c.title.slice(0, 60)}{c.title.length > 60 ? "..." : ""}</div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <img src={`https://github.com/${c.author}.png`} alt="" className="w-4 h-4 rounded-full" />
-                      <span className="text-[11px] font-medium text-white/60">{c.author}</span>
-                      {report && <span className="label-specimen-sm text-[var(--color-accent)]">REPORT</span>}
-                    </div>
+                    <div className="text-[16px] font-medium text-white leading-none">{c.title.slice(0, 45)}{c.title.length > 45 ? "..." : ""}</div>
+                    <div className="text-[12px] font-medium text-white/70 mt-1.5 leading-none">{c.author}</div>
                   </div>
                 </div>
               );
