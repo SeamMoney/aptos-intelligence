@@ -1,73 +1,59 @@
 @import "tailwindcss";
-@import "@fontsource-variable/geist";
 
-/* ── Google Fonts (Inter + JetBrains Mono from AuraWallet) ── */
+/* ── Fonts (exact AuraWallet stack) ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-@custom-variant dark (&:is(.dark *));
-
-/* ══════════════════════════════════════════════════════════════
-   DESIGN TOKENS — adapted from AuraWallet's mechanical system
-   ══════════════════════════════════════════════════════════════ */
+/* ============================================================================
+   CSS CUSTOM PROPERTIES — lifted from AuraWallet globals.css
+   ============================================================================ */
 
 :root {
-  /* Brand */
-  --voltage: #00ff9f;
-  --void: #0a0a0a;
+  --ui-scale-factor: 1;
+  --color-accent: #ccff00;
+  --color-accent-foreground: #0a0a0a;
 
-  /* Surfaces (dark mode default) */
-  --bg: #0f0f0f;
-  --bg-alt: #141414;
-  --surface: #1a1a1a;
-  --surface-alt: #242424;
-
-  /* Text */
-  --text: #f5f5f5;
-  --text-muted: #a0a0a0;
-  --text-faint: #5a5a5a;
-
-  /* Borders */
-  --border: #2a2a2a;
-  --border-muted: #1f1f1f;
-  --border-focus: var(--voltage);
+  /* Dark mode (our default) */
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-surface-alt: #242424;
+  --color-background: var(--color-bg);
+  --color-background-alt: #141414;
+  --color-text: #f5f5f5;
+  --color-text-muted: #c7c7c7;
+  --color-text-faint: #8f8f8f;
+  --color-border: #303030;
+  --color-border-muted: #3f3f46;
+  --color-border-focus: #ccff00;
 
   /* Semantic */
-  --danger: #ef4444;
-  --warning: #ff4d00;
-  --success: #00c853;
-  --info: #0047ff;
+  --color-warning: #ff4d00;
+  --color-danger: #ef4444;
+  --color-success: #00c853;
+  --color-info: #0047ff;
 
-  /* Importance colors */
-  --imp-critical: #ef4444;
-  --imp-high: #ff9f00;
-  --imp-normal: var(--text-faint);
+  /* Scrollbar */
+  --color-scrollbar-track: #0a0a0a;
+  --color-scrollbar-thumb: #3f3f46;
+  --color-scrollbar-thumb-hover: #ccff00;
 
-  /* Font families */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Geist Variable', monospace;
-
-  /* Spacing */
-  --radius: 0.25rem;
+  /* Font sizes */
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 18px;
 }
 
-/* ══════════════════════════════════════════════════════════════
+/* ============================================================================
    BASE STYLES
-   ══════════════════════════════════════════════════════════════ */
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+   ============================================================================ */
 
 body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
 }
 
 #root {
@@ -75,222 +61,321 @@ body {
   min-height: 100vh;
 }
 
-/* ── Scrollbar (AuraWallet style) ── */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+/* ============================================================================
+   SCROLLBAR — exact AuraWallet
+   ============================================================================ */
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--color-scrollbar-track);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--color-scrollbar-thumb);
   border-radius: 0;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--voltage);
+  background: var(--color-scrollbar-thumb-hover);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   MECHANICAL COMPONENTS
-   ══════════════════════════════════════════════════════════════ */
+/* ============================================================================
+   MECHA CLIP-PATH CLASSES — exact AuraWallet
+   ============================================================================ */
 
-/* Specimen label shape — clipped corners */
 .clip-specimen {
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-}
-.clip-specimen-sm {
-  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
-}
-
-/* Hard mechanical shadows (no blur) */
-.shadow-mech {
-  box-shadow: 4px 4px 0 rgba(0, 255, 159, 0.06);
-}
-.shadow-mech-hover {
-  box-shadow: 6px 6px 0 rgba(0, 255, 159, 0.12);
-}
-.shadow-mech-active {
-  box-shadow: 2px 2px 0 rgba(0, 255, 159, 0.08);
-}
-
-/* Corner marks — L-shaped brackets */
-.corner-marks {
-  position: relative;
-}
-.corner-marks::before,
-.corner-marks::after {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
-}
-.corner-marks::before {
-  top: -1px;
-  left: -1px;
-  border-top: 1.5px solid var(--voltage);
-  border-left: 1.5px solid var(--voltage);
-}
-.corner-marks::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1.5px solid var(--voltage);
-  border-right: 1.5px solid var(--voltage);
-}
-
-/* AuraWallet mono labels */
-.label-specimen {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--text-faint);
-}
-.label-specimen-sm {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-faint);
-}
-
-/* ══════════════════════════════════════════════════════════════
-   TEXTURES & BACKGROUNDS
-   ══════════════════════════════════════════════════════════════ */
-
-/* Dot texture overlay */
-.dot-texture {
-  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 4px 4px;
-}
-
-/* Grid lines */
-.grid-texture {
-  background-image:
-    linear-gradient(var(--border-muted) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-muted) 1px, transparent 1px);
-  background-size: 4rem 4rem;
-}
-
-/* Hazard stripe accent */
-.hazard-stripe {
-  background-image: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 4px,
-    rgba(0, 255, 159, 0.04) 4px,
-    rgba(0, 255, 159, 0.04) 8px
+  clip-path: polygon(
+    10px 0, 100% 0,
+    100% calc(100% - 10px), calc(100% - 10px) 100%,
+    0 100%, 0 10px
   );
 }
 
-/* ══════════════════════════════════════════════════════════════
-   ANIMATIONS
-   ══════════════════════════════════════════════════════════════ */
+.clip-specimen-sm {
+  clip-path: polygon(
+    6px 0, 100% 0,
+    100% calc(100% - 6px), calc(100% - 6px) 100%,
+    0 100%, 0 6px
+  );
+}
+
+.clip-mech-panel {
+  clip-path: polygon(
+    0 0, 100% 0,
+    100% calc(100% - 30px), calc(100% - 30px) 100%,
+    0 100%
+  );
+}
+
+/* Mechanical offset shadows — hard offset, no blur */
+.shadow-mech {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.shadow-mech-hover {
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+.shadow-mech-active {
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Border via drop-shadow (works with clip-paths) */
+.border-mech {
+  filter:
+    drop-shadow(1px 0 0 var(--color-border))
+    drop-shadow(-1px 0 0 var(--color-border))
+    drop-shadow(0 1px 0 var(--color-border))
+    drop-shadow(0 -1px 0 var(--color-border));
+}
+
+/* ============================================================================
+   CORNER ACCENT MARKS — exact AuraWallet
+   ============================================================================ */
+
+.corner-marks {
+  position: relative;
+}
+
+.corner-marks::before,
+.corner-marks::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.corner-marks::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--color-border-focus);
+  border-left: 2px solid var(--color-border-focus);
+}
+
+.corner-marks::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--color-border-focus);
+  border-right: 2px solid var(--color-border-focus);
+}
+
+/* ============================================================================
+   SPECIMEN LABEL TYPOGRAPHY — exact AuraWallet
+   ============================================================================ */
+
+.label-specimen {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: calc(9px * var(--ui-scale-factor, 1));
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+
+.label-specimen-sm {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: calc(8px * var(--ui-scale-factor, 1));
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1;
+}
+
+/* ============================================================================
+   TEXTURES — exact AuraWallet
+   ============================================================================ */
+
+.bg-grid-adaptive {
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+}
+
+.bg-hazard-stripes {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 10px,
+    rgba(204, 255, 0, 0.06) 10px,
+    rgba(204, 255, 0, 0.06) 20px
+  );
+}
+
+.scanline-overlay {
+  background-image: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.04) 50%);
+  background-size: 100% 4px;
+}
+
+/* Skeleton loading with hazard stripes */
+.skeleton-mech {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-background-alt);
+}
+
+.skeleton-mech::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    color-mix(in srgb, var(--color-accent) 8%, transparent) 6px,
+    color-mix(in srgb, var(--color-accent) 8%, transparent) 12px
+  );
+  animation: ticker 8s linear infinite;
+}
+
+@keyframes ticker {
+  from { background-position-x: 0; }
+  to { background-position-x: 200px; }
+}
+
+/* Tyvek label — dashed border empty state */
+.tyvek-label {
+  border: 1px dashed var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+/* ============================================================================
+   ANIMATIONS — exact AuraWallet
+   ============================================================================ */
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes terminal-open {
-  from { transform: scaleY(0.95); opacity: 0; filter: blur(2px); }
-  to { transform: scaleY(1); opacity: 1; filter: blur(0); }
-}
-
-@keyframes scan-line {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(100vh); }
-}
-
 .animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scan-vertical {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.animate-scan {
+  animation: scan-vertical 2s ease-in-out infinite;
+}
+
+/* Stagger children */
+.stagger-children > * {
   animation: fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
-.animate-terminal-open {
-  animation: terminal-open 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* Stagger children animation */
-.stagger-children > * {
-  animation: fade-in-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
 .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children > *:nth-child(2) { animation-delay: 30ms; }
-.stagger-children > *:nth-child(3) { animation-delay: 60ms; }
-.stagger-children > *:nth-child(4) { animation-delay: 90ms; }
-.stagger-children > *:nth-child(5) { animation-delay: 120ms; }
-.stagger-children > *:nth-child(6) { animation-delay: 150ms; }
-.stagger-children > *:nth-child(7) { animation-delay: 180ms; }
-.stagger-children > *:nth-child(8) { animation-delay: 210ms; }
-.stagger-children > *:nth-child(9) { animation-delay: 240ms; }
-.stagger-children > *:nth-child(10) { animation-delay: 270ms; }
-.stagger-children > *:nth-child(n+11) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 40ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 80ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 160ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 280ms; }
+.stagger-children > *:nth-child(9) { animation-delay: 320ms; }
+.stagger-children > *:nth-child(10) { animation-delay: 360ms; }
+.stagger-children > *:nth-child(n+11) { animation-delay: 400ms; }
 
-/* ══════════════════════════════════════════════════════════════
-   PROSE (report content styling)
-   ══════════════════════════════════════════════════════════════ */
+/* ============================================================================
+   PROSE-MONO — exact AuraWallet docs prose
+   ============================================================================ */
 
-.prose-mechanical {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--text-muted);
+.prose-mono {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
 }
-.prose-mechanical h2, .prose-mechanical h3, .prose-mechanical h4 {
-  font-family: var(--font-sans);
+
+.prose-mono h1, .prose-mono h2, .prose-mono h3, .prose-mono h4 {
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 700;
-  color: var(--text);
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
 }
-.prose-mechanical h3 { font-size: 16px; }
-.prose-mechanical p { margin-bottom: 1em; }
-.prose-mechanical ul, .prose-mechanical ol {
-  padding-left: 1.5em;
-  margin-bottom: 1em;
-}
-.prose-mechanical li { margin-bottom: 0.25em; }
-.prose-mechanical code {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  background: rgba(0, 255, 159, 0.08);
-  color: var(--voltage);
-  padding: 2px 6px;
-  border-radius: 2px;
-}
-.prose-mechanical pre {
-  background: var(--void);
-  border: 1px solid var(--border);
-  padding: 16px;
-  overflow-x: auto;
-  margin: 1em 0;
-  font-size: 12px;
-}
-.prose-mechanical pre code {
-  background: none;
-  padding: 0;
-  color: var(--text-muted);
-}
-.prose-mechanical a {
-  color: var(--voltage);
-  text-decoration: none;
-}
-.prose-mechanical a:hover {
+
+.prose-mono h1 { font-size: 18px; text-transform: uppercase; letter-spacing: 0.04em; }
+.prose-mono h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4em; }
+.prose-mono h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.prose-mono h4 { font-size: 11px; }
+
+.prose-mono p { margin: 0.8em 0; }
+
+.prose-mono a {
+  color: var(--color-accent);
   text-decoration: underline;
-}
-.prose-mechanical strong {
-  color: var(--text);
-  font-weight: 600;
+  text-underline-offset: 2px;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SELECTION
-   ══════════════════════════════════════════════════════════════ */
-
-::selection {
-  background: rgba(0, 255, 159, 0.25);
-  color: var(--text);
+.prose-mono code {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.9em;
+  background: var(--color-surface-alt);
+  padding: 0.15em 0.35em;
+  border: 1px solid var(--color-border-muted);
 }
+
+.prose-mono pre {
+  background: #000000;
+  color: #e5e5e5;
+  padding: 1em;
+  overflow-x: auto;
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 1em 0;
+  border: 1px solid var(--color-border);
+}
+
+.prose-mono pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.prose-mono ul, .prose-mono ol {
+  padding-left: 1.4em;
+  margin: 0.6em 0;
+}
+
+.prose-mono li { margin: 0.25em 0; }
+.prose-mono li::marker { color: var(--color-text-faint); }
+
+.prose-mono strong { color: var(--color-text); font-weight: 600; }
+
+.prose-mono blockquote {
+  border-left: 2px solid var(--color-border);
+  padding-left: 1em;
+  color: var(--color-text-muted);
+  margin: 1em 0;
+}
+
+.prose-mono hr {
+  border: none;
+  border-top: 1px solid var(--color-border-muted);
+  margin: 2em 0;
+}
+
+/* ELI5 mode — larger, friendlier */
+.prose-eli5 {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--color-text);
+}
+.prose-eli5 p { margin: 1.2em 0; }
