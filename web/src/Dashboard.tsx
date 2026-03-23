@@ -148,7 +148,7 @@ export default function Dashboard() {
   const archScale = useTransform(x, [-DRAWER_W, 0], [1, 0.9]);
   const fabOpacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState<"left" | "right" | null>(null);
 
   const handleDragEnd = (_: any, { offset, velocity }: any) => {
     const t = 50, v = 400;
@@ -157,12 +157,12 @@ export default function Dashboard() {
     else if (offset.x < -t || velocity.x < -v) target = -DRAWER_W;
     if (x.get() > 100 && (offset.x < -t || velocity.x < -v)) target = 0;
     if (x.get() < -100 && (offset.x > t || velocity.x > v)) target = 0;
-    setDrawerOpen(target !== 0);
+    setOpenDrawer(target > 0 ? "left" : target < 0 ? "right" : null);
     animate(x, target, { type: "spring", stiffness: 250, damping: 28, mass: 0.8 });
   };
 
   const closeDrawer = () => {
-    setDrawerOpen(false);
+    setOpenDrawer(null);
     animate(x, 0, { type: "spring", stiffness: 250, damping: 28 });
   };
 
@@ -197,7 +197,7 @@ export default function Dashboard() {
       {/* ═══ LEFT DRAWER — Calendar + Contributors ═══ */}
       <motion.div
         className="absolute inset-0 bg-black text-white px-6 pt-[env(safe-area-inset-top,16px)]"
-        style={{ opacity: calOpacity, scale: calScale }}
+        style={{ opacity: calOpacity, scale: calScale, pointerEvents: openDrawer === "left" ? "auto" : "none" }}
       >
         <div className="pt-6">
           {/* Year + Month header */}
@@ -270,7 +270,7 @@ export default function Dashboard() {
       {/* ═══ RIGHT DRAWER — Architecture ═══ */}
       <motion.div
         className="absolute inset-0 bg-black text-white p-6 pt-[env(safe-area-inset-top,24px)] overflow-y-auto"
-        style={{ opacity: archOpacity, scale: archScale }}
+        style={{ opacity: archOpacity, scale: archScale, pointerEvents: openDrawer === "right" ? "auto" : "none" }}
       >
         <div className="max-w-[220px] ml-auto pt-6">
           <h1 className="label-specimen text-[var(--color-accent)] text-[14px] tracking-[0.2em] mb-10">ARCHITECTURE</h1>
@@ -394,7 +394,7 @@ export default function Dashboard() {
         </motion.div>
 
         {/* Close overlay — only blocks touches when a drawer is open */}
-        {drawerOpen && (
+        {openDrawer !== null && (
           <div
             className="absolute inset-0 z-30"
             onClick={closeDrawer}
