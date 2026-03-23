@@ -4,292 +4,292 @@ import { fetchReports, fetchFeatures } from "./api";
 
 const CATEGORIES = ["All", "Release", "Feature Progress", "Security", "Performance", "Infrastructure"];
 
-function badgeColor(cat: string): string {
-  const map: Record<string, string> = {
-    Release: "var(--color-info)",
-    "Feature Progress": "var(--color-success)",
-    Security: "var(--color-danger)",
-    Performance: "var(--color-warning)",
-    Infrastructure: "var(--color-text-faint)",
-  };
-  return map[cat] || "var(--color-text-faint)";
+function catColor(cat: string) {
+  const m: Record<string, string> = { Release: "#0047ff", "Feature Progress": "#00c853", Security: "#ef4444", Performance: "#ff4d00", Infrastructure: "#6b7280" };
+  return m[cat] || "#6b7280";
 }
 
-function formatDate(iso: string) {
+function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+/* ── Barcode strip (exact AuraWallet Button decoration) ── */
+function BarcodeStrip() {
+  return (
+    <span
+      className="absolute right-0 top-0 bottom-0 w-[6px] pointer-events-none opacity-25"
+      style={{
+        backgroundImage:
+          "repeating-linear-gradient(to bottom, var(--color-surface,#ffffff) 0px, var(--color-surface,#ffffff) 2px, transparent 2px, transparent 3px, var(--color-surface,#ffffff) 3px, var(--color-surface,#ffffff) 4px, transparent 4px, transparent 7px)",
+      }}
+    />
+  );
+}
+
+/* ── Primary Button (exact AuraWallet) ── */
+function MechButton({ children, active, onClick, className = "" }: {
+  children: React.ReactNode; active?: boolean; onClick?: () => void; className?: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`relative clip-specimen-sm font-mono tracking-widest flex items-center justify-center transition-all
+        ${active
+          ? "bg-[var(--color-accent,#ccff00)] text-[var(--color-accent-foreground,#0a0a0a)] border border-[var(--color-accent,#ccff00)] shadow-mech-hover"
+          : "bg-[var(--color-text,#f5f5f5)] text-[var(--color-surface,#1a1a1a)] border border-[var(--color-text,#f5f5f5)] shadow-mech hover:bg-[var(--color-accent,#ccff00)] hover:text-[var(--color-accent-foreground,#0a0a0a)] hover:border-[var(--color-accent,#ccff00)] hover:-translate-y-[1px] hover:-translate-x-[1px] active:translate-y-0 active:translate-x-0"
+        }
+        ${className}`}
+    >
+      <span className="relative z-[1]">{children}</span>
+      <BarcodeStrip />
+    </button>
+  );
+}
+
+/* ── Secondary Button ── */
+function GhostButton({ children, active, onClick, className = "" }: {
+  children: React.ReactNode; active?: boolean; onClick?: () => void; className?: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`font-mono tracking-widest transition-all
+        ${active
+          ? "bg-[color-mix(in_srgb,var(--color-accent)_12%,transparent)] text-[var(--color-accent)] border border-[color-mix(in_srgb,var(--color-accent)_30%,transparent)]"
+          : "bg-[var(--color-surface)] border border-[var(--color-border-muted)] text-[var(--color-text-muted)] hover:border-[var(--color-text)] hover:text-[var(--color-text)] hover:bg-[var(--color-background-alt)]"
+        }
+        ${className}`}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default function Dashboard() {
   const [reports, setReports] = useState<WebReport[]>([]);
   const [features, setFeatures] = useState<FeatureStatus[]>([]);
-  const [activeReport, setActiveReport] = useState<WebReport | null>(null);
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [activeTab, setActiveTab] = useState<"advanced" | "eli5">("advanced");
+  const [active, setActive] = useState<WebReport | null>(null);
+  const [cat, setCat] = useState("All");
+  const [tab, setTab] = useState<"advanced" | "eli5">("advanced");
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [search, setSearch] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [reps, feats] = await Promise.all([fetchReports(), fetchFeatures()]);
-      setReports(reps);
-      setFeatures(feats);
-      if (reps.length > 0 && !activeReport) setActiveReport(reps[0]);
-    } catch (err) { console.error(err); }
+      const [r, f] = await Promise.all([fetchReports(), fetchFeatures()]);
+      setReports(r); setFeatures(f);
+      if (r.length > 0 && !active) setActive(r[0]);
+    } catch (e) { console.error(e); }
     finally { setLoading(false); }
   }, []);
 
   useEffect(() => { load(); }, [load]);
 
   const filtered = reports.filter((r) => {
-    if (activeCategory !== "All" && r.category !== activeCategory) return false;
-    if (searchQuery && !r.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    if (cat !== "All" && r.category !== cat) return false;
+    if (search && !r.title.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
   return (
-    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "var(--color-bg)" }}>
+    <>
+      {/* SVG Filters for Tyvek Effect (exact AuraWallet) */}
+      <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <filter id="tyvekFilter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer>
+            <feFuncR type="linear" slope="0.3" />
+            <feFuncG type="linear" slope="0.3" />
+            <feFuncB type="linear" slope="0.3" />
+          </feComponentTransfer>
+        </filter>
+      </svg>
 
-      {/* ══════ SIDEBAR ══════ */}
-      <div style={{
-        width: 360, minWidth: 360, display: "flex", flexDirection: "column",
-        background: "var(--color-background-alt)",
-        borderRight: "1px solid var(--color-border)",
-      }}>
+      <div className="relative isolate h-screen w-full overflow-hidden flex bg-[var(--color-background)]">
 
-        {/* Header */}
-        <div style={{ padding: "20px", borderBottom: "1px solid var(--color-border)" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div>
-              <h1 style={{ fontFamily: "'Inter', system-ui", fontSize: 15, fontWeight: 800, color: "var(--color-accent)", letterSpacing: "0.08em", textTransform: "uppercase" as const, margin: 0 }}>
-                Aptos Intelligence
-              </h1>
-              <p className="label-specimen-sm" style={{ color: "var(--color-text-faint)", marginTop: 6 }}>
-                Real-time commit analysis · aptos-core
-              </p>
+        {/* ══════ Background layers (exact AuraWallet ViewShell) ══════ */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          {/* Grid */}
+          <div className="absolute inset-0 bg-grid-adaptive bg-[size:4rem_4rem] opacity-30" />
+          {/* Tyvek texture */}
+          <div className="tyvek-texture" style={{ opacity: 0.12, zIndex: 0, pointerEvents: "none" }} />
+          {/* Ghost watermark */}
+          <div className="absolute bottom-[5%] right-[5%] opacity-[0.02] select-none">
+            <div className="text-[12vw] font-black leading-none text-[var(--color-text)] font-mono tracking-tighter text-right">
+              APTOS
             </div>
-            <div className="clip-specimen-sm" style={{
-              background: "color-mix(in srgb, var(--color-accent) 10%, transparent)",
-              padding: "4px 8px",
-              border: "1px solid color-mix(in srgb, var(--color-accent) 20%, transparent)",
-            }}>
-              <span className="label-specimen" style={{ color: "var(--color-accent)" }}>{reports.length}</span>
-            </div>
+          </div>
+          {/* Registration marks */}
+          <div className="absolute top-10 left-[360px] w-24 h-24 border-l-4 border-t-4 border-[var(--color-text)] opacity-10">
+            <div className="absolute top-2 left-2 w-3 h-3 bg-[var(--color-text)]" />
+          </div>
+          <div className="absolute bottom-10 right-10 w-24 h-24 border-r-4 border-b-4 border-[var(--color-text)] opacity-10 flex items-end justify-end">
+            <div className="absolute bottom-2 right-2 w-3 h-3 bg-[var(--color-text)]" />
           </div>
         </div>
 
-        {/* Search + Filters */}
-        <div style={{ padding: 16, borderBottom: "1px solid var(--color-border)" }}>
-          <input
-            type="text"
-            placeholder="SEARCH REPORTS..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="label-specimen"
-            style={{
-              width: "100%", boxSizing: "border-box" as const,
-              padding: "10px 12px",
-              background: "var(--color-surface)", border: "1px solid var(--color-border)",
-              color: "var(--color-text)", outline: "none",
-              fontSize: 10,
-            }}
-          />
-          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" as const, marginTop: 12 }}>
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className="label-specimen-sm"
-                style={{
-                  padding: "6px 10px", cursor: "pointer",
-                  background: activeCategory === cat ? "color-mix(in srgb, var(--color-accent) 12%, transparent)" : "var(--color-surface)",
-                  color: activeCategory === cat ? "var(--color-accent)" : "var(--color-text-faint)",
-                  border: `1px solid ${activeCategory === cat ? "color-mix(in srgb, var(--color-accent) 30%, transparent)" : "var(--color-border-muted)"}`,
-                }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* ══════ SIDEBAR (exact AuraWallet ViewShell pattern) ══════ */}
+        <div
+          className="h-full flex flex-col border-r border-[var(--color-border)] font-mono relative overflow-hidden shrink-0 z-10"
+          style={{ width: 340, minWidth: 340, background: "var(--color-surface)", fontSize: "var(--font-size-sm)" }}
+        >
+          {/* Dot texture overlay (exact AuraWallet) */}
+          <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(var(--color-text,#000)_1px,transparent_1px)] bg-[size:4px_4px]" />
 
-        {/* Report list */}
-        <div className="stagger-children" style={{ flex: 1, overflowY: "auto" as const, padding: 8 }}>
-          {loading ? (
-            <div style={{ padding: 32 }}>
-              {[1,2,3,4,5].map((i) => (
-                <div key={i} className="skeleton-mech" style={{ height: 12, marginBottom: 12, width: `${70 + (i % 3) * 10}%` }} />
+          {/* Branding */}
+          <div className="relative z-10 flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
+            <div className="leading-tight">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-[11px] font-bold tracking-tight lowercase text-[var(--color-text)]">
+                  aptos intelligence
+                </span>
+                <span className="label-specimen-sm text-[var(--color-text-muted)]">v1</span>
+              </div>
+              <span className="label-specimen-sm text-[var(--color-text-faint)] block mt-0.5">
+                real-time commit analysis
+              </span>
+            </div>
+            <div className="clip-specimen-sm bg-[var(--color-accent)] text-[var(--color-accent-foreground)] label-specimen px-2 py-1">
+              {reports.length}
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="relative z-10 px-3 py-3 border-b border-[var(--color-border)]">
+            <input
+              type="text"
+              placeholder="SEARCH..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="label-specimen w-full px-3 py-2.5 outline-none transition-all bg-[var(--color-background-alt)] border border-[var(--color-border)] text-[var(--color-text)] focus:border-[var(--color-border-focus)] focus:bg-[var(--color-surface)]"
+              style={{ fontSize: 10 }}
+            />
+            <div className="flex gap-1 flex-wrap mt-2.5">
+              {CATEGORIES.map((c) => (
+                <GhostButton
+                  key={c}
+                  active={cat === c}
+                  onClick={() => setCat(c)}
+                  className="label-specimen-sm px-2 py-1.5 h-auto"
+                >
+                  {c}
+                </GhostButton>
               ))}
             </div>
-          ) : filtered.length === 0 ? (
-            <div className="tyvek-label" style={{ margin: 24, padding: 32, textAlign: "center" as const }}>
-              <p className="label-specimen" style={{ color: "var(--color-text-faint)" }}>No reports match filter</p>
-            </div>
-          ) : (
-            filtered.map((r) => {
-              const isActive = activeReport?.id === r.id;
+          </div>
+
+          {/* List */}
+          <div className="flex-1 overflow-y-auto relative z-10 stagger-children">
+            {loading ? (
+              <div className="p-4 space-y-3">
+                {[1,2,3,4,5].map(i => (
+                  <div key={i} className="skeleton-mech" style={{ height: 10, width: `${60 + i * 7}%` }} />
+                ))}
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="tyvek-label m-4 p-6 text-center">
+                <span className="label-specimen text-[var(--color-text-faint)]">NO RESULTS</span>
+              </div>
+            ) : filtered.map((r) => {
+              const sel = active?.id === r.id;
               return (
                 <div
                   key={r.id}
-                  onClick={() => { setActiveReport(r); setActiveTab("advanced"); }}
-                  style={{
-                    cursor: "pointer", padding: 14, marginBottom: 2,
-                    background: isActive ? "var(--color-surface)" : "transparent",
-                    borderLeft: isActive ? "2px solid var(--color-accent)" : "2px solid transparent",
-                    transition: "all 0.12s ease",
-                  }}
-                  className={isActive ? "shadow-mech" : ""}
-                  onMouseEnter={(e) => { if (!isActive) (e.currentTarget.style.background = "var(--color-surface)"); }}
-                  onMouseLeave={(e) => { if (!isActive) (e.currentTarget.style.background = "transparent"); }}
+                  onClick={() => { setActive(r); setTab("advanced"); }}
+                  className={`cursor-pointer px-4 py-3 transition-all border-l-2 ${
+                    sel ? "border-l-[var(--color-accent)] bg-[var(--color-surface-alt)] shadow-mech" : "border-l-transparent hover:bg-[var(--color-surface-alt)]"
+                  }`}
                 >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                    <span className="label-specimen-sm" style={{
-                      padding: "3px 6px",
-                      borderLeft: `2px solid ${badgeColor(r.category)}`,
-                      color: badgeColor(r.category),
-                    }}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="label-specimen-sm" style={{ color: catColor(r.category), borderLeft: `2px solid ${catColor(r.category)}`, paddingLeft: 6 }}>
                       {r.category}
                     </span>
-                    <span className="label-specimen" style={{
-                      color: r.importance >= 8 ? "var(--color-danger)" : r.importance >= 6 ? "var(--color-warning)" : "var(--color-text-faint)",
-                    }}>
+                    <span className={`label-specimen ${r.importance >= 8 ? "text-[var(--color-danger)]" : r.importance >= 6 ? "text-[var(--color-warning)]" : "text-[var(--color-text-faint)]"}`}>
                       {r.importance}/10
                     </span>
                   </div>
-                  <p style={{
-                    fontFamily: "'Inter', system-ui", fontSize: 13, fontWeight: 500,
-                    color: "var(--color-text)", lineHeight: 1.4, margin: 0,
-                    display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden",
-                  }}>
+                  <p className="text-[12px] font-medium leading-snug text-[var(--color-text)] line-clamp-2 font-sans m-0">
                     {r.title}
                   </p>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10 }}>
-                    <span className="label-specimen-sm" style={{ color: "var(--color-text-faint)" }}>{r.author}</span>
-                    <span className="label-specimen-sm" style={{ color: "var(--color-text-faint)" }}>{formatDate(r.date)}</span>
+                  <div className="flex justify-between mt-2">
+                    <span className="label-specimen-sm text-[var(--color-text-faint)]">{r.author}</span>
+                    <span className="label-specimen-sm text-[var(--color-text-faint)]">{fmtDate(r.date)}</span>
                   </div>
                 </div>
               );
-            })
-          )}
+            })}
+          </div>
+
+          {/* Footer */}
+          <div className="relative z-10 border-t border-[var(--color-border)] bg-hazard-stripes px-4 py-2.5 flex items-center justify-between">
+            <span className="label-specimen-sm text-[var(--color-text-faint)]">{reports.length} reports · {features.length} features</span>
+            <span className="label-specimen-sm text-[var(--color-accent)]">● LIVE</span>
+          </div>
         </div>
 
-        {/* Footer */}
-        <div className="bg-hazard-stripes" style={{
-          padding: "10px 16px", display: "flex", alignItems: "center", justifyContent: "space-between",
-          borderTop: "1px solid var(--color-border)", background: "var(--color-surface)",
-        }}>
-          <span className="label-specimen-sm" style={{ color: "var(--color-text-faint)" }}>
-            {reports.length} reports · {features.length} features
-          </span>
-          <span className="label-specimen-sm" style={{ color: "var(--color-accent)" }}>● LIVE</span>
-        </div>
-      </div>
-
-      {/* ══════ MAIN CONTENT ══════ */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-
-        <div style={{ flex: 1, overflowY: "auto" as const }}>
-          {!activeReport ? (
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column" as const, gap: 12 }}>
-              <div className="corner-marks" style={{ padding: 32 }}>
-                <p className="label-specimen" style={{ color: "var(--color-text-faint)" }}>SELECT A REPORT TO BEGIN ANALYSIS</p>
+        {/* ══════ MAIN CONTENT ══════ */}
+        <div className="flex-1 overflow-y-auto relative z-10">
+          {!active ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="corner-marks p-10">
+                <p className="label-specimen text-[var(--color-text-faint)]">SELECT A REPORT TO BEGIN ANALYSIS</p>
               </div>
             </div>
           ) : (
-            <div className="animate-fade-in-up" key={activeReport.id} style={{ padding: 40, maxWidth: 800, margin: "0 auto" }}>
+            <div className="animate-fade-in-up p-10 max-w-[820px] mx-auto" key={active.id}>
 
-              {/* Meta bar */}
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                <span className="label-specimen-sm" style={{
-                  padding: "4px 8px",
-                  borderLeft: `2px solid ${badgeColor(activeReport.category)}`,
-                  color: badgeColor(activeReport.category),
-                }}>
-                  {activeReport.category}
+              {/* Meta */}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="label-specimen-sm" style={{ color: catColor(active.category), borderLeft: `2px solid ${catColor(active.category)}`, paddingLeft: 6 }}>
+                  {active.category}
                 </span>
-                <span className="label-specimen" style={{
-                  color: activeReport.importance >= 8 ? "var(--color-danger)" : activeReport.importance >= 6 ? "var(--color-warning)" : "var(--color-text-faint)",
-                }}>
-                  IMP {activeReport.importance}/10
+                <span className={`label-specimen ${active.importance >= 8 ? "text-[var(--color-danger)]" : active.importance >= 6 ? "text-[var(--color-warning)]" : "text-[var(--color-text-faint)]"}`}>
+                  IMP {active.importance}/10
                 </span>
-                <span className="label-specimen-sm" style={{ color: "var(--color-text-faint)" }}>{formatDate(activeReport.date)}</span>
+                <span className="label-specimen-sm text-[var(--color-text-faint)]">{fmtDate(active.date)}</span>
               </div>
 
               {/* Title */}
-              <h2 style={{
-                fontFamily: "'Inter', system-ui", fontSize: 22, fontWeight: 800,
-                color: "var(--color-text)", lineHeight: 1.3, margin: 0, letterSpacing: "-0.02em",
-              }}>
-                {activeReport.title}
+              <h2 className="text-[22px] font-extrabold text-[var(--color-text)] leading-[1.25] tracking-[-0.02em] font-sans m-0">
+                {active.title}
               </h2>
 
-              {/* Author line */}
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 12, marginBottom: 24 }}>
-                <img
-                  src={`https://github.com/${activeReport.author}.png`}
-                  alt=""
-                  style={{ width: 20, height: 20, clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}
-                />
-                <span className="label-specimen" style={{ color: "var(--color-text-muted)" }}>{activeReport.author}</span>
-                <span style={{ color: "var(--color-border)", fontSize: 10 }}>│</span>
-                <a
-                  href={activeReport.sourceUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="label-specimen"
-                  style={{ color: "var(--color-accent)", textDecoration: "none" }}
-                >
+              {/* Author */}
+              <div className="flex items-center gap-2.5 mt-3 mb-6">
+                <img src={`https://github.com/${active.author}.png`} alt="" className="w-5 h-5 clip-specimen-sm" />
+                <span className="label-specimen text-[var(--color-text-muted)]">{active.author}</span>
+                <span className="text-[var(--color-border)] text-[10px]">│</span>
+                <a href={active.sourceUrl} target="_blank" rel="noopener" className="label-specimen text-[var(--color-accent)] no-underline hover:underline">
                   VIEW SOURCE →
                 </a>
               </div>
 
-              {/* Tabs */}
-              <div style={{ display: "flex", borderBottom: "1px solid var(--color-border)", marginBottom: 0 }}>
-                {(["advanced", "eli5"] as const).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className="label-specimen"
-                    style={{
-                      padding: "12px 20px", cursor: "pointer",
-                      background: "transparent", border: "none",
-                      color: activeTab === tab ? "var(--color-accent)" : "var(--color-text-faint)",
-                      borderBottom: activeTab === tab ? "2px solid var(--color-accent)" : "2px solid transparent",
-                      transition: "all 0.15s ease",
-                    }}
-                  >
-                    {tab === "advanced" ? "◆ ADVANCED" : "◇ ELI5"}
-                  </button>
-                ))}
+              {/* Tab buttons (exact AuraWallet primary button style) */}
+              <div className="flex gap-2 mb-5">
+                <MechButton active={tab === "advanced"} onClick={() => setTab("advanced")} className="h-[32px] px-3 text-[10px] uppercase">
+                  ◆ Advanced
+                </MechButton>
+                <MechButton active={tab === "eli5"} onClick={() => setTab("eli5")} className="h-[32px] px-3 text-[10px] uppercase">
+                  ◇ ELI5
+                </MechButton>
               </div>
 
-              {/* Content — clip-specimen + border-mech + corner-marks (AuraWallet's signature look) */}
-              <div
-                className="clip-specimen border-mech corner-marks"
-                style={{ background: "var(--color-surface)", padding: 28, marginTop: -1 }}
-                key={`${activeReport.id}-${activeTab}`}
-              >
-                <div className={activeTab === "advanced" ? "prose-mono" : "prose-eli5"}>
-                  <div dangerouslySetInnerHTML={{ __html: activeTab === "advanced" ? activeReport.advanced : activeReport.eli5 }} />
+              {/* Content card (clip-specimen + border-mech + corner-marks) */}
+              <div className="clip-specimen border-mech corner-marks bg-[var(--color-surface)] p-7" key={`${active.id}-${tab}`}>
+                <div className={tab === "advanced" ? "prose-mono" : "prose-eli5"}>
+                  <div dangerouslySetInnerHTML={{ __html: tab === "advanced" ? active.advanced : active.eli5 }} />
                 </div>
               </div>
 
               {/* Related features */}
-              {activeReport.relatedFeatures.length > 0 && (
-                <div style={{ marginTop: 20 }}>
-                  <p className="label-specimen-sm" style={{ color: "var(--color-text-faint)", marginBottom: 8 }}>RELATED FEATURES</p>
-                  <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 8 }}>
-                    {activeReport.relatedFeatures.map((f) => (
-                      <span
-                        key={f}
-                        className="clip-specimen-sm label-specimen-sm"
-                        style={{
-                          padding: "5px 12px",
-                          background: "color-mix(in srgb, var(--color-accent) 8%, transparent)",
-                          border: "1px solid color-mix(in srgb, var(--color-accent) 20%, transparent)",
-                          color: "var(--color-accent)",
-                        }}
-                      >
+              {active.relatedFeatures.length > 0 && (
+                <div className="mt-5">
+                  <p className="label-specimen-sm text-[var(--color-text-faint)] mb-2">RELATED FEATURES</p>
+                  <div className="flex flex-wrap gap-2">
+                    {active.relatedFeatures.map((f) => (
+                      <span key={f} className="clip-specimen-sm label-specimen-sm px-3 py-1.5 bg-[color-mix(in_srgb,var(--color-accent)_8%,transparent)] border border-[color-mix(in_srgb,var(--color-accent)_20%,transparent)] text-[var(--color-accent)]">
                         {f}
                       </span>
                     ))}
@@ -298,23 +298,16 @@ export default function Dashboard() {
               )}
 
               {/* Barcode footer */}
-              <div style={{
-                display: "flex", alignItems: "center", gap: 12, marginTop: 28, paddingTop: 16,
-                borderTop: "1px solid var(--color-border-muted)",
-              }}>
-                <span className="label-specimen-sm" style={{
-                  fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.25em", color: "var(--color-border)",
-                }}>
-                  |||||||||||||||
-                </span>
-                <span className="label-specimen-sm" style={{ color: "var(--color-text-faint)" }}>
-                  RPT-{String(activeReport.id).padStart(4, "0")} · {activeReport.category.toUpperCase()} · {activeReport.author.toUpperCase()}
+              <div className="flex items-center gap-3 mt-7 pt-4 border-t border-[var(--color-border-muted)]">
+                <span className="label-specimen-sm font-mono tracking-[0.25em] text-[var(--color-border)]">|||||||||||||||</span>
+                <span className="label-specimen-sm text-[var(--color-text-faint)]">
+                  RPT-{String(active.id).padStart(4, "0")} · {active.category.toUpperCase()} · {active.author.toUpperCase()}
                 </span>
               </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
