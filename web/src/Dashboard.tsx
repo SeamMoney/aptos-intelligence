@@ -170,6 +170,8 @@ export default function Dashboard() {
   const archOpacity = useTransform(x, [-DRAWER_W, -150, 0], [1, 0.5, 0]);
   const archScale = useTransform(x, [-DRAWER_W, 0], [1, 0.9]);
   const fabOpacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
+  // Fade out the date column + vertical text when swiping right to calendar
+  const dateColumnOpacity = useTransform(x, [0, 120, DRAWER_W], [1, 0.3, 0]);
 
   const [openDrawer, setOpenDrawer] = useState<"left" | "right" | null>(null);
 
@@ -370,15 +372,15 @@ export default function Dashboard() {
         style={{ x }}
         className="absolute inset-0 bg-[var(--color-surface-alt)] shadow-[-15px_0_50px_rgba(0,0,0,0.5)] flex overflow-hidden z-20 cursor-grab active:cursor-grabbing"
       >
-        {/* Black left date column background */}
-        <div className="absolute left-0 top-0 bottom-0 w-[90px] bg-black z-0" />
+        {/* Black left date column background — fades out when calendar drawer opens */}
+        <motion.div className="absolute left-0 top-0 bottom-0 w-[90px] bg-black z-0" style={{ opacity: dateColumnOpacity }} />
 
-        {/* Vertical rotated text */}
-        <div className="absolute left-0 top-0 bottom-0 w-[35px] flex items-center justify-center z-10 pointer-events-none">
+        {/* Vertical rotated text — fades with date column */}
+        <motion.div className="absolute left-0 top-0 bottom-0 w-[35px] flex items-center justify-center z-10 pointer-events-none" style={{ opacity: dateColumnOpacity }}>
           <span className="-rotate-90 whitespace-nowrap text-[11px] tracking-[0.4em] font-bold text-white/40 uppercase font-mono">
             {yearStr} {monthName}
           </span>
-        </div>
+        </motion.div>
 
         {/* Scrollable timeline */}
         <div className="absolute inset-0 overflow-y-auto overflow-x-hidden pb-32 z-20 no-scrollbar">
@@ -394,8 +396,8 @@ export default function Dashboard() {
 
             return (
               <div key={dateStr} className="flex min-h-[100px] w-full">
-                {/* Date column */}
-                <div className="w-[90px] shrink-0 flex items-start justify-end pr-3 pt-5">
+                {/* Date column — fades when calendar opens */}
+                <motion.div className="w-[90px] shrink-0 flex items-start justify-end pr-3 pt-5" style={{ opacity: dateColumnOpacity }}>
                   <div className={`w-[50px] py-[6px] flex flex-col items-center justify-center rounded-[14px] ${isToday ? "bg-[var(--color-accent)] text-[var(--color-accent-foreground)]" : "text-white"}`}>
                     <span className={`text-[10px] font-bold tracking-widest mb-0.5 font-mono ${isToday ? "text-[var(--color-accent-foreground)]" : "text-white/70"}`}>
                       {dayName}
@@ -404,7 +406,7 @@ export default function Dashboard() {
                       {dateNum}
                     </span>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Events column */}
                 <div className={`flex-1 flex flex-col justify-center py-4 pl-4 pr-5 ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
