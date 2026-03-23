@@ -161,35 +161,40 @@ export default function Dashboard() {
   const displayDate = selectedDate || todayStr;
   const displayCommits = commitsByDate.get(displayDate) || [];
 
-  /* ── Swipe physics ── */
+  /* ── Swipe physics (exact Timepage values) ── */
   const x = useMotionValue(0);
-  const DRAWER_W = 315;
+  const CAL_DRAWER_OFFSET = 235;
+  const MENU_DRAWER_OFFSET = 250;
 
-  const calOpacity = useTransform(x, [0, 150, DRAWER_W], [0, 0.5, 1]);
-  const calScale = useTransform(x, [0, DRAWER_W], [0.9, 1]);
-  const archOpacity = useTransform(x, [-DRAWER_W, -150, 0], [1, 0.5, 0]);
-  const archScale = useTransform(x, [-DRAWER_W, 0], [1, 0.9]);
+  const calOpacity = useTransform(x, [0, 150, CAL_DRAWER_OFFSET], [0, 0.5, 1]);
+  const calScale = useTransform(x, [0, CAL_DRAWER_OFFSET], [0.95, 1]);
+  const archOpacity = useTransform(x, [-MENU_DRAWER_OFFSET, -150, 0], [1, 0.5, 0]);
+  const archScale = useTransform(x, [-MENU_DRAWER_OFFSET, 0], [1, 0.95]);
   const fabOpacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
-  // Fade + shrink the date column when swiping right to calendar
-  const dateColumnOpacity = useTransform(x, [0, 120, DRAWER_W], [1, 0.3, 0]);
-  const dateColumnWidth = useTransform(x, [0, DRAWER_W], [90, 0]);
+  const fabScale = useTransform(x, [-100, 0, 100], [0.8, 1, 0.8]);
+  // Date column fades fast (by 100px it's gone)
+  const datesOpacity = useTransform(x, [0, 100], [1, 0]);
 
-  const [openDrawer, setOpenDrawer] = useState<"left" | "right" | null>(null);
+  const [drawerState, setDrawerState] = useState<"left" | "right" | "closed">("closed");
 
   const handleDragEnd = (_: any, { offset, velocity }: any) => {
     const t = 50, v = 400;
     let target = 0;
-    if (offset.x > t || velocity.x > v) target = DRAWER_W;
-    else if (offset.x < -t || velocity.x < -v) target = -DRAWER_W;
-    if (x.get() > 100 && (offset.x < -t || velocity.x < -v)) target = 0;
-    if (x.get() < -100 && (offset.x > t || velocity.x > v)) target = 0;
-    setOpenDrawer(target > 0 ? "left" : target < 0 ? "right" : null);
-    animate(x, target, { type: "spring", stiffness: 250, damping: 28, mass: 0.8 });
+    let newState: "left" | "right" | "closed" = "closed";
+
+    if (offset.x > t || velocity.x > v) { target = CAL_DRAWER_OFFSET; newState = "left"; }
+    else if (offset.x < -t || velocity.x < -v) { target = -MENU_DRAWER_OFFSET; newState = "right"; }
+
+    if (x.get() > 100 && (offset.x < -t || velocity.x < -v)) { target = 0; newState = "closed"; }
+    if (x.get() < -100 && (offset.x > t || velocity.x > v)) { target = 0; newState = "closed"; }
+
+    setDrawerState(newState);
+    animate(x, target, { type: "spring", stiffness: 300, damping: 30, mass: 0.8 });
   };
 
   const closeDrawer = () => {
-    setOpenDrawer(null);
-    animate(x, 0, { type: "spring", stiffness: 250, damping: 28 });
+    setDrawerState("closed");
+    animate(x, 0, { type: "spring", stiffness: 300, damping: 30 });
   };
 
   function openReport(r: WebReport) {
@@ -223,7 +228,7 @@ export default function Dashboard() {
       {/* ═══ LEFT DRAWER — Calendar + Contributors ═══ */}
       <motion.div
         className="absolute inset-0 bg-black text-white px-6 pt-[env(safe-area-inset-top,16px)]"
-        style={{ opacity: calOpacity, scale: calScale, pointerEvents: openDrawer === "left" ? "auto" : "none" }}
+        style={{ opacity: calOpacity, scale: calScale, pointerEvents: drawerState === "left" ? "auto" : "none" }}
       >
         <div className="pt-6">
           {/* Year + Month header */}
@@ -326,7 +331,7 @@ export default function Dashboard() {
       {/* ═══ RIGHT DRAWER — Architecture ═══ */}
       <motion.div
         className="absolute inset-0 bg-black text-white p-6 pt-[env(safe-area-inset-top,24px)] overflow-y-auto"
-        style={{ opacity: archOpacity, scale: archScale, pointerEvents: openDrawer === "right" ? "auto" : "none" }}
+        style={{ opacity: archOpacity, scale: archScale, pointerEvents: drawerState === "right" ? "auto" : "none" }}
       >
         <div className="max-w-[220px] ml-auto pt-6">
           <h1 className="label-specimen text-[var(--color-accent)] text-[14px] tracking-[0.2em] mb-10">ARCHITECTURE</h1>
@@ -364,21 +369,24 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ TOP LAYER — Timepage Timeline ═══ */}
+      {/* ═══ TOP LAYER — Timepage Timeline (exact structure) ═══ */}
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.4}
         onDragEnd={handleDragEnd}
         style={{ x }}
-        className="absolute inset-0 bg-[var(--color-surface-alt)] shadow-[-15px_0_50px_rgba(0,0,0,0.5)] flex overflow-hidden z-20 cursor-grab active:cursor-grabbing"
+        className="absolute inset-0 flex overflow-hidden z-20 cursor-grab active:cursor-grabbing will-change-transform"
       >
-        {/* Black left date column background — shrinks + fades when calendar drawer opens */}
-        <motion.div className="absolute left-0 top-0 bottom-0 bg-black z-0" style={{ opacity: dateColumnOpacity, width: dateColumnWidth }} />
+        {/* Events area background — starts at 80px, has its OWN shadow that overlays drawers */}
+        <div className="absolute left-[80px] right-0 top-0 bottom-0 bg-[var(--color-surface-alt)] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-0 pointer-events-none" />
 
-        {/* Vertical rotated text — fades with date column */}
-        <motion.div className="absolute left-0 top-0 bottom-0 flex items-center justify-center z-10 pointer-events-none overflow-hidden" style={{ opacity: dateColumnOpacity, width: dateColumnWidth }}>
-          <span className="-rotate-90 whitespace-nowrap text-[11px] tracking-[0.4em] font-bold text-white/40 uppercase font-mono">
+        {/* Black left date column — fades fast when swiping right */}
+        <motion.div style={{ opacity: datesOpacity }} className="absolute left-0 top-0 bottom-0 w-[80px] bg-black z-0 pointer-events-none" />
+
+        {/* Vertical rotated text — fades with dates */}
+        <motion.div style={{ opacity: datesOpacity }} className="absolute left-0 top-0 bottom-0 w-[32px] flex items-center justify-center z-10 pointer-events-none">
+          <span className="-rotate-90 whitespace-nowrap text-[11px] tracking-[0.45em] font-semibold uppercase" style={{ color: "var(--color-text-faint)" }}>
             {yearStr} {monthName}
           </span>
         </motion.div>
@@ -397,20 +405,26 @@ export default function Dashboard() {
 
             return (
               <div key={dateStr} className="flex min-h-[100px] w-full">
-                {/* Date column — shrinks + fades when calendar opens */}
-                <motion.div className="shrink-0 flex items-start justify-end pr-3 pt-5 overflow-hidden" style={{ opacity: dateColumnOpacity, width: dateColumnWidth }}>
-                  <div className={`w-[50px] shrink-0 py-[6px] flex flex-col items-center justify-center rounded-[14px] ${isToday ? "bg-[var(--color-accent)] text-[var(--color-accent-foreground)]" : "text-white"}`}>
-                    <span className={`text-[10px] font-bold tracking-widest mb-0.5 font-mono ${isToday ? "text-[var(--color-accent-foreground)]" : "text-white/70"}`}>
+                {/* Date column — fades when calendar opens (fixed 80px, not shrinking) */}
+                <motion.div
+                  style={{ opacity: datesOpacity }}
+                  className="w-[80px] shrink-0 flex items-start justify-end pr-[10px] pt-4"
+                >
+                  <motion.div
+                    className={`w-[40px] h-[66px] flex flex-col items-center justify-center rounded-[14px] ${isToday ? "shadow-md" : ""}`}
+                    style={{ backgroundColor: isToday ? "var(--color-accent)" : "transparent" }}
+                  >
+                    <span className={`text-[10px] tracking-widest mb-0.5 ${isToday ? "font-semibold text-[var(--color-accent-foreground)]" : "font-medium text-white/50"}`}>
                       {dayName}
                     </span>
-                    <span className={`text-[24px] font-bold leading-none ${isToday ? "text-[var(--color-accent-foreground)]" : "text-white"}`}>
+                    <span className={`text-[26px] font-bold leading-none tracking-tight ${isToday ? "text-[var(--color-accent-foreground)]" : "text-white"}`}>
                       {dateNum}
                     </span>
-                  </div>
+                  </motion.div>
                 </motion.div>
 
                 {/* Events column */}
-                <div className={`flex-1 flex flex-col justify-center py-4 pl-4 pr-5 ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
+                <div className={`flex-1 flex flex-col justify-center pt-4 pb-[18px] pl-[14px] pr-6 ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
                   {dayCommits.map((c) => {
                     const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
                     return (
@@ -442,20 +456,17 @@ export default function Dashboard() {
         </div>
 
         {/* FAB */}
-        <motion.div style={{ opacity: fabOpacity }} className="absolute bottom-8 right-5 z-50">
-          <button className="w-[52px] h-[52px] rounded-full bg-[var(--color-surface)] flex items-center justify-center shadow-lg border border-[var(--color-border)]"
-            onClick={() => animate(x, DRAWER_W, { type: "spring", stiffness: 250, damping: 28 })}>
-            <Layers className="w-5 h-5 text-[var(--color-accent)]" />
-          </button>
-        </motion.div>
+        <motion.button
+          style={{ opacity: fabOpacity, scale: fabScale }}
+          className="absolute bottom-8 right-6 w-[58px] h-[58px] rounded-full bg-[var(--color-surface-alt)] flex items-center justify-center shadow-2xl border border-white/10 z-50"
+          onClick={() => { setDrawerState("left"); animate(x, CAL_DRAWER_OFFSET, { type: "spring", stiffness: 300, damping: 30 }); }}
+        >
+          <Layers className="w-6 h-6 text-[var(--color-accent)]" />
+        </motion.button>
 
-        {/* Close overlay — only blocks touches when a drawer is open */}
-        {openDrawer !== null && (
-          <div
-            className="absolute inset-0 z-30"
-            onClick={closeDrawer}
-            onTouchEnd={closeDrawer}
-          />
+        {/* Close overlay */}
+        {drawerState !== "closed" && (
+          <div className="absolute inset-0 z-40" onClick={closeDrawer} onTouchEnd={closeDrawer} />
         )}
       </motion.div>
 
