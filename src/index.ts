@@ -1,12 +1,33 @@
 import cron from "node-cron";
 import { config } from "./config.js";
 import { initDb, isAlreadyPosted, markPosted, addChangelogEntry, getRecentChangelog, getMonthlyPostCount, upsertReport } from "./db.js";
-import { fetchLatestReleases, fetchRecentMergedPRs } from "./github.js";
-import { analyzeUpdate, generateWeeklyRecap, generateWebReport } from "./llm.js";
-import { refreshAIPStatuses, updateFeatureFromPR, getFeatureDashboard } from "./features.js";
-import { buildThread, buildWeeklyRecapThread, buildStatusCheckThread } from "./formatter.js";
+import { fetchLatestReleases, fetchRecentMergedPRs, fetchPRDetails, extractPRNumber } from "./github.js";
+import { analyzeUpdate, generateThread, generateWebReport, generateWeeklyRecap } from "./llm.js";
+import { updateFeatureFromPR } from "./features.js";
+import { buildFallbackThread, buildWeeklyRecapThread } from "./formatter.js";
 import { initTwitter, postThread } from "./twitter.js";
 import type { GitHubItem } from "./types.js";
+
+/**
+ * Build code context string from PR details for LLM analysis.
+ */
+function buildCodeContext(details: Awaited<ReturnType<typeof fetchPRDetails>>): string {
+  if (details.files.length === 0) return "";
+
+  const lines: string[] = [];
+  lines.push(`Files changed: ${details.files.length} | Commits: ${details.commits}`);
+  lines.push("");
+
+  for (const file of details.files) {
+    lines.push(`--- ${file.filename} (${file.status}, +${file.additions}/-${file.deletions})`);
+    if (file.patch) {
+      lines.push(file.patch);
+      lines.push("");
+    }
+  }
+
+  return lines.join("\n").slice(0, 8000);
+}
 
 async function processItem(item: GitHubItem): Promise<void> {
   const itemId = item.id.toString();
@@ -14,17 +35,28 @@ async function processItem(item: GitHubItem): Promise<void> {
 
   console.log(`\nAnalyzing: ${item.title || item.tag_name}`);
 
-  // Analyze with LLM
-  const analysis = await analyzeUpdate(item);
+  // Fetch PR diff for deeper analysis
+  let codeContext = "";
+  const prNumber = extractPRNumber(item.html_url);
+  if (prNumber) {
+    const details = await fetchPRDetails(prNumber);
+    codeContext = buildCodeContext(details);
+    if (details.body && !item.body) {
+      item.body = details.body;
+    }
+  }
+
+  // Analyze with LLM (now with code context)
+  const analysis = await analyzeUpdate(item, codeContext);
   console.log(`  Category: ${analysis.category} | Importance: ${analysis.importance}/10`);
 
-  // Check feature connections
+  // Track feature connections
   const featureUpdates = updateFeatureFromPR(item);
   if (featureUpdates.length > 0) {
     console.log(`  Related features: ${featureUpdates.map((u) => u.feature.name).join(", ")}`);
   }
 
-  // Store in changelog regardless of posting
+  // Store in changelog
   addChangelogEntry({
     githubId: itemId,
     date: new Date().toISOString(),
@@ -35,9 +67,9 @@ async function processItem(item: GitHubItem): Promise<void> {
     sourceUrl: item.html_url,
   });
 
-  // Generate web report (Advanced + ELI5) for the website
+  // Generate web report (Advanced + ELI5) with code context
   try {
-    const webContent = await generateWebReport(item, analysis);
+    const webContent = await generateWebReport(item, analysis, codeContext);
     upsertReport({
       githubId: itemId,
       title: item.title || item.tag_name || "Unknown",
@@ -56,7 +88,7 @@ async function processItem(item: GitHubItem): Promise<void> {
     console.error(`  Web report generation failed:`, err);
   }
 
-  // Decide whether to post based on importance + feature relevance
+  // Decide whether to post
   const hasFeatureUpdate = featureUpdates.some((u) => u.statusChanged);
   const shouldPost = analysis.importance >= config.bot.importanceThreshold || hasFeatureUpdate;
 
@@ -66,8 +98,16 @@ async function processItem(item: GitHubItem): Promise<void> {
     return;
   }
 
-  // Build and post thread
-  const thread = buildThread(item, analysis, featureUpdates);
+  // Generate deep technical thread with code context
+  let thread: string[];
+  try {
+    thread = await generateThread(item, analysis, codeContext);
+    console.log(`  Generated ${thread.length}-tweet thread`);
+  } catch {
+    thread = buildFallbackThread(item, analysis);
+    console.log(`  Using fallback thread`);
+  }
+
   const result = await postThread(thread);
 
   if (result.success) {
@@ -87,7 +127,7 @@ async function runUpdate(): Promise<void> {
   const timestamp = new Date().toISOString();
   const monthlyCount = getMonthlyPostCount();
   console.log(`\n${"=".repeat(60)}`);
-  console.log(`Aptos Intelligence Bot | ${timestamp}`);
+  console.log(`Aptos Intelligence | ${timestamp}`);
   console.log(`Monthly posts: ${monthlyCount}/${config.bot.maxMonthlyPosts}`);
   console.log(`Dry run: ${config.bot.dryRun}`);
   console.log(`${"=".repeat(60)}`);
@@ -98,32 +138,22 @@ async function runUpdate(): Promise<void> {
   }
 
   try {
-    // Step 1: Refresh AIP statuses from GitHub
-    console.log("\n--- Refreshing AIP statuses ---");
-    const aipChanges = await refreshAIPStatuses();
-    for (const [key, change] of aipChanges) {
-      if (change.changed) {
-        console.log(`  AIP status change: ${key} | ${change.oldStatus} -> ${change.newStatus}`);
-      }
-    }
-
-    // Step 2: Fetch latest releases
+    // Fetch latest releases
     console.log("\n--- Fetching releases ---");
     const releases = await fetchLatestReleases();
     console.log(`  Found ${releases.length} recent releases`);
 
-    // Step 3: Fetch recently merged PRs
+    // Fetch recently merged PRs
     console.log("\n--- Fetching merged PRs ---");
     const prs = await fetchRecentMergedPRs();
     console.log(`  Found ${prs.length} recently merged PRs`);
 
-    // Step 4: Process all items (releases first, then PRs by importance)
-    const allItems = [...releases, ...prs];
-    for (const item of allItems) {
+    // Process all items
+    for (const item of [...releases, ...prs]) {
       await processItem(item);
     }
 
-    console.log(`\nCycle complete. Monthly posts used: ${getMonthlyPostCount()}/${config.bot.maxMonthlyPosts}`);
+    console.log(`\nCycle complete. Monthly posts: ${getMonthlyPostCount()}/${config.bot.maxMonthlyPosts}`);
   } catch (err) {
     console.error("Update cycle failed:", err);
   }
@@ -144,8 +174,7 @@ async function runWeeklyRecap(): Promise<void> {
   }));
 
   const recapText = await generateWeeklyRecap(entries);
-  const dashboard = getFeatureDashboard();
-  const thread = buildWeeklyRecapThread(recapText, dashboard);
+  const thread = buildWeeklyRecapThread(recapText);
   const result = await postThread(thread);
 
   if (result.success) {
@@ -154,10 +183,9 @@ async function runWeeklyRecap(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  console.log("\nAptos Intelligence Bot starting...");
+  console.log("\nAptos Intelligence starting...");
   console.log(`Mode: ${config.bot.dryRun ? "DRY RUN" : "LIVE"}`);
 
-  // Initialize
   initDb();
   initTwitter();
 
@@ -176,18 +204,7 @@ async function main(): Promise<void> {
   });
   console.log("Scheduled: Weekly recap every Sunday 18:00 UTC");
 
-  // Schedule feature status report (Wednesdays at 15:00 UTC)
-  cron.schedule("0 15 * * 3", async () => {
-    console.log("\n--- Feature status report ---");
-    const dashboard = getFeatureDashboard();
-    if (dashboard.length > 0) {
-      const thread = buildStatusCheckThread(dashboard);
-      await postThread(thread);
-    }
-  });
-  console.log("Scheduled: Feature status report every Wednesday 15:00 UTC");
-
-  console.log("\nAptos Intelligence Bot is LIVE and monitoring aptos-labs/aptos-core");
+  console.log("\nAptos Intelligence is LIVE — monitoring aptos-labs/aptos-core");
 }
 
 main().catch((err) => {

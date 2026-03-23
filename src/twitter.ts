@@ -2,9 +2,13 @@ import { TwitterApi } from "twitter-api-v2";
 import { config } from "./config.js";
 import { getMonthlyPostCount, incrementMonthlyPostCount } from "./db.js";
 
-let client: TwitterApi;
+let client: TwitterApi | null = null;
 
 export function initTwitter(): void {
+  if (!config.twitter.apiKey || !config.twitter.apiSecret) {
+    console.log("Twitter credentials not configured — running in web-only mode");
+    return;
+  }
   client = new TwitterApi({
     appKey: config.twitter.apiKey,
     appSecret: config.twitter.apiSecret,
@@ -14,7 +18,7 @@ export function initTwitter(): void {
 }
 
 export async function postThread(parts: string[]): Promise<{ success: boolean; tweetIds: string[]; error?: string }> {
-  if (config.bot.dryRun) {
+  if (config.bot.dryRun || !client) {
     console.log("\n=== DRY RUN: Thread would be posted ===");
     parts.forEach((p, i) => console.log(`[${i + 1}/${parts.length}]\n${p}\n`));
     return { success: true, tweetIds: [] };

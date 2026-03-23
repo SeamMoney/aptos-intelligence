@@ -2,6 +2,7 @@ node_modules/
 dist/
 web/dist/
 *.db
+aptos-intelligence.json
 .env
 *.log
 .DS_Store

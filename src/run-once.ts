@@ -13,12 +13,30 @@ import {
   closeDb,
   upsertReport,
 } from "./db.js";
-import { fetchLatestReleases, fetchRecentMergedPRs } from "./github.js";
-import { analyzeUpdate, generateWeeklyRecap, generateWebReport } from "./llm.js";
-import { refreshAIPStatuses, updateFeatureFromPR, getFeatureDashboard } from "./features.js";
-import { buildThread, buildWeeklyRecapThread, buildStatusCheckThread } from "./formatter.js";
+import { fetchLatestReleases, fetchRecentMergedPRs, fetchPRDetails, extractPRNumber } from "./github.js";
+import { analyzeUpdate, generateThread, generateWebReport, generateWeeklyRecap } from "./llm.js";
+import { updateFeatureFromPR } from "./features.js";
+import { buildFallbackThread, buildWeeklyRecapThread } from "./formatter.js";
 import { initTwitter, postThread } from "./twitter.js";
 import type { GitHubItem } from "./types.js";
+
+function buildCodeContext(details: Awaited<ReturnType<typeof fetchPRDetails>>): string {
+  if (details.files.length === 0) return "";
+
+  const lines: string[] = [];
+  lines.push(`Files changed: ${details.files.length} | Commits: ${details.commits}`);
+  lines.push("");
+
+  for (const file of details.files) {
+    lines.push(`--- ${file.filename} (${file.status}, +${file.additions}/-${file.deletions})`);
+    if (file.patch) {
+      lines.push(file.patch);
+      lines.push("");
+    }
+  }
+
+  return lines.join("\n").slice(0, 8000);
+}
 
 async function processItem(item: GitHubItem): Promise<void> {
   const itemId = item.id.toString();
@@ -26,7 +44,18 @@ async function processItem(item: GitHubItem): Promise<void> {
 
   console.log(`\nAnalyzing: ${item.title || item.tag_name}`);
 
-  const analysis = await analyzeUpdate(item);
+  // Fetch PR diff for deeper analysis
+  let codeContext = "";
+  const prNumber = extractPRNumber(item.html_url);
+  if (prNumber) {
+    const details = await fetchPRDetails(prNumber);
+    codeContext = buildCodeContext(details);
+    if (details.body && !item.body) {
+      item.body = details.body;
+    }
+  }
+
+  const analysis = await analyzeUpdate(item, codeContext);
   console.log(`  Category: ${analysis.category} | Importance: ${analysis.importance}/10`);
 
   const featureUpdates = updateFeatureFromPR(item);
@@ -44,9 +73,9 @@ async function processItem(item: GitHubItem): Promise<void> {
     sourceUrl: item.html_url,
   });
 
-  // Generate web report (Advanced + ELI5)
+  // Generate web report with code context
   try {
-    const webContent = await generateWebReport(item, analysis);
+    const webContent = await generateWebReport(item, analysis, codeContext);
     upsertReport({
       githubId: itemId,
       title: item.title || item.tag_name || "Unknown",
@@ -82,7 +111,16 @@ async function processItem(item: GitHubItem): Promise<void> {
     return;
   }
 
-  const thread = buildThread(item, analysis, featureUpdates);
+  // Generate deep technical thread
+  let thread: string[];
+  try {
+    thread = await generateThread(item, analysis, codeContext);
+    console.log(`  Generated ${thread.length}-tweet thread`);
+  } catch {
+    thread = buildFallbackThread(item, analysis);
+    console.log(`  Using fallback thread`);
+  }
+
   const result = await postThread(thread);
 
   if (result.success) {
@@ -102,7 +140,7 @@ async function main(): Promise<void> {
   const trigger = process.env.GITHUB_EVENT_NAME;
   const cronSchedule = process.env.GITHUB_EVENT_SCHEDULE;
 
-  console.log(`Aptos Intelligence Bot — single cycle`);
+  console.log(`Aptos Intelligence — single cycle`);
   console.log(`Trigger: ${trigger || "manual"} | Schedule: ${cronSchedule || "N/A"}`);
 
   initDb();
@@ -117,21 +155,9 @@ async function main(): Promise<void> {
     return;
   }
 
-  // Determine what to run based on the cron schedule that triggered us
   const isWeeklyRecap = cronSchedule === "0 18 * * 0";
-  const isStatusReport = cronSchedule === "0 15 * * 3";
-
-  // Always refresh AIP statuses
-  console.log("\n--- Refreshing AIP statuses ---");
-  const aipChanges = await refreshAIPStatuses();
-  for (const [key, change] of aipChanges) {
-    if (change.changed) {
-      console.log(`  AIP status change: ${key} | ${change.oldStatus} -> ${change.newStatus}`);
-    }
-  }
 
   if (isWeeklyRecap) {
-    // Sunday weekly recap
     console.log("\n--- Weekly recap ---");
     const recent = getRecentChangelog(20);
     if (recent.length > 0) {
@@ -141,20 +167,11 @@ async function main(): Promise<void> {
         importance: r.importance,
       }));
       const recapText = await generateWeeklyRecap(entries);
-      const dashboard = getFeatureDashboard();
-      const thread = buildWeeklyRecapThread(recapText, dashboard);
-      await postThread(thread);
-    }
-  } else if (isStatusReport) {
-    // Wednesday feature status
-    console.log("\n--- Feature status report ---");
-    const dashboard = getFeatureDashboard();
-    if (dashboard.length > 0) {
-      const thread = buildStatusCheckThread(dashboard);
+      const thread = buildWeeklyRecapThread(recapText);
       await postThread(thread);
     }
   } else {
-    // Regular update cycle (every 6 hours)
+    // Regular update cycle
     console.log("\n--- Fetching releases ---");
     const releases = await fetchLatestReleases();
     console.log(`  Found ${releases.length} recent releases`);
@@ -169,7 +186,7 @@ async function main(): Promise<void> {
   }
 
   console.log(
-    `\nDone. Monthly posts used: ${getMonthlyPostCount()}/${config.bot.maxMonthlyPosts}`
+    `\nDone. Monthly posts: ${getMonthlyPostCount()}/${config.bot.maxMonthlyPosts}`
   );
   closeDb();
 }

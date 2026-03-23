@@ -1,6 +1,6 @@
 import { TRACKED_FEATURES } from "./config.js";
 import { fetchAIPContent, parseAIPStatus, detectRelatedFeatures } from "./github.js";
-import { getFeatureStatus, upsertFeatureStatus, getAllFeatureStatuses } from "./db.js";
+import { getFeatureStatus, upsertFeatureStatus } from "./db.js";
 import type { FeatureStatus, FeatureHistoryEntry, GitHubItem, TrackedFeature } from "./types.js";
 
 const STATUS_PROGRESS: Record<string, number> = {
@@ -21,12 +21,6 @@ const STATUS_PROGRESS: Record<string, number> = {
   "Rejected": 0,
   "Stagnant": 15,
 };
-
-export function progressBar(percent: number, width: number = 10): string {
-  const filled = Math.round((percent / 100) * width);
-  const empty = width - filled;
-  return "\u2588".repeat(filled) + "\u2591".repeat(empty) + ` ${percent}%`;
-}
 
 function inferProgressFromStatus(status: string): number {
   const lower = status.toLowerCase();
@@ -115,21 +109,4 @@ export function updateFeatureFromPR(item: GitHubItem): Array<{ feature: TrackedF
   }
 
   return updates;
-}
-
-export function getFeatureDashboard(): string[] {
-  const statuses = getAllFeatureStatuses();
-  if (statuses.length === 0) return [];
-
-  return statuses.map((f) => {
-    const bar = progressBar(f.progress);
-    return `${f.name}\n${bar} | ${f.status}`;
-  });
-}
-
-export function formatFeatureUpdate(feature: TrackedFeature, statusChanged: boolean, newStatus: string): string {
-  const progress = inferProgressFromStatus(newStatus);
-  const bar = progressBar(progress);
-  const prefix = statusChanged ? "\uD83D\uDE80 STATUS CHANGE" : "\uD83D\uDCCD";
-  return `${prefix} ${feature.name}\n${bar} | ${newStatus}`;
 }

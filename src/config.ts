@@ -52,7 +52,7 @@ export const config = {
   },
 
   db: {
-    path: "aptos-intelligence.db",
+    path: "aptos-intelligence.json",
   },
 } as const;
 

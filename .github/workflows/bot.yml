@@ -25,7 +25,7 @@ jobs:
       - name: Restore bot database
         uses: actions/cache@v4
         with:
-          path: aptos-intelligence.db
+          path: aptos-intelligence.json
           key: bot-db-${{ github.ref }}
           restore-keys: bot-db-
 
@@ -46,5 +46,5 @@ jobs:
         if: always()
         uses: actions/cache/save@v4
         with:
-          path: aptos-intelligence.db
+          path: aptos-intelligence.json
           key: bot-db-${{ github.ref }}-${{ github.run_id }}

@@ -51,9 +51,10 @@ export function parseAIPStatus(content: string): { status: string; title: string
 }
 
 export async function fetchPRDetails(prNumber: number): Promise<{
-  files: string[];
+  files: Array<{ filename: string; status: string; additions: number; deletions: number; patch?: string }>;
   reviewers: string[];
   commits: number;
+  body: string;
 }> {
   try {
     const [filesRes, prRes] = await Promise.all([
@@ -61,7 +62,7 @@ export async function fetchPRDetails(prNumber: number): Promise<{
         owner: config.github.owner,
         repo: config.github.repo,
         pull_number: prNumber,
-        per_page: 30,
+        per_page: 50,
       }),
       octokit.pulls.get({
         owner: config.github.owner,
@@ -71,13 +72,25 @@ export async function fetchPRDetails(prNumber: number): Promise<{
     ]);
 
     return {
-      files: filesRes.data.map((f) => f.filename),
+      files: filesRes.data.map((f) => ({
+        filename: f.filename,
+        status: f.status,
+        additions: f.additions,
+        deletions: f.deletions,
+        patch: f.patch?.slice(0, 2000), // Truncate large patches
+      })),
       reviewers: prRes.data.requested_reviewers?.map((r: any) => r.login) || [],
       commits: prRes.data.commits,
+      body: prRes.data.body || "",
     };
   } catch {
-    return { files: [], reviewers: [], commits: 0 };
+    return { files: [], reviewers: [], commits: 0, body: "" };
   }
+}
+
+export function extractPRNumber(url: string): number | null {
+  const match = url.match(/\/pull\/(\d+)/);
+  return match ? parseInt(match[1]) : null;
 }
 
 export async function searchRepoForFeature(feature: TrackedFeature): Promise<GitHubItem[]> {
