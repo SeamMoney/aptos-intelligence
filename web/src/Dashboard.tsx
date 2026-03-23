@@ -369,7 +369,7 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ TOP LAYER — Timepage Timeline (exact structure) ═══ */}
+      {/* ═══ TOP LAYER — exact Timepage structure ═══ */}
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
@@ -378,23 +378,24 @@ export default function Dashboard() {
         style={{ x }}
         className="absolute inset-0 flex overflow-hidden z-20 cursor-grab active:cursor-grabbing will-change-transform"
       >
-        {/* Events area background — starts at 80px, has its OWN shadow that overlays drawers */}
-        <div className="absolute left-[80px] right-0 top-0 bottom-0 bg-[var(--color-surface-alt)] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-0 pointer-events-none" />
+        {/* Events area bg — EXACT Timepage #877C65 warm brown with shadow */}
+        <div className="absolute left-[80px] right-0 top-0 bottom-0 bg-[#877C65] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-0 pointer-events-none" />
 
-        {/* Black left date column — fades fast when swiping right */}
+        {/* Black date column bg — fades */}
         <motion.div style={{ opacity: datesOpacity }} className="absolute left-0 top-0 bottom-0 w-[80px] bg-black z-0 pointer-events-none" />
 
-        {/* Vertical rotated text — fades with dates */}
+        {/* Vertical text — EXACT Timepage #B3A48A color */}
         <motion.div style={{ opacity: datesOpacity }} className="absolute left-0 top-0 bottom-0 w-[32px] flex items-center justify-center z-10 pointer-events-none">
-          <span className="-rotate-90 whitespace-nowrap text-[11px] tracking-[0.45em] font-semibold uppercase" style={{ color: "var(--color-text-faint)" }}>
+          <span className="-rotate-90 whitespace-nowrap text-[11px] tracking-[0.45em] font-semibold text-[#B3A48A] uppercase">
             {yearStr} {monthName}
           </span>
         </motion.div>
 
         {/* Scrollable timeline */}
-        <div className="absolute inset-0 overflow-y-auto overflow-x-hidden pb-32 z-20 no-scrollbar">
+        <div className="absolute inset-0 overflow-y-auto overflow-x-hidden no-scrollbar pb-40 z-20 scroll-smooth">
+          <div className="pt-2" />
           {loading ? (
-            <div className="p-8 ml-[90px]">
+            <div className="p-8 ml-[80px]">
               {[1,2,3,4,5].map(i => <div key={i} className="skeleton-mech mb-3" style={{ height: 12, width: `${50+i*8}%` }} />)}
             </div>
           ) : [...commitsByDate.entries()].map(([dateStr, dayCommits], idx) => {
@@ -404,49 +405,59 @@ export default function Dashboard() {
             const isToday = dateStr === todayStr;
 
             return (
-              <div key={dateStr} className="flex min-h-[100px] w-full">
-                {/* Date column — fades when calendar opens (fixed 80px, not shrinking) */}
+              <div key={dateStr} className="flex min-h-[105px] w-full">
+                {/* Date column — exact Timepage: 80px, 40x66 pill, rounded-[14px] */}
                 <motion.div
                   style={{ opacity: datesOpacity }}
-                  className="w-[80px] shrink-0 flex items-start justify-end pr-[10px] pt-4"
+                  className="w-[80px] shrink-0 flex items-start justify-end pr-[10px] pt-[16px]"
                 >
                   <motion.div
+                    layout
+                    initial={false}
+                    animate={{ backgroundColor: isToday ? "#ffffff" : "transparent", scale: isToday ? 1 : 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     className={`w-[40px] h-[66px] flex flex-col items-center justify-center rounded-[14px] ${isToday ? "shadow-md" : ""}`}
-                    style={{ backgroundColor: isToday ? "var(--color-accent)" : "transparent" }}
                   >
-                    <span className={`text-[10px] tracking-widest mb-0.5 ${isToday ? "font-semibold text-[var(--color-accent-foreground)]" : "font-medium text-white/50"}`}>
+                    <span className={`text-[10px] tracking-widest mb-0.5 transition-colors duration-300 ${isToday ? "font-semibold text-black" : "font-medium text-white/50"}`}>
                       {dayName}
                     </span>
-                    <span className={`text-[26px] font-bold leading-none tracking-tight ${isToday ? "text-[var(--color-accent-foreground)]" : "text-white"}`}>
+                    <span className={`text-[26px] font-bold leading-none tracking-tight transition-colors duration-300 ${isToday ? "text-black" : "text-white"}`}>
                       {dateNum}
                     </span>
                   </motion.div>
                 </motion.div>
 
-                {/* Events column */}
-                <div className={`flex-1 flex flex-col justify-center pt-4 pb-[18px] pl-[14px] pr-6 ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
+                {/* Events column — exact Timepage spacing + hover */}
+                <div className={`flex-1 flex flex-col justify-center pt-[16px] pb-[18px] pl-[14px] pr-6 relative ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
                   {dayCommits.map((c) => {
                     const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
                     return (
-                      <div key={c.sha} className="flex items-start gap-3 mb-4 last:mb-0 cursor-pointer active:opacity-70"
+                      <motion.div
+                        key={c.sha}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        whileHover={{ x: 4, backgroundColor: "rgba(255,255,255,0.06)" }}
+                        whileTap={{ scale: 0.98, backgroundColor: "rgba(255,255,255,0.1)" }}
+                        className="flex items-start gap-[14px] mb-[18px] last:mb-0 relative p-2 -ml-2 rounded-xl cursor-pointer transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
                           if (report) openReport(report);
                           else window.open(c.url, "_blank");
                         }}
-                        onPointerDown={(e) => e.stopPropagation()}>
-                        <div className="mt-1 shrink-0">
-                          <div className="w-[6px] h-[20px] rounded-full" style={{ background: catColor(c.category) }} />
+                        onPointerDown={(e) => e.stopPropagation()}
+                      >
+                        <div className="mt-[2px] shrink-0">
+                          <div className="w-[6px] h-[20px] rounded-full shadow-sm" style={{ background: catColor(c.category) }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-[15px] font-medium text-white leading-tight tracking-wide">{c.title}</h3>
-                          <div className="flex items-center gap-2 mt-1">
+                          <h3 className="text-[17px] font-medium text-white leading-tight tracking-wide">{c.title}</h3>
+                          <div className="flex items-center gap-2 mt-[3px]">
                             <img src={`https://github.com/${c.author}.png`} alt="" className="w-3.5 h-3.5 rounded-full" />
-                            <p className="text-[12px] text-white/60 font-medium leading-snug tracking-wide">{c.author}</p>
-                            {report && <span className="label-specimen-sm text-[var(--color-accent)]">REPORT</span>}
+                            <p className="text-[13px] text-white/70 font-medium leading-snug tracking-wide">{c.author}</p>
+                            {report && <span className="text-[9px] font-bold tracking-widest uppercase text-[#F28140]">REPORT</span>}
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -455,19 +466,17 @@ export default function Dashboard() {
           })}
         </div>
 
-        {/* FAB */}
+        {/* FAB — exact Timepage: #9F947F bg */}
         <motion.button
           style={{ opacity: fabOpacity, scale: fabScale }}
-          className="absolute bottom-8 right-6 w-[58px] h-[58px] rounded-full bg-[var(--color-surface-alt)] flex items-center justify-center shadow-2xl border border-white/10 z-50"
+          className="absolute bottom-8 right-6 w-[58px] h-[58px] rounded-full bg-[#9F947F] flex items-center justify-center shadow-2xl border border-white/10 z-50"
           onClick={() => { setDrawerState("left"); animate(x, CAL_DRAWER_OFFSET, { type: "spring", stiffness: 300, damping: 30 }); }}
         >
-          <Layers className="w-6 h-6 text-[var(--color-accent)]" />
+          <Layers className="w-7 h-7 text-white" />
         </motion.button>
 
         {/* Close overlay */}
-        {drawerState !== "closed" && (
-          <div className="absolute inset-0 z-40" onClick={closeDrawer} onTouchEnd={closeDrawer} />
-        )}
+        <div className="absolute inset-0 z-40" style={{ display: drawerState !== "closed" ? "block" : "none" }} onClick={closeDrawer} />
       </motion.div>
 
       <style dangerouslySetInnerHTML={{ __html: `.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}` }} />
