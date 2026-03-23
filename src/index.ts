@@ -59,7 +59,7 @@ async function processItem(item: GitHubItem): Promise<void> {
   // Store in changelog
   addChangelogEntry({
     githubId: itemId,
-    date: new Date().toISOString(),
+    date: item.merged_at || item.created_at || new Date().toISOString(),
     category: analysis.category,
     summary: analysis.summary,
     importance: analysis.importance,
@@ -74,7 +74,7 @@ async function processItem(item: GitHubItem): Promise<void> {
       githubId: itemId,
       title: item.title || item.tag_name || "Unknown",
       author: item.user?.login || "unknown",
-      date: new Date().toISOString(),
+      date: item.merged_at || item.created_at || new Date().toISOString(),
       category: analysis.category,
       importance: analysis.importance,
       sourceUrl: item.html_url,
