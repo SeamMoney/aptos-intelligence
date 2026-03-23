@@ -56,18 +56,18 @@ function groupByDate(reports: WebReport[]): Map<string, WebReport[]> {
 }
 
 /* ── Build calendar grid for a month ── */
-function buildCalendarDays(year: number, month: number, reportDates: Set<string>, selectedDate: string | null) {
+function buildCalendarDays(year: number, month: number, commitCounts: Map<string, number>, selectedDate: string | null) {
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const daysInPrev = new Date(year, month, 0).getDate();
   const today = new Date().toISOString().slice(0, 10);
 
-  const days: Array<{ d: number; type: string; dateStr: string }> = [];
+  const days: Array<{ d: number; type: string; dateStr: string; count: number }> = [];
 
   // Previous month padding
   for (let i = firstDay - 1; i >= 0; i--) {
     const d = daysInPrev - i;
-    days.push({ d, type: "prev", dateStr: "" });
+    days.push({ d, type: "prev", dateStr: "", count: 0 });
   }
 
   // Current month
@@ -75,22 +75,22 @@ function buildCalendarDays(year: number, month: number, reportDates: Set<string>
     const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
     const isToday = dateStr === today;
     const isSelected = dateStr === selectedDate;
-    const hasCommits = reportDates.has(dateStr);
+    const count = commitCounts.get(dateStr) || 0;
 
     let type = "none";
     if (isSelected) type = "active";
     else if (isToday && !selectedDate) type = "active";
     else if (isToday && selectedDate) type = "today-dim";
-    else if (hasCommits) type = "has-commits";
+    else if (count > 0) type = "has-commits";
 
-    days.push({ d, type, dateStr });
+    days.push({ d, type, dateStr, count });
   }
 
   // Next month padding
   const remaining = 7 - (days.length % 7);
   if (remaining < 7) {
     for (let d = 1; d <= remaining; d++) {
-      days.push({ d, type: "next", dateStr: "" });
+      days.push({ d, type: "next", dateStr: "", count: 0 });
     }
   }
 
@@ -132,17 +132,25 @@ export default function Dashboard() {
     return new Map([...map.entries()].sort((a, b) => b[0].localeCompare(a[0])));
   }, [commits]);
 
-  const commitDates = useMemo(() => new Set(commits.map(c => c.date.slice(0, 10))), [commits]);
-
-  // Also keep report grouping for linking to detailed reports
-  const reportsByDate = useMemo(() => groupByDate(reports), [reports]);
+  // Count commits per date for calendar intensity
+  const commitCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const c of commits) {
+      const key = c.date.slice(0, 10);
+      map.set(key, (map.get(key) || 0) + 1);
+    }
+    return map;
+  }, [commits]);
 
   // Current month for calendar
   const now = new Date();
   const calDays = useMemo(
-    () => buildCalendarDays(now.getFullYear(), now.getMonth(), commitDates, selectedDate),
-    [commitDates, selectedDate]
+    () => buildCalendarDays(now.getFullYear(), now.getMonth(), commitCounts, selectedDate),
+    [commitCounts, selectedDate]
   );
+
+  // Max commits in a single day (for intensity scaling)
+  const maxCommits = useMemo(() => Math.max(1, ...Array.from(commitCounts.values())), [commitCounts]);
 
   const monthName = now.toLocaleDateString("en-US", { month: "long" }).toUpperCase();
   const yearStr = String(now.getFullYear());
@@ -230,16 +238,31 @@ export default function Dashboard() {
             </div>
             <div className="grid grid-cols-7 gap-y-3 px-1">
               {calDays.map((day, i) => {
+                // Compute intensity: 0.15 (1 commit) to 1.0 (max commits)
+                const intensity = day.count > 0 ? 0.15 + (day.count / maxCommits) * 0.85 : 0;
+
                 let cls = "w-[33px] h-[33px] flex items-center justify-center text-[15px] font-medium rounded-full cursor-pointer transition-all ";
-                if (day.type === "prev" || day.type === "next") cls += "text-[#4B4B4B]";
-                else if (day.type === "active") cls += "bg-[var(--color-accent)] text-[var(--color-accent-foreground)] font-bold ring-[1px] ring-[var(--color-accent)] ring-offset-[2.5px] ring-offset-black";
-                else if (day.type === "today-dim") cls += "border-[1.5px] border-[var(--color-accent)] text-[var(--color-text)]";
-                else if (day.type === "has-commits") cls += "bg-[var(--color-surface-alt)] text-[var(--color-text)]";
-                else cls += "text-[var(--color-text)]";
+                let style: React.CSSProperties = {};
+
+                if (day.type === "prev" || day.type === "next") {
+                  cls += "text-[#4B4B4B]";
+                } else if (day.type === "active") {
+                  cls += "text-[var(--color-accent-foreground)] font-bold ring-[1px] ring-[var(--color-accent)] ring-offset-[2.5px] ring-offset-black";
+                  style.background = "var(--color-accent)";
+                } else if (day.type === "today-dim") {
+                  cls += "border-[1.5px] border-[var(--color-accent)] text-[var(--color-text)]";
+                } else if (day.type === "has-commits") {
+                  cls += "text-[var(--color-text)]";
+                  // Green tint scaled by commit count
+                  style.background = `rgba(204, 255, 0, ${intensity * 0.35})`;
+                } else {
+                  cls += "text-[var(--color-text-faint)]";
+                }
 
                 return (
                   <div key={i} className="flex justify-center items-center">
-                    <div className={cls} onClick={() => day.dateStr && setSelectedDate(day.dateStr === selectedDate ? null : day.dateStr)}>
+                    <div className={cls} style={style}
+                      onClick={() => day.dateStr && setSelectedDate(day.dateStr === selectedDate ? null : day.dateStr)}>
                       {day.d}
                     </div>
                   </div>
@@ -253,7 +276,12 @@ export default function Dashboard() {
             <span className="text-[18px] font-bold tracking-wide text-white">
               {selectedDate ? fmtDate(selectedDate) : "TODAY"}
             </span>
-            <span className="label-specimen text-[var(--color-text-faint)]">{displayCommits.length} commits</span>
+            <div className="flex items-center gap-2">
+              {displayCommits.length > 0 && (
+                <div className="w-2 h-2 rounded-full" style={{ background: `rgba(204, 255, 0, ${Math.min(1, 0.3 + (displayCommits.length / maxCommits) * 0.7)})` }} />
+              )}
+              <span className="label-specimen text-[var(--color-text-faint)]">{displayCommits.length} commits</span>
+            </div>
           </div>
 
           {/* Commits for selected date */}
