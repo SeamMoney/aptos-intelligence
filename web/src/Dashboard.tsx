@@ -78,9 +78,10 @@ function buildCalendarDays(year: number, month: number, reportDates: Set<string>
     const hasCommits = reportDates.has(dateStr);
 
     let type = "none";
-    if (isSelected || isToday) type = "active";
+    if (isSelected) type = "active";
+    else if (isToday && !selectedDate) type = "active";
+    else if (isToday && selectedDate) type = "today-dim";
     else if (hasCommits) type = "has-commits";
-    else type = "none";
 
     days.push({ d, type, dateStr });
   }
@@ -218,6 +219,7 @@ export default function Dashboard() {
                 let cls = "w-[33px] h-[33px] flex items-center justify-center text-[15px] font-medium rounded-full cursor-pointer transition-all ";
                 if (day.type === "prev" || day.type === "next") cls += "text-[#4B4B4B]";
                 else if (day.type === "active") cls += "bg-[var(--color-accent)] text-[var(--color-accent-foreground)] font-bold ring-[1px] ring-[var(--color-accent)] ring-offset-[2.5px] ring-offset-black";
+                else if (day.type === "today-dim") cls += "border-[1.5px] border-[var(--color-accent)] text-[var(--color-text)]";
                 else if (day.type === "has-commits") cls += "bg-[var(--color-surface-alt)] text-[var(--color-text)]";
                 else cls += "text-[var(--color-text)]";
 
