@@ -167,8 +167,9 @@ export default function Dashboard() {
 
   /* ── Swipe physics (exact Timepage values) ── */
   const x = useMotionValue(0);
-  // Push main view right so ~70px of events area peeks (like Timepage)
-  const CAL_DRAWER_OFFSET = typeof window !== "undefined" ? Math.min(window.innerWidth - 70, 340) : 300;
+  // Events bg starts at 80px (date column). We want ~80px of beige visible.
+  // So offset = screenWidth - 80 (date col) - 80 (beige peek) = screenWidth - 160
+  const CAL_DRAWER_OFFSET = typeof window !== "undefined" ? window.innerWidth - 160 : 270;
   const MENU_DRAWER_OFFSET = 250;
 
   const calOpacity = useTransform(x, [0, 150, CAL_DRAWER_OFFSET], [0, 0.5, 1]);
