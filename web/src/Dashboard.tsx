@@ -304,12 +304,11 @@ export default function Dashboard() {
             {displayCommits.length === 0 ? (
               <p className="text-[14px] text-white/40">No commits this day</p>
             ) : displayCommits.map((c) => {
-              const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
+              const report = reports.find(r => r.githubId === c.sha || r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
               return (
                 <div key={c.sha} className="flex items-start gap-[14px] cursor-pointer"
                   onClick={() => {
                     if (report) { openReport(report); closeDrawer(); }
-                    else { window.open(c.url, "_blank"); }
                   }}>
                   {/* Exact Timepage orange marker */}
                   <div className="w-[6px] h-[19px] bg-[#F28140] rounded-full mt-[1px]" />
@@ -434,7 +433,7 @@ export default function Dashboard() {
                 {/* Events column — exact Timepage spacing + hover */}
                 <div className={`flex-1 flex flex-col justify-center pt-[16px] pb-[18px] pl-[14px] pr-6 relative ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
                   {dayCommits.map((c) => {
-                    const report = reports.find(r => r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
+                    const report = reports.find(r => r.githubId === c.sha || r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
                     return (
                       <motion.div
                         key={c.sha}
@@ -446,7 +445,6 @@ export default function Dashboard() {
                         onClick={(e) => {
                           e.stopPropagation();
                           if (report) openReport(report);
-                          else window.open(c.url, "_blank");
                         }}
                         onPointerDown={(e) => e.stopPropagation()}
                       >
