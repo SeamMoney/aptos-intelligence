@@ -377,8 +377,9 @@ export default function Dashboard() {
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.4}
+        dragDirectionLock
         onDragEnd={handleDragEnd}
-        style={{ x }}
+        style={{ x, touchAction: "pan-y" }}
         className="absolute inset-0 flex overflow-hidden z-20 cursor-grab active:cursor-grabbing will-change-transform"
       >
         {/* Events area bg — EXACT Timepage #877C65 warm brown with shadow */}
