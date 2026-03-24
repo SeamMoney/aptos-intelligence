@@ -395,8 +395,8 @@ export default function Dashboard() {
         style={{ x, touchAction: "pan-y" }}
         className="absolute inset-0 flex overflow-hidden z-20 cursor-grab active:cursor-grabbing will-change-transform"
       >
-        {/* Events area bg — EXACT Timepage #877C65 warm brown with shadow */}
-        <div className="absolute left-[80px] right-0 top-0 bottom-0 bg-[#877C65] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-0 pointer-events-none" />
+        {/* Events area bg — clipped to viewport */}
+        <div className="absolute left-[80px] right-0 top-0 bottom-0 bg-[#877C65] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-0 pointer-events-none overflow-hidden" />
 
         {/* Black date column bg — fades */}
         <motion.div style={{ opacity: datesOpacity }} className="absolute left-0 top-0 bottom-0 w-[80px] bg-black z-0 pointer-events-none" />
@@ -422,7 +422,7 @@ export default function Dashboard() {
             const isToday = dateStr === todayStr;
 
             return (
-              <div key={dateStr} className="flex min-h-[105px] w-full">
+              <div key={dateStr} className="flex min-h-[105px] w-full overflow-hidden">
                 {/* Date column — exact Timepage: 80px, 40x66 pill, rounded-[14px] */}
                 <motion.div
                   style={{ opacity: datesOpacity }}
@@ -444,8 +444,8 @@ export default function Dashboard() {
                   </motion.div>
                 </motion.div>
 
-                {/* Events column — exact Timepage spacing + hover */}
-                <div className={`flex-1 flex flex-col justify-center pt-[16px] pb-[18px] pl-[14px] pr-6 relative ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
+                {/* Events column — overflow hidden to prevent text bleeding off screen */}
+                <div className={`flex-1 min-w-0 flex flex-col justify-center pt-[16px] pb-[18px] pl-[14px] pr-4 relative overflow-hidden ${idx % 2 === 0 ? "bg-black/[0.04]" : "bg-transparent"}`}>
                   {dayCommits.map((c) => {
                     const report = reports.find(r => r.githubId === c.sha || r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
                     return (
@@ -466,7 +466,7 @@ export default function Dashboard() {
                           <div className="w-[6px] h-[20px] rounded-full shadow-sm" style={{ background: catColor(c.category) }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-[17px] font-medium text-white leading-tight tracking-wide">{c.title}</h3>
+                          <h3 className="text-[15px] font-medium text-white leading-snug tracking-wide break-words">{c.title}</h3>
                           <div className="flex items-center gap-2 mt-[3px]">
                             <img src={`https://github.com/${c.author}.png`} alt="" className="w-3.5 h-3.5 rounded-full" />
                             <p className="text-[13px] text-white/70 font-medium leading-snug tracking-wide">{c.author}</p>
