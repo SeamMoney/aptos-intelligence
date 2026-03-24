@@ -217,6 +217,22 @@ export default function Dashboard() {
     setActive(r); setTab("advanced"); setShowDetail(true);
   }
 
+  function openCommit(c: Commit) {
+    // Find existing report or create a lightweight one from commit data
+    const report = reports.find(r => r.githubId === c.sha || r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
+    if (report) {
+      openReport(report);
+    } else {
+      openReport({
+        id: 0, githubId: c.sha, title: c.title, author: c.author,
+        date: c.date, category: c.category, importance: 5,
+        sourceUrl: c.url, relatedFeatures: [], labels: [],
+        advanced: `<h3>What Changed</h3><p>${c.title}</p><h3>Author</h3><p>${c.author}</p><h3>Source</h3><p><a href="${c.url}" target="_blank">${c.url}</a></p><p><em>Deep analysis is being generated — check back soon.</em></p>`,
+        eli5: `<p><strong>What happened:</strong> ${c.title}</p><p><strong>Who did it:</strong> ${c.author}</p><p><em>A detailed explanation is being generated. Check back soon!</em></p>`,
+      });
+    }
+  }
+
   /* ── If showing report detail ── */
   if (showDetail && active) {
     return (
@@ -307,9 +323,7 @@ export default function Dashboard() {
               const report = reports.find(r => r.githubId === c.sha || r.title.toLowerCase().includes(c.title.slice(0, 25).toLowerCase()));
               return (
                 <div key={c.sha} className="flex items-start gap-[14px] cursor-pointer"
-                  onClick={() => {
-                    if (report) { openReport(report); closeDrawer(); }
-                  }}>
+                  onClick={() => { openCommit(c); closeDrawer(); }}>
                   {/* Exact Timepage orange marker */}
                   <div className="w-[6px] h-[19px] bg-[#F28140] rounded-full mt-[1px]" />
                   <div>
@@ -444,7 +458,7 @@ export default function Dashboard() {
                         className="flex items-start gap-[14px] mb-[18px] last:mb-0 relative p-2 -ml-2 rounded-xl cursor-pointer transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (report) openReport(report);
+                          openCommit(c);
                         }}
                         onPointerDown={(e) => e.stopPropagation()}
                       >
