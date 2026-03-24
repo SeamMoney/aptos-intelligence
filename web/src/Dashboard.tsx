@@ -167,8 +167,8 @@ export default function Dashboard() {
 
   /* ── Swipe physics (exact Timepage values) ── */
   const x = useMotionValue(0);
-  // Push main view far right so only ~15% peeks (like Timepage)
-  const CAL_DRAWER_OFFSET = typeof window !== "undefined" ? Math.round(window.innerWidth * 0.82) : 330;
+  // Push main view right so ~70px of events area peeks (like Timepage)
+  const CAL_DRAWER_OFFSET = typeof window !== "undefined" ? Math.min(window.innerWidth - 70, 340) : 300;
   const MENU_DRAWER_OFFSET = 250;
 
   const calOpacity = useTransform(x, [0, 150, CAL_DRAWER_OFFSET], [0, 0.5, 1]);
@@ -184,14 +184,24 @@ export default function Dashboard() {
 
   const handleDragEnd = (_: any, { offset, velocity }: any) => {
     const t = 50, v = 400;
+    const currentX = x.get();
     let target = 0;
     let newState: "left" | "right" | "closed" = "closed";
 
-    if (offset.x > t || velocity.x > v) { target = CAL_DRAWER_OFFSET; newState = "left"; }
-    else if (offset.x < -t || velocity.x < -v) { target = -MENU_DRAWER_OFFSET; newState = "right"; }
-
-    if (x.get() > 100 && (offset.x < -t || velocity.x < -v)) { target = 0; newState = "closed"; }
-    if (x.get() < -100 && (offset.x > t || velocity.x > v)) { target = 0; newState = "closed"; }
+    // If already at a drawer, only allow closing (prevent swipe-through)
+    if (currentX > 50) {
+      // Currently at calendar — can only close
+      if (offset.x < -t || velocity.x < -v) { target = 0; newState = "closed"; }
+      else { target = CAL_DRAWER_OFFSET; newState = "left"; }
+    } else if (currentX < -50) {
+      // Currently at menu — can only close
+      if (offset.x > t || velocity.x > v) { target = 0; newState = "closed"; }
+      else { target = -MENU_DRAWER_OFFSET; newState = "right"; }
+    } else {
+      // At center — can open either drawer
+      if (offset.x > t || velocity.x > v) { target = CAL_DRAWER_OFFSET; newState = "left"; }
+      else if (offset.x < -t || velocity.x < -v) { target = -MENU_DRAWER_OFFSET; newState = "right"; }
+    }
 
     setDrawerState(newState);
     animate(x, target, { type: "spring", stiffness: 300, damping: 30, mass: 0.8 });
@@ -289,7 +299,7 @@ export default function Dashboard() {
           </div>
 
           {/* Commits — exact Timepage orange markers */}
-          <div className="mt-6 px-1 space-y-[18px] overflow-y-auto" style={{ maxHeight: "calc(100dvh - 560px)" }}>
+          <div className="mt-6 px-1 space-y-[18px] overflow-y-auto no-scrollbar" style={{ maxHeight: "calc(100dvh - 560px)" }}>
             {displayCommits.length === 0 ? (
               <p className="text-[14px] text-white/40">No commits this day</p>
             ) : displayCommits.map((c) => {
