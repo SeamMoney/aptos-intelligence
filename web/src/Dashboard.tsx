@@ -236,7 +236,7 @@ export default function Dashboard() {
   /* ── If showing report detail ── */
   if (showDetail && active) {
     return (
-      <div className="h-[100dvh] w-full flex flex-col overflow-hidden" style={{ background: "var(--color-background)" }}>
+      <div className="fixed inset-0 flex flex-col overflow-hidden" style={{ background: "var(--color-background)" }}>
         {/* Background layers */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-grid-adaptive bg-[size:3rem_3rem] opacity-15" />
@@ -255,14 +255,14 @@ export default function Dashboard() {
 
   /* ── Main Timepage layout ── */
   return (
-    <div className="relative w-full h-[100dvh] overflow-hidden bg-black select-none">
+    <div className="fixed inset-0 overflow-hidden bg-black select-none">
 
       {/* ═══ LEFT DRAWER — Calendar (exact Timepage colors) ═══ */}
       <motion.div
-        className="absolute inset-0 bg-black text-white px-7 pt-[70px]"
-        style={{ opacity: calOpacity, scale: calScale, pointerEvents: drawerState === "left" ? "auto" : "none" }}
+        className="absolute inset-0 bg-black text-white px-5 overflow-hidden"
+        style={{ opacity: calOpacity, scale: calScale, pointerEvents: drawerState === "left" ? "auto" : "none", paddingTop: "max(env(safe-area-inset-top, 16px), 50px)" }}
       >
-        <div>
+        <div className="flex flex-col h-full overflow-hidden">
           {/* Year + Month — exact Timepage #CBB696 */}
           <div className="text-left ml-1">
             <h2 className="text-[44px] font-light tracking-wide leading-[1.1] text-[#CBB696]">{yearStr}</h2>
@@ -270,7 +270,7 @@ export default function Dashboard() {
           </div>
 
           {/* Calendar grid */}
-          <div className="mt-8 w-[275px]">
+          <div className="mt-6 max-w-[300px]">
             <div className="grid grid-cols-7 mb-[18px] px-1">
               {DAY_HEADERS.map((d, i) => (
                 <div key={i} className="text-center text-[11px] font-medium text-white/50">{d}</div>
@@ -316,7 +316,7 @@ export default function Dashboard() {
           </div>
 
           {/* Commits — exact Timepage orange markers */}
-          <div className="mt-6 px-1 space-y-[18px] overflow-y-auto no-scrollbar" style={{ maxHeight: "calc(100dvh - 560px)" }}>
+          <div className="mt-5 px-1 space-y-[18px] overflow-y-auto no-scrollbar flex-1">
             {displayCommits.length === 0 ? (
               <p className="text-[14px] text-white/40">No commits this day</p>
             ) : displayCommits.map((c) => {
