@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { ChevronRight, Layers } from "lucide-react";
+import { ChevronRight, Layers, Plus } from "lucide-react";
 import type { WebReport, FeatureStatus, Commit } from "./api";
 import { fetchReports, fetchFeatures, fetchCommits } from "./api";
 
