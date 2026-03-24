@@ -56,11 +56,15 @@ function groupByDate(reports: WebReport[]): Map<string, WebReport[]> {
 }
 
 /* ── Build calendar grid for a month ── */
+function getLocalDateStr(d: Date = new Date()): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 function buildCalendarDays(year: number, month: number, commitCounts: Map<string, number>, selectedDate: string | null) {
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const daysInPrev = new Date(year, month, 0).getDate();
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getLocalDateStr();
 
   const days: Array<{ d: number; type: string; dateStr: string; count: number }> = [];
 
@@ -155,7 +159,7 @@ export default function Dashboard() {
   const monthName = now.toLocaleDateString("en-US", { month: "long" }).toUpperCase();
   const yearStr = String(now.getFullYear());
 
-  const todayStr = now.toISOString().slice(0, 10);
+  const todayStr = getLocalDateStr(now);
 
   // Commits for selected date (or today)
   const displayDate = selectedDate || todayStr;
@@ -163,7 +167,8 @@ export default function Dashboard() {
 
   /* ── Swipe physics (exact Timepage values) ── */
   const x = useMotionValue(0);
-  const CAL_DRAWER_OFFSET = 235;
+  // Push main view far right so only ~15% peeks (like Timepage)
+  const CAL_DRAWER_OFFSET = typeof window !== "undefined" ? Math.round(window.innerWidth * 0.82) : 330;
   const MENU_DRAWER_OFFSET = 250;
 
   const calOpacity = useTransform(x, [0, 150, CAL_DRAWER_OFFSET], [0, 0.5, 1]);
