@@ -1,5 +1,117 @@
 [
   {
+    "sha": "87399ca",
+    "title": "[vm] Update Mono Move VM design document (#19181)",
+    "author": "vgao1996",
+    "date": "2026-03-24T19:41:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/87399ca7560bb35c6ae766be182a698f66882ab4",
+    "category": "VM"
+  },
+  {
+    "sha": "e3fbb8b",
+    "title": "[move-flow] make mcp server resilient and add claude plugin readme (#19122)",
+    "author": "junxzm1990",
+    "date": "2026-03-24T18:44:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e3fbb8b4eb7b83c6f42e1b239fda0832c86b5d98",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a4df62f",
+    "title": "[mono-move] Executable cache template (#19131)",
+    "author": "georgemitenkov",
+    "date": "2026-03-24T17:04:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a4df62fcb214b34c871248c194131b4dac02b86b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "180bb81",
+    "title": "Add otel tracing to grpc v2 stack (#18835)",
+    "author": "banool",
+    "date": "2026-03-24T14:35:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/180bb81b672791f33a1c4710f52fc7460232d70c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3712cf9",
+    "title": "[mono-move] Gas instrumentation prototype (#19134)",
+    "author": "calintat",
+    "date": "2026-03-24T10:49:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3712cf95f62181d328f05983c614918f1c09baa5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d4167d9",
+    "title": "remove unnecessary properties in ordered_map and big_ordered_map (#19184)",
+    "author": "igor-aptos",
+    "date": "2026-03-24T08:13:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d4167d94019855f085fce35b2188a2d355db4cac",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0357d77",
+    "title": "Add object_code_deployment::get_code_object_signer (#19162)",
+    "author": "igor-aptos",
+    "date": "2026-03-24T06:43:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0357d773c4a6569d530ed8be4e4f0e4fc23a6af1",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f2b05ad",
+    "title": "[vm] Include verifier config in verified module cache key (#19160)",
+    "author": "vgao1996",
+    "date": "2026-03-24T04:48:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f2b05adf9bf4226d1b61138e658cbdd4efdbf8b2",
+    "category": "VM"
+  },
+  {
+    "sha": "c383967",
+    "title": "Gate `0x1::crypto_algebra::multi_scalar_mul` by feature flag `CRYPTOGRAPHY_ALGEBRA_NATIVES` (#19097)",
+    "author": "zjma",
+    "date": "2026-03-24T01:46:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c383967a8d7a5681766676339e8bc19b73164915",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f806a24",
+    "title": "[forge] bump deployer version",
+    "author": "aptos-bot",
+    "date": "2026-03-24T00:04:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f806a2433ef02c721461dfa31413918c14f1da71",
+    "category": "Release"
+  },
+  {
+    "sha": "9168b1d",
+    "title": "[Forge] Add transaction emitter support for PFNs.",
+    "author": "JoshLind",
+    "date": "2026-03-17T19:24:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9168b1ddd6b514c9917a8cb9a26dcf724a232e7d",
+    "category": "Testing"
+  },
+  {
+    "sha": "0b4268c",
+    "title": "[Forge] Enable validator-PFN connections for forge perf.",
+    "author": "JoshLind",
+    "date": "2026-03-16T22:24:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0b4268ccd924bb36e21f077a4ee7c3045e3b2661",
+    "category": "Testing"
+  },
+  {
+    "sha": "71eb230",
+    "title": "[Forge] Remove VFNs from land-blocking performance tests.",
+    "author": "JoshLind",
+    "date": "2026-03-16T18:09:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/71eb230c9ed85ca15980656c3dfb8a05f3fdab91",
+    "category": "Testing"
+  },
+  {
+    "sha": "30b2707",
+    "title": "fungible_asset::amount use self, duplicate metadata accessor (#19161)",
+    "author": "igor-aptos",
+    "date": "2026-03-24T00:35:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/30b27079ff0260eafc9ff09bec397adc752a5970",
+    "category": "Infrastructure"
+  },
+  {
     "sha": "94be7dc",
     "title": "Make faucet mint limits configurable per asset (#19172)",
     "author": "banool",
@@ -24,20 +136,20 @@
     "category": "Release"
   },
   {
-    "sha": "ca6ca88",
-    "title": "[prover] Global memory support for behavioral predicates and access declarations (#18979)",
-    "author": "wrwg",
-    "date": "2026-03-23T02:55:42Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ca6ca884963ccb07e4263f7cfc823e680784e95e",
-    "category": "Feature Progress"
-  },
-  {
     "sha": "a73a294",
     "title": "[storage] Persist hot state KV insertions/evictions to DB",
     "author": "wqfish",
     "date": "2026-03-23T00:35:48Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/a73a294a5a5080c0d7115240d70600a895f73e49",
-    "category": "Performance"
+    "category": "Storage"
+  },
+  {
+    "sha": "ca6ca88",
+    "title": "[prover] Global memory support for behavioral predicates and access declarations (#18979)",
+    "author": "wrwg",
+    "date": "2026-03-23T02:55:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ca6ca884963ccb07e4263f7cfc823e680784e95e",
+    "category": "Prover"
   },
   {
     "sha": "d32f05d",
@@ -61,7 +173,7 @@
     "author": "wqfish",
     "date": "2026-03-20T23:10:17Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/2b4a7148b6aec2e4b0690e919521a5b25052d6d5",
-    "category": "Infrastructure"
+    "category": "Testing"
   },
   {
     "sha": "4672b9c",
@@ -69,7 +181,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-20T19:15:36Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/4672b9cacc804216baae85f2ccc2c370acffc910",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "ee24bde",
@@ -85,7 +197,7 @@
     "author": "vgao1996",
     "date": "2026-03-20T00:40:44Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/305cc73fb89b27b6204dcc21e0a230f212b3fc11",
-    "category": "Feature Progress"
+    "category": "VM"
   },
   {
     "sha": "161280b",
@@ -93,55 +205,7 @@
     "author": "wqfish",
     "date": "2026-03-19T23:02:59Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/161280ba3158ddf9c14124b7cef474210d4a0c7c",
-    "category": "Performance"
-  },
-  {
-    "sha": "dc4eb71",
-    "title": "[forge] adhoc: fix etna image name (#19140)",
-    "author": "ibalajiarun",
-    "date": "2026-03-19T22:38:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/dc4eb71f43c55cea1edcd4badd1d992a3ef7b104",
-    "category": "Security"
-  },
-  {
-    "sha": "1f923df",
-    "title": "Fiat-Shamir fix in DeKART (#19135)",
-    "author": "waamm",
-    "date": "2026-03-19T19:01:29Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/1f923dfef45c0996866f44668e5f768ff7ab271b",
-    "category": "Security"
-  },
-  {
-    "sha": "d9b5861",
-    "title": "[ci] Sanitize workflow branch output (#19133)",
-    "author": "zi0Black",
-    "date": "2026-03-19T17:57:07Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d9b5861df1cc818026522c0ac909593015c1fabc",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "ccb813d",
-    "title": "[CLI][Move] support public structs/enums as txn args in CLI (#18591)",
-    "author": "rahxephon89",
-    "date": "2026-03-19T08:27:24Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ccb813de1cce0b895f91588f516cd5ccb9e7c5b4",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "6937c27",
-    "title": "support struct api for move prover (#19087)",
-    "author": "rahxephon89",
-    "date": "2026-03-19T05:08:30Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/6937c277c9f585e30eeaf90ea05f3ae7eb9a1d4a",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "5b28fae",
-    "title": "[decompiler] Support public structs in decompiler (#19086)",
-    "author": "rahxephon89",
-    "date": "2026-03-19T03:16:24Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/5b28fae059a6482467b2ba663ac17ea038565b6a",
-    "category": "Feature Progress"
+    "category": "Storage"
   },
   {
     "sha": "c02d7de",
@@ -149,15 +213,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-19T00:35:30Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/c02d7de4b964e1c69c91b737a165b7b865ecac71",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "c5116bd",
-    "title": "Fix typos (#19092)",
-    "author": "rex1fernando",
-    "date": "2026-03-19T00:28:05Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/c5116bd34c617faffc6ac8486fd92d73d004f614",
-    "category": "Security"
+    "category": "Consensus"
   },
   {
     "sha": "b0f06a3",
@@ -165,7 +221,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-19T00:14:57Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/b0f06a389e581ea80b02a22cccd35d3e7de5db61",
-    "category": "Feature Progress"
+    "category": "Consensus"
   },
   {
     "sha": "56e7bbc",
@@ -173,7 +229,63 @@
     "author": "ibalajiarun",
     "date": "2026-03-19T00:14:50Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/56e7bbc153a9d58cc81bc70cb9e2709d118d0038",
-    "category": "Feature Progress"
+    "category": "Consensus"
+  },
+  {
+    "sha": "dc4eb71",
+    "title": "[forge] adhoc: fix etna image name (#19140)",
+    "author": "ibalajiarun",
+    "date": "2026-03-19T22:38:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/dc4eb71f43c55cea1edcd4badd1d992a3ef7b104",
+    "category": "Testing"
+  },
+  {
+    "sha": "1f923df",
+    "title": "Fiat-Shamir fix in DeKART (#19135)",
+    "author": "waamm",
+    "date": "2026-03-19T19:01:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1f923dfef45c0996866f44668e5f768ff7ab271b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d9b5861",
+    "title": "[ci] Sanitize workflow branch output (#19133)",
+    "author": "zi0Black",
+    "date": "2026-03-19T17:57:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d9b5861df1cc818026522c0ac909593015c1fabc",
+    "category": "CI/CD"
+  },
+  {
+    "sha": "ccb813d",
+    "title": "[CLI][Move] support public structs/enums as txn args in CLI (#18591)",
+    "author": "rahxephon89",
+    "date": "2026-03-19T08:27:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ccb813de1cce0b895f91588f516cd5ccb9e7c5b4",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "6937c27",
+    "title": "support struct api for move prover (#19087)",
+    "author": "rahxephon89",
+    "date": "2026-03-19T05:08:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6937c277c9f585e30eeaf90ea05f3ae7eb9a1d4a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5b28fae",
+    "title": "[decompiler] Support public structs in decompiler (#19086)",
+    "author": "rahxephon89",
+    "date": "2026-03-19T03:16:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5b28fae059a6482467b2ba663ac17ea038565b6a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c5116bd",
+    "title": "Fix typos (#19092)",
+    "author": "rex1fernando",
+    "date": "2026-03-19T00:28:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c5116bd34c617faffc6ac8486fd92d73d004f614",
+    "category": "Infrastructure"
   },
   {
     "sha": "167e961",
@@ -181,7 +293,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-18T21:37:35Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/167e9617e2b02718442e8bab8eaa02bafbf984b4",
-    "category": "Release"
+    "category": "Consensus"
   },
   {
     "sha": "e98ee0d",
@@ -189,7 +301,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-18T20:51:29Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/e98ee0d5b1dc502009b008130e2d936fb27688f4",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "6aad346",
@@ -197,7 +309,7 @@
     "author": "vineethk",
     "date": "2026-03-18T19:05:26Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/6aad346e3632dda9a4ae97fa5bc066dc7eb25d8a",
-    "category": "Release"
+    "category": "Infrastructure"
   },
   {
     "sha": "9b026c5",
@@ -205,7 +317,7 @@
     "author": "georgemitenkov",
     "date": "2026-03-18T12:22:51Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/9b026c509ff2dc6d50691c02b7ea70d52c245d8b",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "580666d",
@@ -213,7 +325,7 @@
     "author": "georgemitenkov",
     "date": "2026-03-18T10:46:29Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/580666d43c7143e171db7ccf457bc7ee58ba8098",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "42d83a9",
@@ -221,7 +333,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-17T22:54:11Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/42d83a94e1a2e98ceb35200cde1b9a9373ff89d4",
-    "category": "Feature Progress"
+    "category": "Consensus"
   },
   {
     "sha": "162a529",
@@ -229,7 +341,7 @@
     "author": "calintat",
     "date": "2026-03-17T21:52:58Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/162a5298291abe7feb6f9a49df16f1968c3f3d96",
-    "category": "Security"
+    "category": "VM"
   },
   {
     "sha": "778deab",
@@ -237,7 +349,7 @@
     "author": "vineethk",
     "date": "2026-03-17T20:04:05Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/778deabf85d0573e2ec1c3d6f6d326440f7d708d",
-    "category": "Feature Progress"
+    "category": "Move/Compiler"
   },
   {
     "sha": "28dd57c",
@@ -245,7 +357,7 @@
     "author": "calintat",
     "date": "2026-03-17T18:09:17Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/28dd57c9572ca27f587682d074071e76f49b0e95",
-    "category": "Feature Progress"
+    "category": "VM"
   },
   {
     "sha": "8aed206",
@@ -253,7 +365,7 @@
     "author": "waamm",
     "date": "2026-03-17T15:41:22Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/8aed20652d48382d34b60a28db3672ff8d0ac77e",
-    "category": "Security"
+    "category": "Infrastructure"
   },
   {
     "sha": "a517c0b",
@@ -261,7 +373,7 @@
     "author": "calintat",
     "date": "2026-03-17T15:17:55Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/a517c0bd76c43be97a7564d46e900e6182f04cef",
-    "category": "Performance"
+    "category": "Gas"
   },
   {
     "sha": "7e3c409",
@@ -269,7 +381,7 @@
     "author": "junxzm1990",
     "date": "2026-03-17T14:59:58Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/7e3c409b4c7f28c27e8e9ef6853e333cf85e6eb1",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "a9d20cd",
@@ -277,7 +389,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-16T22:53:25Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/a9d20cdaea4b30ded5f1eeebc328bda983be8749",
-    "category": "Feature Progress"
+    "category": "API"
   },
   {
     "sha": "fc6841c",
@@ -285,14 +397,6 @@
     "author": "junxzm1990",
     "date": "2026-03-16T22:49:59Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/fc6841ca4d94443e4a5bb520460d138eaba2a408",
-    "category": "Release"
-  },
-  {
-    "sha": "f06730a",
-    "title": "[forge] Add local swarm enhancements: NUMA affinity, concurrency, Sapling support",
-    "author": "wqfish",
-    "date": "2026-03-16T21:11:39Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/f06730a20be8b0c452eeb2c14cb649847d8f2b6f",
     "category": "Infrastructure"
   },
   {
@@ -301,7 +405,15 @@
     "author": "wqfish",
     "date": "2026-03-16T21:09:26Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/f064f03a4312cfae80d6e3647cd40714acb003d7",
-    "category": "Feature Progress"
+    "category": "Consensus"
+  },
+  {
+    "sha": "f06730a",
+    "title": "[forge] Add local swarm enhancements: NUMA affinity, concurrency, Sapling support",
+    "author": "wqfish",
+    "date": "2026-03-16T21:11:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f06730a20be8b0c452eeb2c14cb649847d8f2b6f",
+    "category": "Testing"
   },
   {
     "sha": "ff62e3c",
@@ -317,7 +429,7 @@
     "author": "georgemitenkov",
     "date": "2026-03-16T20:27:08Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/cc1fb9d06fdf914d306aec34ae5d221d5120b66c",
-    "category": "Security"
+    "category": "Infrastructure"
   },
   {
     "sha": "ee13a1d",
@@ -325,7 +437,39 @@
     "author": "rex1fernando",
     "date": "2026-03-16T19:05:25Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/ee13a1d2a94e8b6310ee615d91c17e0a9bb1532a",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "71202cc",
+    "title": "[Network] Add validators to upstream peers.",
+    "author": "JoshLind",
+    "date": "2026-03-06T23:34:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/71202ccc30852a0fe142e91132c21bd3174cb3cb",
+    "category": "Networking"
+  },
+  {
+    "sha": "cd6e97c",
+    "title": "[Config] Add config optimizer for validator public network.",
+    "author": "JoshLind",
+    "date": "2026-03-03T23:05:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cd6e97cef11bacc954384de6bfd9c5a7e47cf643",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f0cd1d8",
+    "title": "[Network] Add support for validator-PFN connections.",
+    "author": "JoshLind",
+    "date": "2026-03-02T13:52:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f0cd1d8820f647d3a544309a7a60173f76fbec41",
+    "category": "Networking"
+  },
+  {
+    "sha": "492b63c",
+    "title": "[Peer Monitoring Service] Update distance logic.",
+    "author": "JoshLind",
+    "date": "2026-03-01T22:46:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/492b63c8d3f5cf65d1c826ef8cd537cbcb008a58",
+    "category": "Infrastructure"
   },
   {
     "sha": "a8b7a67",
@@ -341,7 +485,7 @@
     "author": "junxzm1990",
     "date": "2026-03-14T16:13:11Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/bf417f032b29418aa5e6cd4c978c771d584c0e5f",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "2197ed3",
@@ -357,23 +501,7 @@
     "author": "vineethk",
     "date": "2026-03-13T23:05:16Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/f633aae7d30046959b994312d505bc86413a6882",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "c8db4ac",
-    "title": "[vm] Fix several correctness issues in Move VM runtime (#19052)",
-    "author": "georgemitenkov",
-    "date": "2026-03-13T17:28:07Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/c8db4ac572ae6721e1c2d61e5ace0bfa81999a20",
-    "category": "Security"
-  },
-  {
-    "sha": "30a4d7b",
-    "title": "[mono-move] Global context template (#19053)",
-    "author": "georgemitenkov",
-    "date": "2026-03-13T17:12:07Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/30a4d7b61f1c4be713dc26ccf2a8dfda94c3489f",
-    "category": "Feature Progress"
+    "category": "Move/Compiler"
   },
   {
     "sha": "697f04c",
@@ -384,12 +512,36 @@
     "category": "Release"
   },
   {
-    "sha": "cf20544",
-    "title": "Fix PipelinedBlock BCS serialization for consensus observer (#19042)",
-    "author": "ibalajiarun",
-    "date": "2026-03-12T21:02:39Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/cf20544a6b862a27295ac84a6d9902467b61c0bc",
-    "category": "Feature Progress"
+    "sha": "c8db4ac",
+    "title": "[vm] Fix several correctness issues in Move VM runtime (#19052)",
+    "author": "georgemitenkov",
+    "date": "2026-03-13T17:28:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c8db4ac572ae6721e1c2d61e5ace0bfa81999a20",
+    "category": "VM"
+  },
+  {
+    "sha": "30a4d7b",
+    "title": "[mono-move] Global context template (#19053)",
+    "author": "georgemitenkov",
+    "date": "2026-03-13T17:12:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/30a4d7b61f1c4be713dc26ccf2a8dfda94c3489f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0ebbe70",
+    "title": "[State Sync] Add request rate limiting.",
+    "author": "JoshLind",
+    "date": "2026-02-26T23:37:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0ebbe707dc9cad8b59584ec5c866a46091767adf",
+    "category": "State Sync"
+  },
+  {
+    "sha": "03360ea",
+    "title": "[Smoke Tests] Ignore some unneccessary tests.",
+    "author": "JoshLind",
+    "date": "2026-03-10T18:32:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/03360eae2a98ee9af06a1f96aabd258e3f250bc3",
+    "category": "Infrastructure"
   },
   {
     "sha": "f8ed5ca",
@@ -397,31 +549,7 @@
     "author": "wqfish",
     "date": "2026-03-12T20:29:24Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/f8ed5ca3c0fc1890e5a268a6727ff7448568fb47",
-    "category": "Performance"
-  },
-  {
-    "sha": "04480bd",
-    "title": "[encrypted mempool] Change ID to be hash of both VK and AD (#19055)",
-    "author": "rex1fernando",
-    "date": "2026-03-12T19:59:58Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/04480bdcaf9206396690b9c7c19d67b4d01e05d5",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "b711faa",
-    "title": "[stake] fix actual voting power (#18975)",
-    "author": "lightmark",
-    "date": "2026-03-12T19:15:12Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/b711faa3d2eca4b07c8fcd94f07e96452dc7e91a",
-    "category": "Security"
-  },
-  {
-    "sha": "fab72ec",
-    "title": "[storage] Remove dead StaleStateValueIndexSchema",
-    "author": "wqfish",
-    "date": "2026-03-12T18:20:09Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/fab72ecc4269c6cba7dd2611c1f70b40758dde23",
-    "category": "Performance"
+    "category": "Storage"
   },
   {
     "sha": "b0bef8f",
@@ -429,7 +557,39 @@
     "author": "sionescu",
     "date": "2026-03-12T17:44:47Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/b0bef8f65e13b87deb643645e65333807eb44441",
-    "category": "Release"
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "cf20544",
+    "title": "Fix PipelinedBlock BCS serialization for consensus observer (#19042)",
+    "author": "ibalajiarun",
+    "date": "2026-03-12T21:02:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cf20544a6b862a27295ac84a6d9902467b61c0bc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fab72ec",
+    "title": "[storage] Remove dead StaleStateValueIndexSchema",
+    "author": "wqfish",
+    "date": "2026-03-12T18:20:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fab72ecc4269c6cba7dd2611c1f70b40758dde23",
+    "category": "Storage"
+  },
+  {
+    "sha": "04480bd",
+    "title": "[encrypted mempool] Change ID to be hash of both VK and AD (#19055)",
+    "author": "rex1fernando",
+    "date": "2026-03-12T19:59:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/04480bdcaf9206396690b9c7c19d67b4d01e05d5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b711faa",
+    "title": "[stake] fix actual voting power (#18975)",
+    "author": "lightmark",
+    "date": "2026-03-12T19:15:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b711faa3d2eca4b07c8fcd94f07e96452dc7e91a",
+    "category": "Infrastructure"
   },
   {
     "sha": "737b145",
@@ -437,15 +597,7 @@
     "author": "vineethk",
     "date": "2026-03-11T23:06:21Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/737b145b74ffeebe46974ff0618758547ab91163",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "eb807c7",
-    "title": "[test] Fix flaky test_db_restore smoke test",
-    "author": "wqfish",
-    "date": "2026-03-11T20:26:07Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/eb807c775cacff98c3fd4fa867aca6b68bb4416f",
-    "category": "Security"
+    "category": "Move/Compiler"
   },
   {
     "sha": "05f6d35",
@@ -453,7 +605,7 @@
     "author": "wqfish",
     "date": "2026-03-11T20:06:41Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/05f6d3544ba3f489b58a99dde231d6ddf99088e4",
-    "category": "Security"
+    "category": "Storage"
   },
   {
     "sha": "84d06d9",
@@ -461,7 +613,15 @@
     "author": "wqfish",
     "date": "2026-03-11T19:53:15Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/84d06d942ee4cbfafb04dc5da966e06b7fa6a7c0",
-    "category": "Performance"
+    "category": "Storage"
+  },
+  {
+    "sha": "eb807c7",
+    "title": "[test] Fix flaky test_db_restore smoke test",
+    "author": "wqfish",
+    "date": "2026-03-11T20:26:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/eb807c775cacff98c3fd4fa867aca6b68bb4416f",
+    "category": "Infrastructure"
   },
   {
     "sha": "0e1b76d",
@@ -469,7 +629,7 @@
     "author": "rahxephon89",
     "date": "2026-03-11T19:52:53Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/0e1b76d72935cdb454bea060ed3311f83c17d03d",
-    "category": "Security"
+    "category": "Infrastructure"
   },
   {
     "sha": "70724e1",
@@ -477,7 +637,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-11T18:44:20Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/70724e12fd2d346b009622d0dc38c9a48e3b02d1",
-    "category": "Feature Progress"
+    "category": "Consensus"
   },
   {
     "sha": "026aac2",
@@ -485,7 +645,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-11T18:26:31Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/026aac259defce433c9aaf87d8f6d92d7d441600",
-    "category": "Feature Progress"
+    "category": "Consensus"
   },
   {
     "sha": "7752b62",
@@ -493,15 +653,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-11T18:15:58Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/7752b62e92fba9d6aa28b47a835e3524458af7a2",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "599deba",
-    "title": "[QS] Add per-author batch inclusion metrics (#19021)",
-    "author": "danielxiangzl",
-    "date": "2026-03-11T17:55:45Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/599deba5f8e635b3d92c9fba58c1e134a0d5aff5",
-    "category": "Feature Progress"
+    "category": "Consensus"
   },
   {
     "sha": "d417d43",
@@ -509,7 +661,15 @@
     "author": "ibalajiarun",
     "date": "2026-03-11T16:52:47Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/d417d43a482412d1ea388965b5a62f65d5827a5a",
-    "category": "Feature Progress"
+    "category": "Consensus"
+  },
+  {
+    "sha": "599deba",
+    "title": "[QS] Add per-author batch inclusion metrics (#19021)",
+    "author": "danielxiangzl",
+    "date": "2026-03-11T17:55:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/599deba5f8e635b3d92c9fba58c1e134a0d5aff5",
+    "category": "Infrastructure"
   },
   {
     "sha": "d22380f",
@@ -517,7 +677,7 @@
     "author": "vineethk",
     "date": "2026-03-11T16:38:13Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/d22380fcafcf098208ed3b8ce3ffc1b11e78de36",
-    "category": "Security"
+    "category": "Move/Compiler"
   },
   {
     "sha": "739b78e",
@@ -525,7 +685,7 @@
     "author": "banool",
     "date": "2026-03-11T15:57:35Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/739b78ed90f325bcaa5b82a81f85580ab210770a",
-    "category": "Infrastructure"
+    "category": "Keyless"
   },
   {
     "sha": "c75c811",
@@ -533,7 +693,15 @@
     "author": "JoshLind",
     "date": "2026-03-11T02:15:12Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/c75c8115ec72a53b70828feb180068d302f844a1",
-    "category": "Infrastructure"
+    "category": "Testing"
+  },
+  {
+    "sha": "de0e326",
+    "title": "[ci] Bump nextest to latest version",
+    "author": "wqfish",
+    "date": "2026-03-10T23:39:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/de0e326405517cef605319b23fcc2b1f95a55ca4",
+    "category": "CI/CD"
   },
   {
     "sha": "526377b",
@@ -541,7 +709,15 @@
     "author": "vineethk",
     "date": "2026-03-11T01:57:33Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/526377b86f74c597de7342feb727ea0c47ea931d",
-    "category": "Security"
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7846559",
+    "title": "[ci] Add smoke-test feature to CI pre-build",
+    "author": "wqfish",
+    "date": "2026-03-10T23:27:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7846559109bae37320a148bbd5a59c0fe0b26fc9",
+    "category": "CI/CD"
   },
   {
     "sha": "58343ee",
@@ -557,15 +733,7 @@
     "author": "danielxiangzl",
     "date": "2026-03-10T23:39:35Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/777f708ef684a6e9a5b2739646789f37fea87082",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "de0e326",
-    "title": "[ci] Bump nextest to latest version",
-    "author": "wqfish",
-    "date": "2026-03-10T23:39:14Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/de0e326405517cef605319b23fcc2b1f95a55ca4",
-    "category": "Release"
+    "category": "Consensus"
   },
   {
     "sha": "1cf5235",
@@ -573,23 +741,7 @@
     "author": "georgemitenkov",
     "date": "2026-03-10T23:29:34Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/1cf523525ffca8c343d5f00efe6fcb985b22ba89",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "7846559",
-    "title": "[ci] Add smoke-test feature to CI pre-build",
-    "author": "wqfish",
-    "date": "2026-03-10T23:27:15Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/7846559109bae37320a148bbd5a59c0fe0b26fc9",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "1180d8a",
-    "title": "Deploy multiple PFNs via helm releases (#19009)",
-    "author": "rustielin",
-    "date": "2026-03-10T21:59:10Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/1180d8a9dff3dfa6d2615a00df1ee2fa0fa37e3c",
-    "category": "Release"
   },
   {
     "sha": "4a57b38",
@@ -597,7 +749,15 @@
     "author": "wqfish",
     "date": "2026-03-10T21:23:13Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/4a57b385ccee75d6efdd110d5834daeeb2f70f03",
-    "category": "Performance"
+    "category": "Storage"
+  },
+  {
+    "sha": "1180d8a",
+    "title": "Deploy multiple PFNs via helm releases (#19009)",
+    "author": "rustielin",
+    "date": "2026-03-10T21:59:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1180d8a9dff3dfa6d2615a00df1ee2fa0fa37e3c",
+    "category": "Infrastructure"
   },
   {
     "sha": "217839e",
@@ -608,20 +768,20 @@
     "category": "Infrastructure"
   },
   {
-    "sha": "327a533",
-    "title": "[move flow] adding supports for unit test generation",
-    "author": "junxzm1990",
-    "date": "2026-03-10T19:48:56Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/327a5333a50425bcbfba3f63e9a5928f8a187534",
-    "category": "Feature Progress"
-  },
-  {
     "sha": "014ab18",
     "title": "[storage] Clean up all #[allow(dead_code)] under storage/",
     "author": "wqfish",
     "date": "2026-03-10T19:35:29Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/014ab18ce0e2847dd458461beb31a895b3cefbc2",
-    "category": "Performance"
+    "category": "Storage"
+  },
+  {
+    "sha": "327a533",
+    "title": "[move flow] adding supports for unit test generation",
+    "author": "junxzm1990",
+    "date": "2026-03-10T19:48:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/327a5333a50425bcbfba3f63e9a5928f8a187534",
+    "category": "Infrastructure"
   },
   {
     "sha": "bd0f981",
@@ -629,7 +789,7 @@
     "author": "danielxiangzl",
     "date": "2026-03-10T19:34:10Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/bd0f9816405ffaa7ea13fa1b2629be49585e4a99",
-    "category": "Feature Progress"
+    "category": "Consensus"
   },
   {
     "sha": "5a42127",
@@ -637,15 +797,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-10T19:25:37Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/5a421272b631dbb60e4c86830ee6d297856588c8",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "03360ea",
-    "title": "[Smoke Tests] Ignore some unneccessary tests.",
-    "author": "JoshLind",
-    "date": "2026-03-10T18:32:30Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/03360eae2a98ee9af06a1f96aabd258e3f250bc3",
-    "category": "Infrastructure"
+    "category": "Testing"
   },
   {
     "sha": "0c2ddd5",
@@ -653,15 +805,7 @@
     "author": "ibalajiarun",
     "date": "2026-03-10T18:12:56Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/0c2ddd5573384062968a61af2e7621302aed3abe",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "6e1c32c",
-    "title": "[ci] Increase Docker build snapshot volume from 1000 GB to 1500 GB (#18961)",
-    "author": "jkao97",
-    "date": "2026-03-10T00:15:30Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/6e1c32c2991ef237a67c5054e13686ffb075c761",
-    "category": "Infrastructure"
+    "category": "Execution"
   },
   {
     "sha": "a072461",
@@ -669,7 +813,7 @@
     "author": "JoshLind",
     "date": "2026-03-10T00:00:25Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/a07246146ae9fa672748467e0df23adbae376c65",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "1d80aac",
@@ -677,7 +821,7 @@
     "author": "JoshLind",
     "date": "2026-03-09T23:57:43Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/1d80aac286c4de12ba9792114915abbf143c1f0c",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "d1ada1f",
@@ -685,15 +829,15 @@
     "author": "JoshLind",
     "date": "2026-03-09T23:55:41Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/d1ada1f27c975afc4de301fbd1228065fd513f76",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
-    "sha": "6baf418",
-    "title": "[storage] Skip BLS signing in ledger_metadata_db tests",
-    "author": "wqfish",
-    "date": "2026-03-09T19:30:44Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/6baf418a5a758132edfab3cf1e2a29a74196851b",
-    "category": "Performance"
+    "sha": "6e1c32c",
+    "title": "[ci] Increase Docker build snapshot volume from 1000 GB to 1500 GB (#18961)",
+    "author": "jkao97",
+    "date": "2026-03-10T00:15:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6e1c32c2991ef237a67c5054e13686ffb075c761",
+    "category": "CI/CD"
   },
   {
     "sha": "46b3f93",
@@ -701,23 +845,15 @@
     "author": "wqfish",
     "date": "2026-03-09T19:28:39Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/46b3f9324d05ba5641ad8f869cbf335bc64c889b",
-    "category": "Security"
+    "category": "Execution"
   },
   {
-    "sha": "c99a140",
-    "title": "[CODEOWNERS] Add ownership for gas, txn simulation, and package tooling crates (#18932)",
-    "author": "vgao1996",
-    "date": "2026-03-09T17:56:44Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/c99a140bf4ebb2c7ddd9c4bde46b4894f0839a83",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "ba53803",
-    "title": "Add README.md for `aptos-batch-encryption` crate (#18969)",
-    "author": "rex1fernando",
-    "date": "2026-03-09T17:49:35Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ba538036b4d1ba44a9dcff7d3c17bc3d861981b5",
-    "category": "Feature Progress"
+    "sha": "6baf418",
+    "title": "[storage] Skip BLS signing in ledger_metadata_db tests",
+    "author": "wqfish",
+    "date": "2026-03-09T19:30:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6baf418a5a758132edfab3cf1e2a29a74196851b",
+    "category": "Storage"
   },
   {
     "sha": "e837943",
@@ -725,7 +861,7 @@
     "author": "waamm",
     "date": "2026-03-09T13:38:13Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/e8379434b41bf1073382b56aab1aa39522139d8b",
-    "category": "Feature Progress"
+    "category": "Infrastructure"
   },
   {
     "sha": "9a26fdb",
@@ -733,7 +869,7 @@
     "author": "waamm",
     "date": "2026-03-09T13:25:26Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/9a26fdb5789bce77931490584b332a9127328b19",
-    "category": "Security"
+    "category": "Infrastructure"
   },
   {
     "sha": "90d13e2",
@@ -752,51 +888,3915 @@
     "category": "Infrastructure"
   },
   {
-    "sha": "71202cc",
-    "title": "[Network] Add validators to upstream peers.",
-    "author": "JoshLind",
-    "date": "2026-03-06T23:34:02Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/71202ccc30852a0fe142e91132c21bd3174cb3cb",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "cd6e97c",
-    "title": "[Config] Add config optimizer for validator public network.",
-    "author": "JoshLind",
-    "date": "2026-03-03T23:05:58Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/cd6e97cef11bacc954384de6bfd9c5a7e47cf643",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "f0cd1d8",
-    "title": "[Network] Add support for validator-PFN connections.",
-    "author": "JoshLind",
-    "date": "2026-03-02T13:52:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/f0cd1d8820f647d3a544309a7a60173f76fbec41",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "492b63c",
-    "title": "[Peer Monitoring Service] Update distance logic.",
-    "author": "JoshLind",
-    "date": "2026-03-01T22:46:15Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/492b63c8d3f5cf65d1c826ef8cd537cbcb008a58",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "0ebbe70",
-    "title": "[State Sync] Add request rate limiting.",
-    "author": "JoshLind",
-    "date": "2026-02-26T23:37:17Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/0ebbe707dc9cad8b59584ec5c866a46091767adf",
-    "category": "Infrastructure"
-  },
-  {
     "sha": "9ba8ed9",
     "title": "[Network] Add priority peer list support",
     "author": "JoshLind",
     "date": "2026-01-29T17:17:49Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/9ba8ed935c784bafae45e545a68c4182fb506d2e",
+    "category": "Networking"
+  },
+  {
+    "sha": "c99a140",
+    "title": "[CODEOWNERS] Add ownership for gas, txn simulation, and package tooling crates (#18932)",
+    "author": "vgao1996",
+    "date": "2026-03-09T17:56:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c99a140bf4ebb2c7ddd9c4bde46b4894f0839a83",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ba53803",
+    "title": "Add README.md for `aptos-batch-encryption` crate (#18969)",
+    "author": "rex1fernando",
+    "date": "2026-03-09T17:49:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ba538036b4d1ba44a9dcff7d3c17bc3d861981b5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "813481a",
+    "title": "separating move harness (#18981)",
+    "author": "igor-aptos",
+    "date": "2026-03-09T17:29:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/813481a5fffa0fcfc7fb87e6ffa79044f2ecb9ac",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5c513c3",
+    "title": "[Network] Ignore flaky test.",
+    "author": "JoshLind",
+    "date": "2026-03-09T16:08:32Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5c513c32f9d9d268cb4b1fcaa922e819b18a0c8e",
+    "category": "Networking"
+  },
+  {
+    "sha": "d19b6b2",
+    "title": "Add key_prefix config to Redis ratelimit checker (#18997)",
+    "author": "banool",
+    "date": "2026-03-09T17:02:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d19b6b291cd8a11d2f79df141758b06fda9e0506",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f719bce",
+    "title": "remove old TODOs (#18971)",
+    "author": "rex1fernando",
+    "date": "2026-03-09T16:56:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f719bce2cd6f2b34836664fb14dba90fb92c61d6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "22466de",
+    "title": "[move flow] add new tests for plugin validation (#18948)",
+    "author": "junxzm1990",
+    "date": "2026-03-08T18:25:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/22466deca08c302d791521db82899792a149d716",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8d6a964",
+    "title": "[forge] bump deployer version",
+    "author": "aptos-bot",
+    "date": "2026-03-08T00:02:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8d6a964c7f30c96ab6856ac9e09be44002b3f78d",
+    "category": "Release"
+  },
+  {
+    "sha": "436952b",
+    "title": "update golden files (#18980)",
+    "author": "rahxephon89",
+    "date": "2026-03-07T19:20:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/436952b7d0e53cfc8e133357928c489afb21e574",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "639cc08",
+    "title": "cleanup rolled out features (#18954)",
+    "author": "igor-aptos",
+    "date": "2026-03-07T02:01:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/639cc089c1d900566a4126d3987e6160a25fdd93",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a26b3ba",
+    "title": "[forge] bump deployer version (#18974)",
+    "author": "aptos-bot",
+    "date": "2026-03-07T01:15:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a26b3ba9ae2249a170f536c5b9ccb4c3b444a1d2",
+    "category": "Release"
+  },
+  {
+    "sha": "9200b88",
+    "title": "[consensus] Enforce sender-author binding for rand share messages (#18970)",
+    "author": "danielxiangzl",
+    "date": "2026-03-07T00:26:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9200b8890f875e987d8f30f47827e301c15e059c",
+    "category": "Consensus"
+  },
+  {
+    "sha": "642b435",
+    "title": "[execution] Return CommitResult from start_commit to avoid spinning on blocked validation",
+    "author": "Zekun Li",
+    "date": "2026-02-26T04:32:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/642b435c6e81fc67cbc73c66d8cec8942629f0a4",
+    "category": "Execution"
+  },
+  {
+    "sha": "a0c4f7b",
+    "title": "[execution] Simplify cold validation pending requirements to single entry",
+    "author": "gelash",
+    "date": "2026-02-25T15:40:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a0c4f7be9a859890380f5c897be0f8c6b0257141",
+    "category": "Execution"
+  },
+  {
+    "sha": "4cb1077",
+    "title": "[gas] Apply 10x multiplier to gas costs and storage fees (#18880)",
+    "author": "calintat",
+    "date": "2026-03-06T20:43:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4cb1077a64dec7d4dee68a5d844b64857e219334",
+    "category": "Gas"
+  },
+  {
+    "sha": "5ee2624",
+    "title": "Consolidate quorum store batch bootstrap (#18960)",
+    "author": "ibalajiarun",
+    "date": "2026-03-06T20:28:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5ee26249750d81b94a4f99c5b7a89a2309946d45",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a5763d1",
+    "title": "[storage] Raise L0 write stall triggers on sequential-key ledger CFs",
+    "author": "wqfish",
+    "date": "2026-03-06T07:36:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a5763d125652f49bb685e14ab8f6a2d08d79aa95",
+    "category": "Storage"
+  },
+  {
+    "sha": "38e5371",
+    "title": "Upgrade indexer processor SDK to v2.2.1 and processors to v2.4.0 (#18919)",
+    "author": "banool",
+    "date": "2026-03-06T18:28:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/38e53719e9b5489c5e950f5f5fc089a4027a5f6d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7a288b6",
+    "title": "[framework] Update cached packages and docs for governance change",
+    "author": "ibalajiarun",
+    "date": "2026-03-06T06:06:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7a288b6b429c20f8098122f14bdb58990bd265e1",
+    "category": "Framework"
+  },
+  {
+    "sha": "edbf514",
+    "title": "[framework] Fix reconfigure() to start chunky DKG when enabled",
+    "author": "ibalajiarun",
+    "date": "2026-03-06T00:46:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/edbf514cf50fb8ad143443c4dcd732e68e8f2a72",
+    "category": "Framework"
+  },
+  {
+    "sha": "367fc8c",
+    "title": "[forge] Add Forge test for encrypted transactions with chunky DKG",
+    "author": "ibalajiarun",
+    "date": "2026-03-05T21:22:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/367fc8c5dddab73d2c491cbab6cafd7c461b96b4",
+    "category": "Testing"
+  },
+  {
+    "sha": "5cee623",
+    "title": "[forge] bump deployer version (#18910)",
+    "author": "aptos-bot",
+    "date": "2026-03-06T01:00:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5cee623fbe445332befb799a5441969499604b1d",
+    "category": "Release"
+  },
+  {
+    "sha": "668268d",
+    "title": "[consensus] Add instance name to ReliableBroadcast for log distinguishability (#18931)",
+    "author": "ibalajiarun",
+    "date": "2026-03-06T00:19:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/668268d70d681610844743869c7882ed12f87aa4",
+    "category": "Consensus"
+  },
+  {
+    "sha": "e2ff583",
+    "title": "[crypto] Optimize CryptoHash for Merkle tree nodes with single-permutation SHA3-256",
+    "author": "wqfish",
+    "date": "2026-03-05T20:57:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e2ff583d2be23a393b461564ccde992ae43faeff",
+    "category": "Crypto"
+  },
+  {
+    "sha": "056057b",
+    "title": "Add comprehensive tests for chunky DKG module (#18941)",
+    "author": "ibalajiarun",
+    "date": "2026-03-05T22:17:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/056057b911ecf135b74c13ca68d752ed56f612d5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ecae5f6",
+    "title": "[smoke-test] Remove unused import in enable_feature test",
+    "author": "ibalajiarun",
+    "date": "2026-03-05T04:38:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ecae5f620a119cc62aedcabc787cfc0f4da7f833",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "789639b",
+    "title": "[consensus][framework] Fix chunky DKG enable-feature: on_new_epoch + pipeline deadlock",
+    "author": "ibalajiarun",
+    "date": "2026-03-05T04:20:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/789639bec9448286f23cc31cfa2dfa232440639f",
+    "category": "Consensus"
+  },
+  {
+    "sha": "4bc2b66",
+    "title": "[smoke-test] Add chunky DKG enable-feature test",
+    "author": "ibalajiarun",
+    "date": "2026-03-04T15:42:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4bc2b66e97483c0498fa72a9336e3159d59a794d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2c5eff6",
+    "title": "[smoke-test] Add chunky DKG smoke tests",
+    "author": "ibalajiarun",
+    "date": "2026-03-04T02:02:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2c5eff620f46543f4a9686c8e7446ac90813ccd5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b9a51b9",
+    "title": "[telemetry] Add extra_labels config for custom contracts (#18947)",
+    "author": "rustielin",
+    "date": "2026-03-05T21:06:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b9a51b9a96e699d8b79219a115d6e299e47373f9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b6d9095",
+    "title": "[vm] mono-move: instruction set definition (#18907)",
+    "author": "vgao1996",
+    "date": "2026-03-05T20:53:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b6d9095f37481a9dd9c4b79ffb8bad2ee1c9afb7",
+    "category": "VM"
+  },
+  {
+    "sha": "b66d5a3",
+    "title": "Shplonked rewrite, BSGS speedup, aptos-dkg refactoring (#18897)",
+    "author": "waamm",
+    "date": "2026-03-05T19:59:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b66d5a3db8e4783d7bed5a52ca6d6c9d26c2380d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "46e3de5",
+    "title": "[ci] Add FORGE_RUNNER_IMAGE_NAME input and fix image existence check (#18733)",
+    "author": "ibalajiarun",
+    "date": "2026-03-05T16:08:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/46e3de5a72b2e63f5949b5565ae6c041987425a6",
+    "category": "CI/CD"
+  },
+  {
+    "sha": "5e6f48f",
+    "title": "Allow Unicode-3.0 license (#18921)",
+    "author": "banool",
+    "date": "2026-03-05T09:31:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5e6f48f8d87228f1bfbe158fc8786a79249841cd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "31e8838",
+    "title": "Port coverage functionality to new disasm, remove old disasm and decompiler support (#18911)",
+    "author": "vineethk",
+    "date": "2026-03-04T23:25:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/31e883855ecb8dfb2db700c84a0d457db1cbb0a3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4238f36",
+    "title": "BigOrderedMap::remove_or_none fix and iter_remove improvement (#18869)",
+    "author": "igor-aptos",
+    "date": "2026-03-04T22:43:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4238f36efdf02b68c0affda9bb05e9e31ac16053",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4a4f01d",
+    "title": "[Forge] Reduce VFN count in realistic_env_max_load_test.",
+    "author": "JoshLind",
+    "date": "2026-03-04T19:28:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4a4f01d29cb8977e1a3bdd493e116a3fc5a7036c",
+    "category": "Testing"
+  },
+  {
+    "sha": "2b2ae12",
+    "title": "[docker] remove ECR ref in release artifacts flow (#18936)",
+    "author": "rustielin",
+    "date": "2026-03-04T18:36:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2b2ae127f4b5f79070c47c349f510de221b0dc2f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0a82aea",
+    "title": "[move] Support signer receiver functions (#18925)",
+    "author": "gregnazario",
+    "date": "2026-03-04T15:56:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0a82aea32772a2ff1e3f4f35599446ae12a505e2",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "b5cb700",
+    "title": "[dkg] Fix task leaks, race conditions, and correctness bugs in chunky DKG (#18930)",
+    "author": "ibalajiarun",
+    "date": "2026-03-04T04:38:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b5cb7006875808e918bb8c0cf162f6692340ed65",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "68be9f7",
+    "title": "[move-flow] Spec inference tool, shared templates, and agent split (#18855)",
+    "author": "wrwg",
+    "date": "2026-03-04T02:08:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/68be9f716ad9d2c40bb9eb8f9bc09b89d67a52bf",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "827d1f9",
+    "title": "[consensus] Add tests for secret_sharing module and improve QueueItem API (#18928)",
+    "author": "ibalajiarun",
+    "date": "2026-03-04T01:44:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/827d1f9b227a47e2c36ad5997fdf7eb569881307",
+    "category": "Consensus"
+  },
+  {
+    "sha": "0798330",
+    "title": "[compiler][vm] add visibility modifier to structs/enums: step 5 (#18489)",
+    "author": "rahxephon89",
+    "date": "2026-03-04T01:13:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0798330f6f10857e599dbe0b372e31a6cd7cc4ac",
+    "category": "VM"
+  },
+  {
+    "sha": "1cf4d5a",
+    "title": "Harden secret sharing: fix panics, resolve TODOs, clean dead code (#18833)",
+    "author": "ibalajiarun",
+    "date": "2026-03-04T00:41:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1cf4d5a0bfa3702d2ded1811cee2570188d6b6f0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8795ea4",
+    "title": "[prover] Specification inference via weakest precondition  (#18761)",
+    "author": "wrwg",
+    "date": "2026-03-04T00:37:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8795ea4fc94a590fdd061accd1649426ebd0f519",
+    "category": "Prover"
+  },
+  {
+    "sha": "18ad547",
+    "title": "[forge] Add PFN deployer support (#18909)",
+    "author": "rustielin",
+    "date": "2026-03-03T23:43:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/18ad5479c858c8f10bafb1af91b9f135d7c90351",
+    "category": "Testing"
+  },
+  {
+    "sha": "6ed7182",
+    "title": "[vm] Fix sequence number not incrementing for failed encrypted transactions (#18923)",
+    "author": "ibalajiarun",
+    "date": "2026-03-03T23:32:04Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6ed7182cd6c6e8ecff26c333be19b6cdcdad692c",
+    "category": "VM"
+  },
+  {
+    "sha": "d110616",
+    "title": "[deps] Remove jemalloc-sys shim and upgrade indexer-grpc-gateway to tikv-jemalloc 0.6",
+    "author": "wqfish",
+    "date": "2026-03-03T02:23:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d11061621a4ebc59809816bae23195b96b8c5c0f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1f58073",
+    "title": "[vm] Improve async runtime checks (#18862)",
+    "author": "georgemitenkov",
+    "date": "2026-03-03T09:24:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1f580739fd20a410f5dbe7b8c01ccda3c02f0815",
+    "category": "VM"
+  },
+  {
+    "sha": "8a80112",
+    "title": "[storage] Document commit_no_progress in StateMerkleDb",
+    "author": "wqfish",
+    "date": "2026-03-03T01:36:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8a801125dbb50c37454f17217474e4366c1ac725",
+    "category": "Storage"
+  },
+  {
+    "sha": "75b20fa",
+    "title": "[toolchain] Upgrade Rust toolchain to 1.93.1",
+    "author": "wqfish",
+    "date": "2026-03-03T00:04:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/75b20fa63b005197ec6c0cb4b009ce1b3ce7470a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7d1fdf4",
+    "title": "[CLI] support --profile-gas for view functions in session mode (#18873)",
+    "author": "vgao1996",
+    "date": "2026-03-03T01:27:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7d1fdf4c1e473e9f13edb3302e0050d91d0c24a8",
+    "category": "CLI"
+  },
+  {
+    "sha": "cd68a7d",
+    "title": "[storage] Add missing RocksDB ticker stats to Prometheus reporter",
+    "author": "wqfish",
+    "date": "2026-03-01T04:43:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cd68a7d7e619b6618cc8f56da1acabeae556392e",
+    "category": "Storage"
+  },
+  {
+    "sha": "66e7080",
+    "title": "[framework] cleanup module events if clause (#18889)",
+    "author": "lightmark",
+    "date": "2026-03-03T00:14:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/66e7080d95e6684e5aa7de94a3388ff34c5b5b3e",
+    "category": "Framework"
+  },
+  {
+    "sha": "34721a4",
+    "title": "[forge] Clean up deployer resources on start to prevent CI restart collisions (#18904)",
+    "author": "rustielin",
+    "date": "2026-03-03T00:01:54Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/34721a451ba35c60ad75700003ba8ed6635c7037",
+    "category": "Testing"
+  },
+  {
+    "sha": "c7cd8ed",
+    "title": "Delay testnet a few hours",
+    "author": "wrwg",
+    "date": "2026-03-02T21:27:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c7cd8ed6251af6f23d54c85cdbeab082a30bfedc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "758e6ed",
+    "title": "[vm] Update activation times for revised bounds feature",
+    "author": "wrwg",
+    "date": "2026-03-02T20:06:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/758e6ed2f3d30d529edffec132153a38b22f264a",
+    "category": "VM"
+  },
+  {
+    "sha": "103e70a",
+    "title": "[vm] Updating limits for structs (#18896)",
+    "author": "wrwg",
+    "date": "2026-03-02T19:56:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/103e70ae7be80b0635663c0cad238af2f992b9f7",
+    "category": "VM"
+  },
+  {
+    "sha": "fcb2b0c",
+    "title": "[Storage] Remove the old indexer (#18860)",
+    "author": "grao1991",
+    "date": "2026-03-02T19:49:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fcb2b0c6206a2e1f3ae97a3cea10dc26f4b7e5d0",
+    "category": "Storage"
+  },
+  {
+    "sha": "514405f",
+    "title": "[docker] disable push to ECR (#18595)",
+    "author": "rustielin",
+    "date": "2026-03-02T19:46:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/514405f5f427bb8ce1b12ff268d5d5dcbf3fcefd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ead601e",
+    "title": "[forge] bump deployer version",
+    "author": "aptos-bot",
+    "date": "2026-03-02T00:03:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ead601eff7e0eeebb148e6eed55bf16132283a32",
+    "category": "Release"
+  },
+  {
+    "sha": "9769bfa",
+    "title": "[storage] Set fill_cache(false) on backup handler RocksDB reads",
+    "author": "wqfish",
+    "date": "2026-02-26T06:33:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9769bfae7a0414ecc3f377d62839f01da39f0072",
+    "category": "Storage"
+  },
+  {
+    "sha": "da2f6f0",
+    "title": "[State Sync] Account for validator-PFN connections.",
+    "author": "JoshLind",
+    "date": "2026-02-26T02:53:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/da2f6f0c545db9a3b9a061caa3941e202775ff06",
+    "category": "State Sync"
+  },
+  {
+    "sha": "b099f92",
+    "title": "Add private view functions to the ABI (#18871)",
+    "author": "banool",
+    "date": "2026-02-28T15:53:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b099f9202e775393c1be009327df43e1ff5f1ae9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d4c2872",
+    "title": "[Peer Monitoring Service] Add disconnect logic for peers with too many ping failures",
+    "author": "cursoragent",
+    "date": "2026-02-19T00:24:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d4c2872315468dfff5bd316e025793d2e0228229",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0f7f48d",
+    "title": "[storage] Report RocksDB ticker statistics via Prometheus",
+    "author": "wqfish",
+    "date": "2026-02-28T04:54:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0f7f48d090c7acc1ef1fc5c35570d60004a58384",
+    "category": "Storage"
+  },
+  {
+    "sha": "9db2bb4",
+    "title": "[storage] Replace pruner worker polling with channel-based wake",
+    "author": "wqfish",
+    "date": "2026-02-28T03:49:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9db2bb439ff677d5f1b86f27766e20068aec0241",
+    "category": "Storage"
+  },
+  {
+    "sha": "e484187",
+    "title": "[vm] Fixing issues with bounds and recursion (#18887)",
+    "author": "wrwg",
+    "date": "2026-02-28T03:37:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e484187b0835d9936e25a38cd03fc1cdd37dafb4",
+    "category": "VM"
+  },
+  {
+    "sha": "936ef88",
+    "title": "[forge] Add Prometheus metrics for cluster spin-up and txn emitter (#18735)",
+    "author": "rustielin",
+    "date": "2026-02-28T01:41:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/936ef88b48a4f6cb5d3513859b3b911d1c1d2be8",
+    "category": "Testing"
+  },
+  {
+    "sha": "dc4c407",
+    "title": "[execution] Fix cache flush (#18884)",
+    "author": "georgemitenkov",
+    "date": "2026-02-27T21:04:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/dc4c407220d9d494b5b256c1d74623aaa8a64258",
+    "category": "Execution"
+  },
+  {
+    "sha": "c2f7af0",
+    "title": "fix arbitrary (#18419)",
+    "author": "rahxephon89",
+    "date": "2026-02-27T10:30:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c2f7af0811d4e92123614524785413b46f10a29b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "09fc041",
+    "title": "trivial aptos-trading change to get it to aptos-framework repo (#18875)",
+    "author": "igor-aptos",
+    "date": "2026-02-27T07:57:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/09fc0413d38548dc09141c183c032a186a0d8d13",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a4416fa",
+    "title": "[Network] Remove subscription logic from PeersAndMetadata.",
+    "author": "JoshLind",
+    "date": "2026-02-19T02:35:57Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a4416fadb6b855927bc58873798043ebfd932b83",
+    "category": "Networking"
+  },
+  {
+    "sha": "6b17b14",
+    "title": "[Network] Add simple token bucket rate limiter implementation.",
+    "author": "JoshLind",
+    "date": "2026-02-24T18:53:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6b17b14d2e9646ecb0107164324b28a732568b47",
+    "category": "Networking"
+  },
+  {
+    "sha": "075b1ad",
+    "title": "[prover] Add test for behavioral predicates on opaque functions (TODO #18762) (#18836)",
+    "author": "wrwg",
+    "date": "2026-02-26T19:53:32Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/075b1ad50f6e6442e0ca33fbafff51dae50ccc47",
+    "category": "Prover"
+  },
+  {
+    "sha": "a818326",
+    "title": "[faucet] Use auth headers in all cases (#18863)",
+    "author": "banool",
+    "date": "2026-02-26T15:23:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a8183268fc708274fa3e1ea12aab58819b608eba",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "78a3dba",
+    "title": "[move-flow] Add move-flow crate with plugin generator and MCP stdio server (#18823)",
+    "author": "wrwg",
+    "date": "2026-02-26T05:56:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/78a3dba7e005f0161096c1a3730590103bf7c833",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ae5c08c",
+    "title": "[Storage] Add hot state cache age metrics",
+    "author": "wqfish",
+    "date": "2026-02-26T05:02:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ae5c08c59c20fd5aca13b6fdb1ff953f60e10e67",
+    "category": "Storage"
+  },
+  {
+    "sha": "7c7b2f9",
+    "title": "[storage] Distinguish hot vs cold metrics in StateMerkleDb and StateKvDb",
+    "author": "wqfish",
+    "date": "2026-02-25T05:38:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7c7b2f961ded30d39145bab19f38ce07d82e66df",
+    "category": "Storage"
+  },
+  {
+    "sha": "66e1478",
+    "title": "[compiler v2] enable warnings on unused private funcs, structs, and constants (#18661)",
+    "author": "junxzm1990",
+    "date": "2026-02-26T01:21:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/66e147817689fdbe8696cffb5d0c8b1acdb0177a",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "3ee9148",
+    "title": "Configurable settings for grpc heartbeat and staleness (#18854)",
+    "author": "jtang17",
+    "date": "2026-02-25T19:14:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3ee9148db538444c254668438713a00b18f035c5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3b523ad",
+    "title": "fix(testsuite): update Python dependencies to resolve security vulnerabilities (#18844)",
+    "author": "gregnazario",
+    "date": "2026-02-25T17:45:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3b523adba8ffffe33781bdac30647958342003b1",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7c32d82",
+    "title": "[vm] Extract aptos-framework-natives and aptos-release-bundle to break rebuild chains (#18788)",
+    "author": "wrwg",
+    "date": "2026-02-25T17:35:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7c32d827169abd41b15a8f047ac15879890f0a9c",
+    "category": "VM"
+  },
+  {
+    "sha": "501650a",
+    "title": "[consensus] Defer randomness aggregation for non-rand blocks (#18699)",
+    "author": "danielxiangzl",
+    "date": "2026-02-25T04:24:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/501650ad2dffc8f6a582191c012435b4fd5988b9",
+    "category": "Consensus"
+  },
+  {
+    "sha": "bf5780d",
+    "title": "[node] Name all unnamed threads on the aptos-node path",
+    "author": "wqfish",
+    "date": "2026-02-25T01:21:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bf5780ded4cf834fd6bc938523c7b89d6b3c299f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0e134dd",
+    "title": "[execution] Fetch and store persisted auxiliary info in replay-benchmark download",
+    "author": "Zekun Li",
+    "date": "2026-02-24T02:01:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0e134ddb6bdae487322cef51b5e1a213f1b351da",
+    "category": "Execution"
+  },
+  {
+    "sha": "44abefd",
+    "title": "[storage] Refactor StateKvDb to follow StateMerkleDb pattern",
+    "author": "wqfish",
+    "date": "2026-02-24T19:20:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/44abefd7998277e7dbe151d15c8b1a721b2ff0dc",
+    "category": "Storage"
+  },
+  {
+    "sha": "96adffe",
+    "title": "[storage] Update hot state deferred merge metrics more frequently",
+    "author": "wqfish",
+    "date": "2026-02-24T21:20:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/96adffe69f4ab50857ef092abd7cc4963a94d29f",
+    "category": "Storage"
+  },
+  {
+    "sha": "62405c4",
+    "title": "[Storage] Reduce RocksDB property reporter overhead",
+    "author": "wqfish",
+    "date": "2026-02-24T18:09:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/62405c482a61a9dded84fa6091db0d79f556a132",
+    "category": "Storage"
+  },
+  {
+    "sha": "4d15777",
+    "title": "Delete legacy in-node indexer code (#18817)",
+    "author": "banool",
+    "date": "2026-02-24T15:25:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4d15777d8df8c6916632313a9de36db0c31fba1f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a7e55eb",
+    "title": "[compiler][vm] add visibility modifier to structs/enums: step 3 (#18117)",
+    "author": "rahxephon89",
+    "date": "2026-02-24T10:34:04Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a7e55eb76384d3d8310fe62d052d1e553f1d4479",
+    "category": "VM"
+  },
+  {
+    "sha": "00dc14c",
+    "title": "fix warnings in natives (#18829)",
+    "author": "zjma",
+    "date": "2026-02-24T01:24:41Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/00dc14c854c84749df5b8f378da90c8dc2a2e484",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "bf1e24a",
+    "title": "[consensus] Deprecate old Payload enum variants and streamline proof_manager (#18578)",
+    "author": "ibalajiarun",
+    "date": "2026-02-24T01:15:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bf1e24a0ce644fb9a62e482a67f2e2e9bed0bd27",
+    "category": "Consensus"
+  },
+  {
+    "sha": "bfafbf8",
+    "title": "[consensus] Fix WVUF batch verification off-by-one and log errors (#18834)",
+    "author": "danielxiangzl",
+    "date": "2026-02-24T01:04:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bfafbf8c02c546a67ca3668545d314483c919954",
+    "category": "Consensus"
+  },
+  {
+    "sha": "28c065c",
+    "title": "[Storage] Remove non-sharding and other dead code. (#18818)",
+    "author": "grao1991",
+    "date": "2026-02-23T19:07:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/28c065cb373a5c63a5477041dd93bfc68a500ca4",
+    "category": "Storage"
+  },
+  {
+    "sha": "1fa8dca",
+    "title": "[indexer] Fix potential overflow in ending version calculation (#18828)",
+    "author": "grao1991",
+    "date": "2026-02-23T18:46:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1fa8dca6e867a8c01850a5595081f51676a6ac65",
+    "category": "Indexer"
+  },
+  {
+    "sha": "98d07b6",
+    "title": "[Execution] Fix seed account balance exhaustion in executor benchmark",
+    "author": "wqfish",
+    "date": "2026-02-23T16:48:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/98d07b6ed8a571e1d7695e0989cf0addc1056d9f",
+    "category": "Execution"
+  },
+  {
+    "sha": "e2f23ec",
+    "title": "[execution] Parallelize sequence number resync in executor benchmark",
+    "author": "wqfish",
+    "date": "2026-02-23T16:45:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e2f23ecdb0d474a4e7df593da3e8431b1ed2ed70",
+    "category": "Execution"
+  },
+  {
+    "sha": "2cd764e",
+    "title": "[security] Upgrade rustls 0.21.10 to 0.21.12 to fix complete_io infinite loop DoS (#18815)",
+    "author": "gregnazario",
+    "date": "2026-02-23T14:45:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2cd764e7e0f366d0a1c22b9d0ceaa83683248e90",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6ffba78",
+    "title": "[network] Update quinn-proto 0.11.3 -> 0.11.13 to fix DoS vulnerability (#18814)",
+    "author": "gregnazario",
+    "date": "2026-02-23T14:45:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6ffba7816cef6b8396f93428466e67b75ab265bc",
+    "category": "Networking"
+  },
+  {
+    "sha": "05cc0f9",
+    "title": "[cli] Extract aptos move commands into standalone aptos-move-cli crate (#18797)",
+    "author": "wrwg",
+    "date": "2026-02-23T06:50:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/05cc0f92800e627b0f1cd42638cef82288e85a8e",
+    "category": "CLI"
+  },
+  {
+    "sha": "7cd5d60",
+    "title": "Add Shplonked PCS, PCS tests and aptos-dkg refactoring (#18755)",
+    "author": "waamm",
+    "date": "2026-02-22T14:48:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7cd5d60c64ee8ee8eca013d5c06ef8e04e82c2b2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b0c5e40",
+    "title": "Delete node-checker code (#18816)",
+    "author": "banool",
+    "date": "2026-02-21T09:58:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b0c5e40fcd38a75ef4481ff1cef128a92f1cde6a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c643cbd",
+    "title": "[#13806] Include enums in the ABI returned by the node API (#18813)",
+    "author": "banool",
+    "date": "2026-02-21T09:57:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c643cbd2c29613faccc5d583bd7cc5fcec33c904",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "214bb53",
+    "title": "Rosetta fee payer tracking (#18799)",
+    "author": "gregnazario",
+    "date": "2026-02-20T18:24:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/214bb53148b0dbd559f90002cd27774d4eb28ea4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e4c00ea",
+    "title": "[gas profiler] major UI overhaul (#18690)",
+    "author": "vgao1996",
+    "date": "2026-02-20T18:18:48Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e4c00ea67e1a33fc9e77a9a80614a778b58fa5b0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "eb47704",
+    "title": "[Storage] Fix HotState crash on stale merged_state",
+    "author": "wqfish",
+    "date": "2026-02-20T02:17:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/eb4770408398ee63af674ff51e935a30a3880c7a",
+    "category": "Storage"
+  },
+  {
+    "sha": "a58b0f6",
+    "title": "[ci] Skip clang install in dev_setup.sh when already present",
+    "author": "wqfish",
+    "date": "2026-02-20T06:09:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a58b0f6b2e017720af83b2ae782dcc90f771bfc4",
+    "category": "CI/CD"
+  },
+  {
+    "sha": "5869e16",
+    "title": "[execution] Fix executor benchmark: derive timestamps from DB state",
+    "author": "wqfish",
+    "date": "2026-02-19T06:53:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5869e16dacaa834a4e147093e1827903dedbbedd",
+    "category": "Execution"
+  },
+  {
+    "sha": "370e842",
+    "title": "Fix typo (#18800)",
+    "author": "rex1fernando",
+    "date": "2026-02-20T00:36:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/370e8429286559feadbdd9d9752779fade2a5144",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1ac8056",
+    "title": "[encrypted mempool] Misc. cleanup of `aptos-batch-encryption` crate (#18796)",
+    "author": "rex1fernando",
+    "date": "2026-02-20T00:16:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1ac8056fc3819651747304ba2e58bf3d26b6c2da",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fff4e8a",
+    "title": "[storage] Set fill_cache(false) on pruner RocksDB reads",
+    "author": "wqfish",
+    "date": "2026-02-19T17:17:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fff4e8a248fd0256e5224d24754ee2a8d10bbe72",
+    "category": "Storage"
+  },
+  {
+    "sha": "96cd2b3",
+    "title": "[Gas] Bump Gas Version to v1.43 (#18794)",
+    "author": "JoshLind",
+    "date": "2026-02-19T23:26:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/96cd2b3ab1a4b5ae4d8006d550f51d59b3e83447",
+    "category": "Gas"
+  },
+  {
+    "sha": "9d8653e",
+    "title": "[node] Reduce default thread counts for backup and index-db runtimes",
+    "author": "wqfish",
+    "date": "2026-02-18T21:37:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9d8653e71f6ae729b397ca08b81aabb920d3989a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "acfb3d2",
+    "title": "Rust 1.92",
+    "author": "wqfish",
+    "date": "2026-02-19T16:00:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/acfb3d2d54a44948e89c59d18746776bc4b63fe0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "bef2812",
+    "title": "[test] Add encrypted transaction decryption smoke test (#18760)",
+    "author": "ibalajiarun",
+    "date": "2026-02-19T05:17:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bef28124761f4cde83ce6a9911f19514d5a289b4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a0c3599",
+    "title": "[Network] Remove old netbench code.",
+    "author": "JoshLind",
+    "date": "2026-02-18T22:58:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a0c35993e5b7cd73ce9774bbe5757c6cd894e1b4",
+    "category": "Networking"
+  },
+  {
+    "sha": "7c796cc",
+    "title": "Signed integer support in transactional test arguments (#18783)",
+    "author": "vineethk",
+    "date": "2026-02-19T03:16:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7c796cc949c96b72a7dd4f628103b5e5beda6fe7",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9b4be1d",
+    "title": "[compiler-v2] Fix parsing of signed int returns (#18780)",
+    "author": "vineethk",
+    "date": "2026-02-19T01:33:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9b4be1dfdb9554505811b939785e88b433b01dfd",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "e501527",
+    "title": "[crypto] bump slh_dsa version and fix trait issues (#18787)",
+    "author": "ibalajiarun",
+    "date": "2026-02-19T00:50:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e501527119b566c189834abfe470fafce745ea86",
+    "category": "Crypto"
+  },
+  {
+    "sha": "c3589bf",
+    "title": "fixup! [api][sdk] Add encryption key header, encrypted transaction builder, and emitter support",
+    "author": "ibalajiarun",
+    "date": "2026-02-18T21:05:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c3589bf6b4c20b7c1da4f0438ef2728994f975ed",
+    "category": "API"
+  },
+  {
+    "sha": "bfa5a05",
+    "title": "[vm][execution] Support encrypted transaction execution",
+    "author": "ibalajiarun",
+    "date": "2026-02-14T16:22:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bfa5a0539d214573898da32e67714f9a58f1c86d",
+    "category": "VM"
+  },
+  {
+    "sha": "2284d63",
+    "title": "[api][sdk] Add encryption key header, encrypted transaction builder, and emitter support",
+    "author": "ibalajiarun",
+    "date": "2026-02-14T16:21:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2284d63ff1341acdbfc4c74395f18fed83ec25ec",
+    "category": "API"
+  },
+  {
+    "sha": "b0e2787",
+    "title": "[TSS] add gas profiler support and bump CLI version (#18778)",
+    "author": "vgao1996",
+    "date": "2026-02-18T23:21:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b0e27875b847a4fad07e03a974136afe519778fc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3f17615",
+    "title": "Make prepare and decrypt work on individual cts (#18786)",
+    "author": "rex1fernando",
+    "date": "2026-02-18T22:27:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3f1761500bbdc92b4da26ce7c1209a83d5a194fe",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "70f4ff6",
+    "title": "[state-sync] Combine 4 state-sync tokio runtimes into one shared runtime",
+    "author": "wqfish",
+    "date": "2026-02-18T17:18:41Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/70f4ff603e329a8e606deee13bd265a6d44e74d5",
+    "category": "State Sync"
+  },
+  {
+    "sha": "ef31b30",
+    "title": "[consensus] Propagate SecretSharedKey to consensus observer via PipelinedBlock",
+    "author": "ibalajiarun",
+    "date": "2026-02-14T18:52:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ef31b3044f1c73a60ff53f731a49db07bf2089d3",
+    "category": "Consensus"
+  },
+  {
+    "sha": "f4f33f4",
+    "title": "[consensus] Add decryption pipeline and secret share management",
+    "author": "ibalajiarun",
+    "date": "2026-02-14T16:21:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f4f33f45d4154f53fc16fe807a485c05746d7094",
+    "category": "Consensus"
+  },
+  {
+    "sha": "3ab0c8b",
+    "title": "[gha][docker] upgrade buildx cli version (#18785)",
+    "author": "ibalajiarun",
+    "date": "2026-02-18T17:23:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3ab0c8bed4dc0ce1d2d86db788ec2b2f50259a0d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2b5e710",
+    "title": "[vm][genesis][api] Wire encryption key through execution and genesis",
+    "author": "ibalajiarun",
+    "date": "2026-02-15T04:08:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2b5e710ed6c11169f1be171e255882c70bb0aa99",
+    "category": "VM"
+  },
+  {
+    "sha": "efe004a",
+    "title": "[framework] Add PerEpochEncryptionKey to decryption module",
+    "author": "ibalajiarun",
+    "date": "2026-02-15T04:08:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/efe004ad26cb68d98c083eb7fc40a69d6c3ea618",
+    "category": "Framework"
+  },
+  {
+    "sha": "b5101a6",
+    "title": "[dkg] Derive encryption key from DKG transcript",
+    "author": "ibalajiarun",
+    "date": "2026-02-15T04:08:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b5101a6b3369460ecc3fd11001e13a5cc8e17483",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0530e48",
+    "title": "[types] Add encrypted transaction types",
+    "author": "ibalajiarun",
+    "date": "2026-02-15T04:08:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0530e48a42920898ef8843daba2fbecd51a75622",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b535055",
+    "title": "[types] Refactor DKG output types and add encryption key resource",
+    "author": "ibalajiarun",
+    "date": "2026-02-15T04:08:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b535055e552e408df7cfb075f255f748968d9bf2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4b5b553",
+    "title": "[jemalloc] Revamp jemalloc metrics and add HPA stats",
+    "author": "wqfish",
+    "date": "2026-02-18T04:40:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4b5b55347e2f7a574be5876d07ebbeda21e63e8e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fb2d1b1",
+    "title": "[storage] Fix HotState race condition via RCU / deferred merge",
+    "author": "wqfish",
+    "date": "2026-02-18T00:35:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fb2d1b124abfa72b6a7115a6a0540e588884177b",
+    "category": "Storage"
+  },
+  {
+    "sha": "831c41e",
+    "title": "[TSS] implement new_block and advance_epoch (#18691)",
+    "author": "vgao1996",
+    "date": "2026-02-17T21:46:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/831c41ea55e3da77df805bbc19f28cd2e237b1ed",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9dd5044",
+    "title": "crypto native cleanup (#18713)",
+    "author": "zjma",
+    "date": "2026-02-17T18:57:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9dd50444eac3899b32a0fc009418896f520be22a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7d932fe",
+    "title": "[storage] Disable compaction-based write stalling for append-only ledger sub-DBs",
+    "author": "wqfish",
+    "date": "2026-02-16T21:54:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7d932feb0cadea2a8beab11c55ef8c5b2d3f9043",
+    "category": "Storage"
+  },
+  {
+    "sha": "b4585e5",
+    "title": "[Storage] Bump default number of low priority threads to 4",
+    "author": "wqfish",
+    "date": "2026-02-16T22:02:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b4585e5a5c81bc9af98eb2d7063c20c2773b6e35",
+    "category": "Storage"
+  },
+  {
+    "sha": "0136305",
+    "title": "Increase num orderless txns per user to 5000 (#18769)",
+    "author": "vusirikala",
+    "date": "2026-02-16T21:30:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/013630546ba76cf0b7451c9110103454f4f297c9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4e7ce10",
+    "title": "[Storage] Fix max background job setting",
+    "author": "wqfish",
+    "date": "2026-02-16T17:56:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4e7ce1077749584bce0800db579f07674ae69084",
+    "category": "Storage"
+  },
+  {
+    "sha": "0464815",
+    "title": "[prover] Remove dead CLI options and flags (#18743)",
+    "author": "wrwg",
+    "date": "2026-02-14T03:13:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0464815b65655457d81fc04e4a67b382713667b8",
+    "category": "Prover"
+  },
+  {
+    "sha": "29bf348",
+    "title": "[vm] Use async type checks as default (#18752)",
+    "author": "georgemitenkov",
+    "date": "2026-02-14T02:38:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/29bf3480dfc0cd6f295df9ca641f3e362aadcd92",
+    "category": "VM"
+  },
+  {
+    "sha": "db3cc03",
+    "title": "[compiler] Remove move-errmapgen crate (#18740)",
+    "author": "wrwg",
+    "date": "2026-02-14T01:45:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/db3cc033477e49ec6557b2b175e719591131087d",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "8e6d2ea",
+    "title": "[storage] Make is_descendant_of check strict by walking the parent chain",
+    "author": "wqfish",
+    "date": "2026-02-13T22:18:32Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8e6d2eac028a5a8b1c189a49ccb6f0ab1aad557b",
+    "category": "Storage"
+  },
+  {
+    "sha": "223549a",
+    "title": "[vm] Improve type depth tracking and async runtime checks (#18728)",
+    "author": "georgemitenkov",
+    "date": "2026-02-14T00:41:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/223549a4890710bee66f6acabf3ad428d6705bc3",
+    "category": "VM"
+  },
+  {
+    "sha": "516c64a",
+    "title": "Redesign PVSS traits (#18718)",
+    "author": "waamm",
+    "date": "2026-02-14T00:01:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/516c64a8ec3395a94f42f7690c18e670d20a7ffb",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5ee5a6f",
+    "title": "[abigen] Move move-abigen out of move-prover into move/tools (#18742)",
+    "author": "wrwg",
+    "date": "2026-02-13T22:18:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5ee5a6f8f87766156e2c6b073332b74563b815dd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "906aaa3",
+    "title": "[encrypted mempool] Update HKDF in `aptos-batch-encryption` to be consistent with RFC-5869 (#18716)",
+    "author": "rex1fernando",
+    "date": "2026-02-13T21:29:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/906aaa339233bb312cc7529808c4aaa93a817d1f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e867830",
+    "title": "[tools][cleanup] Move move-docgen out of move-prover into move/tools (#18741)",
+    "author": "wrwg",
+    "date": "2026-02-13T21:23:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e8678300d03c3ec6834dcc95ce88fe69b02c082c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a818a43",
+    "title": "[stake] Prevent from empty validator set (#18280)",
+    "author": "lightmark",
+    "date": "2026-02-13T20:13:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a818a43233607366735de19d53273bcb22b1ef4e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e535ddb",
+    "title": "[fix] cherry pick missed feature activation times (#18745)",
+    "author": "georgemitenkov",
+    "date": "2026-02-13T18:32:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e535ddbda6f7fe874f11ea0a2053b0cc40204e7b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c074ca7",
+    "title": "[compiler] Remove move-cli crate, relocate shared modules to move-unit-test and move-prover (#18736)",
+    "author": "wrwg",
+    "date": "2026-02-13T17:34:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c074ca7d7be000c619044960a790ef88e197e4bb",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "15ce174",
+    "title": "[framework][vm] Add chunky DKG reconfiguration and VM support (#18541)",
+    "author": "ibalajiarun",
+    "date": "2026-02-13T06:38:46Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/15ce17409075b2fac49cc8fe04c0a03434d31b7f",
+    "category": "VM"
+  },
+  {
+    "sha": "d8b4266",
+    "title": "Pruned version stream unavailable (#18581)",
+    "author": "banool",
+    "date": "2026-02-13T01:33:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d8b4266886bd8b14dcbc97a0579ad66ade4eff14",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "30ef782",
+    "title": "[encrypted mempool] Switch hash-to-curve implementation in `aptos-batch-encryption` to the ones in `arkworks` and `noble-curves` (#18715)",
+    "author": "rex1fernando",
+    "date": "2026-02-12T23:34:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/30ef7827923885835310a39ba9f3c2e3049ddd7c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b24bd96",
+    "title": "Tune jemalloc config to reduce memory fragmentation",
+    "author": "wqfish",
+    "date": "2026-02-12T21:56:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b24bd9620e75c269a4f9123a9aeed2cf74ef9c64",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "87ba2f5",
+    "title": "Remove the use of mvir files in various places, instead, using masm (#18685)",
+    "author": "vineethk",
+    "date": "2026-02-12T22:24:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/87ba2f59b70e89612c45c85e82e65f5248550ce7",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "41d77fb",
+    "title": "remove validations from aptos-trading (#18727)",
+    "author": "igor-aptos",
+    "date": "2026-02-12T21:30:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/41d77fb11e1723d4baae5107dd36ec07d1a53bb3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "03b1b6b",
+    "title": "[State Sync] Reduce max client transaction and output request sizes.",
+    "author": "JoshLind",
+    "date": "2026-02-10T22:05:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/03b1b6bbe8286b90360b3496bc530faef13a55c8",
+    "category": "State Sync"
+  },
+  {
+    "sha": "f49a2ff",
+    "title": "[State Sync] Set default syncing mode to output syncing, and bump",
+    "author": "JoshLind",
+    "date": "2026-02-10T21:41:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f49a2ff0914549e74a57a624254307e3371d493e",
+    "category": "State Sync"
+  },
+  {
+    "sha": "c6d4caf",
+    "title": "[Peer Monitoring] Support metadata sanitization.",
+    "author": "cursoragent",
+    "date": "2026-01-29T17:58:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c6d4caf158f86350ced930723c8ff2f532d40acf",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0a04a63",
+    "title": "[model] Improve sourcifier spec output formatting (#18579)",
+    "author": "wrwg",
+    "date": "2026-02-12T20:25:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0a04a637efc359a5bdd88eba1925100c46665fef",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "479e258",
+    "title": "[blockstm] pre-write timestamp in mvhashmap (#18125)",
+    "author": "zekun000",
+    "date": "2026-02-12T20:15:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/479e258d8b57b1d8cf2834e76ebd9311e7ec715b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f9c780e",
+    "title": "[consensus] Use OptQuorumStore payload exclusively in proof_manager (#18653)",
+    "author": "ibalajiarun",
+    "date": "2026-02-12T19:57:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f9c780e3fb23c9a69b192e6702aaba5b7a758cf0",
+    "category": "Consensus"
+  },
+  {
+    "sha": "e2de37b",
+    "title": "[consensus] Use spawn_blocking for CPU-intensive verification tasks",
+    "author": "Zekun Li",
+    "date": "2026-02-11T22:05:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e2de37b54fd84d8f1ae644c7415e357a4fe14ed6",
+    "category": "Consensus"
+  },
+  {
+    "sha": "1a3d156",
+    "title": "Fix typescript tests flaking (#18696)",
+    "author": "rex1fernando",
+    "date": "2026-02-12T19:10:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1a3d1566d580bcf66d6118bc71027977bde16add",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ed08225",
+    "title": "[compiler] Add format string validation for assert macros (#18533)",
+    "author": "calintat",
+    "date": "2026-02-12T14:22:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ed082258c53257f45e2cd8d61f6848709beebe7c",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "86b5c58",
+    "title": "[consensus] Add optimistic randomness share verification (#18646)",
+    "author": "danielxiangzl",
+    "date": "2026-02-12T05:52:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/86b5c582bc41c055ec54ccf668e46ff4dcc2cf13",
+    "category": "Consensus"
+  },
+  {
+    "sha": "6da9894",
+    "title": "[prover] Ensures state labels of behavioral predicates are correctly propagated from the frontend (#18583)",
+    "author": "wrwg",
+    "date": "2026-02-12T05:48:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6da9894f986f498080223d297bd3c0a058d538cb",
+    "category": "Prover"
+  },
+  {
+    "sha": "eb53c9e",
+    "title": "[jemalloc] Add background thread for periodic jemalloc stats as Prometheus gauges",
+    "author": "wqfish",
+    "date": "2026-02-12T03:45:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/eb53c9e43c862c882ee736a6e03987f868b9f7ba",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a94e31e",
+    "title": "[move-prover] Implement behavioral predicates in Boogie code generation (#18465)",
+    "author": "wrwg",
+    "date": "2026-02-12T04:38:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a94e31ec6e2f6ba4a6aa8d859781fc68d26a6a77",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5ebd78c",
+    "title": "txn emitter: add latency for orderless (#18647)",
+    "author": "igor-aptos",
+    "date": "2026-02-12T04:19:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5ebd78c01892033a3aa7784647ad2b67b8a5dc41",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2b5e487",
+    "title": "Disable randomness fast path by default (#18644)",
+    "author": "danielxiangzl",
+    "date": "2026-02-11T22:39:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2b5e4871ec838712727f57614a59e354c362c027",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b7f57fa",
+    "title": "[storage] Fix incorrect assertion in LedgerState::new",
+    "author": "wqfish",
+    "date": "2026-02-11T03:03:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b7f57fa94d8985da0bfcb4ed10662d64096e2447",
+    "category": "Storage"
+  },
+  {
+    "sha": "98a5312",
+    "title": "Add  fn to batch threshold encryption scheme, to allow validators to post encryption key on-chain at the end of the epoch (#18615)",
+    "author": "rex1fernando",
+    "date": "2026-02-11T21:13:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/98a531276d3d416bb0512f6af1650f84e04e3bed",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "edd4d77",
+    "title": "Initial attempt (#18714)",
+    "author": "waamm",
+    "date": "2026-02-11T20:21:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/edd4d7737e5371706f3b9c64f1e44068acc4a6b6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0889259",
+    "title": "Update comments in fk_algorithm.rs to better explain circulant matrix evaluation (#18586)",
+    "author": "rex1fernando",
+    "date": "2026-02-11T20:17:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0889259cdb2264eaff863a3887c7203bef1cd85c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d9f84d8",
+    "title": "Improve chunky verifier speed (#18700)",
+    "author": "waamm",
+    "date": "2026-02-11T17:35:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d9f84d85ac554d01206e3a82e5284f081c5459d6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d8e7be6",
+    "title": "Bump CLI to 8.0.0 (#18692)",
+    "author": "banool",
+    "date": "2026-02-11T11:21:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d8e7be6de2332a46f4ff59cf98fbb0e2878d2538",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b1de268",
+    "title": "[Storage] Start a thread to cleanup some stale JMT nodes. (#18688)",
+    "author": "grao1991",
+    "date": "2026-02-11T04:16:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b1de2680707999b6e12e318c1e6c18e05d04f3a1",
+    "category": "Storage"
+  },
+  {
+    "sha": "2e9b3fb",
+    "title": "[gas] bump gas version to v1.42 (#18704)",
+    "author": "ibalajiarun",
+    "date": "2026-02-11T04:10:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2e9b3fba2bfa13afc36dd1c9a0133ccf7bf8e959",
+    "category": "Gas"
+  },
+  {
+    "sha": "095b361",
+    "title": "[cached-packages] Update head.mrb (#18702)",
+    "author": "wrwg",
+    "date": "2026-02-11T02:44:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/095b361b29f74d0f30b5d0a8852af2becefed92c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "195056b",
+    "title": "[framework] Eliminate build.rs from aptos-cached-packages (#18625)",
+    "author": "wrwg",
+    "date": "2026-02-10T23:35:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/195056b0eb6b61fea45f46a47dceb79cd7413b2f",
+    "category": "Framework"
+  },
+  {
+    "sha": "816f71d",
+    "title": "[staking_contract] accurate staker and operator pending attributions (#18671)",
+    "author": "lightmark",
+    "date": "2026-02-10T23:18:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/816f71d2d2571aaa79126a4f4aca451458ce6b09",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8b2647a",
+    "title": "Display compiler errors when framework tests are run (#18693)",
+    "author": "vineethk",
+    "date": "2026-02-10T23:05:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8b2647ad991089c83d5c0e61099842d2986adcb2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8904a22",
+    "title": "[vm] Use Arc<MoveStructLayout> for shared struct layout caching (#18640)",
+    "author": "wrwg",
+    "date": "2026-02-10T21:51:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8904a2238e4f88fdbff6c33cf627a5fd68b25960",
+    "category": "VM"
+  },
+  {
+    "sha": "089352a",
+    "title": "[masm] Add native function support for assembler-disassembler roundtripping (#18662)",
+    "author": "vineethk",
+    "date": "2026-02-10T21:34:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/089352a63e1c27e36f7f163b80efb4760db824c7",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2e14690",
+    "title": "Improve speed of chunky dealing and serialization (#18611)",
+    "author": "waamm",
+    "date": "2026-02-10T21:14:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2e1469016f5207303516563f7cf7658ab2d8bd25",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6d4a6e3",
+    "title": "[compiler] remove capture option warning (#18470)",
+    "author": "rahxephon89",
+    "date": "2026-02-10T20:38:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6d4a6e3c7229b7c73a1d655ff512cb0eb4cdad8c",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "6868648",
+    "title": "Update serde-reflection to fixed version",
+    "author": "banool",
+    "date": "2026-02-10T19:03:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/686864870ddab9ebf35254bc3a10157789c9c6bf",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e181420",
+    "title": "Update Hasura metadata for localnet",
+    "author": "banool",
+    "date": "2026-02-09T15:32:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e1814208cf6831e3f239e31eaae0c4c1df5a7ebc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "24fe718",
+    "title": "[cli] Update indexer processors to v2.3.0 and SDK to v2.1.4",
+    "author": "cursoragent",
+    "date": "2026-02-09T07:48:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/24fe7185ab1662dbbfb7a2493ed5cada2e8a952c",
+    "category": "CLI"
+  },
+  {
+    "sha": "cb86dd1",
+    "title": "Use orderless tx on faucet (#18676)",
+    "author": "jtang17",
+    "date": "2026-02-10T20:15:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cb86dd1f776fe24b8063e01d08a327654cd2c60f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f3d060a",
+    "title": "[types] Add committed_hash() to Transaction and remove CryptoHash trait (#18590)",
+    "author": "ibalajiarun",
+    "date": "2026-02-10T19:27:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f3d060a6151bf16ff7728c83223c5bc08ae3b0e5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1c8726e",
+    "title": "[hotfix] Fix closure depth and unwrap in crypto natives (#371) (#18666)",
+    "author": "vgao1996",
+    "date": "2026-02-10T19:26:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1c8726e0890c8aac97235659d4d8a08985c668c3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "65f281d",
+    "title": "[voting] fix voting boundary issue (#18680)",
+    "author": "lightmark",
+    "date": "2026-02-10T18:34:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/65f281d9ac5d62eef5f61af3de372d9ed7eee00e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2bc647f",
+    "title": "release builder - add framework release only some packages (#18675)",
+    "author": "igor-aptos",
+    "date": "2026-02-10T17:13:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2bc647fa8558d8f3eaec6e1dc5a0ebb7f6cec71c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e44d245",
+    "title": "[vm] Better stack size checks for unpack and closure calls (#18630)",
+    "author": "georgemitenkov",
+    "date": "2026-02-10T12:52:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e44d245a8f89c37082a12fadfb9755cda34344b1",
+    "category": "VM"
+  },
+  {
+    "sha": "0b1c672",
+    "title": "[Storage] Add a tool to check stale nodes that should be pruned but haven't. (#18681)",
+    "author": "grao1991",
+    "date": "2026-02-10T06:40:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0b1c672b94098af1e06407eb8f50c28a3dca5a88",
+    "category": "Storage"
+  },
+  {
+    "sha": "70fd91f",
+    "title": "[gas profiler] various improments (#18589)",
+    "author": "vgao1996",
+    "date": "2026-02-10T03:04:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/70fd91f4830a9bb1ff233dfd7e017966d9d4cfff",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b9a9e62",
+    "title": "[docker] Split build scripts into 4 parallel builders (#18669)",
+    "author": "ibalajiarun",
+    "date": "2026-02-10T00:30:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b9a9e62ccd2647fb16d0888d32c85ce90585a72c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "cc73c23",
+    "title": "consensus/execution: perf tuning (#18670)",
+    "author": "ibalajiarun",
+    "date": "2026-02-10T00:08:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cc73c23ee7a271e4317e1ea0041090c15bdbdba2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d5eb55c",
+    "title": "[trivial] Remove unused module (#18663)",
+    "author": "vineethk",
+    "date": "2026-02-10T00:03:48Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d5eb55c1357cb28159c938ee8bc1f2e89d5028fa",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ffcb5a7",
+    "title": "Last aptos-trading cleanup pass (#18665)",
+    "author": "igor-aptos",
+    "date": "2026-02-09T22:18:57Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ffcb5a791453ed32fccf5d854b1a3dba29ca2459",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1fcb6ad",
+    "title": "[cli] Add shorthand flags -y for --assume-yes and -f for --force-restart (#18656)",
+    "author": "banool",
+    "date": "2026-02-09T16:58:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1fcb6ad84b9d1b83750fae1cf242248963dbf8f3",
+    "category": "CLI"
+  },
+  {
+    "sha": "47f2f40",
+    "title": "[vm] Changing all mvir tests to masm tests for VM transactional tests (#18510)",
+    "author": "vineethk",
+    "date": "2026-02-09T16:31:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/47f2f405238464dd0cadc1574f036ba61ae5ecaf",
+    "category": "VM"
+  },
+  {
+    "sha": "3eee552",
+    "title": "[docker] Migrate from Debian Bullseye to Trixie (#18621)",
+    "author": "ibalajiarun",
+    "date": "2026-02-06T23:50:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3eee552ee539b22d448da2b1bbe614eb36fe11e6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0482484",
+    "title": "Tune jemalloc configuration for better perf",
+    "author": "wqfish",
+    "date": "2026-02-06T22:23:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/04824841723d03db4ac7ba8315460707054311e5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "99e479c",
+    "title": "stake.move maintenance (#18641)",
+    "author": "zjma",
+    "date": "2026-02-06T22:10:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/99e479cc25eb499e75ac25a325d93446d42ef612",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0d9a150",
+    "title": "[cli] Fix some issues in the CLI with move tooling (#18616)",
+    "author": "vineethk",
+    "date": "2026-02-06T20:39:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0d9a150145c56e07f2d6defd662a563491e36311",
+    "category": "CLI"
+  },
+  {
+    "sha": "fe102e7",
+    "title": "Reduce number of threads for peer monitoring service",
+    "author": "wqfish",
+    "date": "2026-02-06T00:11:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fe102e7fb87f072e4f05efde18385238edb33f1b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4df7575",
+    "title": "Reduce number of threads for telemetry service",
+    "author": "wqfish",
+    "date": "2026-02-06T00:11:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4df75752eef360ff2773fa64f0595173b677a48a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6102e4b",
+    "title": "Reduce worker threads for admin service and inspection service",
+    "author": "wqfish",
+    "date": "2026-02-06T00:11:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6102e4b5d11cbe1761ec56c558bb9dd136b2f706",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "cf49b54",
+    "title": "[gha][docker] upgrade buildx version (#18617)",
+    "author": "ibalajiarun",
+    "date": "2026-02-05T23:39:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cf49b5470b93c825f1ca54db69c223ab38587b4d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4dd6f78",
+    "title": "[gha][docker] use runs-on snapshots for caching (#18606)",
+    "author": "ibalajiarun",
+    "date": "2026-02-05T23:33:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4dd6f782d41ce72fdf9894d9d2419ac700fa57af",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "efdad23",
+    "title": "Fix imports",
+    "author": "waamm",
+    "date": "2026-02-05T22:51:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/efdad231dda731ad278e070088b278becfb2dabb",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f7babb8",
+    "title": "Introduce Aggregated type for PVSS aggregation in aptos-dkg (#18514)",
+    "author": "waamm",
+    "date": "2026-02-05T21:25:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f7babb8d3a6d4033fe1ad72a756d0268fcef5ecc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "dce70c7",
+    "title": "[framework] Add abort messages to some native functions (#18534)",
+    "author": "calintat",
+    "date": "2026-02-05T17:45:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/dce70c7e143cd9d5dab3f1205d17d442e6000193",
+    "category": "Framework"
+  },
+  {
+    "sha": "c2ce6ef",
+    "title": "[forge] bump deployer version",
+    "author": "aptos-bot",
+    "date": "2026-02-05T00:03:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c2ce6ef7bfef6fd3e12905b49912acb0ff3db4ce",
+    "category": "Release"
+  },
+  {
+    "sha": "6adb768",
+    "title": "Rust 1.91",
+    "author": "wqfish",
+    "date": "2026-02-05T04:44:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6adb7681a0c12889bed5f0dcea4f318a527b8364",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "55e2de0",
+    "title": "[dkg] Integrate ChunkyDKGManager with epoch manager (#18545)",
+    "author": "ibalajiarun",
+    "date": "2026-02-05T06:29:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/55e2de0ca1bef2ff0bdba70045cb2f9693d73685",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e649cc9",
+    "title": "[framework] Add chunky DKG Move modules (#18540)",
+    "author": "ibalajiarun",
+    "date": "2026-02-05T06:18:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e649cc97e9a3f7bf4d0ea8ba5ff7a3fddb7ca05a",
+    "category": "Framework"
+  },
+  {
+    "sha": "671b778",
+    "title": "[dkg] Add ChunkyDKGManager and missing transcript fetcher (#18544)",
+    "author": "ibalajiarun",
+    "date": "2026-02-05T00:40:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/671b778a143a9b1a7d1adda91bef0a2e1ecad0dc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c2dd9d2",
+    "title": "[telemetry] allow untrusted telemetry only on some paths (#18518)",
+    "author": "rustielin",
+    "date": "2026-02-04T21:07:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c2dd9d282effd6125903f91bac5aae9a26c85735",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ba4e638",
+    "title": "remove boogie (#18593)",
+    "author": "rahxephon89",
+    "date": "2026-02-04T19:27:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ba4e6382ce7d6197a89251378ebbb50870715828",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ca20b4c",
+    "title": "adding aptos-trading (#18488)",
+    "author": "igor-aptos",
+    "date": "2026-02-04T07:55:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ca20b4c70d43222288fc43f3697eb9f8a302eb24",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9a9f1e8",
+    "title": "[consensus] Add ValidatorTransaction::ChunkyDKGResult and consensus hooks (#18539)",
+    "author": "ibalajiarun",
+    "date": "2026-02-04T04:06:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9a9f1e85a7459b55ff11be45138e67d40f3335fe",
+    "category": "Consensus"
+  },
+  {
+    "sha": "6ca36e8",
+    "title": "Add BlockMetadataExt V2 with Decryption Key Support (#18444)",
+    "author": "ibalajiarun",
+    "date": "2026-02-04T02:20:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6ca36e8a3cfbbe0b224908e4ec56950f263561e0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1c109d3",
+    "title": "[vm] Tidy up abort tests (#18513)",
+    "author": "calintat",
+    "date": "2026-02-03T12:29:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1c109d354dcf2cda575fda93768cf8813b96a0a7",
+    "category": "VM"
+  },
+  {
+    "sha": "bd70aa5",
+    "title": "[dkg] Add chunky DKG producers",
+    "author": "ibalajiarun",
+    "date": "2026-01-29T17:23:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bd70aa5e335c3b33f523ce6317e8a75895347135",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "069bedd",
+    "title": "[Storage] Fix for panics in state update code",
+    "author": "wqfish",
+    "date": "2026-02-01T01:58:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/069beddb1e0bdc39f22d1d2f630ce6e6fe989007",
+    "category": "Storage"
+  },
+  {
+    "sha": "e4e34ed",
+    "title": "[dkg] Add chunky DKG types and module structure",
+    "author": "ibalajiarun",
+    "date": "2026-01-29T17:19:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e4e34ed9fad5059c9b7f4a4b9e79ea7e235bc2b5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ca3072c",
+    "title": "[TSS] add support for randomness in local mode (#18573)",
+    "author": "vgao1996",
+    "date": "2026-01-31T20:03:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ca3072cc40a2c1c3a815e9c886a05802c93d8bce",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8f698d7",
+    "title": "[framework] Use marker file for compiler change detection",
+    "author": "Zekun Li",
+    "date": "2026-01-30T00:46:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8f698d7070d2cc80911594205648592d15ca4a5a",
+    "category": "Framework"
+  },
+  {
+    "sha": "069136d",
+    "title": "[framework] Add hash-based caching for Move framework builds",
+    "author": "Zekun Li",
+    "date": "2026-01-30T00:32:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/069136deee17c45fa4cbbd03ccadd2d7b88da146",
+    "category": "Framework"
+  },
+  {
+    "sha": "be2fc5a",
+    "title": "[Storage] Improve error message in assertions",
+    "author": "wqfish",
+    "date": "2026-01-30T21:31:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/be2fc5a62b015bbecaa31a7e003cd3d1af89e56b",
+    "category": "Storage"
+  },
+  {
+    "sha": "1afe9b4",
+    "title": "[types] Add Chunky DKG types and on-chain config (#18538)",
+    "author": "ibalajiarun",
+    "date": "2026-01-30T19:59:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1afe9b44f04bd62e6cfb9ada07709bc2241741e9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e528be4",
+    "title": "[CI/CD] Add batch encryption test job.",
+    "author": "JoshLind",
+    "date": "2026-01-28T12:59:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e528be4a60b737a322633f52540245c76fbffaff",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1b3fc7f",
+    "title": "[Encrypted Txn] Add TypeScript tests for encrypted transactions",
+    "author": "JoshLind",
+    "date": "2026-01-28T01:01:46Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1b3fc7ff022895e1a6e9471b4fe901657631c2ff",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "cc0556b",
+    "title": "Remove Pontem from example documentation (#18561)",
+    "author": "banool",
+    "date": "2026-01-30T08:29:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cc0556b2fc1b6faa51383fe9f261f7f72f50c9e1",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a13df87",
+    "title": "[Types] Use Self whenever possible in onchain config code",
+    "author": "wqfish",
+    "date": "2026-01-30T06:00:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a13df870fdd6efcff63ea19994b5a2f526e073d0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e50b4b7",
+    "title": "[types] Extract randomness DKG types into separate module",
+    "author": "ibalajiarun",
+    "date": "2026-01-29T16:28:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e50b4b72bd702fa0bd119e2f99cdf030ffd54b8f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6fe7383",
+    "title": "[Execution] Implement Copy for a few onchain config types",
+    "author": "wqfish",
+    "date": "2026-01-30T03:48:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6fe7383638d29d028c0328f154775dbb080bc279",
+    "category": "Execution"
+  },
+  {
+    "sha": "2dbcb05",
+    "title": "[crypto] Rename SecretSharingConfig trait to TSecretSharingConfig",
+    "author": "ibalajiarun",
+    "date": "2026-01-29T16:07:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2dbcb05c334db1b2aa6d522cf29da586a295878e",
+    "category": "Crypto"
+  },
+  {
+    "sha": "dd86244",
+    "title": "Verify Cargo.lock and other files are not changed after running lints",
+    "author": "wqfish",
+    "date": "2026-01-29T23:30:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/dd86244acf028471233564ce6404f5b466836c08",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "bcf0d65",
+    "title": "Update Cargo.lock",
+    "author": "wqfish",
+    "date": "2026-01-29T23:17:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bcf0d6586a27f80833ccbf89b895125c427c2217",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6ab5a72",
+    "title": "[jwk] rename .pem to .txt",
+    "author": "Zekun Li",
+    "date": "2026-01-29T23:13:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6ab5a7230dabf161f027682c083b34fbf557a498",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1543a9c",
+    "title": "[replay-verify] bump disk to 20Ti",
+    "author": "ibalajiarun",
+    "date": "2026-01-29T22:21:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1543a9cac46a100c4ab4cafe6b3f2c35bd50538c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ffbc743",
+    "title": "[REST API] Add `chain_id` and `node_type` to the `/info` endpoint (#18525)",
+    "author": "JoshLind",
+    "date": "2026-01-29T22:00:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ffbc7435860837585e536fbf04bcd7d898d1fe94",
+    "category": "API"
+  },
+  {
+    "sha": "c195b57",
+    "title": "[encrypted mempool] Add `verify_decryption_key` method to `BatchThresholdEncryption` trait (#18500)",
+    "author": "rex1fernando",
+    "date": "2026-01-29T21:17:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c195b57ec3861f7a376e3a9095dcac122bbdc5cf",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0d988b2",
+    "title": "[Orderbook] Return ClearinghouseStoppedMatching cancellation reason when matching stops (#18530)",
+    "author": "sitalkedia",
+    "date": "2026-01-29T20:44:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0d988b20d26df99ee27d711754a3a295002eddcc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "beb39c0",
+    "title": "Signed integer test transaction format (#18546)",
+    "author": "jtang17",
+    "date": "2026-01-29T18:45:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/beb39c01fe275bfe1c275e0777a10f2521b858b0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "faed563",
+    "title": "[vm] Fix async code state replay (#18479)",
+    "author": "georgemitenkov",
+    "date": "2026-01-29T13:01:57Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/faed5637e9d947a8e060cd6b552ed1c3030260d2",
+    "category": "VM"
+  },
+  {
+    "sha": "379d47a",
+    "title": "[Orderbook] Bulk order callback to support order margin. (#18512)",
+    "author": "sitalkedia",
+    "date": "2026-01-29T10:20:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/379d47ac24062da8ba2038fa19c4f0a6b3c459c2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "429038a",
+    "title": "[qs] Handle BatchV2 network messages",
+    "author": "ibalajiarun",
+    "date": "2026-01-21T01:17:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/429038a3c6d25aa520406e82869898ddabec16ed",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b26c038",
+    "title": "Add test transaction with signed int (#18527)",
+    "author": "jtang17",
+    "date": "2026-01-29T00:59:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b26c0385520d13d2b38ae4649407bd14badb6d54",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ef82cf1",
+    "title": "Enhance log entry serialization by converting structured log values to strings using TruncatedLogString for consistency. Added error handling to skip serialization failures gracefully. (#18447)",
+    "author": "zekun000",
+    "date": "2026-01-29T00:36:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ef82cf17747617d7323828de37bfcac956412b00",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9e2cc98",
+    "title": "[mono move] add design of memory management and value representation (#18519)",
+    "author": "vgao1996",
+    "date": "2026-01-29T00:29:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9e2cc98c9312198d5143e3e784059fbd00434683",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8a56229",
+    "title": "[Network] Add simple allow and blocklist.",
+    "author": "JoshLind",
+    "date": "2026-01-24T03:16:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8a56229265d28278c05994e243764748c2b4af7d",
+    "category": "Networking"
+  },
+  {
+    "sha": "3e33a2d",
+    "title": "[compiler] New macros using abort with message (#18412)",
+    "author": "calintat",
+    "date": "2026-01-28T20:14:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3e33a2de570360e95a8122de2bf9b178b4567a87",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "4106b2b",
+    "title": "[Hot State] Enable pruner for hot state merkle db",
+    "author": "wqfish",
+    "date": "2026-01-27T19:49:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4106b2bc5d25199e64246f0d9ab0038b94cd3dbb",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "532f261",
+    "title": "[Network] Remove dead rate limiting code.",
+    "author": "JoshLind",
+    "date": "2026-01-27T20:26:41Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/532f261631704daed5bb11605bb52cecf898bcf0",
+    "category": "Networking"
+  },
+  {
+    "sha": "cd818e8",
+    "title": "[Network] Remove dead network config fields.",
+    "author": "JoshLind",
+    "date": "2026-01-27T20:22:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cd818e81a883e9a0dd0fd75479ebfefb94f8f136",
+    "category": "Networking"
+  },
+  {
+    "sha": "eb6ae12",
+    "title": "Expand PVSS benchmarking tables (#18511)",
+    "author": "waamm",
+    "date": "2026-01-27T05:08:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/eb6ae1270db66f858cb48258b525d7a82e2ab99e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "dfe8add",
+    "title": "[telemetry-service] cache vm/prom backend paths (#18455)",
+    "author": "rustielin",
+    "date": "2026-01-26T22:47:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/dfe8add8e620a47309f8f5fcfe8a91941f89c952",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1e04020",
+    "title": "[Orderbook] Address security review feedback  (#18495)",
+    "author": "sitalkedia",
+    "date": "2026-01-26T19:55:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1e04020aaca03d5c821794390308e77b801f9808",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a8b5032",
+    "title": "[vm] Adding design doc (#18498)",
+    "author": "georgemitenkov",
+    "date": "2026-01-26T18:42:57Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a8b50321912c1d15e5cd9c4645c27d1d74dbd728",
+    "category": "VM"
+  },
+  {
+    "sha": "a1d2a25",
+    "title": "[tests][vm] Additional tests to increase code coverage of runtime reference safety checker (#18407)",
+    "author": "vineethk",
+    "date": "2026-01-26T18:11:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a1d2a251adc466547374f4afd4b452d762799fc7",
+    "category": "VM"
+  },
+  {
+    "sha": "402af26",
+    "title": "Move cancel_at_price_level from bulk_order_types to bulk_order_utils (#18485)",
+    "author": "sitalkedia",
+    "date": "2026-01-26T18:07:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/402af26cff1bfcbbcdf9f6ea5e21f7f356d56210",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1a97948",
+    "title": "[framework] replace with receiver-style call expr in non-spec code (#18462)",
+    "author": "mkurnikov",
+    "date": "2026-01-26T17:01:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1a97948f3ad0093c46346b077af06cfeda925342",
+    "category": "Framework"
+  },
+  {
+    "sha": "5037571",
+    "title": "[vm] Support abort messages in native functions (#18487)",
+    "author": "calintat",
+    "date": "2026-01-26T14:44:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5037571cde2c8439416c872c4e03ab93dff689ec",
+    "category": "VM"
+  },
+  {
+    "sha": "c1c0f39",
+    "title": "[framework] use vector index expr whenever possible (#18457)",
+    "author": "mkurnikov",
+    "date": "2026-01-25T16:39:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c1c0f39580bfa2c631979f5f0f713ef03d4b608e",
+    "category": "Framework"
+  },
+  {
+    "sha": "20ae0d2",
+    "title": "framework: use compound arithm expr (#18458)",
+    "author": "mkurnikov",
+    "date": "2026-01-24T17:35:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/20ae0d2a667997ad6d0ec5c9a67aac9be56a2954",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9a298c4",
+    "title": "[prover] Support tuple results in spec functions (#18450)",
+    "author": "wrwg",
+    "date": "2026-01-24T07:11:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9a298c41fc9fec1c4a913708fc5bb82119c206b7",
+    "category": "Prover"
+  },
+  {
+    "sha": "05feddd",
+    "title": "[prover] Add developer documentation for function values verification (#18493)",
+    "author": "wrwg",
+    "date": "2026-01-24T03:22:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/05feddd14a25f3c60ac9d220660376419a4b6862",
+    "category": "Prover"
+  },
+  {
+    "sha": "d9e0fd7",
+    "title": "[compiler-v2] Make semicolon optional after block expressions (#18497)",
+    "author": "vineethk",
+    "date": "2026-01-23T22:55:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d9e0fd757392b0a2451aa299583d3ddf1c8ac603",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "7a09118",
+    "title": "[encrypted mempool] Return error when trying to initialize digest key with batch size not a power of 2. (#18496)",
+    "author": "rex1fernando",
+    "date": "2026-01-23T19:57:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7a09118af5636fafb409b9e3ddbfafb5185cf07f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0a14d4d",
+    "title": "[compiler] Allow using wildcard to match tuple (#18434)",
+    "author": "calintat",
+    "date": "2026-01-23T17:05:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0a14d4d46b69163238d564a781e29d96f73acf44",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "bb5abe3",
+    "title": "[prover] Support tuple results in spec functions (#18484)",
+    "author": "wrwg",
+    "date": "2026-01-23T04:23:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bb5abe3e695329baebdbfdbfccfeec5ffabc094b",
+    "category": "Prover"
+  },
+  {
+    "sha": "1b896ef",
+    "title": "[cli] Fix MOVE_VM_STEP/MOVE_VM_TRACE for aptos move replay (#18486)",
+    "author": "wrwg",
+    "date": "2026-01-22T03:17:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1b896ef2a971b917ecfccef7322fd074d6cc7425",
+    "category": "CLI"
+  },
+  {
+    "sha": "45e93a3",
+    "title": "Bulk order rejection event and address various security feedback (#18477)",
+    "author": "sitalkedia",
+    "date": "2026-01-21T19:28:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/45e93a361e0df0a3830e75ffdaed4a5e362ac8c4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ca084fe",
+    "title": "[vm] Stack size checks for native calls (#18475)",
+    "author": "georgemitenkov",
+    "date": "2026-01-21T12:32:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ca084fe7dd4633cf03e547ed4f936ffc5966e722",
+    "category": "VM"
+  },
+  {
+    "sha": "ab91501",
+    "title": "[qs] support pulling OptQuorumStorePayload::V2 (#18453)",
+    "author": "ibalajiarun",
+    "date": "2026-01-20T22:21:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ab91501b90fe6f7fb9276217b8202c8ab2f2a21a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "41b19a6",
+    "title": "[qs] Populate BatchKind for BatchV2 (#18452)",
+    "author": "ibalajiarun",
+    "date": "2026-01-20T17:52:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/41b19a64dc9867ccdb70be075407013bf58dabd4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ff38b1d",
+    "title": "[move-unit-test] More information for unexpected aborts (#18432)",
+    "author": "calintat",
+    "date": "2026-01-20T14:36:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ff38b1deda7cacc171a6bed7a2c6281302fec2e5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "002b777",
+    "title": "[State Sync] Enable time-and-size aware storage reads.",
+    "author": "JoshLind",
+    "date": "2026-01-19T22:01:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/002b777b2b24c54656720888c2f9bafbec0e693c",
+    "category": "State Sync"
+  },
+  {
+    "sha": "509de39",
+    "title": "[State Sync] Increase state-sync network frame size.",
+    "author": "JoshLind",
+    "date": "2026-01-19T21:47:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/509de39205d27f58a0f5f37257e64d2c5f61eeeb",
+    "category": "State Sync"
+  },
+  {
+    "sha": "b0102f4",
+    "title": "separating out types (#18364)",
+    "author": "igor-aptos",
+    "date": "2026-01-19T17:41:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b0102f4960e419152e1a532a5570f1340b376d7c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6c3a7df",
+    "title": "Wicher/more dkg edits (#18384)",
+    "author": "waamm",
+    "date": "2026-01-17T12:10:57Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6c3a7df69a5f9958374a04349fb469d922322655",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3307e04",
+    "title": "Remove refs to unweighted chunky from aptos-batch-encryption (#18466)",
+    "author": "rex1fernando",
+    "date": "2026-01-16T20:02:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3307e0458d47e1b747e510b353b55f3aca664565",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d8c55a2",
+    "title": "[move-prover] Adding behavioral predicates to the type checker (#18429)",
+    "author": "wrwg",
+    "date": "2026-01-16T04:57:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d8c55a2a587418575d7967b8cb8887b3b4886ebe",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1a40fb3",
+    "title": "specs: properly desugar receiver style functions in let statements (#18438)",
+    "author": "mkurnikov",
+    "date": "2026-01-16T04:53:46Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1a40fb345f99f93c887a251177e145a8f1148059",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "31180f5",
+    "title": "[api] add validations for batch txn submission",
+    "author": "ibalajiarun",
+    "date": "2026-01-15T00:39:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/31180f5a86a2955a376ecb9326fa83a5d41555f4",
+    "category": "API"
+  },
+  {
+    "sha": "d2839e6",
+    "title": "[api] feature flag for enc txn submission",
+    "author": "ibalajiarun",
+    "date": "2025-12-18T16:56:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d2839e69a39b1421a7277ed15028ce0789b3604a",
+    "category": "API"
+  },
+  {
+    "sha": "be9ff3e",
+    "title": "add support for SLH-DSA-SHA2-128s TXN authenticators (#18300)",
+    "author": "alinush",
+    "date": "2026-01-15T23:26:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/be9ff3ec5ea5cdb23e3096cc1220bcdb4893a917",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "11f6f5d",
+    "title": "Add conversion fns from blst consensus keys to chunky encryption keys (#18454)",
+    "author": "rex1fernando",
+    "date": "2026-01-15T14:18:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/11f6f5db3444402ee84953f75abb57fbf579a34a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6ec9e87",
+    "title": "[forge] bump deployer version (#18446)",
+    "author": "aptos-bot",
+    "date": "2026-01-15T01:11:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6ec9e872816a6e056b95b425a9e6b3feb389c24a",
+    "category": "Release"
+  },
+  {
+    "sha": "def1598",
+    "title": "[batch-encryption] remove happy path in trait and impls",
+    "author": "ibalajiarun",
+    "date": "2025-12-26T18:00:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/def15982b2697135b139aadfdd53bab607f5d587",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d49896b",
+    "title": "[move-prover] Adding behavioral predicates to the parser (#18428)",
+    "author": "wrwg",
+    "date": "2026-01-14T23:01:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d49896be27f4c071cdaeb4a2e6ddc0ddd97a93c5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8fc3fd0",
+    "title": "[qs] fix flaky batch store test",
+    "author": "ibalajiarun",
+    "date": "2026-01-14T21:44:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8fc3fd06e972d26f654a958158300ec98c0a124a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "08437aa",
+    "title": "[Hot State] Include HotVacant slots in root hash",
+    "author": "wqfish",
+    "date": "2026-01-14T20:48:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/08437aa50eb087953952a1eb53b13e8e258e7b77",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c83c8f2",
+    "title": "Calibrate execution performance benchmark",
+    "author": "wqfish",
+    "date": "2026-01-14T20:48:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c83c8f2746481137cbede06181d34d04ed6713ee",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d91d3c5",
+    "title": "[compiler] fix issue 18335 (#18411)",
+    "author": "junxzm1990",
+    "date": "2026-01-14T21:59:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d91d3c50c183387d83cbc54734d988e9cdf8449c",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "8dbb447",
+    "title": "[transaction simulation] fix bug in fund_apt_fungible_store (#18448)",
+    "author": "vgao1996",
+    "date": "2026-01-14T20:42:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8dbb447c80688bbd8e6bea2ebe234916e40fcca9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "eac80f9",
+    "title": "[Hot State] Compute root hash for hot state",
+    "author": "wqfish",
+    "date": "2026-01-14T19:35:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/eac80f96a072eaef61f00d84e3001dfacbd2581e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a900b30",
+    "title": "[Storage] Move log out of loop in StateSnapshotCommitter",
+    "author": "wqfish",
+    "date": "2026-01-14T19:35:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a900b30bc2ceddf48786635a69d20265501f0178",
+    "category": "Storage"
+  },
+  {
+    "sha": "d434f8e",
+    "title": "[encrypted mempool] Switch curve to BLS (#18442)",
+    "author": "rex1fernando",
+    "date": "2026-01-14T15:43:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d434f8e649ca2b4a09f253209673efceca5c8612",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "844655c",
+    "title": "Add succinct-ciphertext version of batch encryption (#18439)",
+    "author": "rex1fernando",
+    "date": "2026-01-14T13:34:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/844655cc51878d3040c0bc512b36612656d65038",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ecb203d",
+    "title": "[Layered Map] Expose inner layers",
+    "author": "wqfish",
+    "date": "2026-01-14T07:08:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ecb203dfa44b0cb9290d89d07cd8db5a2a95c2f0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8d48624",
+    "title": "[ai] Basic setup for Cursor/Claude agents.md (#18413)",
+    "author": "wrwg",
+    "date": "2026-01-14T06:24:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8d486246f01ce1cec72c04018bbb90df35070528",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f7a776d",
+    "title": "[cli] bump version to 7.14 (#18440)",
+    "author": "vgao1996",
+    "date": "2026-01-13T19:46:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f7a776d730d725adfcb7cc4954d06d093f9d3a84",
+    "category": "CLI"
+  },
+  {
+    "sha": "16758e6",
+    "title": "[forge] bump deployer version (#18435)",
+    "author": "aptos-bot",
+    "date": "2026-01-13T01:05:04Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/16758e67a8da39a3de720603016b22337eec1bcb",
+    "category": "Release"
+  },
+  {
+    "sha": "6eec669",
+    "title": "[cli][txn sim sessions] support code object and chunked publishing (#18329)",
+    "author": "vgao1996",
+    "date": "2026-01-13T00:04:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6eec669bf25e7867e591e1bf2cc71d9471d2b000",
+    "category": "CLI"
+  },
+  {
+    "sha": "fb8f96f",
+    "title": "Fix test_only timestamp::fast_forward_seconds for extra microseconds (#18415)",
+    "author": "igor-aptos",
+    "date": "2026-01-12T20:49:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fb8f96f0c5d96724574b78d9c10734e19f5d256a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6cfd28e",
+    "title": "[forge] bump deployer version (#17266)",
+    "author": "aptos-bot",
+    "date": "2026-01-12T19:55:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6cfd28ea7c76ee031541b6b4fcf2ee119326d401",
+    "category": "Release"
+  },
+  {
+    "sha": "fd0d96e",
+    "title": "[telemetry] support prometheus sink (#18336)",
+    "author": "rustielin",
+    "date": "2026-01-12T19:44:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fd0d96e717a21eb3864cb2c52866ae0f593fdbca",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ac16a37",
+    "title": "Set reserve bit in monotonically increasing counters (#18418)",
+    "author": "vusirikala",
+    "date": "2026-01-10T01:41:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ac16a37f8648fc36bfe659c2a13bba9bf27b3c0e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "bb7cb88",
+    "title": "[compiler] Overload Move abort to support messages (#18403)",
+    "author": "calintat",
+    "date": "2026-01-09T16:53:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bb7cb889e7995c0182594f471a9ad221daecffcb",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "49e73b0",
+    "title": "[vm] New bytecode for aborting with message (#18347)",
+    "author": "calintat",
+    "date": "2026-01-09T13:35:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/49e73b019a5dac68a8566245a104c8d94a50dcf9",
+    "category": "VM"
+  },
+  {
+    "sha": "99d5c8d",
+    "title": "[Orderbook] Cleanup client order id mapping when taking ready time based order (#18417)",
+    "author": "sitalkedia",
+    "date": "2026-01-09T04:28:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/99d5c8d521f967cfd28d82a3287418c59a404989",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5755d5e",
+    "title": "sui daa security audit fixes (#18398)",
+    "author": "0xmaayan",
+    "date": "2026-01-08T20:32:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5755d5eb381486688e33e1ee435b967c4f425249",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5524f4d",
+    "title": "[Hot State] Add a separate StateMerkleDb for hot state",
+    "author": "wqfish",
+    "date": "2026-01-08T04:17:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5524f4d126e492bee59558f7f8caabb6c146b9bd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0257e5a",
+    "title": "[Storage Config] Make db path override related fields private",
+    "author": "wqfish",
+    "date": "2026-01-08T04:11:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0257e5a6d75e93c5302ec59e456b52e6a2a2ea58",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8a38adc",
+    "title": "[framework] Add `String::into_bytes` function (#18395)",
+    "author": "calintat",
+    "date": "2026-01-08T01:57:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8a38adc1739258571f58a48a32b27881647af492",
+    "category": "Framework"
+  },
+  {
+    "sha": "92f0a31",
+    "title": "[consensus] support secret sharing manager in execution client (#18313)",
+    "author": "ibalajiarun",
+    "date": "2026-01-08T00:49:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/92f0a310b59a128b992fbe309c853db6b4dc2eaf",
+    "category": "Consensus"
+  },
+  {
+    "sha": "c5ff83e",
+    "title": "Enable memory profiling by default",
+    "author": "wqfish",
+    "date": "2026-01-07T23:05:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c5ff83ea974379db8c8fd71fc5cd46603d03b88f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7787942",
+    "title": "Update jemalloc to latest version",
+    "author": "wqfish",
+    "date": "2026-01-07T23:05:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/77879423ebede0c563d10a791ceee6684f00ac6b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f0f8fc9",
+    "title": "[Storage] Fix error message formatting in config",
+    "author": "wqfish",
+    "date": "2026-01-07T22:53:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f0f8fc9c72107cdfa5a4b103118b9f373f6c2aef",
+    "category": "Storage"
+  },
+  {
+    "sha": "fd789ba",
+    "title": "[Hot State] Use config to replace hard-coded parameters",
+    "author": "wqfish",
+    "date": "2026-01-07T19:38:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fd789ba4bdb14a71ecfe323e23781e55e8949f9d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3dc513f",
+    "title": "orderbook events (#18277)",
+    "author": "igor-aptos",
+    "date": "2026-01-07T19:48:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3dc513f0177843c78ecaed8eac487b813d246306",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "89c0055",
+    "title": "[encrypted-mempool] use FTXWeighted instead of FTX (#18409)",
+    "author": "ibalajiarun",
+    "date": "2026-01-07T19:28:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/89c00552495af99497810b64198272c3ecb53785",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "df0c634",
+    "title": "[Hot State] Delete unused code",
+    "author": "wqfish",
+    "date": "2026-01-07T04:42:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/df0c634784000194f5963213204cac3b4e02502a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b8a58e8",
+    "title": "[AIP-105] Make mem::swap and mem::replace public (#18330)",
+    "author": "igor-aptos",
+    "date": "2026-01-06T19:35:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b8a58e890853d06ea9644dc002d10b914c7b4f2f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "362677f",
+    "title": "[aptos cli] update cli 7.13.0 to mark lang version 2.3 and bytecode version 9 as default (#18400)",
+    "author": "junxzm1990",
+    "date": "2026-01-06T16:15:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/362677fb2ae2f2ff0022a003cc67cfcea8aadab6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d181eb3",
+    "title": "[GEO-328] Add signed integers to protos and indexer type conversion code (#18394)",
+    "author": "banool",
+    "date": "2025-12-30T21:41:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d181eb37ea0681d5248cd9aa7a536dd3787f03e8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "44953af",
+    "title": "[cli] Update CLI to use latest formatter and mutation testing tool (#18373)",
+    "author": "vineethk",
+    "date": "2025-12-30T16:30:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/44953aff894fe8c66957a74ddcfd57a87d912876",
+    "category": "CLI"
+  },
+  {
+    "sha": "3318621",
+    "title": "[VM] Add code coverage support for e2e tests (#18337)",
+    "author": "wrwg",
+    "date": "2025-12-30T02:27:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3318621d291ad056de10fc1088836cd92c0ec82d",
+    "category": "VM"
+  },
+  {
+    "sha": "5f5d138",
+    "title": "[aptos cli] set language version 2.3 as stable and release cli 7.13.0 (#18391)",
+    "author": "junxzm1990",
+    "date": "2025-12-29T19:46:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5f5d138562dd0732e14c3e4265d3aa1218144145",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e53123a",
+    "title": "[vm] New VM instruction for aborting with message (#18316)",
+    "author": "calintat",
+    "date": "2025-12-29T11:24:32Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e53123a928691f2516bc5332e0d3a5d9dc4becd2",
+    "category": "VM"
+  },
+  {
+    "sha": "2f99b2f",
+    "title": "[move linter] revise a linter name (#18387)",
+    "author": "junxzm1990",
+    "date": "2025-12-29T08:10:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2f99b2fbeb63ee3ee4d8fbdbd1aba164e39ed7b8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d24dbd5",
+    "title": "Update Docker images (#17328)",
+    "author": "github-actions[bot]",
+    "date": "2025-12-28T01:04:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d24dbd5de849e0d89744fb5253a398cf5366c121",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3ee1cb1",
+    "title": "[move-vm] Native function modeling for runtime reference safety checker (#18346)",
+    "author": "vineethk",
+    "date": "2025-12-27T03:27:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3ee1cb15644a05d336d5a4d288958e01f95588e0",
+    "category": "VM"
+  },
+  {
+    "sha": "7716055",
+    "title": "IndexedRef Runtime TAG (#18142)",
+    "author": "zi0Black",
+    "date": "2025-12-27T03:09:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7716055f8345ac4af613316482fa2d7e01c46e28",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "56b9cf9",
+    "title": "[forge] pin image for etna stable test (#18351)",
+    "author": "ibalajiarun",
+    "date": "2025-12-23T18:57:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/56b9cf968744bfef9b058851d28333086e341b35",
+    "category": "Testing"
+  },
+  {
+    "sha": "94fe0a3",
+    "title": "[Network] Small cleaups to streaming code. (#18375)",
+    "author": "JoshLind",
+    "date": "2025-12-23T01:30:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/94fe0a347907e2d43927a49234a3cb4c419a6503",
+    "category": "Networking"
+  },
+  {
+    "sha": "3d9bcda",
+    "title": "some cleanups (#18377)",
+    "author": "ibalajiarun",
+    "date": "2025-12-22T22:17:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3d9bcdad6a2f4d2892466f7a836037f45c6bb10e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ec3d56b",
+    "title": "[aptos cli] release cli 7.12.1 (#18369)",
+    "author": "junxzm1990",
+    "date": "2025-12-22T04:20:39Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ec3d56b627d51af1f5f52c9ada42820aaa7e4edf",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "adfb708",
+    "title": "Upgrade cc crate to 1.2.50 and stop setting LTO flags manually",
+    "author": "wqfish",
+    "date": "2025-12-19T23:27:54Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/adfb7087bdef9b128e6153850b5ed05311a180b8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3a7d0e6",
+    "title": "Support gRPC live mode for fullnodes (#18359)",
+    "author": "just-in-chang",
+    "date": "2025-12-20T00:05:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3a7d0e6970f693ee7f12ec1c77ae517b2f3f48a8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4e3b3ac",
+    "title": "Address Security review feedback 2 (#18279)",
+    "author": "sitalkedia",
+    "date": "2025-12-19T21:59:51Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4e3b3ac2f88f7db927048edc1c006361cd908e33",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d8d4e70",
+    "title": "[vm] Fix leak in function caches (#18350)",
+    "author": "georgemitenkov",
+    "date": "2025-12-19T11:00:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d8d4e70e021245c24f7317206a8eb1b45ea3416c",
+    "category": "VM"
+  },
+  {
+    "sha": "24841f8",
+    "title": "[License] Change license attribute in Cargo.toml",
+    "author": "JoshLind",
+    "date": "2025-12-18T18:49:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/24841f8c0378dbc32f18c71e610b759f0ce820c2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d7d560c",
+    "title": "Update macOS runner version for CLI release (#18342)",
+    "author": "jkao97",
+    "date": "2025-12-18T17:22:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d7d560cefcd961f5526f31461f8a6391d8cd9a83",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e3086a4",
+    "title": "Update crates/aptos-batch-encryption/Cargo.toml",
+    "author": "zjma",
+    "date": "2025-12-18T00:42:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e3086a4ada8bd0f7229dbf7de94412dd8616cbf2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3684dce",
+    "title": "Update crates/aptos-batch-encryption/Cargo.toml",
+    "author": "zjma",
+    "date": "2025-12-18T00:42:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3684dce80960fd527a90c38ab5b7d4a0543486c7",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "db04383",
+    "title": "[Batch Encryption] Remove sha2-asm feature.",
+    "author": "JoshLind",
+    "date": "2025-12-17T20:49:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/db0438371c0561b96f7e51bb1e230308a224881b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "537d9bf",
+    "title": "Add orderless transactions in a MoveHarness function (#18338)",
+    "author": "vusirikala",
+    "date": "2025-12-17T21:16:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/537d9bf9fb317b4a91dbbb408273a73f36dafed4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1932b4d",
+    "title": "Switch small workflows to GH-hosted runners",
+    "author": "sionescu",
+    "date": "2025-12-17T15:54:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1932b4dba8aa53e917b3cc409e05c4e146da113c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b281079",
+    "title": "[aptos cli] release cli 7.11.2 (#18334)",
+    "author": "junxzm1990",
+    "date": "2025-12-17T17:27:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b281079f883fa7e0d2952ac1b8f8ce174220e3b9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ab6677e",
+    "title": "[consensus] secret sharing infra (#18223)",
+    "author": "ibalajiarun",
+    "date": "2025-12-17T05:51:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ab6677e65544d6454663dd39eade5fd7cd57be6d",
+    "category": "Consensus"
+  },
+  {
+    "sha": "c0fb41f",
+    "title": "self in framework (#18326)",
+    "author": "igor-aptos",
+    "date": "2025-12-16T23:58:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c0fb41f2a7a425d9055264c71f9b156ffea886e4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1cfb4b2",
+    "title": "[gas profiler] track peak memory usage (#18304)",
+    "author": "vgao1996",
+    "date": "2025-12-16T23:18:55Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1cfb4b2976e5a0c9f0e33f06841133b05234d86f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e5d75f0",
+    "title": "[aptos cli] add supports for txn args of sint types via cli (#18318)",
+    "author": "junxzm1990",
+    "date": "2025-12-16T19:09:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e5d75f0048cfb331b9c2e4107959be79d0bfaa6a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7036aa4",
+    "title": "[qs] update batch expiration logic (#18312)",
+    "author": "ibalajiarun",
+    "date": "2025-12-16T16:11:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7036aa43c108b9c0cb42659eeddc0274f521583e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a98bd8c",
+    "title": "[Orderbook] Implement dead man's switch support for the orderbook (#18263)",
+    "author": "sitalkedia",
+    "date": "2025-12-16T04:07:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a98bd8c1989296bb1e07df96d838432a9993e0a3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fa8b0cc",
+    "title": "[Indexer gRPC v2] Fix gap between batches when querying historical data service with transaction filter (#18322)",
+    "author": "just-in-chang",
+    "date": "2025-12-16T02:57:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fa8b0cc979583d5d3c967debc191a9acd2dfa62f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "191e8f4",
+    "title": "[hot state] fix counters",
+    "author": "wqfish",
+    "date": "2025-12-15T18:55:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/191e8f4b7c9004d4e5b047f9074d9dd859f81275",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1e5bd51",
+    "title": "fix feature flag override (#18308)",
+    "author": "rahxephon89",
+    "date": "2025-12-15T19:24:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1e5bd519b6e6cea19ff9b273edb9152801a80457",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5454f95",
+    "title": "file format code gen (#18083)",
+    "author": "rahxephon89",
+    "date": "2025-12-15T18:43:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5454f958c502caa03f325c2ac9779620652152a6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2e93fab",
+    "title": "[compiler-v2] Fix spurious compiler warning in inline functions (#18315)",
+    "author": "vineethk",
+    "date": "2025-12-15T17:36:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2e93fabf3bb6675b8d816702822989dce2b8c6db",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "1d891de",
+    "title": "Revert \"adding params to the stack trace inside gas-profiler (#18283)\" (#18307)",
+    "author": "vgao1996",
+    "date": "2025-12-11T23:19:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1d891de3f70ec04eae5c796e52f59cdc6c0cea70",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9ad8d18",
+    "title": "refactor (#15522)",
+    "author": "rahxephon89",
+    "date": "2025-12-11T22:47:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9ad8d18c86ceebefc1f51c48ee3c4cb9059b8534",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "971a021",
+    "title": "PVSS trait refactoring (#18303)",
+    "author": "waamm",
+    "date": "2025-12-11T16:37:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/971a021ed5bb6d1571870569431cc7b8bdaf2494",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7748a7a",
+    "title": "Sigma protocol for inhomogeneous tuple morphism (#18302)",
+    "author": "waamm",
+    "date": "2025-12-11T01:41:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7748a7a73e7003db2cffba7a16a0cd9344a00fdb",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "cf7b2e2",
+    "title": "DKG edits (#18268)",
+    "author": "waamm",
+    "date": "2025-12-10T22:19:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/cf7b2e22c02f5aaeebc3f2760fbfab796532b124",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b77a2a2",
+    "title": "Fix dlog algorithm issue and update batch encryption tests (#18299)",
+    "author": "rex1fernando",
+    "date": "2025-12-10T21:27:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b77a2a2228a0db3cf4c03ff33be1ad56b72ff490",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "36b4ed5",
+    "title": "[telemetry] support custom contracts (#18248)",
+    "author": "rustielin",
+    "date": "2025-12-10T19:14:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/36b4ed558690740538f3ed5dc47c885f9598421b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "59d2ef0",
+    "title": "adding params to the stack trace inside gas-profiler (#18283)",
+    "author": "GotenJBZ",
+    "date": "2025-12-10T16:39:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/59d2ef0649d732e714c375ef24b084b0a759e00d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "f6ecc2e",
+    "title": "test signing is deterministic",
+    "author": "alinush",
+    "date": "2025-12-09T23:33:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f6ecc2e77894cddd04a0f1bbc324b3418edd1ab5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "30f051b",
+    "title": "address joshboss comme nt",
+    "author": "alinush",
+    "date": "2025-12-09T23:13:46Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/30f051bc2aed832df225f8c70bc58e2c6ce3baa3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fe393e0",
+    "title": "clean up slh_dsa_sigs.rs",
+    "author": "alinush",
+    "date": "2025-12-09T18:24:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fe393e036bfa40f072e5a7749c222b6148cc4624",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "58e85f3",
+    "title": "cleanups and test SK cloning and keypair generation",
+    "author": "alinush",
+    "date": "2025-12-09T18:19:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/58e85f3792e95c00bb8934754662d5c0c4457cc5",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "72b6f26",
+    "title": "lints",
+    "author": "alinush",
+    "date": "2025-12-09T16:24:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/72b6f264735b8074d262e49ba7c1c40c8a590887",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9360ec2",
+    "title": "test signature deserialization",
+    "author": "alinush",
+    "date": "2025-12-09T16:17:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9360ec2d00958d4cab6084fe82eda5364a57f1d4",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a14f4d3",
+    "title": "test PK deserialization",
+    "author": "alinush",
+    "date": "2025-12-09T16:12:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a14f4d3f8287a5a4c5d75ee5da0917d514ad4275",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "94ce8a4",
+    "title": "fix SK serialization",
+    "author": "alinush",
+    "date": "2025-12-09T15:47:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/94ce8a41a3f887c06c7b3379f86bb123992fefc8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "78e3721",
+    "title": "fix arbitrary bug",
+    "author": "alinush",
+    "date": "2025-12-09T04:53:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/78e3721cc1339bb247295c6678b710b43896b8da",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "50ea8f0",
+    "title": "a few renames",
+    "author": "alinush",
+    "date": "2025-12-09T01:00:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/50ea8f0ef5e2d1f891e1da2f57040ec9e619bcdd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "218295f",
+    "title": "added benchmarks",
+    "author": "alinush",
+    "date": "2025-12-09T00:47:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/218295f5e09b8546dac0e4f69a411c213ec39186",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ab7b6c9",
+    "title": "initial SLH DSA sha-128s implementation",
+    "author": "alinush",
+    "date": "2025-12-09T00:29:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ab7b6c910355e8fc769821f60dff4d1c2fdc9367",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4796a42",
+    "title": "[move] Remove enabled features (#18290)",
+    "author": "georgemitenkov",
+    "date": "2025-12-09T23:33:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4796a427da90128963b2b75c0443483359b074a9",
+    "category": "Move/Compiler"
+  },
+  {
+    "sha": "ad217ee",
+    "title": "fix (#18292)",
+    "author": "rahxephon89",
+    "date": "2025-12-09T04:08:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ad217eeef7bd478c259ce56fe51c4f7b33602ea6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "bb48aa3",
+    "title": "Fix license header following semantic merge issue with txn filtering code (#18294)",
+    "author": "banool",
+    "date": "2025-12-09T02:35:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bb48aa38a0e54cb3e63856a1b31e5b5465e9a635",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "30b0d79",
+    "title": "Add support for txn filtering when streaming directly from the node (#18026)",
+    "author": "banool",
+    "date": "2025-12-08T23:46:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/30b0d79d639fa29b05e6696e2293e6121e2e11c0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8f5ffca",
+    "title": "Increase expiration time requirement for orderless transactions (#18264)",
+    "author": "vusirikala",
+    "date": "2025-12-08T21:52:54Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8f5ffcaac423c0cdf9d455186292eb70c82cdb25",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "391f1ac",
+    "title": "Linter fix bug in boolean expression equality (#18286)",
+    "author": "vineethk",
+    "date": "2025-12-08T18:26:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/391f1ac56ec01b681b9660e61f6738285a8f3d3e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "08c4b71",
+    "title": "backfill staker passively for staking contract (#18276)",
+    "author": "lightmark",
+    "date": "2025-12-06T21:51:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/08c4b71d1176b0c070813e33ebf5e1cf55cb8dfe",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "000645a",
+    "title": "fix (#18275)",
+    "author": "rahxephon89",
+    "date": "2025-12-06T02:46:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/000645a1a3fdadddf56a0338fc803fa4dc692896",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "073772e",
+    "title": "[Pre-Commit] Remove shared license from pre-commit allowlist.",
+    "author": "JoshLind",
+    "date": "2025-12-05T14:36:54Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/073772e68fdac67925b409c10b7759bad3b932ae",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "650d4ab",
+    "title": "Add weighted batch encryption (#18267)",
+    "author": "rex1fernando",
+    "date": "2025-12-05T19:32:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/650d4abd22c3744772c128b46908cfdba7249208",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5a8620e",
+    "title": "[vm] Make layout caches nebaled by default (#18262)",
+    "author": "georgemitenkov",
+    "date": "2025-12-05T17:39:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5a8620e3945aad6e576aaa5e6ff9b84a295ebf28",
+    "category": "VM"
+  },
+  {
+    "sha": "1dda3c6",
+    "title": "Integrate pvss with batch encryption (#18252)",
+    "author": "rex1fernando",
+    "date": "2025-12-05T16:51:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1dda3c6053c2ad229f5260341a1f568a769a9be6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9131ffe",
+    "title": "[vm] Small fixes to interpreter caches (#18233)",
+    "author": "georgemitenkov",
+    "date": "2025-12-05T15:46:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9131ffe6355861396146546ca9124986a9755d85",
+    "category": "VM"
+  },
+  {
+    "sha": "acdc999",
+    "title": "[License] Remove original license header from source files",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:37:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/acdc9996793805f97eef31db8d60de40fc62bc7d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7830451",
+    "title": "[License] Update original license header in types",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:36:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7830451ccc8504a618135929871969dfa115fd6b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d703654",
+    "title": "[License] Update original license header in testsuite",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:35:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d703654623c75af9adc142b2d6c7c19a1e3702f6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "124db55",
+    "title": "[License] Update original license header in storage",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:35:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/124db55b0c7a8996de4325b4c7a65e6743133607",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "aeda017",
+    "title": "[License] Update original license header in protos",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:34:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/aeda0171c54435c77634f3626a2f378bac7f6c15",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b747fba",
+    "title": "[License] Update original license header in mempool",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:33:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b747fba5e2c8aed453de5302de2884f283f22fb0",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a57c75d",
+    "title": "[License] Update original license header in keyless",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:33:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a57c75de79ee20afbef3264de0e967e3dfafca1e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6d4ebf8",
+    "title": "[License] Update original license header in experimental",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:31:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6d4ebf8288ddf9a01da414aaad23a78acb512e58",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "19f3179",
+    "title": "[License] Update original license header in execution",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:30:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/19f3179a35ed4e8d7a5ed6e9dacbe74b7cf4c91b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "99a942b",
+    "title": "[License] Update original license header in ecosystem",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:30:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/99a942b0f68a030bb281ab66eab54a7f053c3d41",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b6085ea",
+    "title": "[License] Update original license header in crates",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:29:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b6085ea0aa50490ddebd94e6155ff91768994e0a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b8e6479",
+    "title": "[License] Update original license header in consensus",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:28:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b8e6479bc63c0d9853c2f879218c27affb27d6f8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "74c45cf",
+    "title": "[License] Update original license header in aptos-move",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:27:58Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/74c45cff88cb8bd6181e676717c8440eaede4072",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e5a737c",
+    "title": "[License] Update original license header in api",
+    "author": "JoshLind",
+    "date": "2025-12-05T01:26:50Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e5a737c2d4b89ba344c800837b4c27a8bc4209ec",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "70927c0",
+    "title": "[Pre-Commit] Remove shared UTF8 license header.",
+    "author": "JoshLind",
+    "date": "2025-12-04T19:26:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/70927c05dd8548b66926acb296e3263364bd7c3a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "178b6d0",
+    "title": "[License] Update shared UTF8 license header",
+    "author": "JoshLind",
+    "date": "2025-12-04T19:26:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/178b6d0b708a925af8cbb2f4b30f410e7f05a354",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3c75010",
+    "title": "[Pre-Commit] Remove old UTF8 license header.",
+    "author": "JoshLind",
+    "date": "2025-12-04T19:21:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3c75010dbf15fbf61e29858e341f33c258eacb69",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d94a00f",
+    "title": "[DKG] small cleanup",
+    "author": "Zekun Li",
+    "date": "2025-12-05T04:22:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d94a00fb99ccd5e281f2a68ed51a0b5b93927314",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7ed775e",
+    "title": "[License] Update license header in types",
+    "author": "JoshLind",
+    "date": "2025-12-04T19:15:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7ed775ec99e34b10796ddd7672897bbe13172a86",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "10271db",
+    "title": "[License] Update license header in tools",
+    "author": "JoshLind",
+    "date": "2025-12-04T19:14:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/10271db7dfb58232c1b5c7881945904de5c6d3af",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "840c041",
+    "title": "[License] Update license header in testsuite",
+    "author": "JoshLind",
+    "date": "2025-12-04T19:04:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/840c0411f97b9d77d5a6a09e8fb18a08fcc410e9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1390215",
+    "title": "[License] Update license header in storage",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:59:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/139021515c0977ccb6df936b1066680cbc9d76cd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2ae1ec6",
+    "title": "Weighted field PVSS and generic signing PVSS protocol (#18254)",
+    "author": "waamm",
+    "date": "2025-12-04T23:18:36Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2ae1ec6a1c4814ffc340a181d57e31b6e644d472",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c0aab97",
+    "title": "[License] Update license header in state-sync",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:55:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c0aab97057bf713da3eac9fc816426aea0a2e466",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "869e427",
+    "title": "[License] Update license header in secure",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:55:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/869e42782169f3c4478e482256479f00261942c9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "767119a",
+    "title": "[License] Update license header in sdk",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:54:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/767119a09960d8a1b2213f2ab06488ca204b2ddd",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c9cc0c1",
+    "title": "[License] Update license header in protos",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:53:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c9cc0c1b38c274aaab53cd34a7a4c5fbca3138ad",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0a470c7",
+    "title": "[License] Update license header in peer-monitoring-service",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:52:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0a470c7120c5287268bfcfef7007d7ceb80fc703",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "3b3d480",
+    "title": "[License] Update license header in network",
+    "author": "JoshLind",
+    "date": "2025-12-04T18:50:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/3b3d480abd4d2d4549e14e701028189a9bab1685",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "586fba8",
+    "title": "Remove thread pools from `aptos-batch-encryption` (#18232)",
+    "author": "rex1fernando",
+    "date": "2025-12-04T19:21:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/586fba83713ce9d35e1b27822dc2654577856d57",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0a91206",
+    "title": "Revert \"Revert \"Add support for configuring node txn stream worker count and …\" (#18253)",
+    "author": "banool",
+    "date": "2025-12-04T18:22:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0a9120622b928f861baaedc06bf077c560fafef9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "89de680",
+    "title": "[Priority Fee] Add a public function to set limit. (#18236)",
+    "author": "grao1991",
+    "date": "2025-12-04T18:06:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/89de68083ba52bf611cd2b631402b5a8848461b8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d907240",
+    "title": "Add `aptos-batch-encryption` crate (#18217)",
+    "author": "rex1fernando",
+    "date": "2025-12-04T17:07:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d9072400c6784a1df6a73c97863b61c8589b9046",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "82d9619",
+    "title": "[txn-emitter] fix logging (#18251)",
+    "author": "ibalajiarun",
+    "date": "2025-12-04T06:11:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/82d9619cf7dab271dde501627ca948a1709a22e2",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "23c4828",
+    "title": "aptos-dkg: allow subtranscript to derive key shares (#18235)",
+    "author": "rex1fernando",
+    "date": "2025-12-04T05:28:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/23c4828488b865173418be98769a7e25484c2a70",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fcbb4a7",
+    "title": "[License] Update license header in mempool",
+    "author": "JoshLind",
+    "date": "2025-12-03T21:18:17Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fcbb4a7bea3a408636957f77ab9b9d7bb6f875d8",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9136907",
+    "title": "[License] Update license header in keyless",
+    "author": "JoshLind",
+    "date": "2025-12-03T21:17:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/913690715eef0a85a6c46e2ed914a493c35842a3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ff3d47b",
+    "title": "[License] Update license header in experimental",
+    "author": "JoshLind",
+    "date": "2025-12-03T21:16:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ff3d47bf84131e65c5fece184bff7beed60a09fc",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a662082",
+    "title": "[License] Update license header in execution",
+    "author": "JoshLind",
+    "date": "2025-12-03T21:16:08Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a6620826610c16a7e9cea209eda85a6f7976dc22",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "255d9b6",
+    "title": "[Keyless] Add Federated keyless tests to the pepper service.",
+    "author": "JoshLind",
+    "date": "2025-12-02T01:07:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/255d9b696bef6d658a20f1ea87e953b15564ffa2",
+    "category": "Keyless"
+  },
+  {
+    "sha": "97dca1c",
+    "title": "[License] Update license header in ecosystem",
+    "author": "JoshLind",
+    "date": "2025-12-03T21:05:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/97dca1c96fdaa0e08fa752de176b9f64013fb868",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "6d72acf",
+    "title": "[License] Update license header in dkg",
+    "author": "JoshLind",
+    "date": "2025-12-03T21:04:32Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6d72acf9db19700a0a7603eeca1516a99d927216",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7afceff",
+    "title": "[License] Update license header in devtools",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:58:12Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7afceff4f484c3e126be35843a647d9aef15e272",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "797f47b",
+    "title": "[indexer test transactions] Add test transaction for FA (#18240)",
+    "author": "jtang17",
+    "date": "2025-12-04T01:59:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/797f47b4cbf99391bb90a87a0e817f098a65fc08",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b661f8e",
+    "title": "[License] Update license header in crates",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:47:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b661f8e57b1d1ad06b29de7518002a0fce738c39",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "73b1959",
+    "title": "Revert \"Add support for configuring node txn stream worker count and channel …\"",
+    "author": "JoshLind",
+    "date": "2025-12-03T23:35:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/73b1959e528d7049c8ef7104ba4ced64239867e3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "a2f90b3",
+    "title": "[License] Update license header in consensus",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:44:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a2f90b32403a7a00886bbfd5afcc723e11187732",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "34e7fae",
+    "title": "[License] Update license header in config",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:43:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/34e7faed07709a26c8baf7508bc7caec50368409",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "33a21a1",
+    "title": "[License] Update license header in aptos-node",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:42:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/33a21a1aa5790ce346f8c79d2348c45178bccc4d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "d66c28f",
+    "title": "Add support for configuring node txn stream worker count and channel size (#18028)",
+    "author": "banool",
+    "date": "2025-12-03T22:29:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/d66c28ffecd9323d39fb91a12037840e2e62e5b9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "120b417",
+    "title": "[License] Update license header for aptos-move",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:17:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/120b4179e1a2ac6d1b896642a56d678d86371d53",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "7e4af9d",
+    "title": "[License] Update license header in api",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:15:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7e4af9df77d2841641eacebb4c788e6e8e8b8875",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "2a50409",
+    "title": "[Pre-Commit] Add innovation license header to lint-rules.",
+    "author": "JoshLind",
+    "date": "2025-12-03T20:11:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2a50409836b3bb298c8026013ac3161f4a7a3b1f",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "36fc852",
+    "title": "bump gas version on main to v1.40 (#18237)",
+    "author": "vsharongg",
+    "date": "2025-12-03T20:14:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/36fc852aa18476085d29c07cc68edbd5b5faf03a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8900fa2",
+    "title": "[move compiler] fix issue #17211 (#18229)",
+    "author": "junxzm1990",
+    "date": "2025-12-03T12:50:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8900fa23023391050a29b1faea2ef389f688de35",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5c8402e",
+    "title": "[consensus] Introduce OptQS::V2 Payload (#18087)",
+    "author": "ibalajiarun",
+    "date": "2025-12-03T05:38:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5c8402eb26a7f1dfaa67f24911fd013639125d34",
+    "category": "Consensus"
+  },
+  {
+    "sha": "0cf2d47",
+    "title": "Change arkworks dependencies to use custom version (#18231)",
+    "author": "rex1fernando",
+    "date": "2025-12-03T00:38:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0cf2d47f66cafa828e2bd4422f788c02c40f97f1",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ca448ec",
+    "title": "[Indexer gRPC] Add billing metrics to v2 data services (#18227)",
+    "author": "just-in-chang",
+    "date": "2025-12-02T19:15:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ca448ecdd1c2611c6913bcd1946c00ff550ed5a6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "9a3caae",
+    "title": "[API] Add support for encrypted transaction filtering.",
+    "author": "JoshLind",
+    "date": "2025-11-25T23:19:01Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9a3caae4c1ac0a7138d61b083bead8ba9071836e",
+    "category": "API"
+  },
+  {
+    "sha": "0faa04d",
+    "title": "[qs] BatchV2 support with new messages using BatchInfoExt (#18085)",
+    "author": "ibalajiarun",
+    "date": "2025-12-02T01:55:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0faa04d5152e8472a3480026f6002732388bc13b",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "915b4c6",
+    "title": "Add fill id to bulk order fill event and cancellation reason to APIs (#18212)",
+    "author": "sitalkedia",
+    "date": "2025-12-01T21:53:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/915b4c61976aac9b11a56b01fa2232709e5d1b47",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "b6de7f7",
+    "title": "[log] change a few info to debug",
+    "author": "Zekun Li",
+    "date": "2025-11-25T20:53:07Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b6de7f7b85aeb38639c541230eb558dc02fc391d",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "957be7c",
+    "title": "update KeylessConfiguration comments (#18221)",
+    "author": "alinush",
+    "date": "2025-12-01T13:21:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/957be7cf631beef014a46affabf40f62b0349b8c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "92c0534",
+    "title": "[VM] Fix divergence in error behavior of txn validation (#18208)",
+    "author": "wrwg",
+    "date": "2025-11-25T21:07:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/92c0534410a26cafa4509b2dfda12c86811abf0a",
+    "category": "VM"
+  },
+  {
+    "sha": "8e61d6d",
+    "title": "[gha] monitor gha rate limit (#18193)",
+    "author": "rustielin",
+    "date": "2025-11-25T18:34:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8e61d6def501c63b494b963f20e320059cb4d3af",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5fff9a9",
+    "title": "[framework] Add support for reflection (#17892)",
+    "author": "wrwg",
+    "date": "2025-11-25T07:48:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5fff9a941f11e65700d85b01cb2297f193e93517",
+    "category": "Framework"
+  },
+  {
+    "sha": "2867413",
+    "title": "[aptos fuzz] add fuzzing target for u256 (#18081)",
+    "author": "junxzm1990",
+    "date": "2025-11-25T04:29:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2867413ce26775bf6045787afbbc273b7c491a04",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "fb4f427",
+    "title": "[qs] Introduce BatchInfoExt and BatchSignatureAggregator (#18084)",
+    "author": "ibalajiarun",
+    "date": "2025-11-24T23:16:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fb4f4276822d1e4ce626923b5cd25986b77ae6f3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1cd5855",
+    "title": "inlining optimization for framework (#18175)",
+    "author": "rahxephon89",
+    "date": "2025-11-24T22:11:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1cd585507f6a0f518947f62d2c9f639034953352",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "aa70f3c",
+    "title": "[aptos-vm] Cache keyless configs in environment (#18180)",
+    "author": "georgemitenkov",
+    "date": "2025-11-24T20:26:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/aa70f3cc6ebcddb04d5edc3a75e1eee2195bc88e",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "ae06823",
+    "title": "fix (#18191)",
+    "author": "rahxephon89",
+    "date": "2025-11-24T19:06:11Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/ae06823c55a9c783a4876bdfe1f8c0975ae92afe",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "1702f89",
+    "title": "Various optimizations",
+    "author": "wqfish",
+    "date": "2025-11-21T18:01:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1702f89974c05b898aa812ec930f2c54f60edcd3",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "54418cb",
+    "title": "update license",
+    "author": "sherry-x",
+    "date": "2025-11-21T15:35:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/54418cb44d0da652bff0167509ff5bac84fb010a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "e33e3c1",
+    "title": "[executor] optimize ledger update",
+    "author": "Zekun Li",
+    "date": "2025-11-20T00:36:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e33e3c1b9e8c4780b488df66fed58ee990de8b16",
+    "category": "Execution"
+  },
+  {
+    "sha": "f134e67",
+    "title": "[vm] Use &[Type] for native type args (#18171)",
+    "author": "georgemitenkov",
+    "date": "2025-11-21T00:34:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f134e676b22f84b85e673b238c20fc11332648f1",
+    "category": "VM"
+  },
+  {
+    "sha": "a84bcc9",
+    "title": "[forge] Enable upcoming VM features on forge (#18178)",
+    "author": "georgemitenkov",
+    "date": "2025-11-21T00:31:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a84bcc9b6d72f3a784ef80f107d0948d4d404ec5",
+    "category": "Testing"
+  },
+  {
+    "sha": "bab75db",
+    "title": "Revert \"Use the new runners for Docker Rust builds and checks\"",
+    "author": "sionescu",
+    "date": "2025-11-20T22:32:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bab75db4f6efbb29444935e1fe294fafc2182fe9",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "0d82cb3",
+    "title": "Use the new runners for Docker Rust builds and checks",
+    "author": "sionescu",
+    "date": "2025-11-19T21:25:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0d82cb3d729683b87aa5af1afa21cb4202b82f5a",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "bf2f2d8",
+    "title": "release 7.11.1 (#18179)",
+    "author": "rahxephon89",
+    "date": "2025-11-20T20:11:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/bf2f2d8851ca5059735de4a6d5fb6966eafade8c",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c119c06",
+    "title": "Edits around new field PVSS (#18172)",
+    "author": "waamm",
+    "date": "2025-11-20T19:58:38Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c119c06e7948af73cfc2c681605e5fbef75874e6",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "4f44a3d",
+    "title": "[vm] Add stack size checking at function boundaries (#18167)",
+    "author": "georgemitenkov",
+    "date": "2025-11-20T14:11:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/4f44a3dd8e889ea853aa7b0dc1a8dd0d0b33a8d9",
+    "category": "VM"
+  },
+  {
+    "sha": "a763b1b",
+    "title": "[Storage] Enable filters for state kv",
+    "author": "wqfish",
+    "date": "2025-11-19T20:24:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a763b1bcf76d90dd0ed4f71899ae1a95b6038c0f",
+    "category": "Storage"
+  },
+  {
+    "sha": "6b94793",
+    "title": "[Faucet] Add Multi Asset support to the Aptos faucet (#18078)",
+    "author": "0xmaayan",
+    "date": "2025-11-19T18:38:24Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6b947939704b253c6dc6947a438f029e34378bdd",
     "category": "Infrastructure"
   }
 ]
