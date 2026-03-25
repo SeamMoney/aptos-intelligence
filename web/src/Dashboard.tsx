@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ChevronRight, Layers, Plus, Search, ArrowLeft, ChevronUp, ChevronDown, ExternalLink } from "lucide-react";
-import type { WebReport, FeatureStatus, Commit } from "./api";
-import { fetchReports, fetchFeatures, fetchCommits } from "./api";
+import type { WebReport, FeatureStatus, Commit, FeatureProgress } from "./api";
+import { fetchReports, fetchFeatures, fetchCommits, fetchFeatureProgress } from "./api";
 
 /* ── Constants ── */
 const DAY_NAMES = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -105,6 +105,7 @@ export default function Dashboard() {
   const [reports, setReports] = useState<WebReport[]>([]);
   const [features, setFeatures] = useState<FeatureStatus[]>([]);
   const [commits, setCommits] = useState<Commit[]>([]);
+  const [featureProgress, setFeatureProgress] = useState<FeatureProgress[]>([]);
   const [active, setActive] = useState<WebReport | null>(null);
   const [tab, setTab] = useState<"advanced" | "eli5">("advanced");
   const [loading, setLoading] = useState(true);
@@ -124,8 +125,8 @@ export default function Dashboard() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [r, f, c] = await Promise.all([fetchReports(), fetchFeatures(), fetchCommits()]);
-      setReports(r); setFeatures(f); setCommits(c);
+      const [r, f, c, fp] = await Promise.all([fetchReports(), fetchFeatures(), fetchCommits(), fetchFeatureProgress()]);
+      setReports(r); setFeatures(f); setCommits(c); setFeatureProgress(fp);
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   }, []);
@@ -346,24 +347,61 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Right — subsystems + contributors */}
-        <div className="w-[240px] shrink-0 border-l border-[var(--color-border)] overflow-y-auto relative z-10 no-scrollbar" style={{ background: "var(--color-surface)" }}>
+        {/* Right — Feature Progress + Subsystems */}
+        <div className="w-[280px] shrink-0 border-l border-[var(--color-border)] overflow-y-auto relative z-10 no-scrollbar" style={{ background: "var(--color-surface)" }}>
+          {/* Feature Progress */}
           <div className="p-4 border-b border-[var(--color-border)]">
-            <p className="label-specimen text-[var(--color-accent)] tracking-[0.15em]">SUBSYSTEMS</p>
+            <p className="label-specimen text-[var(--color-accent)] tracking-[0.15em]">FEATURE PROGRESS</p>
           </div>
-          <div className="p-3">
+          <div className="p-3 space-y-3">
+            {featureProgress.map(fp => (
+              <div key={fp.key} className="p-3 rounded-lg border border-[var(--color-border-muted)] hover:border-[var(--color-border)] transition-all cursor-pointer group"
+                onClick={() => {
+                  setActive({
+                    id: 0, githubId: fp.key, title: fp.name, author: fp.lead, date: new Date().toISOString(),
+                    category: "Feature Progress", importance: fp.progress >= 80 ? 9 : fp.progress >= 50 ? 7 : 5,
+                    sourceUrl: `https://github.com/aptos-labs/aptos-core`, relatedFeatures: fp.dependencies, labels: [],
+                    advanced: `<h3>${fp.name}</h3><p><strong>Status:</strong> ${fp.status} (${fp.progress}%)</p><p>${fp.description}</p><h3>What's Being Done</h3><p>${fp.whatsBeingDone}</p><h3>What's Needed for Production</h3><p>${fp.whatsNeeded}</p><h3>Effects on the System</h3><p>${fp.effects}</p><h3>Dependencies</h3><ul>${fp.dependencies.map(d => `<li>${d}</li>`).join('')}</ul><h3>Milestones</h3><ul>${fp.milestones.map(m => `<li>${m.done ? '✅' : '⬜'} ${m.name}${m.date ? ` (${m.date})` : ''}</li>`).join('')}</ul><p><strong>Lead:</strong> ${fp.lead} · <strong>Recent commits:</strong> ${fp.recentCommits}</p>`,
+                    eli5: `<p><strong>${fp.name}</strong> is ${fp.progress}% done (${fp.status}).</p><p>${fp.description}</p><p><strong>Why it matters:</strong> ${fp.effects}</p><p><strong>What's left:</strong> ${fp.whatsNeeded}</p>`,
+                  });
+                  setTab("advanced");
+                }}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="label-specimen-sm text-[var(--color-text)]">{fp.name}</span>
+                  <span className="label-specimen-sm" style={{ color: fp.color }}>{fp.progress}%</span>
+                </div>
+                {/* Progress bar */}
+                <div className="h-[3px] rounded-full overflow-hidden" style={{ background: "var(--color-border-muted)" }}>
+                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${fp.progress}%`, background: fp.color }} />
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="label-specimen-sm text-[var(--color-text-faint)]">{fp.status}</span>
+                  <span className="label-specimen-sm text-[var(--color-text-faint)]">{fp.recentCommits} commits</span>
+                </div>
+                {/* Milestones preview */}
+                <div className="flex gap-[3px] mt-2">
+                  {fp.milestones.map((m, i) => (
+                    <div key={i} className="h-[4px] flex-1 rounded-full" style={{ background: m.done ? fp.color : "var(--color-border-muted)" }} title={m.name} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Subsystem filter */}
+          <div className="p-4 border-t border-[var(--color-border)]">
+            <p className="label-specimen text-[var(--color-accent)] tracking-[0.15em] mb-3">FILTER BY SUBSYSTEM</p>
             {SUBSYSTEMS.map(s => (
               <div key={s.key} onClick={() => setSubFilter(subFilter === s.key ? null : s.key)}
-                className={`flex items-center gap-2.5 px-2 py-2 rounded-lg cursor-pointer transition-all ${subFilter === s.key ? "bg-[var(--color-surface-alt)]" : "hover:bg-[var(--color-surface-alt)]"}`}>
-                <div className="w-[5px] h-[16px] rounded-full shrink-0" style={{ background: s.color }} />
-                <div className="flex-1 min-w-0">
-                  <span className="label-specimen-sm text-[var(--color-text)] block">{s.name}</span>
-                </div>
+                className={`flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all ${subFilter === s.key ? "bg-[var(--color-surface-alt)]" : "hover:bg-[var(--color-surface-alt)]"}`}>
+                <div className="w-[4px] h-[14px] rounded-full shrink-0" style={{ background: s.color }} />
+                <span className="label-specimen-sm text-[var(--color-text)] flex-1">{s.name}</span>
                 <span className="label-specimen-sm text-[var(--color-text-faint)]">{subStats.get(s.key) || 0}</span>
               </div>
             ))}
           </div>
 
+          {/* Top contributors */}
           <div className="p-4 border-t border-[var(--color-border)]">
             <p className="label-specimen text-[var(--color-accent)] tracking-[0.15em] mb-3">TOP CONTRIBUTORS</p>
             {topContributors.map(([name, count]) => (
@@ -371,17 +409,6 @@ export default function Dashboard() {
                 <img src={`https://github.com/${name}.png`} alt="" className="w-5 h-5 rounded-full" />
                 <span className="label-specimen-sm text-[var(--color-text)] flex-1 truncate">{name}</span>
                 <span className="label-specimen-sm text-[var(--color-text-faint)]">{count}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-4 border-t border-[var(--color-border)]">
-            <p className="label-specimen-sm text-[var(--color-text-faint)] mb-2">TX LIFECYCLE</p>
-            {["Client", "Mempool", "Quorum Store", "Consensus", "Execution", "Storage"].map((s, i) => (
-              <div key={s} className="flex items-center gap-2 mb-1">
-                <span className="label-specimen-sm text-[var(--color-text-faint)] w-3 text-right">{i+1}</span>
-                <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
-                <span className="label-specimen-sm text-[var(--color-text)]">{s}</span>
               </div>
             ))}
           </div>
@@ -444,24 +471,54 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* RIGHT DRAWER — Subsystems + Search */}
+      {/* RIGHT DRAWER — Feature Progress + Subsystems */}
       <motion.div className="absolute inset-0 bg-black text-white overflow-y-auto no-scrollbar"
         style={{ opacity: archOpacity, scale: archScale, pointerEvents: drawerState === "right" ? "auto" : "none", paddingTop: "max(env(safe-area-inset-top, 16px), 50px)" }}>
-        <div className="max-w-[230px] ml-auto px-5 pb-20">
-          <h1 className="label-specimen text-[#CBB696] text-[13px] tracking-[0.2em] mb-8">APTOS CORE</h1>
-          <div className="space-y-4 mb-8">
-            {SUBSYSTEMS.map(s => (
-              <div key={s.key} className="flex items-start gap-3 cursor-pointer" onClick={() => { setSubFilter(s.key); closeDrawer(); }}>
-                <div className="w-[5px] h-[18px] rounded-full mt-0.5 shrink-0" style={{ background: s.color }} />
-                <div>
-                  <h3 className="text-[14px] font-medium text-white">{s.name}</h3>
-                  <p className="text-[11px] text-white/50 mt-0.5">{s.desc}</p>
-                  <span className="text-[10px] text-white/30">{subStats.get(s.key) || 0} commits</span>
+        <div className="max-w-[240px] ml-auto px-5 pb-20">
+          <h1 className="label-specimen text-[#CBB696] text-[13px] tracking-[0.2em] mb-6">ROADMAP</h1>
+
+          {/* Feature progress cards */}
+          <div className="space-y-3 mb-8">
+            {featureProgress.map(fp => (
+              <div key={fp.key} className="cursor-pointer" onClick={() => {
+                openCommit({ sha: fp.key, title: fp.name, author: fp.lead, date: new Date().toISOString(), url: '', category: 'Feature Progress' });
+                closeDrawer();
+              }}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[13px] font-medium text-white">{fp.name}</span>
+                  <span className="text-[10px] font-bold" style={{ color: fp.color }}>{fp.progress}%</span>
+                </div>
+                <div className="h-[3px] rounded-full overflow-hidden bg-white/10">
+                  <div className="h-full rounded-full" style={{ width: `${fp.progress}%`, background: fp.color }} />
+                </div>
+                <div className="flex items-center justify-between mt-1">
+                  <span className="text-[9px] text-white/40">{fp.status}</span>
+                  <span className="text-[9px] text-white/40">{fp.lead}</span>
+                </div>
+                {/* Milestone dots */}
+                <div className="flex gap-[2px] mt-1.5">
+                  {fp.milestones.map((m, i) => (
+                    <div key={i} className="h-[3px] flex-1 rounded-full" style={{ background: m.done ? fp.color : "rgba(255,255,255,0.1)" }} />
+                  ))}
                 </div>
               </div>
             ))}
           </div>
-          <div className="border-t border-white/10 pt-6">
+
+          {/* Subsystem filter */}
+          <div className="border-t border-white/10 pt-5 mb-6">
+            <p className="label-specimen-sm text-white/40 mb-3">SUBSYSTEMS</p>
+            {SUBSYSTEMS.map(s => (
+              <div key={s.key} className="flex items-center gap-2 py-1.5 cursor-pointer" onClick={() => { setSubFilter(s.key); closeDrawer(); }}>
+                <div className="w-[4px] h-[14px] rounded-full shrink-0" style={{ background: s.color }} />
+                <span className="text-[12px] text-white/70 flex-1">{s.name}</span>
+                <span className="text-[10px] text-white/30">{subStats.get(s.key) || 0}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Contributors */}
+          <div className="border-t border-white/10 pt-5">
             <p className="label-specimen-sm text-white/40 mb-3">TOP CONTRIBUTORS</p>
             {topContributors.slice(0, 6).map(([name, count]) => (
               <div key={name} className="flex items-center gap-2 py-1.5">

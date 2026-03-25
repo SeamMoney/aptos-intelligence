@@ -52,3 +52,24 @@ export async function fetchCommits(): Promise<Commit[]> {
   const res = await fetch("/data/commits.json");
   return res.json();
 }
+
+export interface FeatureProgress {
+  key: string;
+  name: string;
+  status: string;
+  progress: number;
+  color: string;
+  lead: string;
+  description: string;
+  whatsNeeded: string;
+  whatsBeingDone: string;
+  effects: string;
+  dependencies: string[];
+  milestones: Array<{ name: string; date: string | null; done: boolean }>;
+  recentCommits: number;
+}
+
+export async function fetchFeatureProgress(): Promise<FeatureProgress[]> {
+  const res = await fetch("/data/features-progress.json");
+  return res.json();
+}

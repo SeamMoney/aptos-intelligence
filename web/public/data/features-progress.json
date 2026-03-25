@@ -1,0 +1,178 @@
+[
+  {
+    "key": "encrypted-mempool",
+    "name": "Encrypted Mempool",
+    "status": "Testnet",
+    "progress": 80,
+    "color": "#ef4444",
+    "lead": "ibalajiarun",
+    "description": "BIBE-based encrypted transaction ordering. Hides transaction contents until after consensus ordering — prevents MEV, front-running, sandwich attacks.",
+    "whatsNeeded": "Mainnet governance approval, security audit completion, DKG key rotation testing at scale",
+    "whatsBeingDone": "Ciphertext verification in Quorum Store batches, per-BatchKind txn limits, decryption pipeline performance optimization, Chunky DKG integration",
+    "effects": "Fair transaction ordering for DeFi. No more front-running or sandwich attacks. CEX-like confidentiality with blockchain guarantees.",
+    "dependencies": ["Baby Raptr consensus (deployed)", "Quorum Store V2 (deployed)", "Chunky DKG (in progress)"],
+    "milestones": [
+      { "name": "Secret sharing infra", "date": "2025-12-17", "done": true },
+      { "name": "OptQS V2 payload", "date": "2025-12-03", "done": true },
+      { "name": "Decryption pipeline", "date": "2026-02-14", "done": true },
+      { "name": "Encrypted tx execution", "date": "2026-02-14", "done": true },
+      { "name": "Ciphertext verification", "date": "2026-03-19", "done": true },
+      { "name": "Per-kind batch limits", "date": "2026-03-19", "done": true },
+      { "name": "Forge test suite", "date": "2026-03-05", "done": true },
+      { "name": "Testnet deployment", "date": "2026-03-16", "done": true },
+      { "name": "Security audit", "date": null, "done": false },
+      { "name": "Mainnet governance vote", "date": null, "done": false },
+      { "name": "Mainnet deployment", "date": null, "done": false }
+    ],
+    "recentCommits": 19
+  },
+  {
+    "key": "confidential-assets",
+    "name": "Confidential Assets (AIP-143)",
+    "status": "Code Merged",
+    "progress": 65,
+    "color": "#7c3aed",
+    "lead": "alinush",
+    "description": "Zero-knowledge proof based private transfers. Balances and transfer amounts hidden using Twisted ElGamal encryption + range proofs.",
+    "whatsNeeded": "Security audits, testnet stress testing, governance approval, gas optimization",
+    "whatsBeingDone": "v1.1 shipped with homomorphic framework replacement, global auditor support, gas benchmarks. Tagged for v1.43 release.",
+    "effects": "Private balances and transfers on Aptos. Users can send APT without revealing amounts. Foundation for confidential DeFi.",
+    "dependencies": ["Move framework v1.43 (in progress)", "Twisted ElGamal (deployed)"],
+    "milestones": [
+      { "name": "AIP-143 accepted", "date": "2025-10-01", "done": true },
+      { "name": "Core module implementation", "date": "2026-01-15", "done": true },
+      { "name": "v1.0 merged", "date": "2026-02-20", "done": true },
+      { "name": "v1.1 (homomorphic framework)", "date": "2026-03-23", "done": true },
+      { "name": "Testnet launch", "date": "2026-03-01", "done": true },
+      { "name": "Security audit", "date": null, "done": false },
+      { "name": "Mainnet (target Apr 2026)", "date": null, "done": false }
+    ],
+    "recentCommits": 5
+  },
+  {
+    "key": "baby-raptr",
+    "name": "Baby Raptr Consensus",
+    "status": "Mainnet",
+    "progress": 95,
+    "color": "#00c853",
+    "lead": "ibalajiarun",
+    "description": "Merged Jolteon consensus + Quorum Store. Proposer optimistically includes batch digests without waiting for full PoS certificates. 4 hops instead of 6.",
+    "whatsNeeded": "Full Raptr (decoupled prefix voting) still in development",
+    "whatsBeingDone": "Deployed on mainnet. 20% latency improvement (100-150ms). Full Raptr adds prefix commit for further optimization.",
+    "effects": "Faster block times, reduced consensus latency by 20%, foundation for full Raptr and Zaptos.",
+    "dependencies": ["Quorum Store V2 (deployed)"],
+    "milestones": [
+      { "name": "Design complete", "date": "2025-06-01", "done": true },
+      { "name": "Testnet deployment", "date": "2025-09-01", "done": true },
+      { "name": "Mainnet deployment", "date": "2025-11-15", "done": true },
+      { "name": "Full Raptr (prefix voting)", "date": null, "done": false }
+    ],
+    "recentCommits": 20
+  },
+  {
+    "key": "block-stm-v2",
+    "name": "Block-STM v2",
+    "status": "Development",
+    "progress": 60,
+    "color": "#ff4d00",
+    "lead": "gelash",
+    "description": "Next-gen parallel execution engine. Improved conflict resolution, better scheduling, support for cross-shard execution with Shardines.",
+    "whatsNeeded": "Performance benchmarks vs v1, integration with Shardines, testnet validation",
+    "whatsBeingDone": "V2 executor behind config flag in block_executor.rs. New scheduler with better task assignment. MVHashMap optimizations.",
+    "effects": "Higher throughput (target 2-3x over v1), lower re-execution rate, better CPU utilization, enables Shardines.",
+    "dependencies": ["Shardines (research)", "MonoMove VM (in progress)"],
+    "milestones": [
+      { "name": "V2 architecture design", "date": "2025-08-01", "done": true },
+      { "name": "V2 executor implementation", "date": "2026-01-01", "done": true },
+      { "name": "Config flag in block_executor", "date": "2026-02-15", "done": true },
+      { "name": "Performance benchmarks", "date": null, "done": false },
+      { "name": "Testnet rollout", "date": null, "done": false },
+      { "name": "Mainnet rollout", "date": null, "done": false }
+    ],
+    "recentCommits": 8
+  },
+  {
+    "key": "mono-move",
+    "name": "MonoMove VM",
+    "status": "Development",
+    "progress": 40,
+    "color": "#f59e0b",
+    "lead": "georgemitenkov",
+    "description": "Unified Move VM runtime that combines interpreter, compiler, and framework into a single optimized execution path. Gas instrumentation and executable caching.",
+    "whatsNeeded": "Executable cache stabilization, gas model finalization, compiler integration",
+    "whatsBeingDone": "Executable cache template, gas instrumentation prototype, design document updates, runtime benchmarks.",
+    "effects": "Faster smart contract execution, reduced memory overhead, simplified VM architecture, better gas accuracy.",
+    "dependencies": ["Move Compiler v2 (active)", "Block-STM v2 (in progress)"],
+    "milestones": [
+      { "name": "Design document", "date": "2026-02-01", "done": true },
+      { "name": "Executable cache template", "date": "2026-03-24", "done": true },
+      { "name": "Gas instrumentation prototype", "date": "2026-03-24", "done": true },
+      { "name": "Runtime benchmarks", "date": null, "done": false },
+      { "name": "Testnet integration", "date": null, "done": false },
+      { "name": "Mainnet deployment", "date": null, "done": false }
+    ],
+    "recentCommits": 13
+  },
+  {
+    "key": "keyless-accounts",
+    "name": "Keyless Accounts (AIP-61)",
+    "status": "Mainnet",
+    "progress": 95,
+    "color": "#0047ff",
+    "lead": "alinush",
+    "description": "Social login → blockchain accounts via OIDC + ZK proofs. No private key management needed.",
+    "whatsNeeded": "More identity provider integrations, UX improvements",
+    "whatsBeingDone": "Deployed and operational on mainnet. Google, Apple Sign-In working.",
+    "effects": "Mainstream user onboarding without crypto wallets. Users sign in with Google/Apple and get a blockchain account.",
+    "dependencies": [],
+    "milestones": [
+      { "name": "AIP-61 accepted", "date": "2024-06-01", "done": true },
+      { "name": "Testnet deployment", "date": "2024-09-01", "done": true },
+      { "name": "Mainnet deployment", "date": "2025-01-15", "done": true },
+      { "name": "Additional providers", "date": null, "done": false }
+    ],
+    "recentCommits": 3
+  },
+  {
+    "key": "zaptos",
+    "name": "Zaptos (Optimistic Pipelining)",
+    "status": "Research",
+    "progress": 25,
+    "color": "#14b8a6",
+    "lead": "TBD",
+    "description": "Start executing transactions BEFORE consensus finalizes. Speculate on likely order based on Quorum Store batches. If correct (common case), execution is 'free'.",
+    "whatsNeeded": "Baby Raptr stabilization (done), speculation accuracy testing, rollback mechanism",
+    "whatsBeingDone": "Research phase. Depends on Baby Raptr (now deployed) and Block-STM v2 for speculation support.",
+    "effects": "Near-zero execution latency in the common case. Sub-200ms end-to-end finality target.",
+    "dependencies": ["Baby Raptr (deployed)", "Block-STM v2 (in progress)"],
+    "milestones": [
+      { "name": "Research paper", "date": "2025-06-01", "done": true },
+      { "name": "Baby Raptr prerequisite", "date": "2025-11-15", "done": true },
+      { "name": "Prototype implementation", "date": null, "done": false },
+      { "name": "Testnet validation", "date": null, "done": false },
+      { "name": "Mainnet deployment", "date": null, "done": false }
+    ],
+    "recentCommits": 0
+  },
+  {
+    "key": "shardines",
+    "name": "Shardines (Internal Sharding)",
+    "status": "Research",
+    "progress": 15,
+    "color": "#ec4899",
+    "lead": "TBD",
+    "description": "Each validator internally shards execution across multiple sub-executors. Target: >1M TPS by parallelizing within a single validator.",
+    "whatsNeeded": "Block-STM v2 completion, partition algorithm, cross-shard communication protocol",
+    "whatsBeingDone": "Research phase. Three-layer approach: intra-block sharding, inter-block pipelining, and cross-shard atomic commits.",
+    "effects": "1M+ TPS. Makes Aptos the fastest L1 blockchain by a massive margin.",
+    "dependencies": ["Block-STM v2 (in progress)", "Zaptos (research)"],
+    "milestones": [
+      { "name": "Research design", "date": "2025-09-01", "done": true },
+      { "name": "Partition algorithm", "date": null, "done": false },
+      { "name": "Prototype", "date": null, "done": false },
+      { "name": "Testnet validation", "date": null, "done": false },
+      { "name": "Mainnet deployment", "date": null, "done": false }
+    ],
+    "recentCommits": 0
+  }
+]
