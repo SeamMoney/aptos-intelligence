@@ -2,16 +2,12 @@ name: Aptos Intelligence Bot
 
 on:
   schedule:
-    # Run every 6 hours
-    - cron: "0 */6 * * *"
-    # Weekly recap on Sundays at 18:00 UTC
-    - cron: "0 18 * * 0"
-    # Feature status report on Wednesdays at 15:00 UTC
-    - cron: "0 15 * * 3"
-  workflow_dispatch: # Manual trigger from GitHub UI
+    # Refresh data every 2 hours
+    - cron: "0 */2 * * *"
+  workflow_dispatch: # Manual trigger
 
 jobs:
-  run-bot:
+  refresh-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,30 +17,41 @@ jobs:
         with:
           node-version: "22"
 
-      # Cache the SQLite database between runs so it remembers what it already posted
-      - name: Restore bot database
-        uses: actions/cache@v4
-        with:
-          path: aptos-intelligence.json
-          key: bot-db-${{ github.ref }}
-          restore-keys: bot-db-
-
+      # Install backend deps
       - run: npm ci
 
-      - name: Run bot (single cycle, then exit)
-        run: node --import tsx src/run-once.ts
+      # Install web deps
+      - run: cd web && npm ci
+
+      # Refresh commit data + generate reports
+      - name: Refresh data from GitHub
+        run: node scripts/refresh-data.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
 
-      # Save database back so next run knows what was posted
-      - name: Save bot database
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path: aptos-intelligence.json
-          key: bot-db-${{ github.ref }}-${{ github.run_id }}
+      # Upgrade shallow reports with knowledge base
+      - name: Upgrade reports with knowledge base
+        run: node scripts/smart-regen.mjs
+        continue-on-error: true
+
+      # Build web frontend
+      - name: Build web
+        run: cd web && npm run build
+
+      # Deploy to Vercel
+      - name: Deploy to Vercel
+        run: cd web && npx vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: team_Volpq5OH75qm2aURtzqMSjEP
+          VERCEL_PROJECT_ID: prj_Bw8gHcfPLWWNba3SNadv9yzuppSX
+
+      # Commit updated data back to repo
+      - name: Commit data updates
+        run: |
+          git config user.name "Aptos Intelligence Bot"
+          git config user.email "bot@aptos-intelligence.dev"
+          git add web/public/data/
+          git diff --staged --quiet || git commit -m "chore: auto-refresh data $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
