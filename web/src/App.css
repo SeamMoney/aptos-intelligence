@@ -309,9 +309,11 @@ body {
    ============================================================================ */
 
 .prose-mono {
-  font-size: 12px;
-  line-height: 1.8;
+  font-size: 13px;
+  line-height: 1.75;
   color: var(--color-text-muted);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .prose-mono h1, .prose-mono h2, .prose-mono h3, .prose-mono h4 {
@@ -319,16 +321,16 @@ body {
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.01em;
-  margin-top: 1.8em;
-  margin-bottom: 0.6em;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
 }
 
 .prose-mono h1 { font-size: 18px; text-transform: uppercase; letter-spacing: 0.04em; }
-.prose-mono h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4em; }
-.prose-mono h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
-.prose-mono h4 { font-size: 11px; }
+.prose-mono h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5em; }
+.prose-mono h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-accent); }
+.prose-mono h4 { font-size: 12px; }
 
-.prose-mono p { margin: 0.8em 0; }
+.prose-mono p { margin: 1em 0; }
 
 .prose-mono a {
   color: var(--color-accent);
@@ -338,21 +340,24 @@ body {
 
 .prose-mono code {
   font-family: "JetBrains Mono", Menlo, monospace;
-  font-size: 0.9em;
+  font-size: 0.85em;
   background: var(--color-surface-alt);
-  padding: 0.15em 0.35em;
+  padding: 0.2em 0.4em;
   border: 1px solid var(--color-border-muted);
+  border-radius: 3px;
+  white-space: nowrap;
 }
 
 .prose-mono pre {
   background: #000000;
   color: #e5e5e5;
-  padding: 1em;
+  padding: 1.2em;
   overflow-x: auto;
   font-size: 11px;
-  line-height: 1.6;
-  margin: 1em 0;
+  line-height: 1.7;
+  margin: 1.5em 0;
   border: 1px solid var(--color-border);
+  border-radius: 4px;
 }
 
 .prose-mono pre code {
@@ -361,29 +366,78 @@ body {
   padding: 0;
   color: inherit;
   font-size: inherit;
+  white-space: pre;
+  border-radius: 0;
 }
 
 .prose-mono ul, .prose-mono ol {
-  padding-left: 1.4em;
-  margin: 0.6em 0;
+  padding-left: 1.5em;
+  margin: 1em 0;
 }
 
-.prose-mono li { margin: 0.25em 0; }
+.prose-mono li {
+  margin: 0.5em 0;
+  padding-left: 0.3em;
+}
 .prose-mono li::marker { color: var(--color-text-faint); }
 
 .prose-mono strong { color: var(--color-text); font-weight: 600; }
 
+/* Tables — proper borders, padding, no overlap */
+.prose-mono table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 1.5em 0;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose-mono thead {
+  border-bottom: 2px solid var(--color-border);
+}
+
+.prose-mono th {
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  color: var(--color-text-faint);
+  padding: 0.75em 1em;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.prose-mono td {
+  padding: 0.6em 1em;
+  border-bottom: 1px solid var(--color-border-muted);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.prose-mono tr:hover td {
+  background: var(--color-surface-alt);
+}
+
 .prose-mono blockquote {
-  border-left: 2px solid var(--color-border);
-  padding-left: 1em;
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.2em;
   color: var(--color-text-muted);
-  margin: 1em 0;
+  margin: 1.5em 0;
+  font-style: italic;
 }
 
 .prose-mono hr {
   border: none;
   border-top: 1px solid var(--color-border-muted);
-  margin: 2em 0;
+  margin: 2.5em 0;
+}
+
+.prose-mono img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
 }
 
 /* ELI5 mode — larger, friendlier */
@@ -391,5 +445,19 @@ body {
   font-size: 15px;
   line-height: 1.9;
   color: var(--color-text);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .prose-eli5 p { margin: 1.2em 0; }
+.prose-eli5 strong { color: var(--color-text); font-weight: 700; }
+.prose-eli5 code {
+  font-family: "JetBrains Mono", Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--color-surface-alt);
+  padding: 0.2em 0.4em;
+  border: 1px solid var(--color-border-muted);
+  border-radius: 3px;
+}
+.prose-eli5 ul, .prose-eli5 ol { padding-left: 1.5em; margin: 1em 0; }
+.prose-eli5 li { margin: 0.6em 0; }
+.prose-eli5 a { color: var(--color-accent); text-decoration: underline; }
