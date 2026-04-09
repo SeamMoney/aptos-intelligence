@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19289,
+      "title": "[mono-move] Add function types and type list interning to global context",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-09T08:36:38Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19289",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19351,
       "title": "[compiler] Fix visibility check for public structs/enums",
       "author": "rahxephon89",
@@ -191,5 +201,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-09T07:24:24.922Z"
+  "lastUpdated": "2026-04-09T09:09:39.459Z"
 }

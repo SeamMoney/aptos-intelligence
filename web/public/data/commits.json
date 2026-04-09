@@ -1,5 +1,13 @@
 [
   {
+    "sha": "93dd413",
+    "title": "[vm] Add function types and type list interning to mono-move global context (#19289)",
+    "author": "georgemitenkov",
+    "date": "2026-04-09T08:36:37Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/93dd413ffc155c3af8f79b25d11e84841feeb7c6",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "0e8dad7",
     "title": "fix function checker for struct visibility (#19351)",
     "author": "rahxephon89",
@@ -4765,14 +4773,6 @@
     "author": "JoshLind",
     "date": "2025-12-23T01:30:40Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/94fe0a347907e2d43927a49234a3cb4c419a6503",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "3d9bcda",
-    "title": "some cleanups (#18377)",
-    "author": "ibalajiarun",
-    "date": "2025-12-22T22:17:44Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/3d9bcdad6a2f4d2892466f7a836037f45c6bb10e",
     "category": "Infrastructure"
   },
   {
