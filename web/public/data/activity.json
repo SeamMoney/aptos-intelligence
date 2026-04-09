@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19381,
+      "title": "[cp][aptos-release-v1.44] [consensus] Fix rand manager deadlock in multi-block batches",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-09T20:03:02Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19381",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19359,
       "title": "[consensus] Fix rand manager deadlock in multi-block batches",
       "author": "danielxiangzl",
@@ -137,31 +147,8 @@
       "merged_at": "2026-04-08T00:10:56Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19357",
       "labels": []
-    },
-    {
-      "number": 19361,
-      "title": "[cp][aptos-release-v1.43] [consensus] Fix rand manager deadlock in multi-block batches",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-07T23:25:19Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19361",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
-  "issues": [
-    {
-      "number": 19348,
-      "title": "[Bug] Panic instead of error when accessing private struct from another module",
-      "author": "zzjas",
-      "state": "closed",
-      "created_at": "2026-04-06T22:12:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19348",
-      "labels": [
-        "bug",
-        "compiler-v2"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-04-09T19:08:48.142Z"
+  "issues": [],
+  "lastUpdated": "2026-04-09T20:53:28.433Z"
 }
