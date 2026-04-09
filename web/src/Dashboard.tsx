@@ -243,8 +243,8 @@ export default function Dashboard() {
   };
   const closeDrawer = () => { setDrawerState("closed"); animate(x, 0, { type: "spring", stiffness: 300, damping: 30 }); };
 
-  /* ═══ DETAIL VIEW ═══ */
-  if (showDetail && active) {
+  /* ═══ DETAIL VIEW (mobile only — desktop uses inline center panel) ═══ */
+  if (showDetail && active && isMobile) {
     return (
       <div className="fixed inset-0 flex flex-col overflow-hidden" style={{ background: "var(--color-background)" }}>
         <div className="absolute inset-0 pointer-events-none z-0">
