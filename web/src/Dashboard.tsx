@@ -269,13 +269,16 @@ export default function Dashboard() {
   /* ═══ DESKTOP ═══ */
   if (!isMobile) {
     return (
-      <div className="fixed inset-0 flex overflow-hidden" style={{ background: "var(--color-background)" }}>
+      <div className="fixed inset-0 flex flex-col overflow-hidden" style={{ background: "var(--color-background)" }}>
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute inset-0 bg-grid-adaptive bg-[size:4rem_4rem] opacity-20" />
           <div className="absolute bottom-[5%] right-[5%] opacity-[0.015] select-none">
             <div className="text-[10vw] font-black leading-none text-[var(--color-text)] font-mono tracking-tighter text-right">APTOS</div>
           </div>
         </div>
+
+        {/* 3-column layout */}
+        <div className="flex flex-1 overflow-hidden relative z-10">
 
         {/* Left sidebar — commit list */}
         <div className="h-full flex flex-col border-r border-[var(--color-border)] relative overflow-hidden shrink-0 z-10" style={{ width: 360, background: "var(--color-surface)" }}>
@@ -325,10 +328,6 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <div className="relative z-10 border-t border-[var(--color-border)] bg-hazard-stripes px-4 py-2.5 flex items-center justify-between">
-            <span className="label-specimen-sm text-[var(--color-text-faint)]">{commits.length} commits</span>
-            <span className="label-specimen-sm text-[var(--color-accent)]">● LIVE</span>
-          </div>
         </div>
 
         {/* Center — content */}
@@ -411,6 +410,17 @@ export default function Dashboard() {
                 <span className="label-specimen-sm text-[var(--color-text-faint)]">{count}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        </div>
+
+        {/* Full-width status bar */}
+        <div className="relative z-10 border-t border-[var(--color-border)] bg-hazard-stripes px-6 py-2 flex items-center justify-between shrink-0" style={{ background: "var(--color-surface)" }}>
+          <span className="label-specimen-sm text-[var(--color-text-faint)]">{commits.length} commits · {reports.length} reports · {featureProgress.length} features tracked</span>
+          <div className="flex items-center gap-3">
+            <span className="label-specimen-sm text-[var(--color-text-faint)]">aptos-labs/aptos-core</span>
+            <span className="label-specimen-sm text-[var(--color-accent)]">● LIVE</span>
           </div>
         </div>
       </div>
@@ -588,8 +598,15 @@ export default function Dashboard() {
           })}
         </div>
 
+        {/* Mobile status bar */}
+        <motion.div style={{ opacity: fabOpacity }} className="absolute bottom-0 left-0 right-0 z-30 border-t border-white/10 bg-black/80 backdrop-blur-sm px-4 py-2 flex items-center justify-between"
+          style={{ opacity: fabOpacity, paddingBottom: "max(env(safe-area-inset-bottom, 8px), 8px)" }}>
+          <span className="label-specimen-sm text-white/40">{commits.length} commits</span>
+          <span className="label-specimen-sm text-[#CBB696]">● LIVE</span>
+        </motion.div>
+
         <motion.button style={{ opacity: fabOpacity, scale: fabScale }}
-          className="absolute bottom-8 right-5 w-[52px] h-[52px] rounded-full bg-[#9F947F] flex items-center justify-center shadow-2xl border border-white/10 z-50"
+          className="absolute bottom-12 right-5 w-[52px] h-[52px] rounded-full bg-[#9F947F] flex items-center justify-center shadow-2xl border border-white/10 z-50"
           onClick={() => { setDrawerState("left"); animate(x, CAL_OFFSET, { type: "spring", stiffness: 300, damping: 30 }); }}>
           <Layers className="w-6 h-6 text-white" />
         </motion.button>
