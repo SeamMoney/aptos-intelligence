@@ -1,5 +1,13 @@
 [
   {
+    "sha": "1422233",
+    "title": "Confidential asset v1.1.2 minor fixes (#19370)",
+    "author": "alinush",
+    "date": "2026-04-09T17:03:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/14222336f128a4fbc5726e7cd63fe46446a193c6",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "a269a23",
     "title": "[deps] bump lz4_flex 0.11.3->0.11.6, quinn-proto 0.11.13->0.11.14 (#19272)",
     "author": "zi0Black",
@@ -4766,14 +4774,6 @@
     "date": "2025-12-26T18:00:16Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/def15982b2697135b139aadfdd53bab607f5d587",
     "category": "Feature Progress"
-  },
-  {
-    "sha": "56b9cf9",
-    "title": "[forge] pin image for etna stable test (#18351)",
-    "author": "ibalajiarun",
-    "date": "2025-12-23T18:57:30Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/56b9cf968744bfef9b058851d28333086e341b35",
-    "category": "Infrastructure"
   },
   {
     "sha": "d2839e6",

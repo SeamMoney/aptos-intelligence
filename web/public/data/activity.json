@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19370,
+      "title": "Confidential asset v1.1.2 minor fixes",
+      "author": "alinush",
+      "merged_at": "2026-04-09T17:03:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19370",
+      "labels": []
+    },
+    {
       "number": 19272,
       "title": "[deps] bump lz4_flex 0.11.3→0.11.6, quinn-proto 0.11.13→0.11.14",
       "author": "zi0Black",
@@ -172,16 +180,6 @@
       "merged_at": "2026-04-07T20:53:01Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19039",
       "labels": []
-    },
-    {
-      "number": 19224,
-      "title": "[cp][aptos-release-v1.43] [metrics] Add build profile label to release_version metric",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-07T19:40:06Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19224",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [
@@ -198,5 +196,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-09T15:23:16.508Z"
+  "lastUpdated": "2026-04-09T17:09:00.352Z"
 }
