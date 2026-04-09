@@ -1,5 +1,13 @@
 [
   {
+    "sha": "81b4560",
+    "title": "[mono-move] Integrate gas metering into e2e pipeline (#19356)",
+    "author": "calintat",
+    "date": "2026-04-09T21:13:53Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/81b4560b7b0ee9e506ae14be7d9b9a5b17df67f4",
+    "category": "Security"
+  },
+  {
     "sha": "1422233",
     "title": "Confidential asset v1.1.2 minor fixes (#19370)",
     "author": "alinush",
@@ -246,6 +254,14 @@
     "date": "2026-04-06T12:29:41Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/b1bdefa439130af9e5d31d628c933dca5fdbeb83",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "9102cf2",
+    "title": "[Network] Add inbound network rate limiter.",
+    "author": "JoshLind",
+    "date": "2026-04-05T20:34:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9102cf27fe351d482a8031c7a18c9419041f859f",
+    "category": "Infrastructure"
   },
   {
     "sha": "14e0dd0",
@@ -4750,22 +4766,6 @@
     "date": "2025-12-28T01:04:34Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/d24dbd5de849e0d89744fb5253a398cf5366c121",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "3ee1cb1",
-    "title": "[move-vm] Native function modeling for runtime reference safety checker (#18346)",
-    "author": "vineethk",
-    "date": "2025-12-27T03:27:23Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/3ee1cb15644a05d336d5a4d288958e01f95588e0",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "7716055",
-    "title": "IndexedRef Runtime TAG (#18142)",
-    "author": "zi0Black",
-    "date": "2025-12-27T03:09:02Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/7716055f8345ac4af613316482fa2d7e01c46e28",
-    "category": "Security"
   },
   {
     "sha": "def1598",

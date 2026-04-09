@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19346,
+      "title": "[Network] Add inbound network rate limiter.",
+      "author": "JoshLind",
+      "merged_at": "2026-04-09T21:17:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19346",
+      "labels": [
+        "CICD:run-forge-e2e-perf"
+      ]
+    },
+    {
+      "number": 19356,
+      "title": "[mono-move] Integrate gas metering into e2e pipeline",
+      "author": "calintat",
+      "merged_at": "2026-04-09T21:13:54Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19356",
+      "labels": []
+    },
+    {
       "number": 19381,
       "title": "[cp][aptos-release-v1.44] [consensus] Fix rand manager deadlock in multi-block batches",
       "author": "aptos-bot",
@@ -131,24 +149,8 @@
       "merged_at": "2026-04-08T03:11:11Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19319",
       "labels": []
-    },
-    {
-      "number": 19296,
-      "title": "Fix final chunky pairing check by adding random scalars",
-      "author": "rex1fernando",
-      "merged_at": "2026-04-08T00:52:51Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19296",
-      "labels": []
-    },
-    {
-      "number": 19357,
-      "title": "[scripts] Update z3 and boogie versions for v1.43",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-08T00:10:56Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19357",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-09T20:53:28.433Z"
+  "lastUpdated": "2026-04-09T22:41:38.104Z"
 }
