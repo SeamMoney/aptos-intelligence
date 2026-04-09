@@ -1,6 +1,17 @@
 {
   "prs": [
     {
+      "number": 19359,
+      "title": "[consensus] Fix rand manager deadlock in multi-block batches",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-07T22:55:30Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19359",
+      "labels": [
+        "v1.43",
+        "v1.44"
+      ]
+    },
+    {
       "number": 19370,
       "title": "Confidential asset v1.1.2 minor fixes",
       "author": "alinush",
@@ -136,50 +147,6 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19355,
-      "title": "[vm] Add per-safe-point pointer layouts for GC root scanning",
-      "author": "vgao1996",
-      "merged_at": "2026-04-07T23:34:31Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19355",
-      "labels": []
-    },
-    {
-      "number": 19358,
-      "title": "[Smoke Test] Small fixes to prevent sporadic race conditions",
-      "author": "JoshLind",
-      "merged_at": "2026-04-07T23:14:41Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19358",
-      "labels": [
-        "CICD:run-e2e-tests"
-      ]
-    },
-    {
-      "number": 19359,
-      "title": "[consensus] Fix rand manager deadlock in multi-block batches",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-07T22:55:30Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19359",
-      "labels": [
-        "v1.43"
-      ]
-    },
-    {
-      "number": 16778,
-      "title": "[multisig] Add script payload support",
-      "author": "gregnazario",
-      "merged_at": "2026-04-07T22:27:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/16778",
-      "labels": []
-    },
-    {
-      "number": 19039,
-      "title": "[encrypted mempool] Switch some pairings to multipairings in `aptos-batch-encryption`, to increase efficiency",
-      "author": "rex1fernando",
-      "merged_at": "2026-04-07T20:53:01Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19039",
-      "labels": []
     }
   ],
   "issues": [
@@ -196,5 +163,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-09T17:09:00.352Z"
+  "lastUpdated": "2026-04-09T19:08:48.142Z"
 }
