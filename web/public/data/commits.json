@@ -1,5 +1,29 @@
 [
   {
+    "sha": "0e8dad7",
+    "title": "fix function checker for struct visibility (#19351)",
+    "author": "rahxephon89",
+    "date": "2026-04-09T04:25:56Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0e8dad7b9b2f06ab023ad40c0aa42b950974d2e1",
+    "category": "Security"
+  },
+  {
+    "sha": "5a29c66",
+    "title": "Enhance aptos-debugger (#19205)",
+    "author": "rahxephon89",
+    "date": "2026-04-09T04:25:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5a29c66bf1174740aca21b9285f3bb4d48ebe127",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "8aac2d2",
+    "title": "[consensus] Add randomness load test for forge (#19376)",
+    "author": "danielxiangzl",
+    "date": "2026-04-09T03:04:34Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8aac2d2d06db31fea1af7ade6385183684619ba5",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "c66dbf9",
     "title": "[smoke-test] Simplify ChunkyDKG stall recovery test",
     "author": "ibalajiarun",
@@ -4750,30 +4774,6 @@
     "date": "2025-12-22T22:17:44Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/3d9bcdad6a2f4d2892466f7a836037f45c6bb10e",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "ec3d56b",
-    "title": "[aptos cli] release cli 7.12.1 (#18369)",
-    "author": "junxzm1990",
-    "date": "2025-12-22T04:20:39Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ec3d56b627d51af1f5f52c9ada42820aaa7e4edf",
-    "category": "Release"
-  },
-  {
-    "sha": "3a7d0e6",
-    "title": "Support gRPC live mode for fullnodes (#18359)",
-    "author": "just-in-chang",
-    "date": "2025-12-20T00:05:34Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/3a7d0e6970f693ee7f12ec1c77ae517b2f3f48a8",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "adfb708",
-    "title": "Upgrade cc crate to 1.2.50 and stop setting LTO flags manually",
-    "author": "wqfish",
-    "date": "2025-12-19T23:27:54Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/adfb7087bdef9b128e6153850b5ed05311a180b8",
-    "category": "Release"
   },
   {
     "sha": "d2839e6",
