@@ -1,0 +1,175 @@
+{
+  "prs": [
+    {
+      "number": 19338,
+      "title": "[encrypted-txns] Per-workload emitter support and decryption pipeline fixes",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-08T23:48:25Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19338",
+      "labels": [
+        "CICD:build-images",
+        "CICD:run-forge-e2e-perf"
+      ]
+    },
+    {
+      "number": 19318,
+      "title": "Change hiding KZG and DeKart setup to allow for using preexisting powers of tau",
+      "author": "rex1fernando",
+      "merged_at": "2026-04-08T20:28:18Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19318",
+      "labels": []
+    },
+    {
+      "number": 19371,
+      "title": "[docker] release devnet performance variant of indexer grpc",
+      "author": "rustielin",
+      "merged_at": "2026-04-08T17:59:35Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19371",
+      "labels": []
+    },
+    {
+      "number": 19365,
+      "title": "[aptos-release-v1.43] Bump version to 1.43.2",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-08T12:36:36Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19365",
+      "labels": []
+    },
+    {
+      "number": 19064,
+      "title": "preallocate vec",
+      "author": "rex1fernando",
+      "merged_at": "2026-04-08T04:32:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19064",
+      "labels": []
+    },
+    {
+      "number": 19307,
+      "title": "[dkg] Add ChunkyDKGConfigSeqNum for stall recovery",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-08T04:01:38Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19307",
+      "labels": []
+    },
+    {
+      "number": 19319,
+      "title": "[flow] Overhaul plugin architecture, fix caching bugs, improve spec inference",
+      "author": "wrwg",
+      "merged_at": "2026-04-08T03:11:11Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19319",
+      "labels": []
+    },
+    {
+      "number": 19296,
+      "title": "Fix final chunky pairing check by adding random scalars",
+      "author": "rex1fernando",
+      "merged_at": "2026-04-08T00:52:51Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19296",
+      "labels": []
+    },
+    {
+      "number": 19357,
+      "title": "[scripts] Update z3 and boogie versions for v1.43",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-08T00:10:56Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19357",
+      "labels": []
+    },
+    {
+      "number": 19361,
+      "title": "[cp][aptos-release-v1.43] [consensus] Fix rand manager deadlock in multi-block batches",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-07T23:25:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19361",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19355,
+      "title": "[vm] Add per-safe-point pointer layouts for GC root scanning",
+      "author": "vgao1996",
+      "merged_at": "2026-04-07T23:34:31Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19355",
+      "labels": []
+    },
+    {
+      "number": 19358,
+      "title": "[Smoke Test] Small fixes to prevent sporadic race conditions",
+      "author": "JoshLind",
+      "merged_at": "2026-04-07T23:14:41Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19358",
+      "labels": [
+        "CICD:run-e2e-tests"
+      ]
+    },
+    {
+      "number": 19359,
+      "title": "[consensus] Fix rand manager deadlock in multi-block batches",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-07T22:55:30Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19359",
+      "labels": [
+        "v1.43"
+      ]
+    },
+    {
+      "number": 16778,
+      "title": "[multisig] Add script payload support",
+      "author": "gregnazario",
+      "merged_at": "2026-04-07T22:27:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/16778",
+      "labels": []
+    },
+    {
+      "number": 19039,
+      "title": "[encrypted mempool] Switch some pairings to multipairings in `aptos-batch-encryption`, to increase efficiency",
+      "author": "rex1fernando",
+      "merged_at": "2026-04-07T20:53:01Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19039",
+      "labels": []
+    },
+    {
+      "number": 19224,
+      "title": "[cp][aptos-release-v1.43] [metrics] Add build profile label to release_version metric",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-07T19:40:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19224",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19160,
+      "title": "[vm] Include verifier config in verified module cache key",
+      "author": "vgao1996",
+      "merged_at": "2026-03-24T04:48:34Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19160",
+      "labels": [
+        "CICD:build-performance-images"
+      ]
+    },
+    {
+      "number": 19352,
+      "title": "[vm] Size par_exec thread pool to concurrency_level instead of num_cpus",
+      "author": "wqfish",
+      "merged_at": "2026-04-07T08:16:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19352",
+      "labels": []
+    }
+  ],
+  "issues": [
+    {
+      "number": 19339,
+      "title": "[prover] fixed_point64::round false positive after Z3 update",
+      "author": "wrwg",
+      "state": "open",
+      "created_at": "2026-04-06T04:44:13Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19339",
+      "labels": [
+        "move-prover"
+      ]
+    }
+  ],
+  "lastUpdated": "2026-04-09T00:41:40.191Z"
+}

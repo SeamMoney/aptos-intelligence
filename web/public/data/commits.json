@@ -1,5 +1,13 @@
 [
   {
+    "sha": "c66dbf9",
+    "title": "[smoke-test] Simplify ChunkyDKG stall recovery test",
+    "author": "ibalajiarun",
+    "date": "2026-04-08T22:47:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c66dbf952b692bc017b459e3e6e44cc2a43d6958",
+    "category": "Security"
+  },
+  {
     "sha": "b1d6ffc",
     "title": "Change hiding KZG and DeKart setup to allow for using preexisting powers of tau (#19318)",
     "author": "rex1fernando",
@@ -72,6 +80,14 @@
     "category": "Release"
   },
   {
+    "sha": "1b8bb2d",
+    "title": "[execution] Add encrypted label to processed user txn payload metrics",
+    "author": "ibalajiarun",
+    "date": "2026-04-07T21:39:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1b8bb2d4b720bf1f26cee513bb95a5dbba4bbd76",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "5cb50b2",
     "title": "[encrypted mempool] Switch some pairings to multipairings in `aptos-batch-encryption`, to increase efficiency (#19039)",
     "author": "rex1fernando",
@@ -88,6 +104,14 @@
     "category": "Security"
   },
   {
+    "sha": "b2b28dc",
+    "title": "[consensus] Use QS config for encrypted txn proposal limit",
+    "author": "ibalajiarun",
+    "date": "2026-04-07T17:10:19Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b2b28dc9aa04aafdd6e6d1dd0169f3fdf45fb93b",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "0b5fc71",
     "title": "[vm] Size par_exec thread pool to concurrency_level instead of num_cpus",
     "author": "wqfish",
@@ -102,6 +126,38 @@
     "date": "2026-04-07T05:59:51Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/1157c58c2c9d80a04fe645f73b341c2ec79c05f7",
     "category": "Security"
+  },
+  {
+    "sha": "2d07703",
+    "title": "[dkg] Skip test digest key init for non-validator nodes",
+    "author": "ibalajiarun",
+    "date": "2026-04-07T05:08:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2d07703a203112054741d1d586369becd5b38129",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "45993c4",
+    "title": "[consensus] Consolidate decryption pipeline metrics",
+    "author": "ibalajiarun",
+    "date": "2026-04-07T04:13:27Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/45993c4c0b9e6ac67a50c01d37eb51fe2ce9aaca",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "7ad5911",
+    "title": "[forge] Add encrypted mix forge test",
+    "author": "ibalajiarun",
+    "date": "2026-04-07T04:13:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7ad5911c2e3c9019120324d320fae3df91106f8a",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "2816ad9",
+    "title": "[emitter] Add per-workload encrypted transaction support",
+    "author": "ibalajiarun",
+    "date": "2026-04-07T04:13:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2816ad95c27247c1dbe26858113981f6d074fcd9",
+    "category": "Feature Progress"
   },
   {
     "sha": "0891bcc",
@@ -4720,68 +4776,12 @@
     "category": "Release"
   },
   {
-    "sha": "4e3b3ac",
-    "title": "Address Security review feedback 2 (#18279)",
-    "author": "sitalkedia",
-    "date": "2025-12-19T21:59:51Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/4e3b3ac2f88f7db927048edc1c006361cd908e33",
-    "category": "Security"
-  },
-  {
-    "sha": "d8d4e70",
-    "title": "[vm] Fix leak in function caches (#18350)",
-    "author": "georgemitenkov",
-    "date": "2025-12-19T11:00:08Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d8d4e70e021245c24f7317206a8eb1b45ea3416c",
-    "category": "Security"
-  },
-  {
-    "sha": "24841f8",
-    "title": "[License] Change license attribute in Cargo.toml",
-    "author": "JoshLind",
-    "date": "2025-12-18T18:49:11Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/24841f8c0378dbc32f18c71e610b759f0ce820c2",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "d7d560c",
-    "title": "Update macOS runner version for CLI release (#18342)",
-    "author": "jkao97",
-    "date": "2025-12-18T17:22:35Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d7d560cefcd961f5526f31461f8a6391d8cd9a83",
-    "category": "Release"
-  },
-  {
     "sha": "d2839e6",
     "title": "[api] feature flag for enc txn submission",
     "author": "ibalajiarun",
     "date": "2025-12-18T16:56:43Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/d2839e69a39b1421a7277ed15028ce0789b3604a",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "e3086a4",
-    "title": "Update crates/aptos-batch-encryption/Cargo.toml",
-    "author": "zjma",
-    "date": "2025-12-18T00:42:36Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/e3086a4ada8bd0f7229dbf7de94412dd8616cbf2",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "3684dce",
-    "title": "Update crates/aptos-batch-encryption/Cargo.toml",
-    "author": "zjma",
-    "date": "2025-12-18T00:42:22Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/3684dce80960fd527a90c38ab5b7d4a0543486c7",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "db04383",
-    "title": "[Batch Encryption] Remove sha2-asm feature.",
-    "author": "JoshLind",
-    "date": "2025-12-17T20:49:02Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/db0438371c0561b96f7e51bb1e230308a224881b",
-    "category": "Feature Progress"
   },
   {
     "sha": "9c9cd42",
