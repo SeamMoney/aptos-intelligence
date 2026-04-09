@@ -6,3 +6,4 @@ aptos-intelligence.json
 .env
 *.log
 .DS_Store
+.vercel
