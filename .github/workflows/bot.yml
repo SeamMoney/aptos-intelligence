@@ -46,12 +46,13 @@ jobs:
           VERCEL_PROJECT_ID: prj_Bw8gHcfPLWWNba3SNadv9yzuppSX
 
       # Commit updated data back to repo
+      # Uses [skip ci] to prevent Vercel Git integration from re-deploying
       - name: Commit data updates
         run: |
-          git config user.name "Aptos Intelligence Bot"
-          git config user.email "bot@aptos-intelligence.dev"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add web/public/data/
-          git diff --staged --quiet || git commit -m "chore: auto-refresh data $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git diff --staged --quiet || git commit -m "chore: auto-refresh data $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
