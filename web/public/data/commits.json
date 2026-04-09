@@ -1,5 +1,13 @@
 [
   {
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "c66dbf9",
     "title": "[smoke-test] Simplify ChunkyDKG stall recovery test",
     "author": "ibalajiarun",
