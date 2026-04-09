@@ -416,7 +416,8 @@ export default function Dashboard() {
         </div>
 
         {/* Full-width status bar */}
-        <div className="relative z-10 border-t border-[var(--color-border)] bg-hazard-stripes px-6 py-2 flex items-center justify-between shrink-0" style={{ background: "var(--color-surface)" }}>
+        <div className="relative z-10 border-t border-[var(--color-border)] px-6 py-2.5 flex items-center justify-between shrink-0"
+          style={{ background: "var(--color-surface)", backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 10px, rgba(204,255,0,0.04) 10px, rgba(204,255,0,0.04) 20px)" }}>
           <span className="label-specimen-sm text-[var(--color-text-faint)]">{commits.length} commits · {reports.length} reports · {featureProgress.length} features tracked</span>
           <div className="flex items-center gap-3">
             <span className="label-specimen-sm text-[var(--color-text-faint)]">aptos-labs/aptos-core</span>
@@ -599,9 +600,10 @@ export default function Dashboard() {
         </div>
 
         {/* Mobile status bar */}
-        <motion.div style={{ opacity: fabOpacity }} className="absolute bottom-0 left-0 right-0 z-30 border-t border-white/10 bg-black/80 backdrop-blur-sm px-4 py-2 flex items-center justify-between"
-          style={{ opacity: fabOpacity, paddingBottom: "max(env(safe-area-inset-bottom, 8px), 8px)" }}>
-          <span className="label-specimen-sm text-white/40">{commits.length} commits</span>
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 z-30 border-t border-white/10 backdrop-blur-sm px-4 py-2 flex items-center justify-between"
+          style={{ opacity: fabOpacity, paddingBottom: "max(env(safe-area-inset-bottom, 8px), 8px)", background: "rgba(0,0,0,0.85)", backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 10px, rgba(204,255,0,0.03) 10px, rgba(204,255,0,0.03) 20px)" }}>
+          <span className="label-specimen-sm text-white/50">{commits.length} commits</span>
           <span className="label-specimen-sm text-[#CBB696]">● LIVE</span>
         </motion.div>
 
