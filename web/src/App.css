@@ -81,6 +81,63 @@ body {
 }
 
 /* ============================================================================
+   MOBILE OVERRIDES
+   ============================================================================ */
+
+@media (max-width: 767px) {
+  .prose-mono {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .prose-mono h2 { font-size: 13px; }
+  .prose-mono h3 { font-size: 12px; }
+
+  .prose-mono pre {
+    font-size: 10px;
+    padding: 0.8em;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .prose-mono code {
+    font-size: 0.8em;
+    word-break: break-all;
+    white-space: normal;
+  }
+
+  .prose-mono table {
+    font-size: 10px;
+  }
+
+  .prose-mono th {
+    font-size: 8px;
+    padding: 0.4em 0.5em;
+  }
+
+  .prose-mono td {
+    padding: 0.4em 0.5em;
+    font-size: 10px;
+  }
+
+  .prose-mono ul, .prose-mono ol {
+    padding-left: 1.2em;
+  }
+
+  .prose-mono li {
+    margin: 0.4em 0;
+  }
+
+  .prose-eli5 {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+/* ============================================================================
    SCROLLBAR — exact AuraWallet
    ============================================================================ */
 
@@ -383,14 +440,15 @@ body {
 
 .prose-mono strong { color: var(--color-text); font-weight: 600; }
 
-/* Tables — proper borders, padding, no overlap */
+/* Tables — proper borders, padding, no overlap, mobile-safe */
 .prose-mono table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 11px;
   margin: 1.5em 0;
   display: block;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .prose-mono thead {
@@ -402,15 +460,15 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--color-text-faint);
-  padding: 0.75em 1em;
+  padding: 0.6em 0.7em;
   white-space: nowrap;
   border-bottom: 2px solid var(--color-border);
 }
 
 .prose-mono td {
-  padding: 0.6em 1em;
+  padding: 0.5em 0.7em;
   border-bottom: 1px solid var(--color-border-muted);
   vertical-align: top;
   line-height: 1.5;

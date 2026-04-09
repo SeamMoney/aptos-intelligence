@@ -623,7 +623,7 @@ function ReportView({ r, tab, setTab }: { r: WebReport; tab: "advanced"|"eli5"; 
         <MechButton active={tab === "advanced"} onClick={() => setTab("advanced")} className="h-[32px] px-3 text-[10px] uppercase">◆ Advanced</MechButton>
         <MechButton active={tab === "eli5"} onClick={() => setTab("eli5")} className="h-[32px] px-3 text-[10px] uppercase">◇ ELI5</MechButton>
       </div>
-      <div className="clip-specimen border-mech corner-marks bg-[var(--color-surface)] p-5" key={`${r.githubId}-${tab}`}>
+      <div className="clip-specimen border-mech corner-marks bg-[var(--color-surface)] p-4 md:p-6" key={`${r.githubId}-${tab}`}>
         <div className={tab === "advanced" ? "prose-mono" : "prose-eli5"}>
           <div dangerouslySetInnerHTML={{ __html: tab === "advanced" ? r.advanced : r.eli5 }} />
         </div>
