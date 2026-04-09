@@ -1,5 +1,13 @@
 [
   {
+    "sha": "a269a23",
+    "title": "[deps] bump lz4_flex 0.11.3->0.11.6, quinn-proto 0.11.13->0.11.14 (#19272)",
+    "author": "zi0Black",
+    "date": "2026-04-09T12:10:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a269a23dbbd7dc879d431a72f966bbf186e9a765",
+    "category": "Infrastructure"
+  },
+  {
     "sha": "93dd413",
     "title": "[vm] Add function types and type list interning to mono-move global context (#19289)",
     "author": "georgemitenkov",
@@ -4765,14 +4773,6 @@
     "author": "ibalajiarun",
     "date": "2025-12-23T18:57:30Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/56b9cf968744bfef9b058851d28333086e341b35",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "94fe0a3",
-    "title": "[Network] Small cleaups to streaming code. (#18375)",
-    "author": "JoshLind",
-    "date": "2025-12-23T01:30:40Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/94fe0a347907e2d43927a49234a3cb4c419a6503",
     "category": "Infrastructure"
   },
   {
