@@ -1,6 +1,32 @@
 {
   "prs": [
     {
+      "number": 19370,
+      "title": "Confidential asset v1.1.2 minor fixes",
+      "author": "alinush",
+      "merged_at": "2026-04-09T17:03:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19370",
+      "labels": [
+        "v1.43"
+      ]
+    },
+    {
+      "number": 19398,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.2",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-10T19:57:47Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19398",
+      "labels": []
+    },
+    {
+      "number": 19382,
+      "title": "Use async snapshot creation with polling",
+      "author": "jkao97",
+      "merged_at": "2026-04-10T18:57:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19382",
+      "labels": []
+    },
+    {
       "number": 19385,
       "title": "Fix MempoolMessageId ordering and improve error handling",
       "author": "zekun000",
@@ -46,14 +72,6 @@
         "v1.43",
         "v1.44"
       ]
-    },
-    {
-      "number": 19370,
-      "title": "Confidential asset v1.1.2 minor fixes",
-      "author": "alinush",
-      "merged_at": "2026-04-09T17:03:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19370",
-      "labels": []
     },
     {
       "number": 19272,
@@ -133,14 +151,6 @@
       "merged_at": "2026-04-08T12:36:36Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19365",
       "labels": []
-    },
-    {
-      "number": 19064,
-      "title": "preallocate vec",
-      "author": "rex1fernando",
-      "merged_at": "2026-04-08T04:32:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19064",
-      "labels": []
     }
   ],
   "issues": [
@@ -169,5 +179,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-10T18:55:06.522Z"
+  "lastUpdated": "2026-04-10T20:38:53.484Z"
 }

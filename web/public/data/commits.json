@@ -1,5 +1,13 @@
 [
   {
+    "sha": "a54718f",
+    "title": "Use async snapshot creation with polling (#19382)",
+    "author": "jkao97",
+    "date": "2026-04-10T18:57:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/a54718f0a418bc0db796021ad8de9ed3f6d0a60f",
+    "category": "Security"
+  },
+  {
     "sha": "e05c07c",
     "title": "Fix MempoolMessageId ordering and improve error handling (#19385)",
     "author": "zekun000",
@@ -4758,14 +4766,6 @@
     "date": "2025-12-29T11:24:32Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/e53123a928691f2516bc5332e0d3a5d9dc4becd2",
     "category": "Security"
-  },
-  {
-    "sha": "2f99b2f",
-    "title": "[move linter] revise a linter name (#18387)",
-    "author": "junxzm1990",
-    "date": "2025-12-29T08:10:12Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/2f99b2fbeb63ee3ee4d8fbdbd1aba164e39ed7b8",
-    "category": "Feature Progress"
   },
   {
     "sha": "def1598",
