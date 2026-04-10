@@ -1,5 +1,13 @@
 [
   {
+    "sha": "e05c07c",
+    "title": "Fix MempoolMessageId ordering and improve error handling (#19385)",
+    "author": "zekun000",
+    "date": "2026-04-10T00:06:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e05c07cc95c35e0a739620ffe7a9684d378df695",
+    "category": "Security"
+  },
+  {
     "sha": "81b4560",
     "title": "[mono-move] Integrate gas metering into e2e pipeline (#19356)",
     "author": "calintat",
@@ -4758,14 +4766,6 @@
     "date": "2025-12-29T08:10:12Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/2f99b2fbeb63ee3ee4d8fbdbd1aba164e39ed7b8",
     "category": "Feature Progress"
-  },
-  {
-    "sha": "d24dbd5",
-    "title": "Update Docker images (#17328)",
-    "author": "github-actions[bot]",
-    "date": "2025-12-28T01:04:34Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d24dbd5de849e0d89744fb5253a398cf5366c121",
-    "category": "Infrastructure"
   },
   {
     "sha": "def1598",
