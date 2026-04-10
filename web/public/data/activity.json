@@ -141,29 +141,33 @@
       "merged_at": "2026-04-08T04:32:55Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19064",
       "labels": []
-    },
-    {
-      "number": 19307,
-      "title": "[dkg] Add ChunkyDKGConfigSeqNum for stall recovery",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-08T04:01:38Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19307",
-      "labels": []
     }
   ],
   "issues": [
     {
-      "number": 18830,
-      "title": "[compiler v2] tracking todos of unused checks",
-      "author": "junxzm1990",
+      "number": 19394,
+      "title": "[Bug] STLOC_UNSAFE_TO_DESTROY_ERROR caued by missing ref safety check for non-reference Call destinations",
+      "author": "zzjas",
       "state": "open",
-      "created_at": "2026-02-23T19:32:04Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/18830",
+      "created_at": "2026-04-10T17:27:35Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19394",
       "labels": [
-        "enhancement",
-        "Stale"
+        "bug",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 19393,
+      "title": "[Bug] CALL_TYPE_MISMATCH_ERROR when using a lambda for a generic type with key ability",
+      "author": "zzjas",
+      "state": "open",
+      "created_at": "2026-04-10T17:23:49Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19393",
+      "labels": [
+        "bug",
+        "compiler-v2"
       ]
     }
   ],
-  "lastUpdated": "2026-04-10T16:53:12.963Z"
+  "lastUpdated": "2026-04-10T18:55:06.522Z"
 }
