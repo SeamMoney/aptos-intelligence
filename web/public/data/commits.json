@@ -1,7 +1,15 @@
 [
   {
+    "sha": "prefix-consensus-deep-dive",
+    "title": "Prefix Consensus \u2014 How Aptos Is Building Leaderless, Censorship-Resistant BFT",
+    "author": "aptos-labs",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://arxiv.org/abs/2602.02892",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds \u2014 Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -9,7 +17,7 @@
   },
   {
     "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "title": "Aptos Names Service (ANS) \u2014 Complete Deep Dive",
     "author": "0xChucky",
     "date": "2026-04-08T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-names-contracts",
