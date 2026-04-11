@@ -1,5 +1,13 @@
 [
   {
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "author": "aptos-labs",
+    "date": "2026-04-09T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "6f0ffe9",
     "title": "[storage] Extract state KV and merkle truncation helpers from sync_commit_progress",
     "author": "wqfish",
