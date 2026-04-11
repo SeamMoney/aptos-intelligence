@@ -1,5 +1,21 @@
 [
   {
+    "sha": "6f0ffe9",
+    "title": "[storage] Extract state KV and merkle truncation helpers from sync_commit_progress",
+    "author": "wqfish",
+    "date": "2026-04-10T22:45:51Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6f0ffe9986f24d4b9a0d43a8194ff59bfba0e35a",
+    "category": "Performance"
+  },
+  {
+    "sha": "9e77136",
+    "title": "[consensus] Validate batch metadata limits during payload verification (#19372)",
+    "author": "ibalajiarun",
+    "date": "2026-04-10T22:39:28Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9e77136a34ebe7553f4201d1bfface6e97799367",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "a54718f",
     "title": "Use async snapshot creation with polling (#19382)",
     "author": "jkao97",
@@ -4750,22 +4766,6 @@
     "date": "2025-12-30T02:27:03Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/3318621d291ad056de10fc1088836cd92c0ec82d",
     "category": "Feature Progress"
-  },
-  {
-    "sha": "5f5d138",
-    "title": "[aptos cli] set language version 2.3 as stable and release cli 7.13.0 (#18391)",
-    "author": "junxzm1990",
-    "date": "2025-12-29T19:46:27Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/5f5d138562dd0732e14c3e4265d3aa1218144145",
-    "category": "Release"
-  },
-  {
-    "sha": "e53123a",
-    "title": "[vm] New VM instruction for aborting with message (#18316)",
-    "author": "calintat",
-    "date": "2025-12-29T11:24:32Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/e53123a928691f2516bc5332e0d3a5d9dc4becd2",
-    "category": "Security"
   },
   {
     "sha": "def1598",

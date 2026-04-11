@@ -10707,5 +10707,33 @@
     "eli5": "<p><strong>Use async snapshot creation with polling (#19382)</strong> — a change by jkao97.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100010,
+    "githubId": "6f0ffe9",
+    "title": "[storage] Extract state KV and merkle truncation helpers from sync_commit_progress",
+    "author": "wqfish",
+    "date": "2026-04-10T22:45:51Z",
+    "category": "Performance",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/6f0ffe9986f24d4b9a0d43a8194ff59bfba0e35a",
+    "advanced": "<h3>What Changed</h3><p><strong>[storage] Extract state KV and merkle truncation helpers from sync_commit_progress</strong></p><p>by wqfish on 4/10/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/6f0ffe9986f24d4b9a0d43a8194ff59bfba0e35a\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[storage] Extract state KV and merkle truncation helpers from sync_commit_progress</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100011,
+    "githubId": "9e77136",
+    "title": "[consensus] Validate batch metadata limits during payload verification (#19372)",
+    "author": "ibalajiarun",
+    "date": "2026-04-10T22:39:28Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/9e77136a34ebe7553f4201d1bfface6e97799367",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] Validate batch metadata limits during payload verification (#19372)</strong></p><p>by ibalajiarun on 4/10/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/9e77136a34ebe7553f4201d1bfface6e97799367\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] Validate batch metadata limits during payload verification (#19372)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
