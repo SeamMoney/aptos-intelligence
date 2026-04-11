@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ChevronRight, Layers, Plus, Search, ArrowLeft, ChevronUp, ChevronDown, ExternalLink } from "lucide-react";
 import type { WebReport, FeatureStatus, Commit, FeatureProgress } from "./api";
 import { fetchReports, fetchFeatures, fetchCommits, fetchFeatureProgress } from "./api";
+import { highlightCodeBlocks } from "./highlight";
 
 /* ── Constants ── */
 const DAY_NAMES = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -691,6 +692,14 @@ export default function Dashboard() {
 
 /* ═══ Report View ═══ */
 function ReportView({ r, tab, setTab }: { r: WebReport; tab: "advanced"|"eli5"; setTab: (t: "advanced"|"eli5") => void }) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      highlightCodeBlocks(contentRef.current);
+    }
+  }, [r.githubId, tab]);
+
   return (
     <div className="animate-fade-in-up" key={r.githubId}>
       <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -710,7 +719,7 @@ function ReportView({ r, tab, setTab }: { r: WebReport; tab: "advanced"|"eli5"; 
         <MechButton active={tab === "advanced"} onClick={() => setTab("advanced")} className="h-[32px] px-3 text-[10px] uppercase">◆ Advanced</MechButton>
         <MechButton active={tab === "eli5"} onClick={() => setTab("eli5")} className="h-[32px] px-3 text-[10px] uppercase">◇ ELI5</MechButton>
       </div>
-      <div className="clip-specimen border-mech corner-marks bg-[var(--color-surface)] p-4 md:p-6" key={`${r.githubId}-${tab}`}>
+      <div ref={contentRef} className="clip-specimen border-mech corner-marks bg-[var(--color-surface)] p-4 md:p-6" key={`${r.githubId}-${tab}`}>
         <div className={tab === "advanced" ? "prose-mono" : "prose-eli5"}>
           <div dangerouslySetInnerHTML={{ __html: tab === "advanced" ? r.advanced : r.eli5 }} />
         </div>
