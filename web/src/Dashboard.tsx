@@ -128,11 +128,56 @@ export default function Dashboard() {
     try {
       const [r, f, c, fp] = await Promise.all([fetchReports(), fetchFeatures(), fetchCommits(), fetchFeatureProgress()]);
       setReports(r); setFeatures(f); setCommits(c); setFeatureProgress(fp);
+
+      // Open report from URL hash on initial load
+      const hash = window.location.hash.slice(1); // remove #
+      if (hash) {
+        const report = r.find(rep => rep.githubId === hash || rep.githubId === decodeURIComponent(hash));
+        if (report) {
+          setActive(report);
+          setTab("advanced");
+          setShowDetail(true);
+        }
+      }
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   }, []);
 
   useEffect(() => { load(); }, [load]);
+
+  // Sync active report to URL hash
+  useEffect(() => {
+    if (active) {
+      const newHash = `#${active.githubId}`;
+      if (window.location.hash !== newHash) {
+        window.history.pushState(null, "", newHash);
+      }
+    }
+  }, [active]);
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) {
+        setActive(null);
+        setShowDetail(false);
+        return;
+      }
+      const report = reports.find(r => r.githubId === hash || r.githubId === decodeURIComponent(hash));
+      if (report) {
+        setActive(report);
+        setTab("advanced");
+        setShowDetail(true);
+      }
+    };
+    window.addEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onHashChange);
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("popstate", onHashChange);
+    };
+  }, [reports]);
 
   // Pre-compute report lookup map (O(1) instead of O(n))
   const reportMap = useMemo(() => {
