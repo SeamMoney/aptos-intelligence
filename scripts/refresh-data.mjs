@@ -94,8 +94,21 @@ async function fetchRecentIssues() {
 async function main() {
   const startTime = Date.now();
 
-  // 1. Fetch commits
+  // 1. Fetch commits + preserve custom deep-dive entries
   const commits = await fetchCommits();
+
+  // Preserve custom entries (non-SHA githubIds like 'ans-deep-dive')
+  try {
+    const existing = JSON.parse(readFileSync(join(WEB_DATA, 'commits.json'), 'utf-8'));
+    const customEntries = existing.filter(c => c.sha.includes('-deep-dive') || c.sha.includes('-analysis'));
+    for (const entry of customEntries) {
+      if (!commits.find(c => c.sha === entry.sha)) {
+        commits.unshift(entry);
+      }
+    }
+    console.log(`Preserved ${customEntries.length} custom entries`);
+  } catch {}
+
   writeFileSync(join(WEB_DATA, 'commits.json'), JSON.stringify(commits, null, 2));
   console.log(`\nTotal commits: ${commits.length}`);
   const dates = [...new Set(commits.map(c => c.date.slice(0, 10)))].sort();
