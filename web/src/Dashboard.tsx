@@ -348,13 +348,14 @@ export default function Dashboard() {
 
         {/* Right — Feature Progress + Subsystems */}
         <div className="w-[280px] shrink-0 border-l border-[var(--color-border)] overflow-y-auto relative z-10 no-scrollbar" style={{ background: "var(--color-surface)" }}>
+
           {/* Feature Progress */}
           <div className="p-4 border-b border-[var(--color-border)]">
             <p className="label-specimen text-[var(--color-accent)] tracking-[0.15em]">FEATURE PROGRESS</p>
           </div>
           <div className="p-3 space-y-3">
             {featureProgress.map(fp => (
-              <div key={fp.key} className="p-3 rounded-lg border border-[var(--color-border-muted)] hover:border-[var(--color-border)] transition-all cursor-pointer group"
+              <div key={fp.key} className="p-3 rounded-lg border border-[var(--color-border-muted)] hover:border-[var(--color-border)] transition-all cursor-pointer"
                 onClick={() => {
                   setActive({
                     id: 0, githubId: fp.key, title: fp.name, author: fp.lead, date: new Date().toISOString(),
@@ -369,7 +370,6 @@ export default function Dashboard() {
                   <span className="label-specimen-sm text-[var(--color-text)]">{fp.name}</span>
                   <span className="label-specimen-sm" style={{ color: fp.color }}>{fp.progress}%</span>
                 </div>
-                {/* Progress bar */}
                 <div className="h-[3px] rounded-full overflow-hidden" style={{ background: "var(--color-border-muted)" }}>
                   <div className="h-full rounded-full transition-all duration-500" style={{ width: `${fp.progress}%`, background: fp.color }} />
                 </div>
@@ -377,12 +377,70 @@ export default function Dashboard() {
                   <span className="label-specimen-sm text-[var(--color-text-faint)]">{fp.status}</span>
                   <span className="label-specimen-sm text-[var(--color-text-faint)]">{fp.recentCommits} commits</span>
                 </div>
-                {/* Milestones preview */}
                 <div className="flex gap-[3px] mt-2">
                   {fp.milestones.map((m, i) => (
                     <div key={i} className="h-[4px] flex-1 rounded-full" style={{ background: m.done ? fp.color : "var(--color-border-muted)" }} title={m.name} />
                   ))}
                 </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Aptos Ecosystem */}
+          <div className="p-4 border-t border-[var(--color-border)]">
+            <p className="label-specimen text-[var(--color-accent)] tracking-[0.15em] mb-3">APTOS ECOSYSTEM</p>
+            {[
+              { group: "PROTOCOL", items: [
+                { name: "Aptos Core", desc: "L1 blockchain node", url: "https://github.com/aptos-labs/aptos-core", color: "#00c853" },
+                { name: "Move VM", desc: "Smart contract runtime", url: "https://github.com/aptos-labs/aptos-core/tree/main/third_party/move", color: "#f59e0b" },
+                { name: "Aptos Framework", desc: "Core Move modules", url: "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework", color: "#0047ff" },
+                { name: "Token Objects", desc: "NFT standard v2", url: "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-token-objects", color: "#7c3aed" },
+              ]},
+              { group: "DEVELOPER TOOLS", items: [
+                { name: "Aptos CLI", desc: "Command-line interface", url: "https://github.com/aptos-labs/aptos-core/tree/main/crates/aptos", color: "#14b8a6" },
+                { name: "TypeScript SDK", desc: "JS/TS client library", url: "https://github.com/aptos-labs/aptos-ts-sdk", color: "#14b8a6" },
+                { name: "Python SDK", desc: "Python client library", url: "https://github.com/aptos-labs/aptos-python-sdk", color: "#14b8a6" },
+                { name: "Go SDK", desc: "Go client library", url: "https://github.com/aptos-labs/aptos-go-sdk", color: "#14b8a6" },
+                { name: "Rust SDK", desc: "Rust client library", url: "https://github.com/aptos-labs/aptos-core/tree/main/sdk", color: "#14b8a6" },
+                { name: "Create Aptos DApp", desc: "DApp scaffolding tool", url: "https://github.com/aptos-labs/create-aptos-dapp", color: "#14b8a6" },
+                { name: "Move Prover", desc: "Formal verification", url: "https://github.com/aptos-labs/aptos-core/tree/main/third_party/move/move-prover", color: "#f59e0b" },
+                { name: "Aptos Playground", desc: "Online Move editor", url: "https://playground.aptoslabs.com", color: "#14b8a6" },
+              ]},
+              { group: "INFRASTRUCTURE", items: [
+                { name: "Indexer", desc: "Transaction indexing + API", url: "https://github.com/aptos-labs/aptos-indexer-processors", color: "#6b7280" },
+                { name: "Node API", desc: "REST + gRPC node API", url: "https://api.mainnet.aptoslabs.com/v1/spec#/", color: "#6b7280" },
+                { name: "Transaction Stream", desc: "gRPC streaming API", url: "https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc", color: "#6b7280" },
+                { name: "Faucet", desc: "Testnet token faucet", url: "https://github.com/aptos-labs/aptos-core/tree/main/crates/aptos-faucet", color: "#6b7280" },
+                { name: "Petra Wallet", desc: "Official browser wallet", url: "https://petra.app", color: "#ff4d00" },
+                { name: "Wallet Adapter", desc: "Multi-wallet connector", url: "https://github.com/aptos-labs/aptos-wallet-adapter", color: "#ff4d00" },
+              ]},
+              { group: "PRODUCTS", items: [
+                { name: "Aptos Names (ANS)", desc: ".apt domain names", url: "https://aptosnames.com", color: "#CBB696" },
+                { name: "Keyless Accounts", desc: "Social login accounts", url: "https://aptoslabs.com/keyless", color: "#0047ff" },
+                { name: "Confidential Assets", desc: "Private APT transfers", url: "https://confidential.aptoslabs.com", color: "#7c3aed" },
+                { name: "Aptos Explorer", desc: "Block explorer", url: "https://explorer.aptoslabs.com", color: "#14b8a6" },
+                { name: "Aptos Scan", desc: "Community explorer", url: "https://aptosscan.com", color: "#14b8a6" },
+              ]},
+              { group: "AGGREGATORS / TOKENS", items: [
+                { name: "NFT Aggregator", desc: "Batch mint infrastructure", url: "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib", color: "#ec4899" },
+                { name: "Token v1", desc: "Original NFT standard", url: "https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token.move", color: "#ec4899" },
+                { name: "Digital Assets", desc: "Token Objects (v2)", url: "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-token-objects", color: "#ec4899" },
+                { name: "Token Minter", desc: "NFT collection launcher", url: "https://github.com/aptos-labs/token-minter", color: "#ec4899" },
+              ]},
+            ].map(({ group, items }) => (
+              <div key={group} className="mb-4">
+                <p className="label-specimen-sm text-[var(--color-text-faint)] mb-1.5">{group}</p>
+                {items.map(item => (
+                  <a key={item.name} href={item.url} target="_blank" rel="noopener"
+                    className="flex items-center gap-2 px-2 py-1.5 rounded transition-all hover:bg-[var(--color-surface-alt)] no-underline group">
+                    <div className="w-[4px] h-[12px] rounded-full shrink-0" style={{ background: item.color }} />
+                    <div className="flex-1 min-w-0">
+                      <span className="label-specimen-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors block">{item.name}</span>
+                      <span className="text-[9px] text-[var(--color-text-faint)] block truncate">{item.desc}</span>
+                    </div>
+                    <ExternalLink className="w-2.5 h-2.5 text-[var(--color-text-faint)] opacity-0 group-hover:opacity-100 shrink-0" />
+                  </a>
+                ))}
               </div>
             ))}
           </div>
