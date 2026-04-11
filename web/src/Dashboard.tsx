@@ -357,13 +357,23 @@ export default function Dashboard() {
             {featureProgress.map(fp => (
               <div key={fp.key} className="p-3 rounded-lg border border-[var(--color-border-muted)] hover:border-[var(--color-border)] transition-all cursor-pointer"
                 onClick={() => {
-                  setActive({
-                    id: 0, githubId: fp.key, title: fp.name, author: fp.lead, date: new Date().toISOString(),
-                    category: "Feature Progress", importance: fp.progress >= 80 ? 9 : fp.progress >= 50 ? 7 : 5,
-                    sourceUrl: `https://github.com/aptos-labs/aptos-core`, relatedFeatures: fp.dependencies, labels: [],
-                    advanced: `<h3>${fp.name}</h3><p><strong>Status:</strong> ${fp.status} (${fp.progress}%)</p><p>${fp.description}</p><h3>What's Being Done</h3><p>${fp.whatsBeingDone}</p><h3>What's Needed for Production</h3><p>${fp.whatsNeeded}</p><h3>Effects on the System</h3><p>${fp.effects}</p><h3>Dependencies</h3><ul>${fp.dependencies.map(d => `<li>${d}</li>`).join('')}</ul><h3>Milestones</h3><ul>${fp.milestones.map(m => `<li>${m.done ? '✅' : '⬜'} ${m.name}${m.date ? ` (${m.date})` : ''}</li>`).join('')}</ul><p><strong>Lead:</strong> ${fp.lead} · <strong>Recent commits:</strong> ${fp.recentCommits}</p>`,
-                    eli5: `<p><strong>${fp.name}</strong> is ${fp.progress}% done (${fp.status}).</p><p>${fp.description}</p><p><strong>Why it matters:</strong> ${fp.effects}</p><p><strong>What's left:</strong> ${fp.whatsNeeded}</p>`,
-                  });
+                  // Try to find a matching deep report first
+                  const deepReport = reports.find(r =>
+                    r.githubId === fp.key ||
+                    r.githubId === `${fp.key}-deep-dive` ||
+                    r.title.toLowerCase().includes(fp.name.toLowerCase().slice(0, 20))
+                  );
+                  if (deepReport && deepReport.advanced.length > 1000) {
+                    setActive(deepReport);
+                  } else {
+                    setActive({
+                      id: 0, githubId: fp.key, title: fp.name, author: fp.lead, date: new Date().toISOString(),
+                      category: "Feature Progress", importance: fp.progress >= 80 ? 9 : fp.progress >= 50 ? 7 : 5,
+                      sourceUrl: `https://github.com/aptos-labs/aptos-core`, relatedFeatures: fp.dependencies, labels: [],
+                      advanced: `<h3>${fp.name}</h3><p><strong>Status:</strong> ${fp.status} (${fp.progress}%)</p><p>${fp.description}</p><h3>What's Being Done</h3><p>${fp.whatsBeingDone}</p><h3>What's Needed for Production</h3><p>${fp.whatsNeeded}</p><h3>Effects on the System</h3><p>${fp.effects}</p><h3>Dependencies</h3><ul>${fp.dependencies.map(d => `<li>${d}</li>`).join('')}</ul><h3>Milestones</h3><ul>${fp.milestones.map(m => `<li>${m.done ? '✅' : '⬜'} ${m.name}${m.date ? ` (${m.date})` : ''}</li>`).join('')}</ul><p><strong>Lead:</strong> ${fp.lead} · <strong>Recent commits:</strong> ${fp.recentCommits}</p>`,
+                      eli5: `<p><strong>${fp.name}</strong> is ${fp.progress}% done (${fp.status}).</p><p>${fp.description}</p><p><strong>Why it matters:</strong> ${fp.effects}</p><p><strong>What's left:</strong> ${fp.whatsNeeded}</p>`,
+                    });
+                  }
                   setTab("advanced");
                 }}>
                 <div className="flex items-center justify-between mb-2">
