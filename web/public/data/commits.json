@@ -1,18 +1,18 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
-    "category": "Feature Progress"
-  },
-  {
     "sha": "aggregator-nft-deep-dive",
     "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
