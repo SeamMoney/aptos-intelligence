@@ -1,0 +1,818 @@
+# How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained
+
+Author: aptos-labs
+Date: 2026-04-09T00:00:00Z
+Category: Feature Progress
+Importance: 9/10
+Source: https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator
+URL: https://aptos-intelligence.vercel.app/#aggregator-nft-deep-dive
+
+---
+
+## Advanced Analysis
+
+How Aptos Minted 1 Million NFTs in 90 Seconds — Full Technical Breakdown
+
+In November 2023, during Aptos Previewnet, Aptos Labs demonstrated minting 1 million NFTs in approximately 90 seconds, sustaining over 10,000 NFTs per second. Then 5 million in ~8 minutes. Made possible by a fundamental VM-level primitive called Aggregators — one of the most technically interesting innovations in Aptos's architecture.
+
+
+
+Why Sequential NFT Minting Collapses Throughput
+
+To understand why this is hard, you need to understand Block-STM's parallel execution model.
+
+Block-STM executes all transactions in a block speculatively in parallel. Each transaction records what it reads (read set) and what it writes (write set). After execution, a validation phase checks for conflicts: if transaction B read a value that transaction A wrote, B must be re-executed with the updated value. This is MVCC — Multi-Version Concurrency Control.
+
+Now imagine minting NFTs with sequential names: "NFT #1", "NFT #2", "NFT #3"...
+
+Every mint transaction must:
+
+Read the current total_supply counter from the collection object
+Compute token_name = "NFT #" + total_supply
+Increment total_supply by 1
+Create the token with that name
+
+
+Step 1 (read) and Step 3 (write) on the same counter create a read-modify-write dependency. Every single mint transaction reads and writes the same global counter. Block-STM detects this as a conflict for every transaction pair — and re-executes them all sequentially. Instead of running 10,000 mints in parallel across CPU cores, you get 10,000 sequential operations. Throughput collapses completely.
+
+This is the same reason Ethereum NFT launches are painful. Gas wars during hot mints, crashes, failed transactions — it's not just network congestion. It's a fundamental architectural constraint when all transactions touch the same counter.
+
+Aggregator v1 — The First Solution (AIP-11, October 2022)
+
+Aptos introduced Aggregators in October 2022 as AIP-11. The core insight: what if a counter could accumulate additions without requiring reads?
+
+// Module: 0x1::aggregator
+// aggregator.move
+
+struct Aggregator has store {
+    handle: address,
+    key: address,
+    limit: u128,
+}
+
+/// Add value to aggregator. Does NOT read current value.
+public native fun add(aggregator: &mut Aggregator, value: u128);
+
+/// Subtract value. Does NOT read current value.
+public native fun sub(aggregator: &mut Aggregator, value: u128);
+
+/// Read the current value — forces serialization point
+public native fun read(aggregator: &Aggregator): u128;
+
+/// Destroy the aggregator
+public native fun destroy(aggregator: Aggregator);
+
+
+The magic is in add(): it does NOT read the current value of the counter. Internally, the VM maintains a delta — "this transaction wants to add 1" — and applies all deltas atomically at commit time. Multiple transactions calling add() on the same aggregator are NOT in conflict, because none of them are reading the counter.
+
+Aggregator v1 was initially used for the APT total supply counter — tracking the global coin supply without forcing sequential writes. But it had a critical limitation: you couldn't use the aggregated value within the same transaction that modifies it to derive names or IDs, because reading during execution would reintroduce the conflict.
+
+Aggregator v2 and AggregatorSnapshot — The Full Solution (AIP-47, Q1 2024)
+
+AIP-47 introduced aggregator_v2 with a crucial new primitive: AggregatorSnapshot.
+
+// Module: 0x1::aggregator_v2
+// aggregator_v2.move
+
+struct Aggregator<IntElement: copy + drop> has store {
+    value: IntElement,
+    max_value: IntElement,
+}
+
+/// Snapshot — captures the value at commit time, not execution time
+struct AggregatorSnapshot<IntElement: copy + drop> has store, drop {
+    value: IntElement,
+}
+
+/// DerivedStringSnapshot — a string built from a snapshot at commit time
+struct DerivedStringSnapshot has store, drop {
+    value: String,
+    padding: vector<u8>,
+}
+
+/// Increment — parallel safe, no read
+public native fun add<IntElement: copy + drop>(
+    aggregator: &mut Aggregator<IntElement>,
+    value: IntElement
+);
+
+/// Create a snapshot — does NOT expose the value during execution
+/// The actual value is substituted at commit time
+public native fun snapshot<IntElement: copy + drop>(
+    aggregator: &Aggregator<IntElement>
+): AggregatorSnapshot<IntElement>;
+
+/// Derive a string from a snapshot with prefix and suffix
+/// e.g., snapshot of 42 with prefix "NFT #" → "NFT #42" at commit
+public native fun derive_string_concat<IntElement: copy + drop>(
+    snapshot: &AggregatorSnapshot<IntElement>,
+    prefix: String,
+    suffix: String,
+): DerivedStringSnapshot;
+
+/// Read the snapshot value — forces serialization, use carefully
+public native fun read_snapshot<IntElement: copy + drop>(
+    snapshot: &AggregatorSnapshot<IntElement>
+): IntElement;
+
+
+The key innovation: snapshot() captures a "promise" of the value — not the value itself. During parallel execution, no actual number is read. At commit time, after all deltas are applied and the final counter value is known, the VM substitutes the real numbers into every snapshot. The DerivedStringSnapshot is then resolved into actual strings like "NFT #1", "NFT #2", etc.
+
+The Complete NFT Minting Pattern
+
+Here's exactly how a parallel-safe NFT collection looks in Move with aggregator_v2:
+
+module collection_addr::parallel_nft {
+    use aptos_framework::object::{Self, Object};
+    use aptos_token_objects::collection;
+    use aptos_token_objects::token;
+    use aptos_std::aggregator_v2::{Self, Aggregator, AggregatorSnapshot};
+    use std::string::{Self, String};
+    use std::signer;
+
+    /// Stored at the collection creator's address
+    struct MintState has key {
+        /// Parallel-safe counter — no read needed during mint
+        supply_counter: Aggregator<u64>,
+        /// Reference to the collection object
+        collection: Object<collection::Collection>,
+    }
+
+    /// Create the collection
+    public entry fun create_collection(creator: &signer, name: String) {
+        let collection = collection::create_unlimited_collection(
+            creator,
+            string::utf8(b"A parallel NFT collection"),
+            name,
+            option::none(),
+            string::utf8(b"https://example.com"),
+        );
+        move_to(creator, MintState {
+            supply_counter: aggregator_v2::create_aggregator(u64::MAX),
+            collection,
+        });
+    }
+
+    /// Mint one NFT — fully parallel-safe
+    public entry fun mint(user: &signer, creator_addr: address) acquires MintState {
+        let state = borrow_global_mut<MintState>(creator_addr);
+
+        // 1. Snapshot BEFORE incrementing — captures current position
+        //    without reading the actual value (no conflict!)
+        let snapshot: AggregatorSnapshot<u64> = aggregator_v2::snapshot(
+            &state.supply_counter
+        );
+
+        // 2. Increment — parallel safe, no read
+        aggregator_v2::add(&mut state.supply_counter, 1);
+
+        // 3. Derive token name from snapshot — resolved at commit time
+        //    At commit: snapshot → actual number → "NFT #42"
+        let token_name = aggregator_v2::derive_string_concat(
+            &snapshot,
+            string::utf8(b"NFT #"),
+            string::utf8(b""),
+        );
+
+        // 4. Mint the token — name will be correct at commit
+        token::create(
+            // creator signer (via resource account)
+            user,
+            collection::name(state.collection),
+            string::utf8(b""),  // description
+            token_name,          // DerivedStringSnapshot — resolved at commit
+            option::none(),      // royalty
+            string::utf8(b"https://example.com/nft"),
+        );
+    }
+}
+
+
+Steps 1-4 can run for thousands of users simultaneously. No transaction conflicts on the supply counter. Block-STM executes all of them in parallel. At commit time, the VM resolves all the snapshots to their actual values (1, 2, 3, ... 1,000,000) and builds all the token names atomically.
+
+Why This Is Fundamentally Different From Ethereum Batching
+
+Ethereum developers often work around sequential minting by batching transactions off-chain: one relayer sends a single transaction that mints 100 NFTs at once. This reduces the number of transactions but doesn't change the fundamental architecture — you're still reading and writing the same counter, just doing it less often. It's a band-aid.
+
+Aptos aggregators eliminate the bottleneck at the execution engine level:
+
+
+ApproachWhereMechanismConflict?
+Ethereum sequential mintEVMRead-modify-write counterAll transactions conflict
+Ethereum batchingClient-sideBundle N mints into 1 txReduces tx count, same conflict within tx
+Aptos aggregator_v2Move VMDelta accumulation, snapshot resolutionNo conflicts — fully parallel
+
+
+The aggregator approach means 10,000 separate mint transactions from 10,000 different users can all execute simultaneously with zero conflicts. No bundling required. No relayer. Each user sends their own transaction and gets parallelism for free.
+
+The Original 1M NFT Demo — What Actually Happened
+
+The demonstration occurred during Aptos Previewnet in November 2023 (November 6–21). This was an internal Aptos Labs scalability test, not a named external NFT project, designed to validate AIP-43 (Digital Assets / Token Objects v2) and AIP-47 (Aggregator v2) before mainnet enablement in Q1 2024.
+
+Official numbers:
+
+1 million NFTs: ~90 seconds
+5 million NFTs: ~8 minutes
+Sustained rate: >10,000 NFTs/second
+Improvement over sequential: ~10x
+
+
+Gas costs were not disclosed for the Previewnet demo. The test used the new Token Objects (v2) standard, not Token v1. AIP-43 and AIP-47 were enabled on mainnet in Q1 2024.
+
+The Math Today: What Would 1M NFTs Cost in April 2026?
+
+The Aptos infrastructure has changed significantly since the 2023 demo:
+
+
+ComponentNov 2023 (Previewnet)Apr 2026 (Mainnet)
+ConsensusJolteon (pre-Raptr)Baby Raptr + Velociraptr
+Block time~200ms<50ms (40% reduction from Velociraptr)
+ExecutionBlock-STM v1Block-STM v2 (ramping)
+Token standardEarly Token ObjectsToken Objects v2 (AIP-43, ~10x cheaper)
+Sustained TPS10,000+ (demo)~20,000 mainnet
+Research peak TPS—1.033M (single-node cluster)
+
+
+Estimated cost for 1 million NFT mints today:
+
+Gas per Token Objects v2 mint: ~0.000195 APT (195 gas units, ambassador contract)
+Total for 1M mints: ~195 APT
+At current APT price (~$0.85): ~$166 total (at $0.85/APT), or $0.000166 per NFT
+Estimated time: ~33–50 seconds (vs. 90 seconds in 2023)
+
+
+Compare to Ethereum: a single NFT mint during a hot launch typically costs $20–$500 in gas. Minting 1 million NFTs on Ethereum would be practically impossible during peak demand — even with batching, the coordination overhead and gas costs would be prohibitive.
+
+The Three Aggregator Modules
+
+
+ModulePath in aptos-corePurpose
+aggregatoraptos-move/framework/aptos-stdlib/sources/aggregator/aggregator.movev1 — parallel-safe u128 counters. Used for APT total supply.
+aggregator_v2aptos-move/framework/aptos-stdlib/sources/aggregator/aggregator_v2.movev2 — generic Aggregator<T>, AggregatorSnapshot, DerivedStringSnapshot. Used for NFT names.
+aggregator_factoryaptos-move/framework/aptos-stdlib/sources/aggregator/aggregator_factory.moveCreates aggregator instances. Manages the underlying storage handles.
+
+
+IMPORTANT: Two Completely Different Things Called "Aggregator"
+
+There is significant naming confusion in the Aptos ecosystem. Make sure you know which one is being discussed:
+
+1. Transaction Aggregators (what enables 1M NFT minting)
+
+Location: 0x1::aggregator_v2 — Move modules in the Aptos Framework
+What they do: VM-level parallel-safe counters that eliminate execution conflicts
+Who uses them: NFT collection creators, DeFi protocols tracking balances, anyone needing parallel-safe global counters
+Introduced: AIP-11 (v1, Oct 2022), AIP-47 (v2, Q1 2024)
+
+
+2. Marketplace Aggregators (a different thing entirely)
+
+Location: aptos-labs/aptos-nft-aggregator — Rust indexer, launched Feb 2025
+What they do: Aggregate NFT listings from multiple marketplaces (Tradeport, Wapal, Bluemove) for price comparison and unified APIs
+Who uses them: NFT trading interfaces, portfolio trackers, analytics dashboards
+Has nothing to do with parallel minting
+
+
+What Aggregators Enable Beyond NFTs
+
+Transaction aggregators are not just for NFTs. Any use case that requires a global parallel-safe counter benefits:
+
+DeFi liquidity pools: Track total liquidity without forcing sequential writes on every swap
+Stablecoins: Track total supply without bottlenecking mint/burn operations
+Voting / governance: Accumulate votes in parallel without conflicts
+Gaming: Track global scores, item counts, player counts across many simultaneous actions
+Token bridges: Track cross-chain transfer volumes without serialization
+
+
+The APT coin supply itself uses Aggregator v1 — every time APT is staked, unstaked, burned, or created, a parallel-safe aggregator tracks the total supply without any of these operations conflicting with each other.
+
+
+
+Minting 20 Million NFTs on Aptos: Technical Capacity Analysis
+
+Executive Summary
+Minting 20 million NFTs on Aptos is feasible today in approximately 17-25 minutes at sustained mainnet throughput. With all planned upgrades deployed, the same operation could complete in under 30 seconds at theoretical maximum capacity. This document provides detailed calculations for every scenario, identifies bottlenecks at each layer, and includes a practical implementation guide.
+ScenarioTPSTime to Mint 20MEstimated Total Cost (APT)Current mainnet (conservative)15,00022.2 min3,900Current mainnet (sustained)20,00016.7 min3,900Current mainnet (peak, aggregators optimized)30,00011.1 min3,900Full Raptr + Block-STM v2 + Zaptos100,0003.3 min1,100-1,650With Shardines (conservative)500,00040 sec660-1,100With Shardines (theoretical max)1,000,00020 sec440-880
+
+Part 1: Current Infrastructure Analysis (April 2026)
+1.1 Consensus Layer: Baby Raptr + Quorum Store
+Current deployment: Baby Raptr is live on mainnet (~95% complete). It merges the previously separate Jolteon consensus and Quorum Store logic into a unified protocol.
+Block timing:
+Block close time: ~250ms (from architecture overview performance table)
+Baby Raptr reduced consensus from 6 network hops to 4, yielding a 20% latency improvement (100-150ms reduction on mainnet)
+Effective block production rate: ~4 blocks per second
+Transactions per block:
+At 20,000 sustained TPS with ~4 blocks/second: ~5,000 transactions per block
+Block gas limit constrains the upper bound, not just transaction count
+Quorum Store enables parallel data dissemination across all n validators, so batch propagation is not the bottleneck
+Consensus throughput for NFT minting:
+Baby Raptr has demonstrated sustained 20,000 TPS on mainnet
+The Quorum Store's Proof-of-Store mechanism allows all validators to broadcast transaction batches in parallel
+With n validators, total data dissemination bandwidth scales as n*T (where T is per-validator throughput)
+The consensus leader references certified batch metadata (not raw transactions) in proposals, keeping the critical path lightweight
+Verdict: Consensus is NOT the bottleneck for 20M NFT mints at current throughput levels. Baby Raptr can sustain the ordering rate needed.
+1.2 Execution Layer: Block-STM v1
+Current deployment: Block-STM v1 is the production execution engine. Block-STM v2 is at ~60% development (behind a config.local.blockstm_v2 flag).
+How Block-STM handles NFT mints:
+Each NFT mint transaction touches several state locations:
+Collection object (shared): mutated to update supply counter and metadata
+New token object (unique): created at a deterministic address
+Creator account (shared): sequence number increment
+Recipient account (potentially unique): token deposit
+The supply counter problem and aggregators:
+The critical bottleneck for parallel NFT minting is the collection supply counter. Every mint increments a shared counter, creating a serial dependency chain if handled naively. Block-STM would detect read-write conflicts on this counter and force sequential re-executions.
+Aptos solves this with aggregator_v2 / delayed fields (DelayedFieldID and DelayedChange in the execution output):
+Instead of reading the current supply, computing +1, and writing back, each transaction records a delta operation (+1)
+Block-STM materializes these deltas at commit time, avoiding speculative read invalidation
+The delayed_field_change_set() in BeforeMaterializationOutput handles this: deltas are accumulated without creating read-write conflicts between transactions
+The delayed_field_id_counter (AtomicU32) in the shared sync params tracks these deferred IDs
+With aggregators properly used, the supply counter is effectively eliminated as a conflict source.
+Remaining execution bottlenecks:
+Even with aggregators, several per-transaction operations create work:
+OperationCost CategoryConflict PotentialCollection supply counterAggregator (delta)None (resolved)New object creationUnique writeNone (each token gets unique address)Token metadata writeUnique writeNoneCreator sequence numberPer-senderConflicts if single senderEvent emissionAppend-onlyLow (event accumulator)Move bytecode executionCPUParallelizable
+The sender sequence number is a critical remaining bottleneck if all 20M mints come from a single account. In practice, you must use multiple sender accounts or fee payer / sponsored transactions to avoid serialization on the sender's sequence number.
+Per-transaction gas cost estimate:
+An NFT mint using Token Objects v2 (aptos_token_objects) involves:
+Object creation: ~500 gas units
+Token resource initialization: ~300 gas units
+Collection supply update (aggregator delta): ~100 gas units
+Event emission: ~100 gas units
+Storage allocation for new object: ~2,000-3,000 gas units (storage fees dominate)
+Prologue/epilogue overhead: ~200 gas units
+Estimated total: ~3,200-4,200 gas units per mint
+At the standard gas unit price of 100 Octas (0.000001 APT per gas unit):
+Per-mint cost: ~0.0032 - 0.0042 APT
+However, observed mainnet costs for simple mints are approximately 0.000195 APT (ambassador contract, 195 gas units) per transaction (this reflects the base transaction fee + storage refund model)
+Using the observed 0.000195 APT (ambassador contract, 195 gas units) figure:
+20M mints × 0.000195 APT = 3,900 APT total gas cost
+At current price ($0.85/APT): $3,315
+At $5/APT: $19,500
+CPU utilization:
+Block-STM dispatches transactions to a rayon thread pool (executor_thread_pool: Arc). Modern validator nodes typically run 32-64 CPU cores. For non-conflicting NFT mints (with aggregators), Block-STM achieves near-linear scaling up to the core count:
+32 cores: ~32x speedup over sequential execution
+Benchmark data shows >160,000 TPS for non-conflicting workloads (17-20x over sequential)
+NFT mints with aggregators fall close to the "non-conflicting" case, minus overhead for delta materialization
+1.3 Storage Layer: Jellyfish Merkle Tree
+Current deployment: Storage sharding is deployed on mainnet (~95%). The JMT is partitioned across 16 shards within a single node.
+State write amplification per NFT:
+Each new NFT creates a new leaf in the Jellyfish Merkle Tree. The write path involves:
+New leaf node: Contains the token object's state (key hash + value hash). Serialized size: ~100-200 bytes
+Internal node updates: The JMT uses 4-level binary subtrees compressed into single internal nodes (up to 16 children). Inserting a new leaf requires updating internal nodes along the path from leaf to root. Path length = up to 64 nibbles (256 bits / 4 bits per nibble), but sparse tree compression means typically 3-8 internal nodes are touched.
+Stale node marking: Previous versions of updated internal nodes are marked stale via StaleNodeIndex for later pruning.
+Write amplification per NFT:
+1 new leaf node write (~150 bytes)
+3-8 internal node updates (~200 bytes each)
+3-8 stale node index entries (~50 bytes each)
+Total: ~1,000-2,500 bytes of JMT writes per NFT
+For 20M NFTs:
+JMT state growth: 20M * ~2,000 bytes average = ~40 GB of raw JMT node writes
+With RocksDB LSM-tree compaction overhead: ~60-100 GB of actual disk I/O
+Plus ledger data (transaction info, write sets, events): ~20-40 GB additional
+Total storage impact: ~80-140 GB for the complete 20M NFT mint operation.
+Hot state caching (recent work by wqfish):
+Recent commits show active hot state optimization:
+Hot state KV persistence to dedicated RocksDB column family
+HotStateConfig parameter in AptosDB::open()
+WriteSet hotness persistence behind config flag
+DashMap-based hot state cache with age metrics and deferred merge
+RCU (Read-Copy-Update) pattern for race condition prevention
+For a sustained 20M mint operation, the hot state cache would cover:
+Recently created objects (high locality since mints are sequential)
+Collection metadata (single hot entry, updated via aggregator)
+Creator account state (hot, frequently accessed)
+The hot state cache significantly reduces RocksDB read I/O during execution, though write I/O remains the primary storage bottleneck.
+Disk I/O as bottleneck:
+With storage sharding across 16 JMT shards:
+Write I/O is distributed across shards based on key hash
+NFT object addresses are derived from deterministic hashing, distributing evenly across shards
+Per-shard write rate at 20K TPS: ~1,250 writes/second per shard
+Modern NVMe SSDs handle 100K-500K IOPS; 16 shards at 1,250 writes each = 20K total IOPS
+RocksDB batching and WAL amortize this further
+Verdict: Storage is a secondary bottleneck. The 16-shard JMT with hot state caching can sustain the required write rate, though long-running mints may see some performance degradation as RocksDB compaction catches up.
+1.4 Network Layer
+Transaction size for an NFT mint:
+A typical Token Objects v2 mint transaction contains:
+Sender address: 32 bytes
+Signature (Ed25519): 64 bytes
+Public key: 32 bytes
+Sequence number: 8 bytes
+Payload (entry function call): ~200-500 bytes (module address + function name + arguments including token name, description, URI)
+Gas parameters: 16 bytes
+Expiration time: 8 bytes
+Chain ID: 1 byte
+Total serialized transaction size: ~400-700 bytes (reference: historical data showed ~700 bytes per transaction for Aptos network messages)
+Bandwidth calculation:
+At 20,000 TPS with ~600 bytes average per transaction:
+Raw transaction data rate: 20,000 * 600 = 12 MB/s
+Quorum Store replication factor (each batch sent to all validators): with ~100 validators, each validator receives all batches
+Total bandwidth per validator for data dissemination: ~12 MB/s inbound + outbound
+With 2f+1 acknowledgment messages: additional ~2-3 MB/s of control messages
+Total bandwidth per validator: ~15-20 MB/s
+Modern validators have 1-10 Gbps network connections. 20 MB/s = 160 Mbps, well within capacity.
+Verdict: Network is NOT a bottleneck.
+1.5 Current Infrastructure: Time Calculations
+Scenario A: Conservative sustained (15,000 TPS)
+Accounts for real-world overhead, other mainnet traffic, occasional re-executions
+Time: 20,000,000 / 15,000 = 1,333 seconds = 22.2 minutes
+Scenario B: Observed sustained (20,000 TPS)
+Matches reported mainnet sustained throughput
+Time: 20,000,000 / 20,000 = 1,000 seconds = 16.7 minutes
+Scenario C: Peak with optimized aggregators (30,000 TPS)
+Assumes aggregators eliminate all supply counter conflicts
+Multiple sender accounts eliminate sequence number serialization
+Block-STM runs near-optimal on non-conflicting NFT workload
+Time: 20,000,000 / 30,000 = 667 seconds = 11.1 minutes
+Cost calculation:
+At 0.000195 APT (ambassador contract, 195 gas units) per mint: $20\text{M} \times 0.000195$ = 3,900 APT
+Note: storage refunds may partially offset this over time as pruning occurs
+Storage growth:
+New state entries: 20,000,000 objects * ~500 bytes average state per object = ~10 GB of state data
+JMT overhead (internal nodes, versioning): ~3-5x = 30-50 GB total state growth
+Ledger data: 20-40 GB
+Total disk usage increase: 50-90 GB
+
+Part 2: Full Stack Upgrade Analysis
+2.1 Full Raptr (Prefix Consensus with Decoupled Voting)
+Status: Next phase after Baby Raptr (TBD deployment)
+Improvements:
+Decoupled prefix voting: validators vote on ordered prefixes rather than individual blocks, enabling pipelining of consensus decisions
+Multi-proposer design: eliminates single-leader bottleneck; liveness is guaranteed even if an adversary suspends any single party at any round
+Benchmark results: >250,000 TPS at 750ms latency in global-scale experiments
+Expected improvements for NFT minting:
+Block production rate: expected improvement from ~4 blocks/s to ~8-12 blocks/s
+Block time reduction: from ~250ms to potentially ~100-150ms
+Consensus throughput: 3-5x improvement over Baby Raptr
+The multi-proposer design means no single validator is a bottleneck for block proposals
+Impact on 20M mint: Consensus moves from "not a bottleneck" to "definitively not a bottleneck." The improvement unlocks higher TPS if execution and storage can keep up.
+2.2 Block-STM v2
+Status: ~60% development, behind blockstm_v2 config flag
+Improvements:
+Better scheduling algorithm: reduced redundant re-executions through improved dependency tracking
+The v2 scheduler likely optimizes the SchedulerTask dispatch to minimize wakeup latency and dependency resolution overhead
+Expected throughput improvement: 2-3x over Block-STM v1 for mixed workloads
+For NFT minting (mostly non-conflicting with aggregators): improvement may be more modest (1.5-2x), since v1 already performs well on non-conflicting workloads
+Expected per-transaction improvements:
+Reduced re-execution rate: from ~5-15% (v1 with some conflicts) to ~1-3% (v2 with better scheduling)
+Lower per-thread synchronization overhead
+Better cache utilization through improved task locality
+Impact on 20M mint: Execution throughput could increase from ~30K effective TPS to ~50-60K TPS for optimized NFT workloads.
+2.3 MonoMove VM
+Status: Early Prototype (active development by vgao1996, georgemitenkov, calintat)
+Architecture:
+New instruction set designed for performance
+Global arena allocation (eliminates per-transaction heap allocation overhead)
+Identifier interning (faster module/function resolution)
+Garbage collection (replaces Move's ownership tracking overhead)
+Gas instrumentation prototype (more accurate gas metering)
+Expected improvements for NFT minting:
+Move bytecode execution: 2-5x faster per transaction (based on typical VM optimization gains)
+Reduced per-tx overhead: arena allocation eliminates malloc/free cycles
+Better gas accuracy: gas costs may decrease as metering becomes cheaper
+Estimated gas cost reduction: 30-50% (from ~0.000195 APT (ambassador contract, 195 gas units) to ~0.00006-0.00008 APT per mint)
+Impact on 20M mint:
+Execution time per block decreases, enabling higher TPS
+Gas cost reduction: from 3,900 APT to ~2,000-2,700 APT
+Combined with Block-STM v2: execution throughput of 80K-120K TPS for NFT workloads
+2.4 Zaptos (Optimistic Pipelining)
+Status: Designed, implementation in progress
+Three optimistic techniques:
+Optimistic Execution: Begin executing a block as soon as the proposal is received, before consensus finalizes. If the block is eventually ordered differently, discard the speculative result. For NFT minting, this means execution begins during the consensus voting round.
+Optimistic Commit: Persist execution results to storage immediately as "OptCommitted" before state certification completes. When certification succeeds, a minimal metadata update marks the entry as "Committed." This shifts storage I/O to overlap with the certification round.
+Piggybacked State Certification: Attach execution state certificate signatures to OrderVote messages instead of running a separate certification voting round. This eliminates one full network round-trip.
+Latency formula:
+Baseline: 2delta_cf + 2delta_fv + delta_vv + T_con + 2T_exe + 2T_cmt
+Zaptos: 2delta_cf + 2delta_fv + T_con + max(T_exe + T_cmt - 2*delta_vv, 0) + max(T_exe - delta_vv, 0) + max(T_cmt - delta_vv, 0)
+40% latency reduction, achieving sub-second latency at 20,000 TPS
+Impact on 20M mint:
+Not a direct TPS improvement, but reduces pipeline stalls
+Execution and storage I/O overlap with consensus, increasing sustained throughput by ~20-30%
+Effective improvement: from 60K TPS (Block-STM v2 alone) to ~80K-100K TPS sustained
+End-to-end confirmation latency per transaction: sub-second
+2.5 Shardines (Internal Validator Sharding)
+Status: Storage sharding deployed (~95%), execution sharding and consensus sharding are in design/development
+Three-layer sharding architecture:
+Storage Sharding (Deployed): JMT partitioned across 16 shards. Each shard manages a subset of the state keyspace. Already contributing to current mainnet performance.
+Execution Sharding (In Development):
+   - Dynamic partitioner analyzes incoming batches and assigns to execution shards based on access patterns
+   - Each shard runs its own Block-STM instance
+   - For NFT minting: all mints go to different objects (unique addresses), so they partition cleanly across shards
+   - The shared collection object (supply counter via aggregator) can be handled by cross-shard delta aggregation
+   - Target: multiple Block-STM instances running in parallel within a single validator
+Consensus Sharding (In Design):
+   - Multiple data dissemination shards handle transaction propagation in parallel
+   - Each shard obtains independent Proof-of-Store certificates
+   - A consensus coordinator orders metadata from all shards
+Performance targets:
+>1,000,000 TPS for non-conflicting transactions
+>500,000 TPS for conflicting transactions
+NFT minting (with aggregators) is essentially a non-conflicting workload: target >1M TPS
+Impact on 20M mint:
+At 500K TPS (conservative Shardines): 20,000,000 / 500,000 = 40 seconds
+At 1M TPS (full Shardines): 20,000,000 / 1,000,000 = 20 seconds
+2.6 Archon (Proxy-Primary Coordination)
+Status: Architecture-level concept
+Archon introduces a proxy-primary coordination model where:
+Primary validators handle consensus
+Proxy nodes handle data dissemination and client-facing work
+Reduces consensus overhead by offloading non-critical work
+Impact on 20M mint: Marginal improvement to sustained throughput (~5-10%) by reducing validator load. Primary benefit is operational, not throughput.
+2.7 Full-Stack Calculations
+Scenario D: Full Raptr + Block-STM v2 + Zaptos (Conservative, 100K TPS)
+Assumptions:
+Full Raptr delivers ~100ms block times, 10 blocks/second
+Block-STM v2 provides 2x execution improvement
+Zaptos overlaps execution with consensus, adding ~30% throughput
+Combined: 100K TPS sustained for NFT workloads
+Calculations:
+Time: 20,000,000 / 100,000 = 200 seconds = 3.3 minutes
+Gas cost with MonoMove (50% reduction): 20M * 0.000055 = 1,100 APT
+Gas cost without MonoMove: 20M * 0.000083 = 1,650 APT (25% reduction from pipeline efficiencies)
+Storage growth: same ~50-90 GB (storage format unchanged)
+Bandwidth per validator: 100K * 600 bytes = 60 MB/s = 480 Mbps (still within 1 Gbps capacity)
+Scenario E: With Shardines, Conservative (500K TPS)
+Assumptions:
+4-8 execution shards per validator, each running Block-STM v2
+Storage sharding scales to 32-64 shards
+Consensus sharding with 4 dissemination shards
+Calculations:
+Time: 20,000,000 / 500,000 = 40 seconds
+Gas cost with MonoMove: 20M * 0.000033 = 660 APT
+Gas cost without MonoMove: 20M * 0.000055 = 1,100 APT
+Storage I/O: 500K writes/s distributed across 64 shards = ~8K IOPS per shard (feasible with NVMe)
+Bandwidth per validator: 500K * 600 bytes = 300 MB/s = 2.4 Gbps (requires 10 Gbps network)
+Memory for hot state cache: ~10-20 GB (recent objects, collection metadata)
+Scenario F: Theoretical Maximum (1M TPS)
+Assumptions:
+8-16 execution shards per validator
+Full consensus sharding with 8+ dissemination shards
+All optimizations active (Full Raptr + Block-STM v2 + MonoMove + Zaptos + full Shardines)
+Calculations:
+Time: 20,000,000 / 1,000,000 = 20 seconds
+Gas cost with all optimizations: 20M * 0.000022 = 440 APT
+Gas cost conservative: 20M * 0.000044 = 880 APT
+Storage I/O: 1M writes/s across 64 shards = ~16K IOPS per shard (feasible)
+Bandwidth per validator: 1M * 600 bytes = 600 MB/s = 4.8 Gbps (requires 10 Gbps)
+Block production: 10+ blocks/s with 100K+ transactions per block
+This scenario requires each execution shard to handle ~60-125K TPS, which aligns with Block-STM benchmarks
+Comparative Summary:
+Upgrade ComponentTPS MultiplierLatency ImpactGas Cost ImpactFull Raptr3-5x consensus ceiling-40% block timeNoneBlock-STM v22-3x executionMarginalNoneMonoMove VM2-5x executionFaster per-tx-30 to -50%Zaptos1.2-1.3x effective-40% end-to-endNoneShardines (execution)4-16x (with shard count)NoneNoneShardines (consensus)4-8x disseminationNoneNoneArchon1.05-1.1xMarginalNone
+
+Part 3: Practical Guide to Minting 20 Million NFTs
+3.1 Move Module Design
+The collection contract must use the aggregator pattern (via aptos_token_objects) to avoid supply counter conflicts.
+module deployer::mass_mint {
+    use aptos_framework::object;
+    use aptos_token_objects::collection;
+    use aptos_token_objects::token;
+    use aptos_token_objects::royalty;
+    use std::option;
+    use std::string::{Self, String};
+    use std::signer;
+
+    /// The collection resource, stored at the deployer's address.
+    struct MintConfig has key {
+        collection_name: String,
+        base_uri: String,
+        /// Using object::ExtendRef allows the contract to mint
+        /// without requiring the original creator signer each time.
+        extend_ref: object::ExtendRef,
+    }
+
+    /// Initialize the collection. Called once by the deployer.
+    /// The collection internally uses aggregator_v2 for the supply counter,
+    /// which is the default behavior in aptos_token_objects::collection.
+    public entry fun create_collection(
+        creator: &signer,
+        description: String,
+        name: String,
+        base_uri: String,
+        max_supply: u64,  // Set to 20,000,000
+    ) {
+        let royalty = royalty::create(5, 100, signer::address_of(creator));
+        let constructor_ref = collection::create_fixed_collection(
+            creator,
+            description,
+            max_supply,
+            name,
+            option::some(royalty),
+            base_uri,
+        );
+        let extend_ref = object::generate_extend_ref(&constructor_ref);
+        move_to(creator, MintConfig {
+            collection_name: name,
+            base_uri,
+            extend_ref,
+        });
+    }
+
+    /// Mint a single NFT. Designed to be called in parallel
+    /// by multiple sender accounts (via fee payer pattern).
+    /// Each call creates one token object at a unique address.
+    public entry fun mint(
+        _minter: &signer,
+        creator_addr: address,
+        token_name: String,
+        token_description: String,
+        token_uri: String,
+    ) acquires MintConfig {
+        let config = borrow_global<MintConfig>(creator_addr);
+        let creator_signer = object::generate_signer_for_extending(
+            &config.extend_ref
+        );
+        let _constructor_ref = token::create_numbered_token(
+            &creator_signer,
+            config.collection_name,
+            token_description,
+            token_name,
+            string::utf8(b""),  // name_with_index_prefix
+            option::none(),     // royalty override
+            token_uri,
+        );
+        // Token is created at a deterministic address.
+        // The collection supply counter is updated via aggregator
+        // (delta operation, no read-write conflict).
+    }
+}
+Key design decisions:
+create_fixed_collection with max_supply uses aggregator-based supply tracking internally
+create_numbered_token appends an auto-incrementing number suffix, also using aggregators
+The ExtendRef pattern allows any authorized signer to mint, not just the original creator
+No explicit supply counter management needed; the framework handles it via delayed fields
+3.2 Collection Setup
+Deploy the module to a dedicated account (resource account recommended for production):
+   aptos move publish --named-addresses deployer=default
+Create the collection:
+   aptos move run \
+     --function-id deployer::mass_mint::create_collection \
+     --args 'string:My Collection' 'string:Collection Name' \
+     'string:https://assets.example.com/' 'u64:20000000'
+Verify the collection was created with aggregator-based supply:
+   aptos account list --query resources --account deployer
+3.3 Transaction Submission Strategy
+The single-sender problem: If all 20M transactions use one sender, sequence numbers serialize execution. Each transaction must wait for the previous one's sequence number to commit.
+Solution: Multi-sender parallel submission
+Use N sender accounts, each submitting 20M/N transactions:
+Sender CountTxns per SenderSequence Number OverheadEffective Parallelism120,000,000Fully serialized1x102,000,000Manageable~10x100200,000Low~100x1,00020,000Negligible~1,000x
+Recommended: 100-1,000 sender accounts for current mainnet.
+Fee payer pattern: Use a single funding account as a fee payer with orderless (nonce-based) transactions from the minting accounts. AIP-123 orderless transactions allow parallel submission without sequence number coordination.
+Transaction generation pipeline:
+[Metadata Generator] --> [Transaction Builder] --> [Signer Pool] --> [RPC Submitter Pool]
+     (20M items)         (batch of 1000)         (100 signers)      (10-50 RPC connections)
+Metadata Generator: Produces 20M (name, description, uri) tuples from your asset pipeline
+Transaction Builder: Constructs unsigned transactions with appropriate gas parameters
+Signer Pool: Signs transactions using pre-funded sender accounts, round-robin distribution
+RPC Submitter Pool: Submits signed transactions to multiple fullnode RPC endpoints
+3.4 Client Infrastructure Requirements
+Hardware for the minting client:
+ComponentMinimumRecommendedCPU8 cores16+ coresRAM16 GB32 GBNetwork100 Mbps1 GbpsStorage50 GB SSD100 GB NVMe
+RPC endpoints:
+Aptos fullnode REST API rate limits: typically 100-1,000 requests/second per IP
+To achieve 20K TPS submission rate, you need multiple RPC endpoints:
+  - 10-20 fullnode RPC endpoints (self-hosted or from different providers)
+  - Or use the Aptos transaction submission service if available
+  - Each endpoint handles ~1,000-2,000 TPS of submission
+Recommended RPC strategy:
+Run 5-10 dedicated fullnodes with --enable-indexer-grpc disabled (pure submission)
+Use geographically distributed fullnodes to reduce latency to validators
+Implement retry logic with exponential backoff for failed submissions
+Software architecture:
+┌─────────────────────────────────────────────────────┐
+│                   Orchestrator                       │
+│  - Tracks progress (which tokens minted)            │
+│  - Manages sender account sequence numbers          │
+│  - Handles retries and failures                     │
+│  - Monitors mempool backpressure                    │
+└───────────┬─────────────┬──────────────┬────────────┘
+            │             │              │
+     ┌──────▼──────┐ ┌────▼──────┐ ┌────▼──────┐
+     │ Submitter 1 │ │Submitter 2│ │Submitter N│
+     │ (10 senders)│ │(10 senders│ │(10 senders│
+     │ RPC Pool A  │ │ RPC Pool B│ │ RPC Pool C│
+     └─────────────┘ └───────────┘ └───────────┘
+3.5 Cost Estimation Worksheet
+Cost ItemUnit CostQuantityTotalGas fees (current)0.000195 APT20,000,0003,900 APT ($3,315 at $0.85/APT)Gas fees (w/ MonoMove)0.00006 APT20,000,0001,200 APTSender account creation~0.001 APT100-1,0000.1-1 APTSender account funding(refundable)100-1,000~100 APT floatRPC infrastructure~$500/mo5-10 nodes$2,500-5,000/moMinting client servers~$200/mo2-3$400-600/moMetadata storage (IPFS/Arweave)~$0.001/item20,000,000$20,000**Total (current, at $0.85/APT)****~$23,500-24,000****Total (with MonoMove, at $0.85/APT)****~$21,700-22,200**
+Note: The dominant cost is metadata hosting (IPFS/Arweave), not on-chain gas. If using centralized storage for metadata URIs, the cost drops significantly.
+3.6 Monitoring and Verification
+During minting:
+Transaction confirmation tracking:
+   - Monitor committed_transactions vs submitted_transactions counter
+   - Track pending mempool size: if growing, reduce submission rate (backpressure)
+   - Target: submitted - confirmed gap 
+Error rate monitoring:
+   - SEQUENCE_NUMBER_TOO_OLD: Sender sequence number already used; refetch and retry
+   - SEQUENCE_NUMBER_TOO_NEW: Gap in sequence; fill in missing transactions
+   - INSUFFICIENT_BALANCE_FOR_TRANSACTION_FEE: Refund sender accounts
+   - TRANSACTION_EXPIRED: Increase expiration time or submit faster
+   - Target error rate: 
+TPS monitoring:
+   # Monitor chain TPS via indexer or API
+   curl https://fullnode.mainnet.aptoslabs.com/v1/ | jq '.ledger_version'
+   # Sample every second, compute delta = realized TPS
+Collection supply verification:
+   aptos move view \
+     --function-id 0x4::collection::count \
+     --args 'address:<collection_address>'
+Post-minting verification:
+Supply check: Verify collection::count() equals 20,000,000
+Sample verification: Randomly sample 100-1,000 token addresses and verify:
+   - Token metadata (name, description, URI) is correct
+   - Token is owned by the intended recipient
+   - Token belongs to the correct collection
+Event log audit: Query the token creation events from the collection to confirm all 20M events exist
+Indexer verification: Use the Aptos indexer to query all tokens in the collection and verify count and uniqueness
+3.7 Common Pitfalls and How to Avoid Them
+Pitfall 1: Single-sender sequence number bottleneck
+Problem: All mints from one account serialize execution via sequence numbers
+Solution: Use 100-1,000 sender accounts with round-robin distribution
+Detection: If confirmed TPS is much lower than chain TPS, this is likely the cause
+Pitfall 2: Not using aggregator-based supply tracking
+Problem: Custom collection contracts that manually increment a counter create read-write conflicts on every mint, serializing Block-STM execution
+Solution: Use aptos_token_objects::collection which uses aggregators internally, or implement your own counter using aptos_framework::aggregator_v2
+Detection: Check Block-STM re-execution metrics; high re-execution rate (>20%) indicates conflict
+Pitfall 3: Overloading a single RPC endpoint
+Problem: Rate limiting or TCP connection exhaustion on the RPC node
+Solution: Distribute submissions across 10+ RPC endpoints
+Detection: HTTP 429 (Too Many Requests) or connection timeout errors
+Pitfall 4: Transaction expiration during backpressure
+Problem: If mempool is full, transactions wait too long and expire before execution
+Solution: Set expiration time to 300-600 seconds (not the default 30s). Implement backpressure sensing: reduce submission rate when mempool response indicates congestion
+Detection: TRANSACTION_EXPIRED errors
+Pitfall 5: Insufficient gas estimation
+Problem: Gas estimation is too low, causing transaction aborts (still charged gas)
+Solution: Run gas simulation on testnet first, add 20% buffer. Use max_gas_amount of at least 10,000 gas units for NFT mints
+Detection: EXECUTION_FAILURE with OUT_OF_GAS status
+Pitfall 6: Metadata URI availability
+Problem: Token URIs point to IPFS/Arweave content that isn't pinned or available
+Solution: Upload and pin ALL metadata BEFORE starting the mint. Verify availability with HEAD requests
+Detection: Post-mint, check a sample of URIs for 200 OK responses
+Pitfall 7: State growth exceeding validator resources
+Problem: 20M new objects add 50-90 GB to the state database; validators with marginal storage may struggle
+Solution: This is generally not your problem (validators manage their own hardware), but be aware that extremely rapid state growth could trigger backpressure
+Detection: Monitor block execution time increasing over the minting period
+Pitfall 8: Duplicate token names/URIs
+Problem: create_numbered_token auto-increments, but if you're providing explicit names, duplicates will fail
+Solution: Use create_numbered_token for auto-naming, or pre-validate uniqueness in your metadata pipeline
+Detection: EXECUTION_FAILURE aborts with specific abort codes from the token module
+
+Appendix A: Key Data Sources
+MetricValueSourceMainnet sustained TPS~20,000Architecture overview, mainnet observationsBlock-STM benchmark TPS>160,000PPoPP 2023 paper, architecture overviewRaptr benchmark TPS>250,000Architecture overview (global-scale experiments)Shardines target (non-conflicting)>1,000,000Architecture overviewShardines target (conflicting)>500,000Architecture overviewBlock close time~250msArchitecture overview performance tableBaby Raptr hop reduction6 to 4 hopsArchitecture overviewZaptos latency reduction40%Architecture overviewStandard transaction size limit64 KBTransaction states documentationEpoch duration7,200 seconds (2 hours)Architecture overviewJMT shard count16Storage subsystem documentationBlock-STM v2 progress~60%Feature progress trackerMonoMove progressEarly prototypeFeature progress trackerCurrent node versionv1.43.2 (mainnet)GitHub releases (April 2026)
+Appendix B: Timeline Sensitivity
+The calculations in Part 2 depend on upgrades that have no confirmed deployment dates:
+UpgradeEarliest RealisticConfidenceFull RaptrLate 2026MediumBlock-STM v2Mid-Late 2026Medium-High (60% done)MonoMove VM2027+Low (early prototype)ZaptosLate 2026 - Early 2027MediumExecution Sharding (Shardines)2027+Low (design phase)Consensus Sharding (Shardines)2027+Low (design phase)
+For planning purposes: the current infrastructure (Part 1) numbers are what you can rely on today. The 100K TPS scenario (Full Raptr + Block-STM v2 + Zaptos) is the most likely near-term upgrade path. The 500K-1M TPS scenarios (Shardines) are longer-term aspirational targets.
+Appendix C: Comparison with Other Chains
+For context, minting 20M NFTs on other major blockchains:
+ChainPractical TPSTime for 20MApprox. Cost**Aptos (current)**20,00017 min$3,315**Aptos (full upgrades)**500K-1M20-40 sec$340-935Solana3,000-5,000*67-111 min$10,000-20,000Ethereum L115-307.7-15.4 days$50M+Ethereum L2 (Arbitrum)1,000-2,0002.8-5.6 hours$200,000-500,000Sui10,000-20,00017-33 min$15,000-30,000
+*Solana practical TPS limited by vote transactions consuming ~50% of block space and priority fee market congestion.
+Aptos is uniquely positioned for this workload due to: (1) aggregator-based supply counters eliminating the primary parallelization bottleneck, (2) Block-STM's speculative execution enabling near-linear scaling with core count, and (3) the Shardines roadmap promising horizontal scaling within a single validator cluster.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+The Big Picture: Why Is This Hard?
+Imagine a popular concert where 10,000 people want to buy tickets at the same time. Each ticket needs a unique number. The problem: everyone has to ask "what's the last ticket number?" before they can buy the next one. If 10,000 people ask that question simultaneously, you only have one answer at a time — so everyone ends up waiting in line anyway. That's exactly what happens on most blockchains when thousands of people try to mint NFTs at once.
+
+What Aptos Invented: The Magic Ticket Machine
+Aptos built a special kind of counter called an Aggregator. Here's the magic: instead of asking "what's the current number?", each person just says "add 1 to whatever the total is." The machine collects all these "add 1" requests from all 10,000 people at once, and at the very end — after everyone has submitted — it hands out the real numbers in order.
+
+Nobody had to wait. Nobody conflicted with anyone else. And everyone got their correct, unique ticket number.
+
+The AggregatorSnapshot Trick
+But wait — NFT names need to say "NFT #42" or "NFT #7,893". How do you build that name if you don't know your number yet? That's what AggregatorSnapshot solves. Think of it like a placeholder receipt: "your number will be filled in here." The blockchain hands you a blank receipt, you do all your work with it, and at the very last moment — when all the counting is done — it fills in your actual number everywhere it appears.
+
+The November 2023 Demo
+Aptos proved this worked by minting 1 million unique NFTs in about 90 seconds on their test network. Then 5 million in about 8 minutes. That's over 10,000 NFTs per second, sustained. For comparison, during a big NFT launch on Ethereum, people often pay $50–$500 in fees just to mint a single NFT, and the whole thing crashes anyway.
+
+What It Costs Today
+On Aptos mainnet today, minting 1 million NFTs would take about 33–50 seconds (even faster than 2023 thanks to infrastructure improvements) and cost about 110 APT in total — roughly $0.001 per NFT at current prices. The entire infrastructure — faster blocks, better parallel execution, cheaper transactions — has improved dramatically since 2023.
+
+Don't Confuse the Two "Aggregators"
+There's an unfortunate naming collision. When people say "aggregator" on Aptos, they might mean:
+
+Transaction aggregators (what this page is about): built into the Move VM, enable parallel minting
+Marketplace aggregators: separate apps that pull NFT listings from multiple marketplaces so you can compare prices, like a Kayak for NFTs
+
+These are completely unrelated things with the same name.
+
+What You Learned
+Aptos built a counter that thousands of people can increment at the exact same time without any of them conflicting with each other. This is possible because the counter doesn't need to be read during the process — only at the very end. This one innovation unlocks massively parallel NFT minting, DeFi operations, gaming, and more. It's built into the Move VM itself, not a workaround on top of it.
+
+
+So How Fast and Cheap Can We Mint 20 Million NFTs?
+
+We tracked down the exact contract from the 1M NFT demo — it's called ambassador::ambassador, and it uses 195 gas units per mint. That's the real number from the actual code in aptos-core.
+
+
+ScenarioTimeCost (APT)Cost (USD at $10)
+Today (20K TPS, demo contract)16.7 min3,900 APT$3,315
+Today (20K TPS, minimal NFT)16.7 min2,000 APT$1,700
+Full Raptr + Block-STM v23.3 min~2,000-3,900 APT$1,700-3,315
+With Shardines40 sec~2,000-3,900 APT$1,700-3,315
+Theoretical max (1M TPS)20 sec~2,000-3,900 APT$1,700-3,315
+
+
+For comparison: Minting 20 million NFTs on Ethereum would cost roughly $400 million in gas and take 15+ days. On Aptos it costs $20-39K and takes 17 minutes — dropping to 20 seconds with full upgrades.
+
+The demo contract wasn't even minimal — it included property maps, rank/level tracking, burn refs, and soulbound restrictions. A stripped-down Token Object costs only ~100 gas units (vs 195 for ambassador). So the floor cost is about $20K for 20M NFTs.
+
+The key trick: You need 100-1,000 separate sender accounts submitting in parallel, because even though the NFT supply counter doesn't bottleneck (aggregators), each sender's account sequence number still increments sequentially.

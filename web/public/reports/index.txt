@@ -1,0 +1,22 @@
+# Aptos Intelligence — Static Report Index
+
+These pages are plain-text versions of reports for LLM indexing.
+Each report is available at /reports/{slug}.txt
+
+## Reports (15 total)
+
+- [[Mainnet] Aptos Node Release v1.41.9](https://aptos-intelligence.vercel.app/reports/297966303.txt) — Release, 6/10
+- [[storage] Persist hot state KV insertions/evictions to DB](https://aptos-intelligence.vercel.app/reports/3368033534.txt) — Feature Progress, 6/10
+- [[prover] Global memory support for behavioral predicates](https://aptos-intelligence.vercel.app/reports/3366941053.txt) — Feature Progress, 8/10
+- [Confidential assets v1.1 (#18973)](https://aptos-intelligence.vercel.app/reports/3044960.txt) — Infrastructure, 7/10
+- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/reports/a9d20cd.txt) — Feature Progress, 7/10
+- [[vm] Fix several correctness issues in Move VM runtime (#19052)](https://aptos-intelligence.vercel.app/reports/c8db4ac.txt) — Security, 7/10
+- [[compiler-v2] Fix type inference to allow unifying struct constraints and receiver function constraints (#18929)](https://aptos-intelligence.vercel.app/reports/d22380f.txt) — Security, 7/10
+- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/reports/bef2812.txt) — Infrastructure, 7/10
+- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/reports/9a3caae.txt) — API, 7/10
+- [[Smoke Test] Small race condition fixes.](https://aptos-intelligence.vercel.app/reports/544323b.txt) — Security, 7/10
+- [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/reports/ans-deep-dive.txt) — Feature Progress, 9/10
+- [fix function checker for struct visibility (#19351)](https://aptos-intelligence.vercel.app/reports/0e8dad7.txt) — Security, 8/10
+- [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive.txt) — Feature Progress, 9/10
+- [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/reports/prefix-consensus-deep-dive.txt) — Feature Progress, 10/10
+- [Aptos Feature Progress — 10 Features Tracked from Research to Mainnet](https://aptos-intelligence.vercel.app/reports/feature-progress-overview.txt) — Feature Progress, 10/10

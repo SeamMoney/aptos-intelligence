@@ -1,0 +1,54 @@
+# [api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)
+
+Author: ibalajiarun
+Date: 2026-03-16T22:53:25Z
+Category: Feature Progress
+Importance: 7/10
+Source: https://github.com/aptos-labs/aptos-core/commit/a9d20cdaea4b30ded5f1eeebc328bda983be8749
+URL: https://aptos-intelligence.vercel.app/#a9d20cd
+
+---
+
+## Advanced Analysis
+
+What specific code changed
+The change touches nine files across the api and ecosystem/indexer-grpc crates.
+
+  api/doc/spec.json – added two new OpenAPI components: DecryptedPayload and EncryptedPayload with their JSON schema definitions.
+  api/doc/spec.yaml – the same components were added in the YAML representation.
+  api/types/src/convert.rs – updated imports to bring ApiDecryptedPayload, ApiEncryptedPayload, EncryptedTransactionInnerPayload, EncryptedTransactionPayload, and ApiFailedDecryptionPayload into scope.
+  api/types/src/lib.rs – re‑exported the new types DecryptedPayload, EncryptedPayload, EncryptedTransactionInnerPayload, and EncryptedTransactionPayload from the transaction module.
+  api/types/src/transaction.rs – added imports for Ciphertext and PayloadAssociatedData, and extended UserTransactionRequestInner::verify to perform ciphertext validation when the payload is an EncryptedTransactionPayload::Encrypted variant.
+  ecosystem/indexer-grpc/indexer-grpc-fullnode/src/convert.rs – adjusted imports to accommodate the new payload types (diff truncated but shows a new import line).
+
+Why this change was made
+The Aptos API needed first‑class support for encrypted transaction payloads. Previously the REST and gRPC schemas only described plain payloads, which meant encrypted transactions could only be represented as opaque bytes. By introducing EncryptedPayload (still encrypted) and DecryptedPayload (successfully decrypted by the node), clients and indexers can now query the exact state of a transaction’s payload, differentiate between successful decryption and failure, and surface the decrypted inner payload when available.
+How it works technically
+On the Rust side, the TransactionPayload enum already contains an EncryptedPayload variant (see types/src/transaction/mod.rs in the subsystem docs). The new verification logic added to UserTransactionRequestInner::verify ensures that when a transaction is submitted with an encrypted payload, the ciphertext can be deserialized and its sender‑derived associated data is validated.
+if let TransactionPayload::EncryptedTransactionPayload(
+    EncryptedTransactionPayload::Encrypted(ref p),
+) = self.payload {
+    let ciphertext: Ciphertext = bcs::from_bytes(&p.ciphertext.0)
+        .context("Invalid ciphertext: failed to BCS-deserialize")?;
+    let sender = AccountAddress::from(self.sender);
+    let associated_data = PayloadAssociatedData::new(sender);
+    // ... further validation (omitted for brevity)
+}
+
+In api/types/src/convert.rs the imports were expanded so that the conversion layer can map the internal EncryptedTransactionPayload structures to the newly defined OpenAPI models (ApiEncryptedPayload, ApiDecryptedPayload, etc.). The OpenAPI spec files now expose these models, allowing the REST server to serialize them directly.
+Where it fits in the Aptos pipeline
+The encrypted payload handling lives at the boundary between the submission stage and the execution stage. During submission, UserTransactionRequestInner::verify runs (Stage 2 – Mempool Admission) to ensure the ciphertext is well‑formed and bound to the sender via PayloadAssociatedData. Once admitted, the encrypted payload is stored unchanged in the block (Stage 3 – Consensus) and later decrypted during execution (Stage 4 – Execution) when the node’s key‑share service can reconstruct the plaintext. The API changes allow the REST service (Stage 2) and the indexer‑grpc service (Stage 5 – Post‑execution indexing) to surface both encrypted and decrypted representations.
+Implications
+
+  Client visibility: Developers can now request a transaction and see whether its payload was decrypted, along with the inner EncryptedTransactionInnerPayload when decryption succeeded.
+  Security posture: The added verification step prevents malformed ciphertext from entering the mempool, reducing the attack surface for denial‑of‑service attempts that exploit BCS deserialization.
+  Indexer enrichment: The indexer‑grpc service can store both encrypted blobs and their decrypted equivalents, enabling richer analytics (e.g., tracking which contracts are being called via encrypted transactions).
+  Backward compatibility: Existing clients that ignore the new fields continue to function because the new schema components are optional for callers that do not use encrypted payloads.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Imagine you send a sealed envelope (an encrypted transaction) to a friend. Before the post office accepts it, they check that the seal is properly made and that the envelope is addressed to the right person. This change adds a new way for the post office (the Aptos API) to describe both sealed envelopes and opened ones in its catalog, so anyone looking at the package can tell whether the envelope is still sealed or has been opened and what was inside.
+Developer ibalajiarun added two new entries to the API’s specification – EncryptedPayload for sealed envelopes and DecryptedPayload for opened ones – and updated the Rust code so the system actually checks the seal when a transaction arrives.
+Why does it matter? Now wallets, explorers, and the indexer can show you exactly what happened with an encrypted transaction: whether it was successfully opened or still hidden, and they can safely reject malformed envelopes before they clog the system.

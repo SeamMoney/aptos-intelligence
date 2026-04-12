@@ -1,0 +1,50 @@
+# Confidential assets v1.1 (#18973)
+
+Author: alinush
+Date: 2026-03-23T17:45:03Z
+Category: Infrastructure
+Importance: 7/10
+Source: https://github.com/aptos-labs/aptos-core/commit/3044960972b2faed9de356d26adfee9fa801cfab
+URL: https://aptos-intelligence.vercel.app/#3044960
+
+---
+
+## Advanced Analysis
+
+What specific code changed
+The commit introduces a comprehensive gas benchmarking suite for confidential assets in aptos-move/e2e-move-tests/src/tests/confidential_asset.rs (1,454 new lines). Key additions include:
+
+New test module with gas profiling functions like bench_gas_confidential_mint, bench_gas_confidential_transfer, and bench_gas_confidential_burn
+Integration of the thousands crate for readable gas cost formatting via Separable trait
+New feature flag move-harness-with-test-only in e2e-move-tests/Cargo.toml to enable test-only framework functions
+Enhanced MoveHarnessImpl with evaluate_gas_with_profiler_and_status methods that return TransactionStatus alongside gas logs
+
+
+Why this change was made
+Confidential assets (privacy-preserving token operations) require precise gas metering due to their cryptographic overhead. The benchmarking suite quantifies the computational cost of ElGamal encryption, Bulletproofs range proofs, and zero-knowledge verification that underpin confidential mint, transfer, and burn operations. This data feeds into the on-chain gas schedule to ensure economic sustainability while maintaining competitive transaction fees.
+
+How it works technically
+The harness leverages the existing TransactionGasLog infrastructure. When tests run with --features move-harness-with-test-only, they invoke framework functions marked #[test_only] that expose confidential asset operations. The diff shows:
+pub fn evaluate_gas_with_profiler_and_status(
+    &mut self,
+    account: &Account,
+    payload: TransactionPayload,
+) -> (TransactionStatus, TransactionGasLog, u64, Option)
+
+Each benchmark constructs a confidential transaction payload, executes it via FakeExecutorImpl, and extracts the gas cost. Results are printed with comma separators via thousands::Separable for readability.
+
+Where it fits in the Aptos pipeline
+The benchmarks sit at the intersection of the Move VM execution layer and the gas schedule subsystem. Measured costs flow from e2e-move-tests → aptos-gas-schedule → on-chain configuration under 0x1::gas_schedule. When a confidential asset transaction is submitted, the VM looks up the pre-computed gas units for confidential_mint, confidential_transfer, etc., multiplies by the dynamic gas price, and deducts from the sender balance.
+
+What the implications are
+Validators now have empirical data to price confidential operations accurately, preventing under- or over-charging. Developers integrating privacy features can estimate costs before deployment. Future upgrades to the confidential asset module can be benchmarked against this baseline to detect performance regressions. The move-harness-with-test-only pattern also establishes a precedent for safely exposing test framework internals without bloating production binaries.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Imagine you're running a secret candy shop where customers can buy treats without revealing what or how much they bought. The shop needs to set prices, but the special privacy wrappers (like invisible bags and secret receipts) take extra work. Alinush added a measuring tape that times exactly how long each privacy step takes—wrapping the candy, printing the secret receipt, checking the invisible bag—so the shop can charge the right amount.
+
+He created a new test file, confidential_asset.rs, that runs these privacy candy sales over and over while a stopwatch records every millisecond. The numbers are printed with commas so 1234567 gas units shows up as 1,234,567, making it easy to read. A special flag, move-harness-with-test-only, unlocks these timing tests without letting regular shoppers mess with them.
+
+Now the Aptos blockchain knows the fair price for secret candy trades, keeping the shop profitable while customers pay only for the privacy they use. Next time you send a hidden token on Aptos, the fee you see comes from these exact measurements.

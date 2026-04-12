@@ -1,0 +1,128 @@
+# [API] Add support for encrypted transaction filtering.
+
+Author: JoshLind
+Date: 2025-11-25T23:19:01Z
+Category: API
+Importance: 7/10
+Source: https://github.com/aptos-labs/aptos-core/commit/9a3caae4c1ac0a7138d61b083bead8ba9071836e
+URL: https://aptos-intelligence.vercel.app/#9a3caae
+
+---
+
+## Advanced Analysis
+
+What specific code changed
+The change touches three files in the types crate:
+
+  types/src/transaction/mod.rs – a new helper method pub fn is_encrypted(&self) -> bool was added to SignedTransaction and the public enum TransactionPayload now includes a documentation comment for the EncryptedPayload variant.
+  types/src/transaction/encrypted_payload.rs – a brand‑new struct EncryptedTransactionFilter was introduced along with an impl block that provides fn matches(&self, tx: &SignedTransaction) -> bool.
+  types/src/transaction/authenticator.rs – the TransactionAuthenticator enum now derives Clone and adds a variant Encrypted(EncryptedAuthenticator) to carry the encrypted‑payload proof.
+
+// types/src/transaction/mod.rs (excerpt)
+impl SignedTransaction {
+    /// Returns true if the transaction payload is encrypted.
+    pub fn is_encrypted(&self) -> bool {
+        matches!(self.payload(), TransactionPayload::EncryptedPayload(_))
+    }
+}
+
+/// Updated enum documentation for clarity
+pub enum TransactionPayload {
+    // ... existing variants ...
+    /// Payload that is encrypted end‑to‑end.  The inner bytes are opaque to the
+    /// consensus layer and are only decrypted by the intended recipient.
+    EncryptedPayload(EncryptedPayload),
+}
+
+// types/src/transaction/encrypted_payload.rs (new file)
+use crate::transaction::SignedTransaction;
+use aptos_crypto::ed25519::Ed25519PublicKey;
+use std::collections::HashSet;
+
+/// Filter used by the REST API and mempool gossip to select only encrypted
+/// transactions that satisfy a set of criteria.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct EncryptedTransactionFilter {
+    /// Maximum allowed size of the encrypted payload (in bytes).
+    pub max_payload_size: usize,
+    /// Optional whitelist of sender addresses that are allowed to appear.
+    pub allowed_senders: Option>,
+    /// Optional list of public keys that must match the transaction's
+    /// EncryptedAuthenticator.
+    pub required_keys: Option>,
+}
+
+impl EncryptedTransactionFilter {
+    /// Returns true if tx satisfies all filter constraints.
+    pub fn matches(&self, tx: &SignedTransaction) -> bool {
+        // 1. Payload must be encrypted.
+        if !tx.is_encrypted() {
+            return false;
+        }
+        // 2. Enforce payload size limit.
+        if let TransactionPayload::EncryptedPayload(ref ep) = tx.payload() {
+            if ep.ciphertext.len() > self.max_payload_size {
+                return false;
+            }
+        }
+        // 3. Whitelist senders if provided.
+        if let Some(ref whitelist) = self.allowed_senders {
+            if !whitelist.contains(&tx.sender()) {
+                return false;
+            }
+        }
+        // 4. Verify required keys if present.
+        if let Some(ref keys) = self.required_keys {
+            match tx.authenticator() {
+                TransactionAuthenticator::Encrypted(ref auth) => {
+                    if !keys.contains(&auth.public_key) {
+                        return false;
+                    }
+                }
+                _ => return false,
+            }
+        }
+        true
+    }
+}
+
+// types/src/transaction/authenticator.rs (excerpt)
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TransactionAuthenticator {
+    // ... existing variants ...
+    /// Authenticator for encrypted payloads.  Holds a public key and a signature
+    /// over the encrypted ciphertext.
+    Encrypted(EncryptedAuthenticator),
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct EncryptedAuthenticator {
+    pub public_key: Ed25519PublicKey,
+    pub signature: Ed25519Signature,
+}
+
+Why this change was made
+The Aptos network introduced end‑to‑end encrypted transactions to protect user privacy. Existing REST endpoints and mempool gossip only allowed callers to retrieve or filter transactions based on plain‑text fields (sender, sequence number, etc.). To enable privacy‑preserving clients to request *only* encrypted transactions—or a subset thereof—an explicit filtering API is required. This commit adds the data structures and helper methods that power that API.
+How it works technically (reference the diff)
+1. SignedTransaction::is_encrypted() provides a cheap, zero‑allocation check by pattern‑matching the TransactionPayload enum.  This method is used throughout the new filter implementation.
+2. EncryptedTransactionFilter encapsulates three orthogonal constraints: payload size, sender whitelist, and required public‑key set.  The matches function performs the checks in short‑circuit order, returning false as soon as a constraint fails.
+3. The addition of the Encrypted variant to TransactionAuthenticator allows the filter to verify that the transaction’s authentication data matches the caller‑provided key set, preventing accidental leakage of non‑encrypted transactions that merely happen to have a matching sender.
+4. By placing the filter in the types crate, the logic is reusable both in the REST API layer (aptos-api) and in the mempool gossip module (aptos-mempool), ensuring a single source of truth for encrypted‑transaction visibility.
+Where it fits in the Aptos pipeline
+The filter operates after Stage 2 – Mempool Admission and before Stage 3 – Ordering (Consensus).  When a client calls the new /transactions?encrypted=true endpoint, the API handler constructs an EncryptedTransactionFilter from query parameters and applies filter.matches(tx) to each SignedTransaction stored in the in‑memory mempool.  The same filter can be used by validator nodes to selectively forward encrypted transactions to peers, reducing bandwidth for nodes that do not need to see private payloads.
+Implications
+
+  Privacy‑enhanced client workflows: DApps can now request only encrypted transactions, avoiding the need to download the full mempool and then discard non‑encrypted entries.
+  Performance impact: The filter adds O(1) checks per transaction; the most expensive operation is the optional HashSet lookup for senders or keys, which is negligible compared to signature verification.
+  Backward compatibility: Existing code paths that iterate over the mempool remain unchanged because the new methods are additive and default to false for non‑encrypted payloads.
+  Security considerations: Exposing a whitelist of allowed senders or required keys could be used as a side‑channel to infer participation in private protocols.  The filter is deliberately optional and only applied when explicitly requested by an authenticated API client.
+  Future extensibility: The EncryptedTransactionFilter design mirrors the existing TransactionFilter used for plain‑text fields, making it straightforward to add more criteria (e.g., gas price ranges) without touching consensus or execution layers.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Imagine the Aptos network as a busy post office where every letter (transaction) is placed in a big sorting room (the mempool). Some letters are sealed in opaque envelopes (encrypted transactions) so only the intended recipient can read them.
+JoshLind added a new way for the post office clerk (the API) to hand you only the sealed letters you care about. He introduced a "filter" that looks at each letter and says, "Is this envelope sealed? Is it not too big? Does it come from someone on my approved list?" If the answer is yes, the clerk hands it over; otherwise, it stays in the sorting room.
+This change lives in the "types" part of the code, where the shapes of letters are defined. A tiny helper method (is_encrypted) was added to quickly check if a letter is sealed, and a new EncryptedTransactionFilter struct was created to hold the rules (size limit, allowed senders, required keys). The filter is then used by the API and by the mempool gossip system.
+Why does it matter? Clients that want privacy no longer have to download every single letter and discard the unsealed ones—they can ask for just the sealed ones, saving bandwidth and keeping private communications truly private.

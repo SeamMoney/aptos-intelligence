@@ -1,0 +1,210 @@
+# Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT
+
+Author: aptos-labs
+Date: 2026-04-10T00:00:00Z
+Category: Feature Progress
+Importance: 10/10
+Source: https://arxiv.org/abs/2602.02892
+URL: https://aptos-intelligence.vercel.app/#prefix-consensus-deep-dive
+
+---
+
+## Advanced Analysis
+
+Prefix Consensus: How Aptos Is Building Censorship-Resistant, Leaderless BFT
+
+In February 2026, three Aptos Labs researchers — Zhuolun Xiang (Daniel), Andrei Tonkikh, and Alexander Spiegelman — published "Prefix Consensus For Censorship Resistant BFT" (arXiv:2602.02892). This paper introduces a new BFT primitive that fundamentally changes how blockchain consensus can work: instead of requiring all honest validators to agree on a single value, it allows them to agree on a prefix of ordered proposals. This is not incremental. It is the theoretical foundation for Aptos's next-generation consensus layer.
+
+
+
+The Primitive: What Is Prefix Consensus?
+
+Classical BFT consensus (like PBFT, HotStuff, Jolteon) solves this problem: n parties each have an input value, and they must all agree on a single output. This is single-value agreement. It requires a leader to drive the protocol, and that leader becomes a single point of failure for both liveness and censorship.
+
+Prefix Consensus solves a different problem. Each of the n parties inputs a vector — for example, a list of transaction hashes. The protocol guarantees that every honest party outputs a pair (v_{\text{low}}, v_{\text{high}}) where:
+
+
+v_{\text{low}} is a prefix that extends the maximum common prefix of all honest inputs
+v_{\text{high}} extends v_{\text{low}}
+Both are prefixes of at least one honest party's input
+
+
+The critical difference: outputs can differ across parties. Party A might output (v_low_A, v_high_A) and Party B might output (v_low_B, v_high_B). But they are guaranteed to be consistent — one party's v_{\text{low}} is always a prefix of the other's v_{\text{high}}, or vice versa. This relaxation is what makes the protocol faster and leaderless.
+
+Classical Consensus:
+  Input:  Party1=A, Party2=B, Party3=C
+  Output: Everyone outputs A (or B, or C — but same value)
+
+Prefix Consensus:
+  Input:  Party1=[tx1,tx2,tx3], Party2=[tx1,tx2,tx4], Party3=[tx1,tx2,tx3,tx5]
+  Output: Party1=(v_low=[tx1,tx2,tx3], v_high=[tx1,tx2,tx3,tx5])
+          Party2=(v_low=[tx1,tx2],     v_high=[tx1,tx2,tx4])
+          Party3=(v_low=[tx1,tx2,tx3], v_high=[tx1,tx2,tx3,tx5])
+  Guarantee: v_low always extends max common prefix [tx1,tx2]
+
+The 3-Round Async Protocol
+
+The paper proves that Strong Prefix Consensus can be solved in exactly 3 asynchronous rounds — and that this is a tight lower bound (2 rounds is impossible). The protocol works as follows:
+
+
+Round 1 — Broadcast: Every party broadcasts its input vector to all other parties
+Round 2 — Echo: Upon receiving 2f+1 vectors, each party computes the common prefix of the received vectors and broadcasts an echo message containing this prefix
+Round 3 — Vote: Upon receiving 2f+1 echo messages, each party computes the common prefix of the echoes to determine v_{\text{low}}, and the union/extension to determine v_{\text{high}}
+
+
+This achieves O(n^3) message complexity in the worst case. In the fault-free case, the protocol completes in 3 rounds with immediate output. When integrated into a full SMR (State Machine Replication) protocol, the commit latency is 4 rounds (3 for the prefix consensus instance + 1 for chaining), dropping to 3 rounds in the fault-free fast path.
+
+From Prefix Consensus to Full BFT SMR
+
+The paper builds a complete leaderless, multi-proposer BFT State Machine Replication protocol on top of Prefix Consensus. Here is how it works:
+
+
+Every validator broadcasts a proposal every slot. There is no leader election, no designated proposer. All n validators propose simultaneously.
+Proposals are deterministically ranked using a cyclic shift. The ranking rotates so that different validators get priority in different slots, but the ranking is known to all parties before the protocol runs.
+Run Strong Prefix Consensus on the hashes of these proposals. This determines which proposals are included in the committed block.
+Commit the prefix (v_low) immediately. All transactions in v_low are guaranteed to be committed by all honest parties.
+Demotion rule: If an honest party's proposal is excluded from the committed prefix — i.e., it was censored — the party that was ranked first (and thus responsible for the exclusion) is demoted in the ranking for future slots.
+Convergence guarantee: After at most f censored slots post-GST (Global Stabilization Time), all honest parties' proposals rank first forever. The protocol self-heals.
+
+
+The Demotion Rule: Why f-Censorship Resistance Is Guaranteed
+
+The demotion rule is the key innovation that makes this protocol censorship-resistant. Here is the logic:
+
+
+There are at most f Byzantine validators (out of n = 3f+1)
+If a Byzantine validator is ranked first and censors an honest proposal, it gets demoted
+Each Byzantine validator can only be "used up" once before being permanently demoted
+After all f Byzantine validators have been demoted, only honest validators remain in top-ranked positions
+Honest validators do not censor, so all honest proposals are included from that point forward
+
+
+This means the protocol tolerates at most f censorship events before achieving permanent censorship resistance. This is provably optimal — no protocol can do better than f censorship events when facing f Byzantine parties.
+
+Why This Kills DAG-Based Approaches
+
+In January 2026, a Twitter thread by @moonshiesty questioned why DAG-based chains like Hedera and Sui consistently failed at high-frequency trading use cases. Daniel Xiang (co-author of the Prefix Consensus paper) responded directly with the key insight:
+
+
+"DAG based consensus is not stronger wrt censorship resistance than standard leader based consensus. The leader/anchor can decide which 2f+1 proposals go into a block."
+
+
+This is the fundamental problem with DAG protocols (Narwhal, Bullshark, Tusk, Mysticeti). While they appear leaderless because every validator creates DAG vertices, the commit rule still depends on anchors/leaders to determine which vertices form committed sub-DAGs. The anchor can choose which 2f+1 vertices to reference, effectively censoring the remaining f vertices. This is structurally identical to leader-based censorship.
+
+Toly (Anatoly Yakovenko, Solana) also weighed in: "MCP is leader based. Not leaderless." — pointing out that even Solana's multi-concurrent-proposer model still has leader-based ordering.
+
+Prefix Consensus solves this by being genuinely leaderless AND censorship-resistant. No anchors, no leader election, no single point of censorship. The demotion rule ensures that even if Byzantine validators temporarily censor, the protocol self-corrects within f slots.
+
+How Baby Raptr Implements Prefix Consensus v1 on Mainnet
+
+Prefix Consensus is not just a paper. It is live on Aptos mainnet today through Baby Raptr (also called VelociRaptr), which implements Prefix Consensus v1.
+
+Aptos Mainnet Consensus Stack (current):
+┌─────────────────────────────────────────────────┐
+│  Baby Raptr / VelociRaptr                       │
+│  ├── Prefix Consensus v1 (ordering)             │
+│  ├── Quorum Store (batch dissemination)          │
+│  └── Pipelined commit (3-round fast path)       │
+└─────────────────────────────────────────────────┘
+
+Baby Raptr uses a simplified version of the prefix consensus approach where the multi-proposer structure is partially implemented. Validators broadcast proposals, and the consensus protocol determines which proposals form the committed block using prefix-based ordering. This is the production-hardened version that has been running on mainnet since the Raptr upgrade.
+
+Archon: The Leaderless v2 Future
+
+Archon is the next-generation validator coordination layer that will implement the full leaderless Prefix Consensus v2 protocol from the paper. While Baby Raptr implements a partial version, Archon will deliver:
+
+
+Full leaderless operation — no designated proposers or anchors
+The complete demotion rule for f-censorship resistance
+Integration with the encrypted mempool for MEV protection
+Optimized message complexity for mainnet-scale validator sets
+
+
+The prefix-consensus-prototype branch in the Aptos Core repository contains active development toward Archon's consensus layer.
+
+Shoal++ Is Dead — Prefix Consensus Replaces It
+
+For context, Shoal++ was a previously proposed enhancement to the Shoal protocol (which itself was built on Bullshark/DAG consensus). Avery Ching (Aptos CTO) confirmed that Shoal++ is no longer being actively developed. The active workstreams are:
+
+
+Zaptos — optimistic pipelining for execution
+Shardines — internal validator sharding
+Block-STM v2 — next-gen parallel execution
+Archon — leaderless consensus via Prefix Consensus v2
+
+
+Shoal++ was DAG-based, and as the Prefix Consensus paper demonstrates, DAG approaches have fundamental censorship resistance limitations. Prefix Consensus provides a strictly stronger primitive.
+
+The Full Aptos Technical Stack
+
+Here is how all the pieces fit together:
+
+┌───────────────────────────────────────────────────────────────────┐
+│                    CONSENSUS & INCLUSION                         │
+│  ┌─────────────────────┐    ┌──────────────────────────────────┐ │
+│  │ Raptr (live)        │    │ Archon (next-gen)                │ │
+│  │ Baby/VelociRaptr    │───>│ Leaderless Prefix Consensus v2   │ │
+│  │ Prefix Consensus v1 │    │ f-censorship resistant           │ │
+│  └─────────────────────┘    │ Demotion rule                    │ │
+│                              └──────────────────────────────────┘ │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │ Encrypted Mempool (BIBE) + Transaction Namespaces           │ │
+│  │ MEV protection — txns hidden until after ordering           │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+├───────────────────────────────────────────────────────────────────┤
+│                         EXECUTION                                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐   │
+│  │ Zaptos       │  │ Block-STM v2 │  │ Shardines            │   │
+│  │ Optimistic   │  │ Parallel     │  │ Validator            │   │
+│  │ pipelining   │  │ execution    │  │ sharding             │   │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘   │
+├───────────────────────────────────────────────────────────────────┤
+│                         STORAGE                                  │
+│  ┌──────────────────────────────────────────────────────────┐    │
+│  │ Jellyfish Merkle Tree + Hot State Cache + RocksDB        │    │
+│  └──────────────────────────────────────────────────────────┘    │
+└───────────────────────────────────────────────────────────────────┘
+
+Properties and Complexity
+
+
+PropertyPrefix ConsensusDAG (Bullshark/Mysticeti)Leader-based (HotStuff)
+LeaderlessYesNo (anchors)No
+Censorship resistantf-censorship resistantNoNo
+Commit rounds4 (3 fault-free)3-43
+Message complexityO(n^3)O(n^3)O(n^2)
+Multi-proposerYes (all validators)Yes (all validators)No (single leader)
+Self-healingYes (after f slots)NoView change
+
+
+Key Contributors
+
+
+ContributorRoleContribution
+Zhuolun Xiang (Daniel)Lead author, primary implementer68% of Prefix Consensus commits, contributor across Raptr, Zaptos, Archon, and encrypted mempool
+Andrei TonkikhCo-author, protocol design18% of Prefix Consensus commits
+Alexander SpiegelmanCo-author, theory and proofs11% of Prefix Consensus commits
+Balaji Arun (ibalajiarun)Encrypted mempool implementationBIBE encryption layer, replay protection
+
+
+The Bottom Line
+
+Prefix Consensus is not just an academic contribution. It is the theoretical foundation for Aptos's transition from a leader-based to a genuinely leaderless consensus protocol with provable censorship resistance. Baby Raptr runs v1 on mainnet today. Archon will bring the full v2 with the demotion rule and f-censorship resistance guarantee. Combined with the encrypted mempool, Zaptos pipelining, Block-STM v2 parallel execution, and Shardines sharding, Aptos is building a stack where censorship resistance is not a feature to be added later — it is baked into the consensus primitive itself.
+
+Paper: arXiv:2602.02892 — "Prefix Consensus For Censorship Resistant BFT" (Feb 2026)
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+The Big Picture: Imagine a classroom where every student has an idea for what the class project should be. In most classrooms, there is one class president (the "leader") who picks which ideas to use. The problem? If the class president is unfair, they can ignore certain students' ideas every time. This is called censorship.
+
+What Prefix Consensus Does: Prefix Consensus is like a new classroom rule where there is no class president. Instead, every student writes their idea on a piece of paper and passes it around. Every student looks at all the ideas and figures out which ones everyone agrees on — starting from the ideas at the top of the list and working down. The ideas that everyone saw and agreed on get added to the project. No single student gets to decide what is included or excluded.
+
+The Demotion Rule — Cheaters Get Sent to the Back: What about cheaters? If a troublemaker tries to hide someone else's idea (censorship), the class notices. The troublemaker gets "demoted" — sent to the back of the line so they have less influence in the next round. Since there can be at most a few troublemakers in the class, after each one gets caught and sent to the back, eventually only fair students are left in the front. From that point on, every honest student's idea gets included every time. The class self-corrects.
+
+Why This Beats the "DAG" Approach: Some other blockchains (like Sui and Hedera) use something called a DAG, which sounds like "everyone proposes." But there is a sneaky trick: even in a DAG, someone called an "anchor" still gets to pick which proposals count. It is like saying "everyone gets to suggest ideas" but the class president still picks which 2/3 of the suggestions to actually use. Prefix Consensus removes that hidden leader entirely.
+
+Where This Lives Today: Aptos already uses a simpler version of this (called Baby Raptr) on its live network. The full version — with the cheater-demotion rule — is being built into something called Archon, which will make Aptos the first major blockchain with provable censorship resistance built directly into its consensus.
+
+What You Learned: You just learned about Prefix Consensus — a new way for computers to agree on things without needing a leader, where cheaters automatically get pushed aside. It is the foundation for making Aptos censorship-resistant at the deepest level of the system.

@@ -1,0 +1,54 @@
+# [Smoke Test] Small race condition fixes.
+
+Author: JoshLind
+Date: 2026-04-07T18:29:37Z
+Category: Security
+Importance: 7/10
+Source: https://github.com/aptos-labs/aptos-core/commit/544323b5a75b3e3a33c24a63948f70544ba67ee8
+URL: https://aptos-intelligence.vercel.app/#544323b
+
+---
+
+## Advanced Analysis
+
+What specific code changed
+The diff touches two files in the smoke‑test harness:
+
+  testsuite/smoke-test/src/state_sync_utils.rs: three lines were added after the call to aptos_db.get_epoch_ending_ledger_info(0). The new code explicitly drops the AptosDB instance before the node is restarted.
+// Drop the DB handle before restarting the node to release the rocks DB lock file
+drop(aptos_db);
+
+  
+  testsuite/smoke-test/src/utils.rs: the conditional block that only called aptos_forge::reconfig when !execute_epoch_changes was true was removed. The call is now unconditional.
+aptos_forge::reconfig(
+    client,
+    &transaction_factory,
+    swarm.chain_info().root_account,
+)
+.await;
+
+  
+
+Why this change was made
+The smoke‑test suite previously suffered a race condition when a node was stopped and immediately started again. AptosDB holds a file‑system lock on the RocksDB data directory; if the AptosDB object is still alive when node.start() is invoked, the underlying lock file may not have been released, causing the restart to fail intermittently. Dropping the handle guarantees the lock is released before the restart.
+Separately, the test logic tried to guarantee that at least one reconfiguration transaction runs, but it only did so when execute_epoch_changes was false. In practice the flag could be true, leaving the test without a guaranteed epoch change and making state‑sync verification flaky. Making the reconfiguration call unconditional removes that edge case.
+How it works technically
+In state_sync_utils.rs, after fetching the first epoch‑ending LedgerInfo, the code now executes drop(aptos_db). In Rust, drop immediately runs the destructor of AptosDB, which closes all RocksDB column families and releases the OS‑level lock file. The subsequent node.start() therefore opens a fresh DB instance without contention.
+In utils.rs, the previous conditional block:
+if !execute_epoch_changes {
+    aptos_forge::reconfig(...).await;
+}
+
+was replaced by an unconditional call. This guarantees that the test always triggers a reconfiguration transaction, which creates a new epoch, updates the on‑chain ValidatorSet, and forces all nodes to process an epoch change during state sync.
+Where it fits in the Aptos pipeline
+The smoke‑test harness sits on top of the full node stack and exercises the execution and storage layers. The AptosDB drop concerns the storage subsystem (RocksDB backing the state tree). The forced reconfiguration touches the consensus layer because a new epoch changes the validator set and the execution layer because the reconfiguration transaction produces a write set that updates on‑chain configuration resources. State‑sync then validates that all nodes correctly replay these changes.
+Implications
+By explicitly releasing the RocksDB lock, the test becomes deterministic and no longer fails with “cannot acquire DB lock” errors, reducing CI noise. The unconditional reconfiguration ensures every smoke‑test run includes at least one epoch transition, improving coverage of epoch‑change handling in state sync. The changes are limited to test code, so production node behavior is unchanged, but they increase confidence that the underlying types (e.g., LedgerInfo, Version) are correctly persisted and recovered across restarts.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Imagine you have a bathroom with a lock on the door. The test was trying to leave the bathroom, close the door, and then immediately open it again. Sometimes the lock hadn't fully released, so the next person got stuck outside. The fix adds a step that makes sure the lock is definitely turned off before trying to open the door again.
+At the same time, the test wanted to make sure the house lights were turned on at least once during the visit. Previously it only flipped the switch if a certain condition was false, which sometimes meant the lights stayed off. The new code just flips the switch every time, guaranteeing the lights come on.
+JoshLind made these changes on April 7, 2026. In the Aptos world, the "lock" is the RocksDB file‑system lock held by AptosDB, and the "lights" are a reconfiguration transaction that creates a new epoch. By dropping the DB handle and always running a reconfig, the smoke‑test becomes reliable and always checks that nodes can handle a fresh epoch after a restart.

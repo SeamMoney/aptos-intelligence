@@ -1,0 +1,48 @@
+# [prover] Global memory support for behavioral predicates
+
+Author: wrwg
+Date: 2026-03-23T02:55:42Z
+Category: Feature Progress
+Importance: 8/10
+Source: https://github.com/aptos-labs/aptos-core/pull/18979
+URL: https://aptos-intelligence.vercel.app/#3366941053
+
+---
+
+## Advanced Analysis
+
+What Changed
+    This PR introduces global memory support for behavioral predicates in the Move prover, enabling it to reason about functions that modify global state. The changes include the introduction of state labels, which track how global state evolves across sequential opaque calls, and the addition of `access_of` declarations for function parameters. The specific files modified include aptos-move/flow/src/hooks/source_check.rs, third_party/move/move-compiler-v2/legacy-move-compiler/src/expansion/ast.rs, and third_party/move/move-compiler-v2/legacy-move-compiler/src/expansion/dependency_ordering.rs. The core structs and functions touched include SpecBlockMember_, Behavior, and exp.
+
+    Where This Fits in Aptos
+    This change fits into the Move prover, which is part of the Aptos framework. The Move prover is responsible for verifying and inferring specifications for Move code. The pipeline for the Move prover is as follows:
+    Client -> Mempool -> Quorum Store -> Consensus -> Execution -> Storage
+    The Move prover is used in the Execution stage, where it verifies and infers specifications for Move code. The specific subsystem touched by this change is the Move prover, which is part of the Aptos framework.
+
+    How It Works (Step by Step)
+    The Move prover uses state labels to track how global state evolves across sequential opaque calls. The prover introduces a new construct S |~ expr for evaluating an expression in a given state S, and S1..S2 |~ expr for evaluating an expression on a state delta. The prover also adds access_of declarations for function parameters, which enable frame conditions and constrain resources that the closure doesn't modify to be unchanged.
+    spec double_remove {
+        ensures ..S |~ result_1 == result_of<remove_resource>(addr1);
+        ensures S.. |~ result_2 == result_of<remove_resource>(addr2);
+        aborts_if aborts_of<remove_resource>(addr1);
+        aborts_if S |~ aborts_of<remove_resource>(addr2);
+    }
+    The old behavior was that the Move prover did not support global memory for behavioral predicates, and the new behavior is that it now supports global memory and can reason about functions that modify global state.
+
+    Why This Matters
+    This change matters because it improves the Move prover's ability to verify and infer specifications for Move code, particularly for higher-order functions and code that modifies global state. This change enables the prover to reason about functions that modify global state, which is a critical feature for ensuring the correctness and security of Move code.
+
+    Architectural Connections
+    This change interacts with other Aptos subsystems, such as the Quorum Store and Consensus, by providing a more robust and accurate verification and inference mechanism for Move code. This change lays the groundwork for upcoming features, such as Zaptos (optimistic pipelining) and Shardines (internal validator sharding), by providing a more robust and accurate verification and inference mechanism for Move code.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+The Big Picture: Imagine a librarian who keeps track of all the books in a library. The librarian needs to know which books are on which shelves and which books are being borrowed or returned. The Move prover is like a super-smart librarian who keeps track of all the changes made to the library (or in this case, the global state) and makes sure that everything is consistent and correct.
+
+    What Changed: The Move prover now has a new tool to help it keep track of changes to the library. This tool is called a state label, and it helps the prover understand how the library changes over time. The prover can now also ask questions about which books (or resources) a particular function can access or modify.
+
+    Why It Matters: This change is important because it helps the Move prover do its job better. The prover is responsible for making sure that the code written in Move is correct and secure. With this new tool, the prover can do an even better job of verifying and inferring specifications for Move code. This means that the code will be more reliable and less prone to errors or security vulnerabilities.
+
+    What You Learned: You just learned about the Move prover and how it uses state labels to keep track of changes to the global state. You also learned about how the prover uses access_of declarations to constrain resources that a function can access or modify. This is an important concept in programming and will help you understand how the Move prover works and how it helps keep the Aptos network secure.

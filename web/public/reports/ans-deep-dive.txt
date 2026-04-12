@@ -1,0 +1,189 @@
+# Aptos Names Service (ANS) — Complete Deep Dive
+
+Author: 0xChucky
+Date: 2026-04-08T00:00:00Z
+Category: Feature Progress
+Importance: 9/10
+Source: https://github.com/aptos-labs/aptos-names-contracts
+URL: https://aptos-intelligence.vercel.app/#ans-deep-dive
+
+---
+
+## Advanced Analysis
+
+Aptos Names Service — V1 vs V2 Deep Dive
+
+ANS is Aptos's domain name system — alice.apt instead of 0x1a2b3c.... It went through a complete architectural rewrite from V1 to V2 in October 2023. This page explains exactly what changed, why, and what it unlocks.
+
+Why the Rewrite? The Token v1 Problem
+
+ANS V1 was built on Aptos Token v1, the original NFT standard. Token v1 has a fundamental design problem: tokens don't have their own on-chain addresses. They exist inside a TokenStore resource on the owner's account, indexed by (creator, collection, name, property_version).
+
+This means:
+
+No deterministic addresses — you can't predict where a name's data lives on-chain. To look up alice.apt, you need to know who owns it first, then look inside their TokenStore.
+No direct resource storage — you can't attach custom data (like resolution records) directly to the token. V1 used separate Table-based registries to store name records.
+Property version complexity — every mutation increments a property version, creating a new "instance" of the token. This made tracking ownership messy.
+No composability — other contracts can't easily reference or interact with a specific name token because it has no stable address.
+
+
+The V2 Solution: Token Objects
+
+Token Objects (the aptos_token_objects framework) solve all of these problems. Each token is an Object — a first-class on-chain entity with its own address. This is the key insight:
+
+// V1: Name data lives in a separate Table, disconnected from the token
+struct NameRegistryV1 {
+    registry: Table<NameRecordKeyV1, NameRecordV1>
+}
+
+// V2: Name data lives ON the token object itself
+// The NameRecord struct is stored at the token's address
+struct NameRecord has key {
+    domain_name: String,
+    expiration_time_sec: u64,
+    target_address: Option<address>,
+    transfer_ref: Option<TransferRef>,
+    registration_time_sec: u64,
+    extend_ref: ExtendRef,
+}
+
+With Objects, each .apt name IS an on-chain object at a deterministic address. The name's resolution data, expiration, and ownership are all stored directly on that object.
+
+What Token Objects Unlock
+
+
+CapabilityV1 (Token v1)V2 (Token Objects)
+Deterministic addressesNo — must search TokenStoreYes — create_named_token() gives predictable address from seed
+Direct data storageNo — uses separate Table registriesYes — NameRecord stored on the object itself
+On-chain composabilityLimited — other contracts can't easily reference namesFull — any contract can read/verify name data at a known address
+Domain renewalNot possible — no way to extend expiration without re-mintingBuilt-in — ExtendRef allows modifying expiration in-place
+Subdomain controlBasic — fixed expiration, always transferableRich — expiration policies, transferability toggle, domain owner controls
+Transfer controlAlways transferableDomain owner can lock/unlock subdomain transfers via TransferRef
+
+
+The ExtendRef — Why Renewal Works in V2
+
+One of the most important Object capabilities is the ExtendRef. When an ANS name object is created, the contract saves an ExtendRef inside the NameRecord. This ref allows the contract to later modify the object's resources — specifically, to update expiration_time_sec.
+
+// V2 renewal — modify the object in-place
+public fun renew_domain(user: &signer, domain_name: String, renewal_duration_secs: u64) {
+    let name_record = borrow_global_mut<NameRecord>(token_addr);
+    name_record.expiration_time_sec = name_record.expiration_time_sec + renewal_duration_secs;
+    // The ExtendRef proves the contract has authority to do this
+}
+
+In V1, this was impossible. To "renew" a name, you'd have to burn the old token and mint a new one — losing the property version history and breaking any references.
+
+Subdomain Expiration Policies — A V2-Only Feature
+
+V2 introduces the SubdomainExt struct with an subdomain_expiration_policy field:
+
+MANUAL_SET_EXPIRATION (0) — the subdomain has its own expiration, set by the domain owner. It can outlive or predate the parent domain.
+LOOKUP_DOMAIN_EXPIRATION (1) — the subdomain automatically expires when the parent domain expires. No manual management needed.
+
+
+This is critical for organizations. A company owning company.apt can create team.company.apt with auto-follow policy, so when they renew the parent domain, all subdomains automatically stay valid.
+
+The Router Architecture
+
+Since V1 and V2 coexist on mainnet, the Router is the unified entry point. Currently in MODE_V1_AND_V2:
+
+// Router logic (simplified)
+public entry fun register_domain(user: &signer, domain_name: String, years: u64) {
+    if (mode == MODE_V1_AND_V2) {
+        // New registrations always go to V2
+        v2_1_domains::register_domain(router_signer, user, domain_name, years * SECS_PER_YEAR);
+    } else {
+        domains::register_domain(user, domain_name, years);
+    }
+}
+
+// Resolution checks V2 first, falls back to V1
+public fun get_target_addr(domain: String, subdomain: Option<String>): Option<address> {
+    let v2_result = v2_1_domains::get_target_address(domain, subdomain);
+    if (option::is_some(&v2_result)) return v2_result;
+    // Fall back to V1
+    domains::get_name_address(subdomain, domain)
+}
+
+Migration: V1 → V2
+
+Users migrate via router::migrate_name():
+
+V1 token is transferred to the router's resource account (effectively burned)
+A new V2 Token Object is created with the same name
+Target address and primary name settings are copied over
+Domains expired before March 7, 2024 get 1 free year of renewal
+Domain must be migrated before its subdomains (parent-first)
+
+
+Pricing: 75% Cheaper in V2
+
+
+Name LengthV1 AnnualV2 AnnualReduction
+3 chars (e.g. max.apt)80 APT20 APT-75%
+4 chars (e.g. alex.apt)40 APT10 APT-75%
+5 chars (e.g. alice.apt)20 APT5 APT-75%
+6+ chars (e.g. satoshi.apt)5 APT1 APT-80%
+Subdomains0.2 APTFree-100%
+
+
+V2 also switched from exponential to linear multi-year pricing. In V1, year 2 cost 110% of year 1 (compounding). In V2, 2 years = 2x the annual price. Simple.
+
+Integration Points
+
+
+TypeScript SDK (src/api/ans.ts): Full ANS class — getTargetAddress(), getPrimaryName(), registerName(), renewDomain(), plus batch queries for all names on an account
+Indexer (ans_processor.rs): Writes to 8 PostgreSQL tables tracking all v1+v2 lookups, registrations, and primary names in real-time
+On-chain resolution: Any Move contract calls router::get_target_addr(domain, subdomain) — one line to resolve a name
+Wallets: aptos-wallet-adapter displays primary names instead of raw addresses everywhere
+Web: aptosnames.com for registration and management
+
+
+Who Built It
+
+
+DeveloperCommitsPeriodContribution
+0xChucky (Charles)43Nov 2022 – Feb 2023Built V1 from scratch — registration, primary names, reverse lookup, events. Left Aptos Labs ~Feb 2023.
+BriungRi (Brian Li)7 (contracts) + 131 (org-wide)May 2023 – presentTook over ANS, built V2, router, migration, bulk operations. Also works on token-minter, explorer, account abstraction.
+angieyth62023V2 development, migration scripts
+gregnazario52022-2023Core infrastructure
+0x-j52023V1 updates for V2 compatibility
+
+
+
+
+Current Status (April 2026)
+
+
+V2 on mainnet with router in MODE_V1_AND_V2
+5 open issues, 2 open PRs (Move 2 syntax migration)
+Bug bounty active via HackenProof
+Last push: March 2026
+Stable, production infrastructure — not under heavy development anymore
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+What is Aptos Names Service?
+It's a phone book for the Aptos blockchain. Instead of telling someone to send money to 0x7a8f3e2d1b... (a scary 64-character code), you just say "send it to alice.apt." Way easier, right?
+
+What happened with V1 vs V2?
+Think of it like phone books. V1 was like a paper phone book — your name was listed, but it was just an entry in a big shared list. You couldn't really DO much with your entry. Want to renew? Tear out the page and paste in a new one. Want someone to look you up? They had to flip through the whole book.
+
+V2 is like getting your own personal phone card — a physical thing you OWN. Your name, your number, your info is all on YOUR card. You can update your card (renewal), lend it to someone (transfer), or create mini-cards for your family (subdomains). And anyone can find you instantly because every card has a unique serial number (deterministic address).
+
+Why did they switch to "Objects"?
+In the old system (Token v1), your name was just data in a shared spreadsheet. In the new system (Token Objects), your name is its own thing on the blockchain — like a tiny app with its own address. This means:
+
+Other apps can easily find and verify your name (composability)
+You can renew without re-creating your name (ExtendRef magic)
+Domain owners have real control over subdomains (lock/unlock transfers, set expiration policies)
+Everything is way cheaper — prices dropped 75% and subdomains became free
+
+
+Who built it?
+A developer named Charles (0xChucky) built the original V1 in late 2022. He left Aptos Labs around February 2023. Brian Li (BriungRi) then took over and built the much better V2 from scratch in October 2023. Brian is still actively maintaining it and works on many other Aptos projects too.
+
+What you learned: You now understand why Aptos rebuilt their naming system — the old token standard couldn't support renewal, subdomain policies, or easy composability. The new Object-based design gives each name its own on-chain identity, making the entire system more powerful and 75% cheaper.

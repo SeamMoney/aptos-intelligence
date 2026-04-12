@@ -1,0 +1,146 @@
+# Aptos Feature Progress — 10 Features Tracked from Research to Mainnet
+
+Author: aptos-labs
+Date: 2026-04-12T07:55:33.671Z
+Category: Feature Progress
+Importance: 10/10
+Source: https://github.com/aptos-labs/aptos-core
+URL: https://aptos-intelligence.vercel.app/#feature-progress-overview
+
+---
+
+## Advanced Analysis
+
+Aptos Feature Progress — April 2026
+Real-time tracking of 10 major features being built into Aptos. Data sourced from 600+ commits to aptos-labs/aptos-core, AIP status, and release tags.
+
+Overview
+
+FeatureStatusProgressLeadCommits (90d)Baby Raptr ConsensusMainnet95%ibalajiarun20Keyless Accounts (AIP-61)Mainnet95%alinush3Aptos Names ServiceMainnet (V2)90%0xChucky3Encrypted MempoolTestnet80%ibalajiarun19Confidential Assets (AIP-143)Code Merged65%alinush5Block-STM v2Development60%gelash8MonoMove VMDevelopment40%georgemitenkov13Archon (Proxy-Primary Consensus)Design / Early Dev35%Zhuolun Xiang9Zaptos (Optimistic Pipelining)Research25%TBD0Shardines (Internal Sharding)Research15%TBD0
+Baby Raptr Consensus — 95% (Mainnet)
+Merged Jolteon consensus + Quorum Store. Proposer optimistically includes batch digests without waiting for full PoS certificates. 4 hops instead of 6.
+Lead: ibalajiarun · Recent commits: 20 in 90 days
+What is being doneDeployed on mainnet. 20% latency improvement (100-150ms). Full Raptr adds prefix commit for further optimization.
+What is needed for productionFull Raptr (decoupled prefix voting) still in development
+EffectsFaster block times, reduced consensus latency by 20%, foundation for full Raptr and Zaptos.
+DependenciesQuorum Store V2 (deployed)
+Milestones (3/4)
+✅ Design complete (2025-06-01)✅ Testnet deployment (2025-09-01)✅ Mainnet deployment (2025-11-15)⬜ Full Raptr (prefix voting)
+Keyless Accounts (AIP-61) — 95% (Mainnet)
+Social login → blockchain accounts via OIDC + ZK proofs. No private key management needed.
+Lead: alinush · Recent commits: 3 in 90 days
+What is being doneDeployed and operational on mainnet. Google, Apple Sign-In working.
+What is needed for productionMore identity provider integrations, UX improvements
+EffectsMainstream user onboarding without crypto wallets. Users sign in with Google/Apple and get a blockchain account.
+Dependencies
+Milestones (3/4)
+✅ AIP-61 accepted (2024-06-01)✅ Testnet deployment (2024-09-01)✅ Mainnet deployment (2025-01-15)⬜ Additional providers
+Aptos Names Service — 90% (Mainnet (V2))
+Domain name system for Aptos. Maps .apt names to addresses. V2 on Token Objects with router, renewal, free subdomains.
+Lead: 0xChucky · Recent commits: 3 in 90 days
+What is being doneV2 deployed and operational. Move-2 syntax PR open. Router handles v1/v2 dual mode.
+What is needed for productionMove 2 migration completion, additional wallet integrations
+EffectsHuman-readable addresses across the entire Aptos ecosystem — wallets, dApps, on-chain contracts.
+DependenciesToken Objects (deployed)Aptos Framework (deployed)
+Milestones (4/5)
+✅ V1 launch (2022-12-07)✅ V2 rewrite (2023-10-03)✅ Migration support (2023-10-03)✅ Security hardening (2024-06-07)⬜ Move 2 migration
+Encrypted Mempool — 80% (Testnet)
+BIBE-based encrypted transaction ordering. Hides transaction contents until after consensus ordering — prevents MEV, front-running, sandwich attacks.
+Lead: ibalajiarun · Recent commits: 19 in 90 days
+What is being doneCiphertext verification in Quorum Store batches, per-BatchKind txn limits, decryption pipeline performance optimization, Chunky DKG integration
+What is needed for productionMainnet governance approval, security audit completion, DKG key rotation testing at scale
+EffectsFair transaction ordering for DeFi. No more front-running or sandwich attacks. CEX-like confidentiality with blockchain guarantees.
+DependenciesBaby Raptr consensus (deployed)Quorum Store V2 (deployed)Chunky DKG (in progress)
+Milestones (8/11)
+✅ Secret sharing infra (2025-12-17)✅ OptQS V2 payload (2025-12-03)✅ Decryption pipeline (2026-02-14)✅ Encrypted tx execution (2026-02-14)✅ Ciphertext verification (2026-03-19)✅ Per-kind batch limits (2026-03-19)✅ Forge test suite (2026-03-05)✅ Testnet deployment (2026-03-16)⬜ Security audit⬜ Mainnet governance vote⬜ Mainnet deployment
+Confidential Assets (AIP-143) — 65% (Code Merged)
+Zero-knowledge proof based private transfers. Balances and transfer amounts hidden using Twisted ElGamal encryption + range proofs.
+Lead: alinush · Recent commits: 5 in 90 days
+What is being donev1.1 shipped with homomorphic framework replacement, global auditor support, gas benchmarks. Tagged for v1.43 release.
+What is needed for productionSecurity audits, testnet stress testing, governance approval, gas optimization
+EffectsPrivate balances and transfers on Aptos. Users can send APT without revealing amounts. Foundation for confidential DeFi.
+DependenciesMove framework v1.43 (in progress)Twisted ElGamal (deployed)
+Milestones (5/7)
+✅ AIP-143 accepted (2025-10-01)✅ Core module implementation (2026-01-15)✅ v1.0 merged (2026-02-20)✅ v1.1 (homomorphic framework) (2026-03-23)✅ Testnet launch (2026-03-01)⬜ Security audit⬜ Mainnet (target Apr 2026)
+Block-STM v2 — 60% (Development)
+Next-gen parallel execution engine. Improved conflict resolution, better scheduling, support for cross-shard execution with Shardines.
+Lead: gelash · Recent commits: 8 in 90 days
+What is being doneV2 executor behind config flag in block_executor.rs. New scheduler with better task assignment. MVHashMap optimizations.
+What is needed for productionPerformance benchmarks vs v1, integration with Shardines, testnet validation
+EffectsHigher throughput (target 2-3x over v1), lower re-execution rate, better CPU utilization, enables Shardines.
+DependenciesShardines (research)MonoMove VM (in progress)
+Milestones (3/6)
+✅ V2 architecture design (2025-08-01)✅ V2 executor implementation (2026-01-01)✅ Config flag in block_executor (2026-02-15)⬜ Performance benchmarks⬜ Testnet rollout⬜ Mainnet rollout
+MonoMove VM — 40% (Development)
+Unified Move VM runtime that combines interpreter, compiler, and framework into a single optimized execution path. Gas instrumentation and executable caching.
+Lead: georgemitenkov · Recent commits: 13 in 90 days
+What is being doneExecutable cache template, gas instrumentation prototype, design document updates, runtime benchmarks.
+What is needed for productionExecutable cache stabilization, gas model finalization, compiler integration
+EffectsFaster smart contract execution, reduced memory overhead, simplified VM architecture, better gas accuracy.
+DependenciesMove Compiler v2 (active)Block-STM v2 (in progress)
+Milestones (3/6)
+✅ Design document (2026-02-01)✅ Executable cache template (2026-03-24)✅ Gas instrumentation prototype (2026-03-24)⬜ Runtime benchmarks⬜ Testnet integration⬜ Mainnet deployment
+Archon (Proxy-Primary Consensus) — 35% (Design / Early Dev)
+Next-gen validator coordination architecture. Replaces single-leader rotation with a proxy-primary cluster model. Co-located validators share state for ~10ms block times and ~30ms inclusion proofs. Built on Prefix Consensus (leaderless, f-censorship resistant).
+Lead: Zhuolun Xiang · Recent commits: 9 in 90 days
+What is being donePrefix Consensus prototype branch is live and actively updated. Strong Prefix Consensus paper published (arXiv:2602.02892). Baby Raptr and Velociraptr deployed on mainnet as stepping stones. Proxy-primary architecture being designed.
+What is needed for productionPrefix Consensus prototype integration, proxy-primary coordination protocol finalization, testnet validation, performance benchmarks vs Baby Raptr
+EffectsCEX-like latency (~10ms block times) with full decentralization. Enables real-time trading on-chain. Combined with encrypted mempool, creates a censorship-resistant global trading engine.
+DependenciesBaby Raptr (deployed)Prefix Consensus (prototype)Encrypted Mempool (testnet)
+Milestones (4/8)
+✅ Baby Raptr on mainnet (2025-11-15)✅ Velociraptr (40% block time reduction) (2026-01-15)✅ Prefix Consensus paper published (2026-02-02)✅ Prefix Consensus prototype branch (2026-03-19)⬜ Strong Prefix Consensus implementation⬜ Proxy-primary coordination protocol⬜ Testnet deployment⬜ Mainnet deployment
+Zaptos (Optimistic Pipelining) — 25% (Research)
+Start executing transactions BEFORE consensus finalizes. Speculate on likely order based on Quorum Store batches. If correct (common case), execution is 'free'.
+Lead: TBD · Recent commits: 0 in 90 days
+What is being doneResearch phase. Depends on Baby Raptr (now deployed) and Block-STM v2 for speculation support.
+What is needed for productionBaby Raptr stabilization (done), speculation accuracy testing, rollback mechanism
+EffectsNear-zero execution latency in the common case. Sub-200ms end-to-end finality target.
+DependenciesBaby Raptr (deployed)Block-STM v2 (in progress)
+Milestones (2/5)
+✅ Research paper (2025-06-01)✅ Baby Raptr prerequisite (2025-11-15)⬜ Prototype implementation⬜ Testnet validation⬜ Mainnet deployment
+Shardines (Internal Sharding) — 15% (Research)
+Each validator internally shards execution across multiple sub-executors. Target: >1M TPS by parallelizing within a single validator.
+Lead: TBD · Recent commits: 0 in 90 days
+What is being doneResearch phase. Three-layer approach: intra-block sharding, inter-block pipelining, and cross-shard atomic commits.
+What is needed for productionBlock-STM v2 completion, partition algorithm, cross-shard communication protocol
+Effects1M+ TPS. Makes Aptos the fastest L1 blockchain by a massive margin.
+DependenciesBlock-STM v2 (in progress)Zaptos (research)
+Milestones (1/5)
+✅ Research design (2025-09-01)⬜ Partition algorithm⬜ Prototype⬜ Testnet validation⬜ Mainnet deployment
+Full Stack Integration
+Client → Keyless Account (AIP-61)
+  → Encrypted Mempool (BIBE)
+    → Quorum Store (batch + disseminate)
+      → Consensus: Baby Raptr → Archon (Prefix Consensus v2, leaderless)
+        → Execution: Block-STM v2 + MonoMove VM
+          → Shardines (internal sharding, >1M TPS)
+            → Zaptos (optimistic pipelining)
+              → Storage: JMT + Hot State
+
+User-facing: ANS (.apt domains) + Confidential Assets (AIP-143)
+
+Timeline
+
+PhaseFeaturesExpected
+Live on MainnetBaby Raptr, Keyless Accounts, ANS v2, Storage ShardingNow
+Testnet / Code MergedEncrypted Mempool, Confidential AssetsQ2 2026
+Active DevelopmentBlock-STM v2, MonoMove VM, ArchonH2 2026
+Research / DesignZaptos, Shardines2027+
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+9 big upgrades are being built for Aptos right now. Here is where each one stands:
+
+🟢 Already live: Baby Raptr (faster consensus, 20% improvement), Keyless Accounts (sign in with Google), Aptos Names (.apt domains), Storage Sharding
+
+🟡 Almost ready: Encrypted Mempool (80% — hides your trades so nobody can front-run you), Confidential Assets (65% — private balances using zero-knowledge proofs)
+
+🔵 Being built: Block-STM v2 (60% — faster parallel execution), MonoMove VM (40% — entirely new engine for running smart contracts)
+
+⚪ Research phase: Zaptos (25% — execute before consensus confirms), Shardines (15% — split work across sub-engines for 1M+ TPS)
+
+The end goal: When everything ships together, Aptos will process over 1 million transactions per second with sub-200ms finality, no front-running possible, private balances, social login, and human-readable names. That is the full vision.
+
+Who is building what: Daniel Xiang leads consensus (Raptr/Prefix). Balaji Arun leads the encrypted mempool. georgemitenkov leads MonoMove VM. wqfish leads storage optimization. alinush leads Confidential Assets and Keyless Accounts.

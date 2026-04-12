@@ -29,3 +29,16 @@
 
 ## Full Content
 - [llms-full.txt](https://aptos-intelligence.vercel.app/llms-full.txt): Complete text of all reports
+
+## Static Report Pages (for LLM indexing)
+- [Report Index](https://aptos-intelligence.vercel.app/reports/index.txt): Index of all deep dive reports as plain text
+- [[Mainnet] Aptos Node Release v1.41.9](https://aptos-intelligence.vercel.app/reports/297966303.txt)
+- [[storage] Persist hot state KV insertions/evictions to DB](https://aptos-intelligence.vercel.app/reports/3368033534.txt)
+- [[prover] Global memory support for behavioral predicates](https://aptos-intelligence.vercel.app/reports/3366941053.txt)
+- [Confidential assets v1.1 (#18973)](https://aptos-intelligence.vercel.app/reports/3044960.txt)
+- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/reports/a9d20cd.txt)
+- [[vm] Fix several correctness issues in Move VM runtime (#19052)](https://aptos-intelligence.vercel.app/reports/c8db4ac.txt)
+- [[compiler-v2] Fix type inference to allow unifying struct constraints and receiver function constraints (#18929)](https://aptos-intelligence.vercel.app/reports/d22380f.txt)
+- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/reports/bef2812.txt)
+- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/reports/9a3caae.txt)
+- [[Smoke Test] Small race condition fixes.](https://aptos-intelligence.vercel.app/reports/544323b.txt)

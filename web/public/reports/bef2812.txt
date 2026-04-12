@@ -1,0 +1,68 @@
+# [test] Add encrypted transaction decryption smoke test (#18760)
+
+Author: ibalajiarun
+Date: 2026-02-19T05:17:26Z
+Category: Infrastructure
+Importance: 7/10
+Source: https://github.com/aptos-labs/aptos-core/commit/bef28124761f4cde83ce6a9911f19514d5a289b4
+URL: https://aptos-intelligence.vercel.app/#bef2812
+
+---
+
+## Advanced Analysis
+
+Files Modified
+
+Cargo.lock: added env_logger to the lockfile.
+dkg/src/chunky/dkg_manager.rs: streamlined an async call, added two info! log statements, and tweaked a comment.
+testsuite/smoke-test/Cargo.toml: added env_logger as a workspace dependency for the smoke‑test crate.
+testsuite/smoke-test/src/consensus/consensus_only.rs: extended the call to run_consensus_only_test (or equivalent) with two extra arguments false and None.
+testsuite/smoke-test/src/consensus/quorum_store_fault_tolerance.rs: same extra arguments added to the test harness.
+testsuite/smoke-test/src/helpers.rs: refactored the traffic generation call to a multi‑line style for readability (no functional change).
+testsuite/smoke-test/src/decryption.rs: new 215‑line test module that implements an end‑to‑end encrypted‑transaction decryption smoke test.
+testsuite/smoke-test/src/lib.rs: added mod decryption; under the #[cfg(test)] block so the new test is compiled only for tests.
+
+
+Why This Change Was Made
+The Aptos team introduced a smoke test to verify that encrypted user transactions can be decrypted after the DKG‑derived encryption key becomes available on‑chain. The test exercises the full stack: DKG key generation, ledger epoch transition, and the encryption_key field exposed by LedgerInfo. Adding env_logger ensures the new info! statements surface during CI runs, making debugging easier. The extra boolean and None arguments in the consensus harness likely toggle the inclusion of encrypted‑payload handling, aligning the existing consensus‑only tests with the new decryption scenario.
+
+Technical Details (Reference the Diff)
+In dkg/src/chunky/dkg_manager.rs the async call was collapsed from a two‑line block to a single line:
+self.process_certified_aggregated_subtranscript(certified_transcript).await
+Two new log statements were inserted to make the key‑derivation path observable:
+info!("deriving encryption key");
+info!("forming ceritified_transcript struct");
+The new test module testsuite/smoke-test/src/decryption.rs defines two helper functions. The first, wait_for_epoch, polls the REST endpoint until the ledger reaches a target epoch and then returns state.encryption_key (an Option>). The second (truncated in the diff) will generate traffic, wait for the epoch transition, retrieve the on‑chain encryption key, and attempt to decrypt any EncryptedPayload transactions that landed in the committed range.
+Key types referenced:
+
+aptos_types::on_chain_config::OnChainChunkyDKGConfig – provides the DKG parameters used to derive the encryption key.
+aptos_types::transaction::EncryptedPayload – the payload variant that stores ciphertext and a nonce.
+aptos_rest_client::Client::get_ledger_information – returns a struct containing encryption_key: Option>.
+
+The test harness in testsuite/smoke-test/src/consensus/consensus_only.rs and .../quorum_store_fault_tolerance.rs now passes false and None to the underlying test runner, which likely correspond to flags controlling whether encrypted payloads are emitted and whether a custom decryption key is supplied.
+
+Where It Fits in the Aptos Pipeline
+This change lives at the intersection of three layers:
+
+Consensus: The test spins up a validator swarm, runs the consensus‑only flow, and ensures blocks are produced across epochs.
+Execution: Encrypted transactions are executed by the Move VM; the VM produces a write set but the payload remains encrypted until the decryption key is available.
+Storage / Ledger Info: Once the DKG completes, the on‑chain encryption_key field is populated in LedgerInfo. The smoke test reads this field via the REST client and uses it to decrypt the stored EncryptedPayload bytes.
+
+Thus the test validates the end‑to‑end flow from DKG key generation → ledger epoch transition → key exposure → payload decryption.
+
+Implications
+
+Confidence: CI now automatically checks that encrypted transaction support works after a DKG round, reducing the risk of regressions in the upcoming EncryptedMempool feature.
+Observability: The added info! logs give operators visibility into when the encryption key is derived and when the certified transcript struct is built, which is useful for debugging DKG failures.
+Dependency Footprint: Adding env_logger to both the core lockfile and the smoke‑test crate introduces a lightweight logger that respects the Aptos_LOGGER env var, but it also slightly enlarges the binary size for test builds.
+Test Harness Changes: The extra boolean and None arguments may affect other smoke‑test scenarios; downstream developers need to ensure they understand the new signature of the test runner.
+Future Work: Once the decryption path is proven stable, the same scaffolding can be reused for performance benchmarks of encrypted payload handling and for integration tests that involve cross‑shard encrypted mempool traffic.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Imagine Aptos as a secret‑sharing party where everyone writes notes (transactions) in a locked box. The lock key is created by a group activity called DKG, and the key only appears on the party's scoreboard (ledger) after the activity finishes.
+Developer ibalajiarun added a new "smoke test" that sets up a mini‑party, waits until the scoreboard shows the new lock key, then tries to open the locked boxes and read the notes. If it works, we know the secret‑sharing and decryption pipeline is wired correctly.
+To see what’s happening, they also turned on a tiny logger (env_logger) and added a couple of info! messages that shout "deriving encryption key" and "forming certified transcript" when the DKG step runs. The test harness was tweaked to pass extra flags (false, None) so the party knows it should include encrypted notes in this round.
+Why it matters: without this check, a future update could break the ability to read encrypted transactions, and the whole blockchain would silently drop those notes. This test catches that early, and the logs help developers pinpoint where the problem occurs if it does.

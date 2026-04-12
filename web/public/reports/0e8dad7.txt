@@ -1,0 +1,89 @@
+# fix function checker for struct visibility (#19351)
+
+Author: rahxephon89
+Date: 2026-04-09T04:25:56Z
+Category: Security
+Importance: 8/10
+Source: https://github.com/aptos-labs/aptos-core/commit/0e8dad7b9b2f06ab023ad40c0aa42b950974d2e1
+URL: https://aptos-intelligence.vercel.app/#0e8dad7
+
+---
+
+## Advanced Analysis
+
+What specific code changed
+
+  third_party/move/move-compiler-v2/src/env_pipeline/function_checker.rs: extended the handling of ExpData::Match to traverse arm patterns and collect nested struct unpack operations.
+  third_party/move/move-compiler-v2/src/file_format_generator/function_generator.rs: added import of Visibility and ModuleId, replaced the direct language‑version check with a call to fun_ctx.check_cross_module_struct_access for both pack and unpack cases.
+  Three new transactional test suites (inline_friend_struct_pack, inline_package_struct_pack, inline_private_struct_pack) under transactional-tests/tests/no-v1-comparison/structs_visibility that assert the compiler rejects illegal struct packs based on visibility.
+
+Why this change was made
+The compiler previously only considered the discriminator of a match expression when detecting struct unpacking. Nested patterns such as Outer::V { Inner { val } } were missed, allowing illegal packs/unpacks to slip through the visibility checker. Additionally, the visibility logic was hard‑coded to a language‑version gate, which did not distinguish between public, friend, package, or private structs. The new logic centralizes visibility checks via check_cross_module_struct_access, enabling precise enforcement of the Visibility enum.
+How it works technically
+In function_checker.rs the original branch was:
+ExpData::Match(_, discriminator, _) => {
+    let id = discriminator.node_id();
+    if let Type::Struct(mid, sid, _) = env.get_node_type(id).drop_reference() {
+        push(mid.qualified(sid), StructOpKind::Unpack, id);
+    }
+}
+
+It has been replaced with a richer implementation:
+// Match expression unpacks the discriminator; arm patterns may unpack nested structs
+ExpData::Match(_, discriminator, arms) => {
+    let disc_node = discriminator.node_id();
+    // The discriminator itself is unpacked when it is a struct/enum type
+    if let Type::Struct(mid, sid, _) = env.get_node_type(disc_node).drop_reference() {
+        push(mid.qualified(sid), StructOpKind::Unpack, disc_node);
+    }
+    // Traverse sub‑patterns of each arm to catch nested struct unpacks not covered by
+    // the discriminator check above (e.g., `Inner { val }` inside `Outer::V { Inner { val } }`).
+    for arm in arms {
+        let sub_pats: Vec = match &arm.pattern {
+            // Handle nested struct unpacks in sub‑patterns.
+            Pattern::Struct(_, _, _, fields) => fields.iter().collect(),
+            Pattern::Tuple(_, pats) => pats.iter().collect(),
+            // No sub‑pattern
+            _ => vec![],
+        };
+        for pat in sub_pats {
+            if let Pattern::Struct(_, mid, sid, _) = pat {
+                push(mid.qualified(*sid), StructOpKind::Unpack, pat.node_id());
+            }
+        }
+    }
+}
+
+This code now walks each arm's pattern, extracts any Pattern::Struct or Pattern::Tuple sub‑patterns, and records an StructOpKind::Unpack for each nested struct.
+In function_generator.rs the old visibility gate was a direct language‑version check:
+if !struct_env
+    .env()
+    .language_version()
+    .language_version_for_public_struct()
+{
+    fun_ctx.internal_error(...);
+}
+
+It now calls a dedicated helper:
+if !fun_ctx.check_cross_module_struct_access(ctx, struct_env, fun_mid, "pack") {
+    return;
+}
+
+The helper (defined elsewhere) inspects struct_env.visibility() (using the newly imported Visibility) and the caller module's relationship (friend, package, or private) to decide if the pack/unpack is allowed. The same change is applied to the unpack path.
+Where it fits in the Aptos pipeline
+The modifications live in the Move compiler's function checking and bytecode generation stages, which occur after the source parsing stage and before the Move VM execution stage. In the broader Aptos pipeline this is part of the execution → compilation flow: source Move → function_checker (type/visibility validation) → function_generator (bytecode emission) → VM execution → state storage.
+Implications
+
+  Correct visibility enforcement: Packs and unpacks now respect friend, package, and private struct modifiers even when the struct appears inside nested match patterns or inline functions.
+  More accurate error reporting: The new tests demonstrate that the compiler emits clear errors such as "Invalid operation: pack on `A::W` can only be done within module `0xa::A` or its friend modules".
+  Reduced attack surface: Prevents malicious contracts from bypassing visibility constraints by hiding struct usage inside complex pattern matches.
+  Potential compile‑time impact: Traversing arm patterns adds a modest amount of work during function checking, but the impact is limited to functions containing match statements.
+  Future extensibility: Centralizing visibility logic in check_cross_module_struct_access makes it easier to evolve the Visibility model (e.g., adding new visibility categories) without scattering version checks throughout the codebase.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Rahxephon added a smarter inspector to the Move compiler. Imagine the compiler as a security guard who checks whether a piece of code is allowed to open a locked box (a struct). Before, the guard only looked at the front of the box and missed hidden compartments inside nested patterns, so some illegal openings slipped through.
+Now the guard also opens every drawer inside the box (the match arms) and makes sure each nested struct follows the visibility rules—whether it’s private, friend‑only, or package‑only. The guard also got a new rulebook (Visibility) instead of just checking the language version, so it can decide correctly based on who owns the box.
+The change matters because it stops bad contracts from cheating by packing or unpacking structs they shouldn’t touch, especially when those structs are hidden inside complex pattern matches or inline functions. The new tests show the compiler rejecting such attempts with clear error messages.
