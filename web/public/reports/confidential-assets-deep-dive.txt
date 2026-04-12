@@ -25,21 +25,30 @@ The system deployed on Aptos (pending mainnet governance vote as of April 2026) 
 Encryption Scheme: Chunked Twisted ElGamal
 From confidential_balance.move, a balance a is split into 16-bit chunks:
 const CHUNK_SIZE_BITS: u64 = 16;
-const PENDING_BALANCE_CHUNKS: u64 = 4;    // 4 x 16 = 64-bit pending
-const AVAILABLE_BALANCE_CHUNKS: u64 = 8;  // 8 x 16 = 128-bit available
+const PENDING_BALANCE_CHUNKS: u64 = 4;   // 4 × 16 = 64-bit pending
+const AVAILABLE_BALANCE_CHUNKS: u64 = 8; // 8 × 16 = 128-bit available
 Each chunk a_i is encrypted as a Twisted ElGamal ciphertext:
-P_i = a_i * G + r_i * H    (Pedersen commitment -- hides the value)
-R_i = r_i * ek              (ElGamal component -- enables decryption with dk)
+P_i = a_i * G + r_i * H    // Pedersen commitment (hides value)
+R_i = r_i * ek              // ElGamal component (enables decryption)
 where G is the Ristretto255 basepoint, H = basepoint_H (a nothing-up-my-sleeve second generator), ek is the user's encryption key (a Ristretto255 point), and r_i is per-chunk randomness.
 The "twist" is that the commitment base G and the encryption key base H are separated. This gives additive homomorphism: you can add two ciphertexts component-wise and get a valid encryption of the sum. From confidential_balance.move:
-public(friend) fun add_mut_base<T>(self: &mut Balance<T>,
-rhs_P: &vector<RistrettoPoint>, rhs_R: &vector<RistrettoPoint>) {
-vector::range(0, rhs_P.length()).for_each(|i| {
-self.P[i].point_add_assign(&rhs_P[i]);
-self.R[i].point_add_assign(&rhs_R[i]);
-});
+// From confidential_balance.move
+public(friend) fun add_mut_base<T>(
+    self: &mut Balance<T>,
+    rhs_P: &vector<RistrettoPoint>,
+    rhs_R: &vector<RistrettoPoint>
+) {
+    vector::range(0, rhs_P.length()).for_each(|i| {
+        self.P[i].point_add_assign(&rhs_P[i]);
+        self.R[i].point_add_assign(&rhs_R[i]);
+    });
 }
-To decrypt, the owner computes: a_i * G = P_i - dk * R_i (since dk * R_i = dk * r_i * ek = dk * r_i * dk^{-1} * H = r_i * H). Then they solve the discrete log of a_i * G for a_i, which is feasible because a_i is only 16 bits (baby-step giant-step in ~256 steps).
+}
+To decrypt, the owner computes: // Decryption
+a_i * G = P_i - dk * R_i
+// since dk * R_i = dk * r_i * ek = dk * r_i * dk^(-1) * H = r_i * H
+// Then solve discrete log of a_i * G for a_i
+// Feasible: a_i is only 16 bits → baby-step giant-step in ~256 steps. Then they solve the discrete log of a_i * G for a_i, which is feasible because a_i is only 16 bits (baby-step giant-step in ~256 steps).
 The On-Chain Data Structures
 The ConfidentialStore (one per user per asset type) from confidential_asset.move:
 enum ConfidentialStore has key {
@@ -54,12 +63,14 @@ auditor_hint: Option<EffectiveAuditorHint>
 }
 }
 A transfer amount (from confidential_amount.move) is encrypted under multiple keys simultaneously:
+// From confidential_amount.move
 struct Amount has drop {
-P: vector<RistrettoPoint>,              // shared Pedersen commitments
-R_sender: vector<RistrettoPoint>,       // encrypted under sender's key
-R_recip: vector<RistrettoPoint>,        // encrypted under recipient's key
-R_eff_aud: vector<RistrettoPoint>,      // effective auditor (optional)
-R_volun_auds: vector<vector<RistrettoPoint>>,  // voluntary auditors
+    P: vector<RistrettoPoint>,                    // shared Pedersen commitments
+    R_sender: vector<RistrettoPoint>,              // encrypted under sender key
+    R_recip: vector<RistrettoPoint>,               // encrypted under recipient key
+    R_eff_aud: vector<RistrettoPoint>,             // effective auditor (optional)
+    R_volun_auds: vector<vector<RistrettoPoint>>, // voluntary auditors
+}
 }
 The P components are shared because the committed values are identical -- only the R components differ per key.
 Six Core Operations
@@ -148,9 +159,16 @@ State: Two append-only structures: (1) Merkle tree of coin commitments, (2) null
 Mint authority: Every coin carries a Pointcheval-Sanders (PS) signature from a threshold k-of-n committee. PS signatures can be verified inside a ZK circuit without revealing the signature — you prove "I have a valid mint signature" without exposing it.
 The 5 Core Circuit Constraints
 1. sk_i is the secret key of pk_i
+
 sk_j is the secret key of pk_j
+
+
 nl_i = prf(i; sk_i)          // nullifier computation
+
+
 nl_j = prf(j; sk_j)          // nullifier computation
+
+
 v_i + v_j = v_A + v_B + v_gas  // value conservation
 The full production circuit has ~14 constraints including PS signature verification inside ZK, output commitment integrity, range proofs (DeKART), anonymous credential, and budget UTXO.
 The Anonymity Budget — Why the Bank of Israel Accepted It
