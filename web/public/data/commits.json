@@ -1,5 +1,13 @@
 [
   {
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "author": "aptos-labs",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "prefix-consensus-deep-dive",
     "title": "Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT",
     "author": "aptos-labs",

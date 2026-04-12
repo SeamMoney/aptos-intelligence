@@ -3,7 +3,7 @@
 These pages are plain-text versions of reports for LLM indexing.
 Each report is available at /reports/{slug}.txt
 
-## Reports (15 total)
+## Reports (16 total)
 
 - [[Mainnet] Aptos Node Release v1.41.9](https://aptos-intelligence.vercel.app/reports/297966303.txt) — Release, 6/10
 - [[storage] Persist hot state KV insertions/evictions to DB](https://aptos-intelligence.vercel.app/reports/3368033534.txt) — Feature Progress, 6/10
@@ -20,3 +20,4 @@ Each report is available at /reports/{slug}.txt
 - [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive.txt) — Feature Progress, 9/10
 - [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/reports/prefix-consensus-deep-dive.txt) — Feature Progress, 10/10
 - [Aptos Feature Progress — 10 Features Tracked from Research to Mainnet](https://aptos-intelligence.vercel.app/reports/feature-progress-overview.txt) — Feature Progress, 10/10
+- [Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art](https://aptos-intelligence.vercel.app/reports/randomness-deep-dive.txt) — Feature Progress, 10/10
