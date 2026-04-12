@@ -1,0 +1,141 @@
+# Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos
+
+Author: alinush
+Date: 2026-04-10T00:00:00Z
+Category: Feature Progress
+Importance: 10/10
+Source: https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset
+URL: https://aptos-intelligence.vercel.app/#confidential-assets-deep-dive
+
+---
+
+## Advanced Analysis
+
+Alin Tomescu's Confidential Assets: From Academic Theory to Production Encryption
+Alin Tomescu (alinush), Aptos Labs' Head of Cryptography since the founding team was assembled in February 2022, has shipped what may be the most sophisticated on-chain encryption system in production blockchain history. But to understand what he built -- and what he has not yet built -- you need to understand the gap between his academic research on fully anonymous payments and what is actually deployed on Aptos today.
+The Academic Foundation: UTT (2022)
+Tomescu's most ambitious cryptographic research is UTT: Decentralized Ecash with Accountable Privacy (IACR ePrint 2022/452), co-authored with Adithya Bhat, Benny Applebaum, Ittai Abraham, Guy Gueta, Benny Pinkas, and Avishay Yanai. UTT proposes a system where sender identity, receiver identity, AND transaction amounts are ALL hidden -- what the paper calls "sensibly-anonymous decentralized payments." The key innovations are:
+1. Anonymity budgets: Users can send payments anonymously, but only up to a configurable amount per time period. This balances privacy with accountability -- you cannot launder unlimited funds.
+2. Pointcheval-Sanders (PS) signatures: UTT uses re-randomizable anonymous credentials built from PS signatures. A coin is essentially a signed credential that can be "refreshed" (re-randomized) so that the new coin is unlinkable to the old one. This is what provides sender anonymity.
+3. No zkSNARKs: Unlike Zcash, UTT deliberately avoids general-purpose zero-knowledge circuits. It uses sigma protocols and structured algebraic proofs, which are simpler, faster (~1,000 payments/sec at ~100ms latency), and require no trusted setup.
+4. Threshold authorities: The bank, registrar, and auditor are all implemented via threshold cryptography over BFT infrastructure, so no single party holds the keys to break anonymity.
+Tomescu also published related work on pairing-based anonymous credentials and the power of re-randomization, showing how PS signatures can sign Pedersen commitments directly and be re-randomized together with the signed commitment -- the core mechanism that makes UTT coins unlinkable.
+What Is Actually Deployed: Confidential Assets v1.1
+The system deployed on Aptos (pending mainnet governance vote as of April 2026) is fundamentally different from UTT. It provides amount confidentiality only. Sender and receiver addresses remain fully visible on-chain. Here is exactly how it works, from the source code:
+The Encryption Scheme: Chunked Twisted ElGamal
+From confidential_balance.move, a balance a is split into 16-bit chunks:
+const CHUNK_SIZE_BITS: u64 = 16;
+const PENDING_BALANCE_CHUNKS: u64 = 4;    // 4 x 16 = 64-bit pending
+const AVAILABLE_BALANCE_CHUNKS: u64 = 8;  // 8 x 16 = 128-bit available
+Each chunk a_i is encrypted as a Twisted ElGamal ciphertext:
+P_i = a_i * G + r_i * H    (Pedersen commitment -- hides the value)
+R_i = r_i * ek              (ElGamal component -- enables decryption with dk)
+where G is the Ristretto255 basepoint, H = basepoint_H (a nothing-up-my-sleeve second generator), ek is the user's encryption key (a Ristretto255 point), and r_i is per-chunk randomness.
+The "twist" is that the commitment base G and the encryption key base H are separated. This gives additive homomorphism: you can add two ciphertexts component-wise and get a valid encryption of the sum. From confidential_balance.move:
+public(friend) fun add_mut_base<T>(self: &mut Balance<T>,
+rhs_P: &vector<RistrettoPoint>, rhs_R: &vector<RistrettoPoint>) {
+vector::range(0, rhs_P.length()).for_each(|i| {
+self.P[i].point_add_assign(&rhs_P[i]);
+self.R[i].point_add_assign(&rhs_R[i]);
+});
+}
+To decrypt, the owner computes: a_i * G = P_i - dk * R_i (since dk * R_i = dk * r_i * ek = dk * r_i * dk^{-1} * H = r_i * H). Then they solve the discrete log of a_i * G for a_i, which is feasible because a_i is only 16 bits (baby-step giant-step in ~256 steps).
+The On-Chain Data Structures
+The ConfidentialStore (one per user per asset type) from confidential_asset.move:
+enum ConfidentialStore has key {
+V1 {
+pause_incoming: bool,
+normalized: bool,
+transfers_received: u64,
+pending_balance: CompressedBalance<Pending>,   // 4-chunk, 64-bit
+available_balance: CompressedBalance<Available>, // 8-chunk, 128-bit
+ek: CompressedRistretto,                        // user's encryption key
+auditor_hint: Option<EffectiveAuditorHint>
+}
+}
+A transfer amount (from confidential_amount.move) is encrypted under multiple keys simultaneously:
+struct Amount has drop {
+P: vector<RistrettoPoint>,              // shared Pedersen commitments
+R_sender: vector<RistrettoPoint>,       // encrypted under sender's key
+R_recip: vector<RistrettoPoint>,        // encrypted under recipient's key
+R_eff_aud: vector<RistrettoPoint>,      // effective auditor (optional)
+R_volun_auds: vector<vector<RistrettoPoint>>,  // voluntary auditors
+}
+The P components are shared because the committed values are identical -- only the R components differ per key.
+The Six Core Operations
+1. register(): Publishes a ConfidentialStore with zero balances. Requires a sigma protocol proof that the user knows their decryption key dk corresponding to their encryption key ek (prevents registration with someone else's key).
+2. deposit(): Converts public tokens into confidential balance. Transfers FA tokens from user's primary store into the confidential asset pool. The amount is added to the pending balance with no randomness (R = identity), since the deposited amount is public anyway. From the code:
+add_assign_pending(&mut ca_store.pending_balance,
+&new_pending_u64_no_randomness(amount));
+3. withdraw_to(): Converts confidential balance back to public tokens. Requires: (a) a sigma protocol proof that the new balance is computed correctly from the old balance minus the withdrawal amount, and (b) a Bulletproofs range proof that the new balance is non-negative (each chunk in [0, 2^16)).
+4. confidential_transfer(): The core privacy operation. Transfers a SECRET amount from sender's available balance to recipient's pending balance. Requires TWO range proofs (new sender balance >= 0, transfer amount >= 0) and a sigma protocol proof that ties everything together. The transfer proof (from sigma_protocol_transfer.move) verifies a complex relation R^{-}_{txfer} that simultaneously proves:
+- The sender knows dk and can decrypt their old balance
+- The new balance P components are valid commitments
+- The transfer amount P components commit to the same values under all keys
+- Balance conservation: old_balance = new_balance + transfer_amount
+5. rollover_pending_balance(): Moves accumulated pending balance into available balance. This is a non-cryptographic operation -- just adds the compressed ciphertexts element-wise. Required before spending because the available balance has 8 chunks (128-bit) while pending has only 4 (64-bit).
+6. rotate_encryption_key(): Re-encrypts the available balance under a new key. Requires pausing incoming transfers first and rolling over any pending balance. The proof (sigma_protocol_key_rotation.move) proves correct re-encryption without revealing the balance.
+The Normalize Operation
+An additional operation, normalize(), is a withdraw with amount=0. It re-encrypts the available balance with fresh randomness, ensuring all chunks are within 16-bit bounds. This is required after rollover because adding pending chunks to available chunks can cause chunk values to exceed 16 bits (e.g., if many deposits accumulated). Normalization "re-chunks" the balance correctly.
+Range Proofs: Bulletproofs over Ristretto255
+From confidential_range_proofs.move, range proofs use batch Bulletproofs verification:
+const BULLETPROOFS_DST: vector<u8> = b"AptosConfidentialAsset/BulletproofRangeProof";
+public(friend) fun assert_valid_range_proof(
+commitments: &vector<CompressedRistretto>,
+zkrp: &RangeProof
+) {
+verify_batch_range_proof(commitments,
+&ristretto255::basepoint(), &ristretto255::hash_to_point_base(),
+zkrp, confidential_balance::get_chunk_size_bits(), // 16
+BULLETPROOFS_DST)
+}
+Each range proof proves that ALL chunks in a balance are in [0, 2^16). Batch verification proves all chunks simultaneously in a single proof.
+The Sigma Protocol Framework
+Tomescu built a composable sigma protocol library directly in Move (a first for any blockchain). From sigma_protocols/README.md: "Due to Move's limitations (e.g., lack of traits), our sigma-protocol library is rather primitive and potentially-dangerous if not used carefully."
+The framework represents proofs as homomorphism checks psi(w) = f(X), where w is the secret witness and X is the public statement. Each proof is described as a RepresentationVec -- a list of multi-scalar multiplications (MSMs) that the verifier checks. The Fiat-Shamir transform (sigma_protocol_fiat_shamir.move) makes these non-interactive.
+The Auditor Architecture
+The system supports three levels of auditing:
+- Global auditor: Set by governance, applies to all asset types by default
+- Asset-specific auditor: Overrides global auditor for a particular token type
+- Voluntary auditors: Sender can optionally encrypt amounts for additional parties (e.g., compliance officers)
+Crucially, auditors can only see data from after their appointment. From the code, each auditor has an epoch counter that increments on install/change. The EffectiveAuditorHint stored in each ConfidentialStore tracks which auditor the ciphertext was encrypted for, allowing auditors to detect stale (pre-appointment) data they cannot decrypt.
+No auditor is assigned at launch. Governance retains the authority to install one later.
+Performance Characteristics
+Client-side: Proof generation ~25ms, amount decryption ~0.3-0.5ms, balance decryption (baby-step giant-step over 16-bit chunks) ~13ms native / 130-260ms browser.
+Validator-side: Proof verification ~2ms. No trusted setup required.
+The Gap Between UTT and What Is Deployed
+This is the critical analysis. Tomescu's academic work (UTT) proposes FULL transaction anonymity -- sender, receiver, and amount all hidden. What Aptos ships hides ONLY amounts. Here is the precise gap:
+What UTT has that Confidential Assets does not:
+1. Sender anonymity: In UTT, coins are re-randomizable credentials. The sender "spends" an old coin and "mints" a new one that is cryptographically unlinkable. On Aptos, the sender's address is plainly visible in every transaction.
+2. Receiver anonymity: UTT delivers coins to recipients without revealing who received them. On Aptos, the recipient address is a required parameter of confidential_transfer().
+3. UTXO-style coin model: UTT uses a coin-based (UTXO) model where coins are created and consumed. Aptos uses an account-based model where balances are updated in place. This is a fundamental architectural incompatibility.
+4. Anonymous credentials: UTT requires Pointcheval-Sanders blind signatures, credential issuance, and re-randomization. None of this exists in the Aptos framework.
+5. Anonymity budgets: UTT's killer feature -- limiting anonymous spending per time period -- requires infrastructure to enforce limits without revealing identity.
+What would it take to implement full UTT on Aptos:
+The honest answer is that it would require a fundamental redesign. You cannot bolt UTT-level privacy onto an account-based model. You would need: (a) a parallel UTXO-style coin registry, (b) threshold blind signing infrastructure for credential issuance, (c) nullifier sets for double-spend prevention, (d) re-randomizable credential verification in the Move VM, and (e) anonymity budget enforcement. The DKG/threshold infrastructure in crates/aptos-dkg/ is the most relevant existing building block, but it would need significant extension for blind signing.
+Existing Cryptographic Primitives That Could Enable Future Privacy
+The aptos-core codebase has several relevant cryptographic crates beyond what confidential assets uses:
+1. crates/aptos-crypto/src/elgamal/ -- Generic ElGamal over Curve25519 (with an ElGamalFriendlyGroup trait for abstraction) and BLS12-381 groups
+2. crates/aptos-crypto/src/bulletproofs/ -- Bulletproofs range proofs (currently max 64-bit range)
+3. crates/aptos-dkg/ -- Full distributed key generation infrastructure: PVSS (publicly verifiable secret sharing), weighted VUF (Pinkas scheme), range proofs over BLS12-381, sigma protocols
+4. crates/aptos-dkg/src/pvss/chunky/ -- Chunked ElGamal schemes for DKG transcripts (including HKZG commitment-based variants)
+5. The sigma protocol framework in Move -- composable proof building blocks that could be extended for new relations
+Tomescu's Broader Cryptographic Contributions to Aptos
+Beyond confidential assets, Tomescu designed and deployed:
+- The Aptos on-chain randomness system (DKG + weighted PVSS + Pinkas WVUF), running in production with 112+ validators
+- Scalable threshold cryptography (IEEE S&P 2020) enabling DKG at scale
+- The cryptographic foundations for the encrypted mempool (BIBE -- Blind Identity-Based Encryption) for MEV prevention
+The Bottom Line
+Confidential Assets v1.1 is a carefully-engineered, production-grade encrypted balance system that solves a real problem -- balance and amount privacy -- without requiring changes to Aptos consensus. But it is explicitly NOT the full UTT vision. The sender and receiver are visible. The anonymity budgets, re-randomizable credentials, and threshold blind signing from the UTT paper remain unimplemented. Whether Aptos moves toward full UTT-level privacy depends on whether the ecosystem demands sender/receiver anonymity alongside amount confidentiality, and whether the account-model constraints can be overcome -- possibly through a hybrid UTXO layer.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+The Big Picture: Imagine you have a piggy bank that everyone can see. Right now on most blockchains, everyone can see exactly how many coins are in your piggy bank and exactly how many you send to a friend. That is a big privacy problem.
+What Alin Built (Confidential Assets): Alin built a special magic box for your piggy bank. When you put coins in the box, the box scrambles the number so nobody can read it. When you send coins to a friend, a magic envelope carries the coins -- the envelope shows YOUR name and YOUR FRIEND'S name on the outside (so everyone knows who sent what to whom), but the number of coins inside is scrambled.
+How the Scrambling Works (Twisted ElGamal): Think of it like a combination lock with two parts. Part 1 is a "commitment" -- you write the amount on a piece of paper, fold it up with some random confetti (that is the randomness r), and seal it in an envelope (that is P = amount * G + r * H). Nobody can open the envelope to see the number. Part 2 is the "key hole" -- you stamp the confetti pattern with your personal stamp (that is R = r * ek). Only someone with your personal key can match the confetti to unseal the envelope and read the number. The cool trick: if you stack two sealed envelopes on top of each other, the numbers inside ADD together without anyone opening them. That is "homomorphic encryption" -- the blockchain can update your balance without ever seeing the actual number.
+What Alin's Research Paper (UTT) Would Do: In his dream version (the UTT paper), even the NAMES on the outside of the envelope would be hidden. Nobody would know who sent coins to whom. It would be like sending a letter with no return address and no "to" address -- but the postal system still magically delivers it. To do this, you would need "anonymous credentials" -- special ID cards that prove you are a real person without showing your name.
+The Gap: Right now, Aptos has the scrambled-numbers part working (that is the hard part from an engineering standpoint). But the scrambled-names part (true anonymity) from UTT is much harder and has not been built yet. It would require changing how Aptos tracks who owns what -- from a list of accounts to something more like a pile of anonymous coins.
+Why This Matters: Even just hiding amounts is a huge deal. It means hackers cannot target you because they see a big balance, employers cannot snoop on your salary, and competitors cannot see your treasury. The full UTT vision would add even more privacy, but the current system is already a major leap from public balances.
+What You Learned: You now know that Alin Tomescu is a cryptographer who studied how to make ALL transaction details invisible (UTT paper), but first deployed a simpler system that hides only the amounts (Confidential Assets). The gap between the two is not just engineering effort -- it requires a fundamentally different architecture for how coins are tracked on-chain.
