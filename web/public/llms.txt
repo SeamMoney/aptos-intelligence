@@ -1,0 +1,31 @@
+# Aptos Intelligence
+> Real-time technical analysis of every commit to aptos-labs/aptos-core
+
+## Deep Dives
+- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/#a9d20cd): Feature Progress by ibalajiarun
+- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/#bef2812): Infrastructure by ibalajiarun
+- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/#9a3caae): API by JoshLind
+- [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/#ans-deep-dive): Feature Progress by 0xChucky
+- [fix function checker for struct visibility (#19351)](https://aptos-intelligence.vercel.app/#0e8dad7): Security by rahxephon89
+- [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/#aggregator-nft-deep-dive): Feature Progress by aptos-labs
+- [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/#prefix-consensus-deep-dive): Feature Progress by aptos-labs
+
+## Feature Progress
+- Encrypted Mempool: 80% (Testnet) — BIBE-based encrypted transaction ordering. Hides transaction contents until afte
+- Confidential Assets (AIP-143): 65% (Code Merged) — Zero-knowledge proof based private transfers. Balances and transfer amounts hidd
+- Baby Raptr Consensus: 95% (Mainnet) — Merged Jolteon consensus + Quorum Store. Proposer optimistically includes batch 
+- Block-STM v2: 60% (Development) — Next-gen parallel execution engine. Improved conflict resolution, better schedul
+- MonoMove VM: 40% (Development) — Unified Move VM runtime that combines interpreter, compiler, and framework into 
+- Keyless Accounts (AIP-61): 95% (Mainnet) — Social login → blockchain accounts via OIDC + ZK proofs. No private key manageme
+- Zaptos (Optimistic Pipelining): 25% (Research) — Start executing transactions BEFORE consensus finalizes. Speculate on likely ord
+- Shardines (Internal Sharding): 15% (Research) — Each validator internally shards execution across multiple sub-executors. Target
+- Aptos Names Service: 90% (Mainnet (V2)) — Domain name system for Aptos. Maps .apt names to addresses. V2 on Token Objects 
+
+## Stats
+- 603 commits tracked
+- 767 reports with analysis
+- 9 features tracked
+- Auto-refreshes every 2 hours via GitHub Actions
+
+## Full Content
+- [llms-full.txt](https://aptos-intelligence.vercel.app/llms-full.txt): Complete text of all reports
