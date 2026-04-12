@@ -1,0 +1,98 @@
+<h2>The Full Aptos Privacy Stack: Three Zones</h2>
+
+<p>Confidential Assets is not standalone — it is Zone 1 of a three-layer privacy architecture designed by Alin Tomescu.</p>
+
+<table>
+<tr><th></th><th>Zone 0 (Public)</th><th>Zone 1 (Confidential Assets)</th><th>Zone 2 (UTT)</th></tr>
+<tr><td><strong>What is hidden</strong></td><td>Nothing</td><td>Amounts and balances</td><td>Amounts, addresses, full trade graph</td></tr>
+<tr><td><strong>What is visible</strong></td><td>Everything</td><td>Sender and receiver addresses</td><td>Only that a transaction happened</td></tr>
+<tr><td><strong>Compliance</strong></td><td>Full transparency</td><td>Auditor key (designated decryptor)</td><td>Anonymity budget (monthly cap enforced by ZK circuit)</td></tr>
+<tr><td><strong>Model</strong></td><td>Account</td><td>Account</td><td>UTXO</td></tr>
+<tr><td><strong>Status</strong></td><td>Live</td><td>Code merged, pending governance</td><td>Research (blog posted Mar 21, 2026)</td></tr>
+</table>
+
+<h2>UTT: Untraceable Transactions (Zone 2)</h2>
+
+<p>Alin's research from 2018 (VMware), rebooted 2021. Published at Stanford Blockchain Conference 2023, presented at Yale and a16z. Bank of Israel pilot deployment for CBDC privacy research.</p>
+
+<p><strong>Authors:</strong> Alin Tomescu (lead), Adithya Bhat, Benny Applebaum, Ittai Abraham (Aptos co-founder, now a16z), Guy Gueta, Benny Pinkas (Bar-Ilan, world's leading MPC researcher), Avishay Yanai.</p>
+
+<h3>How UTT Works</h3>
+
+<p>UTXO coin model. Every coin is a sealed envelope — a Pedersen commitment <code>C = Commit(pid, sn, v)</code>. The commitment hides the owner's pseudonymous ID, a secret serial number, and the value. Onchain, a coin looks like a random 32-byte group element.</p>
+
+<p><strong>Nullifier:</strong> <code>nl = prf(sn; sk)</code> using Dodis-Yampolskiy PRF over BN254 (Poseidon hash — 220 constraints vs 25,000 for SHA256). Only the owner can compute it. Same coin always produces same fingerprint — prevents double-spend without revealing identity.</p>
+
+<p><strong>State:</strong> Two append-only structures: (1) Merkle tree of coin commitments, (2) nullifier set. Neither is ever reduced. Frontier Merkle tree: O(log n) storage = 1,024 bytes forever regardless of tree size. Nullifiers in Aptos Table: O(1) lookups.</p>
+
+<p><strong>Mint authority:</strong> Every coin carries a Pointcheval-Sanders (PS) signature from a threshold k-of-n committee. PS signatures can be verified inside a ZK circuit without revealing the signature — you prove "I have a valid mint signature" without exposing it.</p>
+
+<h3>The 5 Core Circuit Constraints</h3>
+
+<pre><code>1. sk_i is the secret key of pk_i
+2. sk_j is the secret key of pk_j
+3. nl_i = prf(i; sk_i)          // nullifier computation
+4. nl_j = prf(j; sk_j)          // nullifier computation
+5. v_i + v_j = v_A + v_B + v_gas  // value conservation</code></pre>
+
+<p>The full production circuit has ~14 constraints including PS signature verification inside ZK, output commitment integrity, range proofs (DeKART), anonymous credential, and budget UTXO.</p>
+
+<h3>The Anonymity Budget — Why the Bank of Israel Accepted It</h3>
+
+<p>Every user gets a <strong>budget coin</strong> — a Pedersen commitment. When spending privately, the transaction is 3-in-3-out: two payment coins + old budget coin → two new coins + new budget coin (reduced balance).</p>
+
+<p>ZK circuit enforces: <code>budget_new = budget_old - amount >= 0</code>. The budget coin is a real UTXO — gets destroyed and reissued with every transaction. Cannot be double-spent or cloned. At $10K/month cap: laundering $100M takes 833 years. Compliance is built into the math, not policy.</p>
+
+<h3>The Unlinkability Property</h3>
+
+<p>An outside observer sees a Merkle tree full of sealed envelopes (commitments that look like random group elements) and a nullifier set of spent markers (also look random). There is no computable link between any nullifier and any envelope without knowing the owner's <code>sk</code>. The ZK proof establishes that link in the circuit without ever revealing it publicly. This is why it is "invisible" — the entire graph of who sent to whom is cryptographically erased.</p>
+
+<h3>Deployment on Aptos</h3>
+
+<p>Tier 3 Move module — NOT a consensus-layer change. All primitives already in Move VM: Groth16, BLS12-381, Ristretto255, Bulletproofs. One governance vote needed. Block-STM serialization on <code>UTTState</code> limits throughput to ~200-500 tx/s (acceptable for a privacy layer).</p>
+
+<p>IBE (Identity-Based Encryption) enables send-to-identity: send to a phone number or email rather than a wallet address. Shared infrastructure with ACE.</p>
+
+<h2>ACE: Access Control Encryption</h2>
+
+<p>Encrypts any data. A Move smart contract decides who can decrypt. If the contract says yes, a distributed committee releases the decryption key. If no, nobody can decrypt. Built on IBE threshold decryption.</p>
+
+<p>Three components: <strong>Committee</strong> (k-of-n IBE key share holders), <strong>ContractID</strong> (any Move <code>#[view]</code> function returning bool), <strong>ProofOfPermission</strong> (signed proof verified by workers before releasing key shares).</p>
+
+<p><strong>Why better than token gating:</strong> Token gating relies on a server deciding to serve content — hack the server, get the content. With ACE, the platform never holds the decryption key. Even fully compromised, an attacker gets useless ciphertext.</p>
+
+<p><strong>ContractID as arbitrary logic:</strong> Time-locks (auto-release at block height), multi-condition gates (hold stake AND active payment AND registered 30+ days), revocation (lapsed payment → contract returns false → no new keys). Composable with CA and UTT.</p>
+
+<p>Status: TypeScript SDK live. Public test workers operational. Production requires own workers with dedicated fullnodes.</p>
+
+<h2>DeKART: Range Proofs Inside ZK Circuits</h2>
+
+<p>The UTT circuit needs range proofs (non-negative values). Standard Bulletproofs are expensive inside Groth16 (thousands of constraints for MSM verification). <strong>DeKART</strong> (from Alin's group) uses lookup arguments instead — cheap inside R1CS. Result: full circuit stays at ~14 constraints. ~1-2 second proving on a laptop.</p>
+
+<h2>The Encrypted Mempool: Pre-Execution Privacy</h2>
+
+<p>Separate primitive. Operates at consensus layer, before CA/UTT/ACE apply. Transactions submitted encrypted → validators order ciphertexts → decrypt only after ordering is locked. Uses threshold decryption via BIBE (same DKG as randomness module). Prevents MEV and front-running at the protocol level.</p>
+
+<h2>The Aptos Cryptography Team</h2>
+
+<table>
+<tr><th>Person</th><th>Role</th><th>Key Contributions</th></tr>
+<tr><td><strong>Alin Tomescu</strong></td><td>Head of Cryptography, Aptos Labs</td><td>UTT (lead), AIP-143, ACE, DKG. PhD MIT (Srini Devadas). Ex-VMware Research.</td></tr>
+<tr><td><strong>Ittai Abraham</strong></td><td>Aptos co-founder → a16z crypto</td><td>UTT co-author, HotStuff consensus. PhD Hebrew U (Michael Ben-Or, MPC founder).</td></tr>
+<tr><td><strong>Benny Pinkas</strong></td><td>Bar-Ilan professor, VMware Research</td><td>UTT co-author. Top 5 global MPC researcher. Bank of Israel credibility.</td></tr>
+<tr><td><strong>Balaji Arun</strong></td><td>Consensus engineer, Aptos Labs</td><td>Encrypted mempool, DKG/RandManager. 20 consensus commits in 90 days.</td></tr>
+</table>
+
+<h2>The Gap: What Is Not Yet Deployed</h2>
+
+<p>Confidential Assets (Zone 1) is shipped. UTT (Zone 2) is researched and designed but <strong>not deployed</strong>. The gap is architectural:</p>
+
+<ul>
+<li>UTT requires UTXO coin model — parallel module alongside the existing account system</li>
+<li>PS signatures for mint authority need Move native implementation</li>
+<li>Nullifier set as Aptos Table — straightforward but unbuilt</li>
+<li>Groth16 verifier exists in Move VM (added for AIP-143) — the circuit needs deployment</li>
+<li>IBE infrastructure shared with ACE (already prototyped)</li>
+</ul>
+
+<p>Alin posted the UTT blog March 21, 2026 — three days before the AIP-143 AMA. The sequencing is deliberate: CA ships first, UTT next. All cryptographic primitives are in the VM. One governance vote away.</p>
