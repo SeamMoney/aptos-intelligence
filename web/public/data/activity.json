@@ -143,16 +143,8 @@
         "CICD:build-images",
         "CICD:run-forge-e2e-perf"
       ]
-    },
-    {
-      "number": 19318,
-      "title": "Change hiding KZG and DeKart setup to allow for using preexisting powers of tau",
-      "author": "rex1fernando",
-      "merged_at": "2026-04-08T20:28:18Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19318",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-11T22:33:58.173Z"
+  "lastUpdated": "2026-04-12T02:40:20.598Z"
 }
