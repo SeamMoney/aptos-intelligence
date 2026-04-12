@@ -11,8 +11,8 @@
     "sha": "randomness-deep-dive",
     "title": "Aptos On-Chain Randomness \u2014 Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move",
+    "date": "2026-04-09T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
