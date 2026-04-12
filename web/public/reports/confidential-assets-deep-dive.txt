@@ -11,18 +11,18 @@ URL: https://aptos-intelligence.vercel.app/#confidential-assets-deep-dive
 
 ## Advanced Analysis
 
-Alin Tomescu's Confidential Assets: From Academic Theory to Production Encryption
+Alin Tomescu: From Academic Theory to Production Encryption
 Alin Tomescu (alinush), Aptos Labs' Head of Cryptography since the founding team was assembled in February 2022, has shipped what may be the most sophisticated on-chain encryption system in production blockchain history. But to understand what he built -- and what he has not yet built -- you need to understand the gap between his academic research on fully anonymous payments and what is actually deployed on Aptos today.
 The Academic Foundation: UTT (2022)
 Tomescu's most ambitious cryptographic research is UTT: Decentralized Ecash with Accountable Privacy (IACR ePrint 2022/452), co-authored with Adithya Bhat, Benny Applebaum, Ittai Abraham, Guy Gueta, Benny Pinkas, and Avishay Yanai. UTT proposes a system where sender identity, receiver identity, AND transaction amounts are ALL hidden -- what the paper calls "sensibly-anonymous decentralized payments." The key innovations are:
-1. Anonymity budgets: Users can send payments anonymously, but only up to a configurable amount per time period. This balances privacy with accountability -- you cannot launder unlimited funds.
-2. Pointcheval-Sanders (PS) signatures: UTT uses re-randomizable anonymous credentials built from PS signatures. A coin is essentially a signed credential that can be "refreshed" (re-randomized) so that the new coin is unlinkable to the old one. This is what provides sender anonymity.
-3. No zkSNARKs: Unlike Zcash, UTT deliberately avoids general-purpose zero-knowledge circuits. It uses sigma protocols and structured algebraic proofs, which are simpler, faster (~1,000 payments/sec at ~100ms latency), and require no trusted setup.
-4. Threshold authorities: The bank, registrar, and auditor are all implemented via threshold cryptography over BFT infrastructure, so no single party holds the keys to break anonymity.
+Anonymity budgets: Users can send payments anonymously, but only up to a configurable amount per time period. This balances privacy with accountability -- you cannot launder unlimited funds.
+Pointcheval-Sanders (PS) signatures: UTT uses re-randomizable anonymous credentials built from PS signatures. A coin is essentially a signed credential that can be "refreshed" (re-randomized) so that the new coin is unlinkable to the old one. This is what provides sender anonymity.
+No zkSNARKs: Unlike Zcash, UTT deliberately avoids general-purpose zero-knowledge circuits. It uses sigma protocols and structured algebraic proofs, which are simpler, faster (~1,000 payments/sec at ~100ms latency), and require no trusted setup.
+Threshold authorities: The bank, registrar, and auditor are all implemented via threshold cryptography over BFT infrastructure, so no single party holds the keys to break anonymity.
 Tomescu also published related work on pairing-based anonymous credentials and the power of re-randomization, showing how PS signatures can sign Pedersen commitments directly and be re-randomized together with the signed commitment -- the core mechanism that makes UTT coins unlinkable.
-What Is Actually Deployed: Confidential Assets v1.1
+What Is Deployed: Confidential Assets v1.1
 The system deployed on Aptos (pending mainnet governance vote as of April 2026) is fundamentally different from UTT. It provides amount confidentiality only. Sender and receiver addresses remain fully visible on-chain. Here is exactly how it works, from the source code:
-The Encryption Scheme: Chunked Twisted ElGamal
+Encryption Scheme: Chunked Twisted ElGamal
 From confidential_balance.move, a balance a is split into 16-bit chunks:
 const CHUNK_SIZE_BITS: u64 = 16;
 const PENDING_BALANCE_CHUNKS: u64 = 4;    // 4 x 16 = 64-bit pending
@@ -62,20 +62,20 @@ R_eff_aud: vector<RistrettoPoint>,      // effective auditor (optional)
 R_volun_auds: vector<vector<RistrettoPoint>>,  // voluntary auditors
 }
 The P components are shared because the committed values are identical -- only the R components differ per key.
-The Six Core Operations
-1. register(): Publishes a ConfidentialStore with zero balances. Requires a sigma protocol proof that the user knows their decryption key dk corresponding to their encryption key ek (prevents registration with someone else's key).
-2. deposit(): Converts public tokens into confidential balance. Transfers FA tokens from user's primary store into the confidential asset pool. The amount is added to the pending balance with no randomness (R = identity), since the deposited amount is public anyway. From the code:
+Six Core Operations
+register(): Publishes a ConfidentialStore with zero balances. Requires a sigma protocol proof that the user knows their decryption key dk corresponding to their encryption key ek (prevents registration with someone else's key).
+deposit(): Converts public tokens into confidential balance. Transfers FA tokens from user's primary store into the confidential asset pool. The amount is added to the pending balance with no randomness (R = identity), since the deposited amount is public anyway. From the code:
 add_assign_pending(&mut ca_store.pending_balance,
 &new_pending_u64_no_randomness(amount));
-3. withdraw_to(): Converts confidential balance back to public tokens. Requires: (a) a sigma protocol proof that the new balance is computed correctly from the old balance minus the withdrawal amount, and (b) a Bulletproofs range proof that the new balance is non-negative (each chunk in [0, 2^16)).
-4. confidential_transfer(): The core privacy operation. Transfers a SECRET amount from sender's available balance to recipient's pending balance. Requires TWO range proofs (new sender balance >= 0, transfer amount >= 0) and a sigma protocol proof that ties everything together. The transfer proof (from sigma_protocol_transfer.move) verifies a complex relation R^{-}_{txfer} that simultaneously proves:
+withdraw_to(): Converts confidential balance back to public tokens. Requires: (a) a sigma protocol proof that the new balance is computed correctly from the old balance minus the withdrawal amount, and (b) a Bulletproofs range proof that the new balance is non-negative (each chunk in [0, 2^16)).
+confidential_transfer(): The core privacy operation. Transfers a SECRET amount from sender's available balance to recipient's pending balance. Requires TWO range proofs (new sender balance >= 0, transfer amount >= 0) and a sigma protocol proof that ties everything together. The transfer proof (from sigma_protocol_transfer.move) verifies a complex relation R^{-}_{txfer} that simultaneously proves:
 - The sender knows dk and can decrypt their old balance
 - The new balance P components are valid commitments
 - The transfer amount P components commit to the same values under all keys
 - Balance conservation: old_balance = new_balance + transfer_amount
-5. rollover_pending_balance(): Moves accumulated pending balance into available balance. This is a non-cryptographic operation -- just adds the compressed ciphertexts element-wise. Required before spending because the available balance has 8 chunks (128-bit) while pending has only 4 (64-bit).
-6. rotate_encryption_key(): Re-encrypts the available balance under a new key. Requires pausing incoming transfers first and rolling over any pending balance. The proof (sigma_protocol_key_rotation.move) proves correct re-encryption without revealing the balance.
-The Normalize Operation
+rollover_pending_balance(): Moves accumulated pending balance into available balance. This is a non-cryptographic operation -- just adds the compressed ciphertexts element-wise. Required before spending because the available balance has 8 chunks (128-bit) while pending has only 4 (64-bit).
+rotate_encryption_key(): Re-encrypts the available balance under a new key. Requires pausing incoming transfers first and rolling over any pending balance. The proof (sigma_protocol_key_rotation.move) proves correct re-encryption without revealing the balance.
+Normalize Operation
 An additional operation, normalize(), is a withdraw with amount=0. It re-encrypts the available balance with fresh randomness, ensuring all chunks are within 16-bit bounds. This is required after rollover because adding pending chunks to available chunks can cause chunk values to exceed 16 bits (e.g., if many deposits accumulated). Normalization "re-chunks" the balance correctly.
 Range Proofs: Bulletproofs over Ristretto255
 From confidential_range_proofs.move, range proofs use batch Bulletproofs verification:
@@ -90,10 +90,10 @@ zkrp, confidential_balance::get_chunk_size_bits(), // 16
 BULLETPROOFS_DST)
 }
 Each range proof proves that ALL chunks in a balance are in [0, 2^16). Batch verification proves all chunks simultaneously in a single proof.
-The Sigma Protocol Framework
+Sigma Protocol Framework
 Tomescu built a composable sigma protocol library directly in Move (a first for any blockchain). From sigma_protocols/README.md: "Due to Move's limitations (e.g., lack of traits), our sigma-protocol library is rather primitive and potentially-dangerous if not used carefully."
 The framework represents proofs as homomorphism checks psi(w) = f(X), where w is the secret witness and X is the public statement. Each proof is described as a RepresentationVec -- a list of multi-scalar multiplications (MSMs) that the verifier checks. The Fiat-Shamir transform (sigma_protocol_fiat_shamir.move) makes these non-interactive.
-The Auditor Architecture
+Auditor Architecture
 The system supports three levels of auditing:
 - Global auditor: Set by governance, applies to all asset types by default
 - Asset-specific auditor: Overrides global auditor for a particular token type
@@ -103,37 +103,33 @@ No auditor is assigned at launch. Governance retains the authority to install on
 Performance Characteristics
 Client-side: Proof generation ~25ms, amount decryption ~0.3-0.5ms, balance decryption (baby-step giant-step over 16-bit chunks) ~13ms native / 130-260ms browser.
 Validator-side: Proof verification ~2ms. No trusted setup required.
-The Gap Between UTT and What Is Deployed
+Gap Between UTT and What Is Deployed
 This is the critical analysis. Tomescu's academic work (UTT) proposes FULL transaction anonymity -- sender, receiver, and amount all hidden. What Aptos ships hides ONLY amounts. Here is the precise gap:
 What UTT has that Confidential Assets does not:
-1. Sender anonymity: In UTT, coins are re-randomizable credentials. The sender "spends" an old coin and "mints" a new one that is cryptographically unlinkable. On Aptos, the sender's address is plainly visible in every transaction.
-2. Receiver anonymity: UTT delivers coins to recipients without revealing who received them. On Aptos, the recipient address is a required parameter of confidential_transfer().
-3. UTXO-style coin model: UTT uses a coin-based (UTXO) model where coins are created and consumed. Aptos uses an account-based model where balances are updated in place. This is a fundamental architectural incompatibility.
-4. Anonymous credentials: UTT requires Pointcheval-Sanders blind signatures, credential issuance, and re-randomization. None of this exists in the Aptos framework.
-5. Anonymity budgets: UTT's killer feature -- limiting anonymous spending per time period -- requires infrastructure to enforce limits without revealing identity.
+Sender anonymity: In UTT, coins are re-randomizable credentials. The sender "spends" an old coin and "mints" a new one that is cryptographically unlinkable. On Aptos, the sender's address is plainly visible in every transaction.
+Receiver anonymity: UTT delivers coins to recipients without revealing who received them. On Aptos, the recipient address is a required parameter of confidential_transfer().
+UTXO-style coin model: UTT uses a coin-based (UTXO) model where coins are created and consumed. Aptos uses an account-based model where balances are updated in place. This is a fundamental architectural incompatibility.
+Anonymous credentials: UTT requires Pointcheval-Sanders blind signatures, credential issuance, and re-randomization. None of this exists in the Aptos framework.
+Anonymity budgets: UTT's killer feature -- limiting anonymous spending per time period -- requires infrastructure to enforce limits without revealing identity.
 What would it take to implement full UTT on Aptos:
 The honest answer is that it would require a fundamental redesign. You cannot bolt UTT-level privacy onto an account-based model. You would need: (a) a parallel UTXO-style coin registry, (b) threshold blind signing infrastructure for credential issuance, (c) nullifier sets for double-spend prevention, (d) re-randomizable credential verification in the Move VM, and (e) anonymity budget enforcement. The DKG/threshold infrastructure in crates/aptos-dkg/ is the most relevant existing building block, but it would need significant extension for blind signing.
 Existing Cryptographic Primitives That Could Enable Future Privacy
 The aptos-core codebase has several relevant cryptographic crates beyond what confidential assets uses:
-1. crates/aptos-crypto/src/elgamal/ -- Generic ElGamal over Curve25519 (with an ElGamalFriendlyGroup trait for abstraction) and BLS12-381 groups
-2. crates/aptos-crypto/src/bulletproofs/ -- Bulletproofs range proofs (currently max 64-bit range)
-3. crates/aptos-dkg/ -- Full distributed key generation infrastructure: PVSS (publicly verifiable secret sharing), weighted VUF (Pinkas scheme), range proofs over BLS12-381, sigma protocols
-4. crates/aptos-dkg/src/pvss/chunky/ -- Chunked ElGamal schemes for DKG transcripts (including HKZG commitment-based variants)
-5. The sigma protocol framework in Move -- composable proof building blocks that could be extended for new relations
+crates/aptos-crypto/src/elgamal/ -- Generic ElGamal over Curve25519 (with an ElGamalFriendlyGroup trait for abstraction) and BLS12-381 groups
+crates/aptos-crypto/src/bulletproofs/ -- Bulletproofs range proofs (currently max 64-bit range)
+crates/aptos-dkg/ -- Full distributed key generation infrastructure: PVSS (publicly verifiable secret sharing), weighted VUF (Pinkas scheme), range proofs over BLS12-381, sigma protocols
+crates/aptos-dkg/src/pvss/chunky/ -- Chunked ElGamal schemes for DKG transcripts (including HKZG commitment-based variants)
+The sigma protocol framework in Move -- composable proof building blocks that could be extended for new relations
 Tomescu's Broader Cryptographic Contributions to Aptos
 Beyond confidential assets, Tomescu designed and deployed:
 - The Aptos on-chain randomness system (DKG + weighted PVSS + Pinkas WVUF), running in production with 112+ validators
 - Scalable threshold cryptography (IEEE S&P 2020) enabling DKG at scale
 - The cryptographic foundations for the encrypted mempool (BIBE -- Blind Identity-Based Encryption) for MEV prevention
-The Bottom Line
+Bottom Line
 Confidential Assets v1.1 is a carefully-engineered, production-grade encrypted balance system that solves a real problem -- balance and amount privacy -- without requiring changes to Aptos consensus. But it is explicitly NOT the full UTT vision. The sender and receiver are visible. The anonymity budgets, re-randomizable credentials, and threshold blind signing from the UTT paper remain unimplemented. Whether Aptos moves toward full UTT-level privacy depends on whether the ecosystem demands sender/receiver anonymity alongside amount confidentiality, and whether the account-model constraints can be overcome -- possibly through a hybrid UTXO layer.
 
-
-
 The Full Aptos Privacy Stack: Three Zones
-
 Confidential Assets is not standalone — it is Zone 1 of a three-layer privacy architecture designed by Alin Tomescu.
-
 
 Zone 0 (Public)Zone 1 (Confidential Assets)Zone 2 (UTT)
 What is hiddenNothingAmounts and balancesAmounts, addresses, full trade graph
@@ -142,71 +138,40 @@ ComplianceFull transparencyAuditor key (designated decryptor)Anonymity budget (m
 ModelAccountAccountUTXO
 StatusLiveCode merged, pending governanceResearch (blog posted Mar 21, 2026)
 
-
 UTT: Untraceable Transactions (Zone 2)
-
 Alin's research from 2018 (VMware), rebooted 2021. Published at Stanford Blockchain Conference 2023, presented at Yale and a16z. Bank of Israel pilot deployment for CBDC privacy research.
-
 Authors: Alin Tomescu (lead), Adithya Bhat, Benny Applebaum, Ittai Abraham (Aptos co-founder, now a16z), Guy Gueta, Benny Pinkas (Bar-Ilan, world's leading MPC researcher), Avishay Yanai.
-
 How UTT Works
-
 UTXO coin model. Every coin is a sealed envelope — a Pedersen commitment C = Commit(pid, sn, v). The commitment hides the owner's pseudonymous ID, a secret serial number, and the value. Onchain, a coin looks like a random 32-byte group element.
-
 Nullifier: nl = prf(sn; sk) using Dodis-Yampolskiy PRF over BN254 (Poseidon hash — 220 constraints vs 25,000 for SHA256). Only the owner can compute it. Same coin always produces same fingerprint — prevents double-spend without revealing identity.
-
 State: Two append-only structures: (1) Merkle tree of coin commitments, (2) nullifier set. Neither is ever reduced. Frontier Merkle tree: O(log n) storage = 1,024 bytes forever regardless of tree size. Nullifiers in Aptos Table: O(1) lookups.
-
 Mint authority: Every coin carries a Pointcheval-Sanders (PS) signature from a threshold k-of-n committee. PS signatures can be verified inside a ZK circuit without revealing the signature — you prove "I have a valid mint signature" without exposing it.
-
 The 5 Core Circuit Constraints
-
 1. sk_i is the secret key of pk_i
-2. sk_j is the secret key of pk_j
-3. nl_i = prf(i; sk_i)          // nullifier computation
-4. nl_j = prf(j; sk_j)          // nullifier computation
-5. v_i + v_j = v_A + v_B + v_gas  // value conservation
-
+sk_j is the secret key of pk_j
+nl_i = prf(i; sk_i)          // nullifier computation
+nl_j = prf(j; sk_j)          // nullifier computation
+v_i + v_j = v_A + v_B + v_gas  // value conservation
 The full production circuit has ~14 constraints including PS signature verification inside ZK, output commitment integrity, range proofs (DeKART), anonymous credential, and budget UTXO.
-
 The Anonymity Budget — Why the Bank of Israel Accepted It
-
 Every user gets a budget coin — a Pedersen commitment. When spending privately, the transaction is 3-in-3-out: two payment coins + old budget coin → two new coins + new budget coin (reduced balance).
-
 ZK circuit enforces: budget_new = budget_old - amount >= 0. The budget coin is a real UTXO — gets destroyed and reissued with every transaction. Cannot be double-spent or cloned. At $10K/month cap: laundering $100M takes 833 years. Compliance is built into the math, not policy.
-
 The Unlinkability Property
-
 An outside observer sees a Merkle tree full of sealed envelopes (commitments that look like random group elements) and a nullifier set of spent markers (also look random). There is no computable link between any nullifier and any envelope without knowing the owner's sk. The ZK proof establishes that link in the circuit without ever revealing it publicly. This is why it is "invisible" — the entire graph of who sent to whom is cryptographically erased.
-
 Deployment on Aptos
-
 Tier 3 Move module — NOT a consensus-layer change. All primitives already in Move VM: Groth16, BLS12-381, Ristretto255, Bulletproofs. One governance vote needed. Block-STM serialization on UTTState limits throughput to ~200-500 tx/s (acceptable for a privacy layer).
-
 IBE (Identity-Based Encryption) enables send-to-identity: send to a phone number or email rather than a wallet address. Shared infrastructure with ACE.
-
 ACE: Access Control Encryption
-
 Encrypts any data. A Move smart contract decides who can decrypt. If the contract says yes, a distributed committee releases the decryption key. If no, nobody can decrypt. Built on IBE threshold decryption.
-
 Three components: Committee (k-of-n IBE key share holders), ContractID (any Move #[view] function returning bool), ProofOfPermission (signed proof verified by workers before releasing key shares).
-
 Why better than token gating: Token gating relies on a server deciding to serve content — hack the server, get the content. With ACE, the platform never holds the decryption key. Even fully compromised, an attacker gets useless ciphertext.
-
 ContractID as arbitrary logic: Time-locks (auto-release at block height), multi-condition gates (hold stake AND active payment AND registered 30+ days), revocation (lapsed payment → contract returns false → no new keys). Composable with CA and UTT.
-
 Status: TypeScript SDK live. Public test workers operational. Production requires own workers with dedicated fullnodes.
-
 DeKART: Range Proofs Inside ZK Circuits
-
 The UTT circuit needs range proofs (non-negative values). Standard Bulletproofs are expensive inside Groth16 (thousands of constraints for MSM verification). DeKART (from Alin's group) uses lookup arguments instead — cheap inside R1CS. Result: full circuit stays at ~14 constraints. ~1-2 second proving on a laptop.
-
 The Encrypted Mempool: Pre-Execution Privacy
-
 Separate primitive. Operates at consensus layer, before CA/UTT/ACE apply. Transactions submitted encrypted → validators order ciphertexts → decrypt only after ordering is locked. Uses threshold decryption via BIBE (same DKG as randomness module). Prevents MEV and front-running at the protocol level.
-
 The Aptos Cryptography Team
-
 
 PersonRoleKey Contributions
 Alin TomescuHead of Cryptography, Aptos LabsUTT (lead), AIP-143, ACE, DKG. PhD MIT (Srini Devadas). Ex-VMware Research.
@@ -214,18 +179,14 @@ Ittai AbrahamAptos co-founder → a16z cryptoUTT co-author, HotStuff consensus. 
 Benny PinkasBar-Ilan professor, VMware ResearchUTT co-author. Top 5 global MPC researcher. Bank of Israel credibility.
 Balaji ArunConsensus engineer, Aptos LabsEncrypted mempool, DKG/RandManager. 20 consensus commits in 90 days.
 
-
 The Gap: What Is Not Yet Deployed
-
 Confidential Assets (Zone 1) is shipped. UTT (Zone 2) is researched and designed but not deployed. The gap is architectural:
-
 
 UTT requires UTXO coin model — parallel module alongside the existing account system
 PS signatures for mint authority need Move native implementation
 Nullifier set as Aptos Table — straightforward but unbuilt
 Groth16 verifier exists in Move VM (added for AIP-143) — the circuit needs deployment
 IBE infrastructure shared with ACE (already prototyped)
-
 
 Alin posted the UTT blog March 21, 2026 — three days before the AIP-143 AMA. The sequencing is deliberate: CA ships first, UTT next. All cryptographic primitives are in the VM. One governance vote away.
 
