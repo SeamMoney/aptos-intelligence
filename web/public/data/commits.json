@@ -1,5 +1,13 @@
 [
   {
+    "sha": "feature-progress-overview",
+    "title": "Aptos Feature Progress — 9 Features Tracked from Research to Mainnet",
+    "author": "aptos-labs",
+    "date": "2026-04-12T06:32:30.929Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
     "sha": "ans-deep-dive",
     "title": "Aptos Names Service (ANS) — Complete Deep Dive",
     "author": "0xChucky",
