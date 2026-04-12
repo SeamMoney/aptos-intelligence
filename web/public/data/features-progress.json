@@ -431,5 +431,65 @@
       }
     ],
     "recentCommits": 3
+  },
+  {
+    "key": "archon",
+    "name": "Archon (Proxy-Primary Consensus)",
+    "status": "Design / Early Dev",
+    "progress": 35,
+    "color": "#3b82f6",
+    "lead": "Zhuolun Xiang",
+    "description": "Next-gen validator coordination architecture. Replaces single-leader rotation with a proxy-primary cluster model. Co-located validators share state for ~10ms block times and ~30ms inclusion proofs. Built on Prefix Consensus (leaderless, f-censorship resistant).",
+    "whatsNeeded": "Prefix Consensus prototype integration, proxy-primary coordination protocol finalization, testnet validation, performance benchmarks vs Baby Raptr",
+    "whatsBeingDone": "Prefix Consensus prototype branch is live and actively updated. Strong Prefix Consensus paper published (arXiv:2602.02892). Baby Raptr and Velociraptr deployed on mainnet as stepping stones. Proxy-primary architecture being designed.",
+    "effects": "CEX-like latency (~10ms block times) with full decentralization. Enables real-time trading on-chain. Combined with encrypted mempool, creates a censorship-resistant global trading engine.",
+    "dependencies": [
+      "Baby Raptr (deployed)",
+      "Prefix Consensus (prototype)",
+      "Encrypted Mempool (testnet)"
+    ],
+    "milestones": [
+      {
+        "name": "Baby Raptr on mainnet",
+        "date": "2025-11-15",
+        "done": true
+      },
+      {
+        "name": "Velociraptr (40% block time reduction)",
+        "date": "2026-01-15",
+        "done": true
+      },
+      {
+        "name": "Prefix Consensus paper published",
+        "date": "2026-02-02",
+        "done": true
+      },
+      {
+        "name": "Prefix Consensus prototype branch",
+        "date": "2026-03-19",
+        "done": true
+      },
+      {
+        "name": "Strong Prefix Consensus implementation",
+        "date": null,
+        "done": false
+      },
+      {
+        "name": "Proxy-primary coordination protocol",
+        "date": null,
+        "done": false
+      },
+      {
+        "name": "Testnet deployment",
+        "date": null,
+        "done": false
+      },
+      {
+        "name": "Mainnet deployment",
+        "date": null,
+        "done": false
+      }
+    ],
+    "recentCommits": 9
   }
 ]
