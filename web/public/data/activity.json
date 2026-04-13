@@ -114,37 +114,20 @@
       "merged_at": "2026-04-09T04:25:57Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19351",
       "labels": []
-    },
+    }
+  ],
+  "issues": [
     {
-      "number": 19205,
-      "title": "Enhance aptos-debugger",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-09T04:25:32Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19205",
-      "labels": []
-    },
-    {
-      "number": 19376,
-      "title": "[consensus] Add forge load tests for randomness transactions",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-09T03:04:34Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19376",
+      "number": 18706,
+      "title": "randomness fast path should be disabled...",
+      "author": "zjma",
+      "state": "closed",
+      "created_at": "2026-02-11T02:02:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18706",
       "labels": [
-        "CICD:build-images"
-      ]
-    },
-    {
-      "number": 19338,
-      "title": "[encrypted-txns] Per-workload emitter support and decryption pipeline fixes",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-08T23:48:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19338",
-      "labels": [
-        "CICD:build-images",
-        "CICD:run-forge-e2e-perf"
+        "Stale"
       ]
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-12T22:36:06.046Z"
+  "lastUpdated": "2026-04-13T02:45:32.601Z"
 }
