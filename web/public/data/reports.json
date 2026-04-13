@@ -10933,5 +10933,47 @@
     "eli5": "<p><strong>[Storage] Enable hot state root hash computation on mainnet</strong> — a change by wqfish.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100027,
+    "githubId": "dc8210c",
+    "title": "[consensus] Add state sync trigger metrics (#19395)",
+    "author": "danielxiangzl",
+    "date": "2026-04-13T20:15:27Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/dc8210c1e00a17f5152678122bff439564db307e",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] Add state sync trigger metrics (#19395)</strong></p><p>by danielxiangzl on 4/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/dc8210c1e00a17f5152678122bff439564db307e\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] Add state sync trigger metrics (#19395)</strong> — a change by danielxiangzl.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100028,
+    "githubId": "027db81",
+    "title": "[prover] Enable dynamic dispatch in the prover (#19379)",
+    "author": "wrwg",
+    "date": "2026-04-13T19:19:35Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/027db816438f0e7acaa832e75ccde9346f2e1965",
+    "advanced": "<h3>What Changed</h3><p><strong>[prover] Enable dynamic dispatch in the prover (#19379)</strong></p><p>by wrwg on 4/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/027db816438f0e7acaa832e75ccde9346f2e1965\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[prover] Enable dynamic dispatch in the prover (#19379)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100029,
+    "githubId": "93ed472",
+    "title": "[storage] Extend crash recovery truncation to hot state DBs",
+    "author": "wqfish",
+    "date": "2026-04-13T03:01:21Z",
+    "category": "Performance",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/93ed472f4a46c68cc89fc0fee8c8883547e54933",
+    "advanced": "<h3>What Changed</h3><p><strong>[storage] Extend crash recovery truncation to hot state DBs</strong></p><p>by wqfish on 4/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/93ed472f4a46c68cc89fc0fee8c8883547e54933\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[storage] Extend crash recovery truncation to hot state DBs</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

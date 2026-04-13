@@ -1,6 +1,32 @@
 {
   "prs": [
     {
+      "number": 19395,
+      "title": "[consensus] Add state sync trigger metrics",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-13T20:15:28Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19395",
+      "labels": [
+        "CICD:build-performance-images"
+      ]
+    },
+    {
+      "number": 19420,
+      "title": "[storage] Extend crash recovery truncation to hot state DBs",
+      "author": "wqfish",
+      "merged_at": "2026-04-13T19:30:09Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19420",
+      "labels": []
+    },
+    {
+      "number": 19379,
+      "title": "[prover] Enable dynamic dispatch in the prover",
+      "author": "wrwg",
+      "merged_at": "2026-04-13T19:19:35Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19379",
+      "labels": []
+    },
+    {
       "number": 19396,
       "title": "[consensus] Relax need_sync_for_ledger_info to reduce unnecessary state sync",
       "author": "danielxiangzl",
@@ -129,6 +155,16 @@
       ]
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-13T19:15:45.399Z"
+  "issues": [
+    {
+      "number": 19277,
+      "title": "[prover] Missing support for stored function values in verification",
+      "author": "wrwg",
+      "state": "closed",
+      "created_at": "2026-03-30T07:36:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19277",
+      "labels": []
+    }
+  ],
+  "lastUpdated": "2026-04-13T20:56:50.212Z"
 }
