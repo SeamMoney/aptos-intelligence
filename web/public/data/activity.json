@@ -116,16 +116,6 @@
       ]
     }
   ],
-  "issues": [
-    {
-      "number": 19422,
-      "title": "[prover] Z3 seed sensitivity causes timeout on calculator::number with inline_spec_lets=false",
-      "author": "wrwg",
-      "state": "open",
-      "created_at": "2026-04-13T06:14:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19422",
-      "labels": []
-    }
-  ],
-  "lastUpdated": "2026-04-13T13:28:23.956Z"
+  "issues": [],
+  "lastUpdated": "2026-04-13T15:16:13.598Z"
 }
