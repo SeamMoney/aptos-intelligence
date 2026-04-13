@@ -10891,5 +10891,47 @@
     "eli5": "<p><strong>update codeowners (#19392)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100024,
+    "githubId": "e582a75",
+    "title": "[dkg] Add skip-if-running guard, delayed fetch, and metrics for DKG transcript fetcher (#19364)",
+    "author": "ibalajiarun",
+    "date": "2026-04-13T17:15:31Z",
+    "category": "Performance",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/e582a7599c8a8880bda3fa887a6b89142fbfabf4",
+    "advanced": "<h3>What Changed</h3><p><strong>[dkg] Add skip-if-running guard, delayed fetch, and metrics for DKG transcript fetcher (#19364)</strong></p><p>by ibalajiarun on 4/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/e582a7599c8a8880bda3fa887a6b89142fbfabf4\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[dkg] Add skip-if-running guard, delayed fetch, and metrics for DKG transcript fetcher (#19364)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100025,
+    "githubId": "5f96d14",
+    "title": "[vm] Replace variant_name_placeholder mutex with pre-computed static array",
+    "author": "wqfish",
+    "date": "2026-04-12T20:09:13Z",
+    "category": "Performance",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/5f96d148e300e51cb29a18dfc11891944f0db2bd",
+    "advanced": "<h3>What Changed</h3><p><strong>[vm] Replace variant_name_placeholder mutex with pre-computed static array</strong></p><p>by wqfish on 4/12/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/5f96d148e300e51cb29a18dfc11891944f0db2bd\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[vm] Replace variant_name_placeholder mutex with pre-computed static array</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100026,
+    "githubId": "8af99ed",
+    "title": "[Storage] Enable hot state root hash computation on mainnet",
+    "author": "wqfish",
+    "date": "2026-04-12T19:59:29Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/8af99edca94daf513e6dcc49682763597d1cba50",
+    "advanced": "<h3>What Changed</h3><p><strong>[Storage] Enable hot state root hash computation on mainnet</strong></p><p>by wqfish on 4/12/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/8af99edca94daf513e6dcc49682763597d1cba50\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[Storage] Enable hot state root hash computation on mainnet</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

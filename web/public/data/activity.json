@@ -1,6 +1,40 @@
 {
   "prs": [
     {
+      "number": 19396,
+      "title": "[consensus] Relax need_sync_for_ledger_info to reduce unnecessary state sync",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-13T18:46:53Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19396",
+      "labels": [
+        "CICD:build-performance-images"
+      ]
+    },
+    {
+      "number": 19411,
+      "title": "[vm] Replace variant_name_placeholder mutex with pre-computed static array",
+      "author": "wqfish",
+      "merged_at": "2026-04-13T18:56:59Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19411",
+      "labels": []
+    },
+    {
+      "number": 19419,
+      "title": "[Storage] Enable hot state root hash computation on mainnet",
+      "author": "wqfish",
+      "merged_at": "2026-04-13T18:35:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19419",
+      "labels": []
+    },
+    {
+      "number": 19364,
+      "title": "[dkg] Skip-if-running guard, delayed fetch, and metrics for transcript fetcher",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-13T17:15:31Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19364",
+      "labels": []
+    },
+    {
       "number": 19392,
       "title": "update codeowners",
       "author": "georgemitenkov",
@@ -93,27 +127,8 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19359,
-      "title": "[consensus] Fix rand manager deadlock in multi-block batches",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-07T22:55:30Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19359",
-      "labels": [
-        "v1.43",
-        "v1.44"
-      ]
-    },
-    {
-      "number": 19272,
-      "title": "[deps] bump lz4_flex 0.11.3→0.11.6, quinn-proto 0.11.13→0.11.14",
-      "author": "zi0Black",
-      "merged_at": "2026-04-09T12:10:20Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19272",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-13T17:04:46.290Z"
+  "lastUpdated": "2026-04-13T19:15:45.399Z"
 }

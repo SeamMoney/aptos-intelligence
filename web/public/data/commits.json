@@ -1,15 +1,15 @@
 [
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,20 +24,28 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "e582a75",
+    "title": "[dkg] Add skip-if-running guard, delayed fetch, and metrics for DKG transcript fetcher (#19364)",
+    "author": "ibalajiarun",
+    "date": "2026-04-13T17:15:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e582a7599c8a8880bda3fa887a6b89142fbfabf4",
+    "category": "Performance"
   },
   {
     "sha": "bbcf78a",
@@ -54,6 +62,22 @@
     "date": "2026-04-13T11:27:29Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/df679ff068b6516ee01d1023530de10759a2c7f5",
     "category": "Security"
+  },
+  {
+    "sha": "5f96d14",
+    "title": "[vm] Replace variant_name_placeholder mutex with pre-computed static array",
+    "author": "wqfish",
+    "date": "2026-04-12T20:09:13Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5f96d148e300e51cb29a18dfc11891944f0db2bd",
+    "category": "Performance"
+  },
+  {
+    "sha": "8af99ed",
+    "title": "[Storage] Enable hot state root hash computation on mainnet",
+    "author": "wqfish",
+    "date": "2026-04-12T19:59:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8af99edca94daf513e6dcc49682763597d1cba50",
+    "category": "Release"
   },
   {
     "sha": "6f0ffe9",
@@ -4782,30 +4806,6 @@
     "date": "2026-01-07T04:42:49Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/df0c634784000194f5963213204cac3b4e02502a",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "b8a58e8",
-    "title": "[AIP-105] Make mem::swap and mem::replace public (#18330)",
-    "author": "igor-aptos",
-    "date": "2026-01-06T19:35:23Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/b8a58e890853d06ea9644dc002d10b914c7b4f2f",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "362677f",
-    "title": "[aptos cli] update cli 7.13.0 to mark lang version 2.3 and bytecode version 9 as default (#18400)",
-    "author": "junxzm1990",
-    "date": "2026-01-06T16:15:59Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/362677fb2ae2f2ff0022a003cc67cfcea8aadab6",
-    "category": "Release"
-  },
-  {
-    "sha": "d181eb3",
-    "title": "[GEO-328] Add signed integers to protos and indexer type conversion code (#18394)",
-    "author": "banool",
-    "date": "2025-12-30T21:41:52Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d181eb37ea0681d5248cd9aa7a536dd3787f03e8",
-    "category": "Release"
   },
   {
     "sha": "def1598",
