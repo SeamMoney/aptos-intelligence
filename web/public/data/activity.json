@@ -1,13 +1,35 @@
 {
   "prs": [
     {
+      "number": 19207,
+      "title": "[tracing] Add per-transaction lifecycle tracing",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-05T18:34:25Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19207",
+      "labels": [
+        "CICD:build-images",
+        "v1.44"
+      ]
+    },
+    {
+      "number": 19400,
+      "title": "[cp][aptos-release-v1.43] Confidential asset v1.1.2 minor fixes",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-13T22:08:50Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19400",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19395,
       "title": "[consensus] Add state sync trigger metrics",
       "author": "danielxiangzl",
       "merged_at": "2026-04-13T20:15:28Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19395",
       "labels": [
-        "CICD:build-performance-images"
+        "CICD:build-performance-images",
+        "v1.44"
       ]
     },
     {
@@ -117,54 +139,8 @@
       "merged_at": "2026-04-10T18:57:44Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19382",
       "labels": []
-    },
-    {
-      "number": 19385,
-      "title": "Fix MempoolMessageId ordering and improve error handling",
-      "author": "zekun000",
-      "merged_at": "2026-04-10T00:06:26Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19385",
-      "labels": []
-    },
-    {
-      "number": 19346,
-      "title": "[Network] Add inbound network rate limiter.",
-      "author": "JoshLind",
-      "merged_at": "2026-04-09T21:17:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19346",
-      "labels": [
-        "CICD:run-forge-e2e-perf"
-      ]
-    },
-    {
-      "number": 19356,
-      "title": "[mono-move] Integrate gas metering into e2e pipeline",
-      "author": "calintat",
-      "merged_at": "2026-04-09T21:13:54Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19356",
-      "labels": []
-    },
-    {
-      "number": 19381,
-      "title": "[cp][aptos-release-v1.44] [consensus] Fix rand manager deadlock in multi-block batches",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-09T20:03:02Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19381",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
-  "issues": [
-    {
-      "number": 19277,
-      "title": "[prover] Missing support for stored function values in verification",
-      "author": "wrwg",
-      "state": "closed",
-      "created_at": "2026-03-30T07:36:23Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19277",
-      "labels": []
-    }
-  ],
-  "lastUpdated": "2026-04-13T20:56:50.212Z"
+  "issues": [],
+  "lastUpdated": "2026-04-13T22:44:35.288Z"
 }
