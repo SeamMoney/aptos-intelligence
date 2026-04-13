@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19392,
+      "title": "update codeowners",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-13T15:51:03Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19392",
+      "labels": []
+    },
+    {
       "number": 19391,
       "title": "[vm] Fix closure comparison",
       "author": "georgemitenkov",
@@ -104,18 +112,8 @@
       "merged_at": "2026-04-09T12:10:20Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19272",
       "labels": []
-    },
-    {
-      "number": 19289,
-      "title": "[mono-move] Add function types and type list interning to global context",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-09T08:36:38Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19289",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-13T15:16:13.598Z"
+  "lastUpdated": "2026-04-13T17:04:46.290Z"
 }

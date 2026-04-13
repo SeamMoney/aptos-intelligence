@@ -10877,5 +10877,19 @@
     "eli5": "<p><strong>[vm] Fix closure comparison (#19391)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100023,
+    "githubId": "bbcf78a",
+    "title": "update codeowners (#19392)",
+    "author": "georgemitenkov",
+    "date": "2026-04-13T15:51:02Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/bbcf78aa12aac1f891516fcbc477b909d2eff2e9",
+    "advanced": "<h3>What Changed</h3><p><strong>update codeowners (#19392)</strong></p><p>by georgemitenkov on 4/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/bbcf78aa12aac1f891516fcbc477b909d2eff2e9\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>update codeowners (#19392)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
