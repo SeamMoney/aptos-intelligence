@@ -118,6 +118,15 @@
   ],
   "issues": [
     {
+      "number": 19422,
+      "title": "[prover] Z3 seed sensitivity causes timeout on calculator::number with inline_spec_lets=false",
+      "author": "wrwg",
+      "state": "open",
+      "created_at": "2026-04-13T06:14:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19422",
+      "labels": []
+    },
+    {
       "number": 18706,
       "title": "randomness fast path should be disabled...",
       "author": "zjma",
@@ -129,5 +138,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-13T02:45:32.601Z"
+  "lastUpdated": "2026-04-13T06:15:45.278Z"
 }
