@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19417,
+      "title": "[benchmark] Calibration",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-14T08:36:42Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19417",
+      "labels": []
+    },
+    {
       "number": 19291,
       "title": "[dkg] Graceful PublicParameters initialization with file-based loading and chain-aware fallback",
       "author": "ibalajiarun",
@@ -140,16 +148,8 @@
       "merged_at": "2026-04-11T00:08:15Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19403",
       "labels": []
-    },
-    {
-      "number": 19372,
-      "title": "Validate batch metadata limits during payload verification",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-10T22:39:29Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19372",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-14T06:01:00.425Z"
+  "lastUpdated": "2026-04-14T09:19:40.827Z"
 }
