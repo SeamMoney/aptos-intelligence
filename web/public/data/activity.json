@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19350,
+      "title": "[linter] Add mutable_view_function and unsafe_friend_package_entry lint",
+      "author": "GotenJBZ",
+      "merged_at": "2026-04-14T18:29:16Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19350",
+      "labels": []
+    },
+    {
+      "number": 19405,
+      "title": "Tighten validation checks",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-14T17:52:52Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19405",
+      "labels": []
+    },
+    {
       "number": 19443,
       "title": "[cp][1.44] update support max version of z3 and boogie for dependency update and confidential asset v1.1.2 minor fixes",
       "author": "rahxephon89",
@@ -162,5 +178,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-14T17:09:35.637Z"
+  "lastUpdated": "2026-04-14T19:17:41.969Z"
 }

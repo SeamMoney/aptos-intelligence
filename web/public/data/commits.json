@@ -1,15 +1,15 @@
 [
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,19 +24,35 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "602ede1",
+    "title": "[linter] Add mutable_view_function and unsafe_friend_package_entry lint (#19350)",
+    "author": "GotenJBZ",
+    "date": "2026-04-14T18:29:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/602ede1b469f677fc22a0486c13bd8a119a6c393",
+    "category": "Security"
+  },
+  {
+    "sha": "e7761dd",
+    "title": "Tighten validation checks (#19405)",
+    "author": "ibalajiarun",
+    "date": "2026-04-14T17:52:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e7761dd37e00b7f23c172208cf0a2668233b1dc9",
     "category": "Feature Progress"
   },
   {
@@ -4790,22 +4806,6 @@
     "date": "2026-01-08T04:17:49Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/5524f4d126e492bee59558f7f8caabb6c146b9bd",
     "category": "Release"
-  },
-  {
-    "sha": "0257e5a",
-    "title": "[Storage Config] Make db path override related fields private",
-    "author": "wqfish",
-    "date": "2026-01-08T04:11:50Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/0257e5a6d75e93c5302ec59e456b52e6a2a2ea58",
-    "category": "Performance"
-  },
-  {
-    "sha": "8a38adc",
-    "title": "[framework] Add `String::into_bytes` function (#18395)",
-    "author": "calintat",
-    "date": "2026-01-08T01:57:10Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/8a38adc1739258571f58a48a32b27881647af492",
-    "category": "Feature Progress"
   },
   {
     "sha": "def1598",

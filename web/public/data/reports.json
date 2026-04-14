@@ -11045,5 +11045,33 @@
     "eli5": "<p><strong>[benchmark] Calibration (#19417)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100035,
+    "githubId": "602ede1",
+    "title": "[linter] Add mutable_view_function and unsafe_friend_package_entry lint (#19350)",
+    "author": "GotenJBZ",
+    "date": "2026-04-14T18:29:15Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/602ede1b469f677fc22a0486c13bd8a119a6c393",
+    "advanced": "<h3>What Changed</h3><p><strong>[linter] Add mutable_view_function and unsafe_friend_package_entry lint (#19350)</strong></p><p>by GotenJBZ on 4/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/602ede1b469f677fc22a0486c13bd8a119a6c393\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[linter] Add mutable_view_function and unsafe_friend_package_entry lint (#19350)</strong> — a change by GotenJBZ.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100036,
+    "githubId": "e7761dd",
+    "title": "Tighten validation checks (#19405)",
+    "author": "ibalajiarun",
+    "date": "2026-04-14T17:52:52Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/e7761dd37e00b7f23c172208cf0a2668233b1dc9",
+    "advanced": "<h3>What Changed</h3><p><strong>Tighten validation checks (#19405)</strong></p><p>by ibalajiarun on 4/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/e7761dd37e00b7f23c172208cf0a2668233b1dc9\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Tighten validation checks (#19405)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
