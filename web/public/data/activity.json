@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19291,
+      "title": "[dkg] Graceful PublicParameters initialization with file-based loading and chain-aware fallback",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-14T05:30:50Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19291",
+      "labels": [
+        "CICD:build-images"
+      ]
+    },
+    {
       "number": 19437,
       "title": "[mempool] Avoid cloning SignedTransaction for tracing committed hash",
       "author": "danielxiangzl",
@@ -138,18 +148,8 @@
       "merged_at": "2026-04-10T22:39:29Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19372",
       "labels": []
-    },
-    {
-      "number": 19370,
-      "title": "Confidential asset v1.1.2 minor fixes",
-      "author": "alinush",
-      "merged_at": "2026-04-09T17:03:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19370",
-      "labels": [
-        "v1.43"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-14T02:38:15.826Z"
+  "lastUpdated": "2026-04-14T06:01:00.425Z"
 }

@@ -11017,5 +11017,19 @@
     "eli5": "<p><strong>[mempool] Avoid cloning SignedTransaction for tracing committed hash (#19437)</strong> — a change by danielxiangzl.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100033,
+    "githubId": "a3a1dbf",
+    "title": "[dkg] Define TEST_PUBLIC_PARAMETERS as a shared Arc lazy static (#19291)",
+    "author": "ibalajiarun",
+    "date": "2026-04-14T05:30:50Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/a3a1dbf7415207421fff33db9c195e65ae1ff19a",
+    "advanced": "<h3>What Changed</h3><p><strong>[dkg] Define TEST_PUBLIC_PARAMETERS as a shared Arc lazy static (#19291)</strong></p><p>by ibalajiarun on 4/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/a3a1dbf7415207421fff33db9c195e65ae1ff19a\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[dkg] Define TEST_PUBLIC_PARAMETERS as a shared Arc lazy static (#19291)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
