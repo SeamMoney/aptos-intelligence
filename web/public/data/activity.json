@@ -1,6 +1,17 @@
 {
   "prs": [
     {
+      "number": 19370,
+      "title": "Confidential asset v1.1.2 minor fixes",
+      "author": "alinush",
+      "merged_at": "2026-04-09T17:03:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19370",
+      "labels": [
+        "v1.43",
+        "v1.44"
+      ]
+    },
+    {
       "number": 19417,
       "title": "[benchmark] Calibration",
       "author": "georgemitenkov",
@@ -140,16 +151,8 @@
       "merged_at": "2026-04-13T11:27:30Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19391",
       "labels": []
-    },
-    {
-      "number": 19403,
-      "title": "[storage] Extract state KV and merkle truncation helpers from sync_commit_progress",
-      "author": "wqfish",
-      "merged_at": "2026-04-11T00:08:15Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19403",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-14T13:28:48.657Z"
+  "lastUpdated": "2026-04-14T15:14:34.591Z"
 }
