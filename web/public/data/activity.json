@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19427,
+      "title": "[mono-vm] Representation and perf refactoring within specializer",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T20:53:32Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
+      "labels": []
+    },
+    {
       "number": 19350,
       "title": "[linter] Add mutable_view_function and unsafe_friend_package_entry lint",
       "author": "GotenJBZ",
@@ -178,5 +186,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-14T19:17:41.969Z"
+  "lastUpdated": "2026-04-14T20:55:45.316Z"
 }
