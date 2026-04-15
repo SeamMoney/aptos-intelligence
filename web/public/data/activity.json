@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19442,
+      "title": "[consensus] Per-kind pull counters and inline batch cipher verification",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-15T18:15:26Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19442",
+      "labels": []
+    },
+    {
+      "number": 19298,
+      "title": "[lint] Suggest using index syntax for global storage access",
+      "author": "vineethk",
+      "merged_at": "2026-04-15T18:06:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19298",
+      "labels": []
+    },
+    {
       "number": 19451,
       "title": "[build] Install clang 21 from LLVM apt repo in CI rust-setup action",
       "author": "wqfish",
@@ -150,28 +166,8 @@
       "merged_at": "2026-04-13T23:32:47Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19437",
       "labels": []
-    },
-    {
-      "number": 19207,
-      "title": "[tracing] Add per-transaction lifecycle tracing",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-05T18:34:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19207",
-      "labels": [
-        "CICD:build-images"
-      ]
-    },
-    {
-      "number": 19430,
-      "title": "[consensus] Skip state sync for small round gaps",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-14T00:27:18Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19430",
-      "labels": [
-        "v1.44"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-15T17:05:33.760Z"
+  "lastUpdated": "2026-04-15T19:19:06.154Z"
 }
