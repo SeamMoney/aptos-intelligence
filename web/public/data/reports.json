@@ -11255,5 +11255,19 @@
     "eli5": "<p><strong>[consensus] Add pull loop duration and empty retry metrics (#19449)</strong> — a change by danielxiangzl.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100050,
+    "githubId": "42743b8",
+    "title": "[test] Fix test_large_total_stake division by zero in fee distribution (#19462)",
+    "author": "ibalajiarun",
+    "date": "2026-04-15T21:23:25Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/42743b840cb3d0b9dbdce695c13cd275ed6545e2",
+    "advanced": "<h3>What Changed</h3><p><strong>[test] Fix test_large_total_stake division by zero in fee distribution (#19462)</strong></p><p>by ibalajiarun on 4/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/42743b840cb3d0b9dbdce695c13cd275ed6545e2\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[test] Fix test_large_total_stake division by zero in fee distribution (#19462)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

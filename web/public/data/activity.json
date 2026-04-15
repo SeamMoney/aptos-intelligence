@@ -1,6 +1,30 @@
 {
   "prs": [
     {
+      "number": 19388,
+      "title": "Shared data structures and algorithms crate",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T00:14:14Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
+      "labels": []
+    },
+    {
+      "number": 19427,
+      "title": "[mono-vm] Representation and perf refactoring within specializer",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T20:53:32Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
+      "labels": []
+    },
+    {
+      "number": 19462,
+      "title": "[test] Fix test_large_total_stake div-by-zero in fee distribution",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-15T21:23:25Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19462",
+      "labels": []
+    },
+    {
       "number": 19401,
       "title": "[dkg] Add shadow mode for chunky DKG",
       "author": "ibalajiarun",
@@ -56,22 +80,6 @@
       "author": "vineethk",
       "merged_at": "2026-04-15T01:50:22Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19366",
-      "labels": []
-    },
-    {
-      "number": 19388,
-      "title": "Shared data structures and algorithms crate",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T00:14:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
-      "labels": []
-    },
-    {
-      "number": 19427,
-      "title": "[mono-vm] Representation and perf refactoring within specializer",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T20:53:32Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
       "labels": []
     },
     {
@@ -179,5 +187,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-15T20:51:21.510Z"
+  "lastUpdated": "2026-04-15T22:42:10.887Z"
 }
