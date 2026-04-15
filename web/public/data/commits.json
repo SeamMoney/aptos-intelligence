@@ -1,15 +1,15 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,19 +24,35 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "add9609",
+    "title": "[dkg] Add shadow mode for chunky DKG (#19401)",
+    "author": "ibalajiarun",
+    "date": "2026-04-15T20:02:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/add96090dabfcbb97bcd5cad734d6c7ab8971905",
+    "category": "Security"
+  },
+  {
+    "sha": "b35cd71",
+    "title": "[consensus] Add pull loop duration and empty retry metrics (#19449)",
+    "author": "danielxiangzl",
+    "date": "2026-04-15T19:45:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b35cd71c582f09bfbcaaebaaf1ed6e720fe2e420",
     "category": "Feature Progress"
   },
   {
@@ -4790,22 +4806,6 @@
     "date": "2026-01-14T07:08:25Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/ecb203dfa44b0cb9290d89d07cd8db5a2a95c2f0",
     "category": "Performance"
-  },
-  {
-    "sha": "8d48624",
-    "title": "[ai] Basic setup for Cursor/Claude agents.md (#18413)",
-    "author": "wrwg",
-    "date": "2026-01-14T06:24:44Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/8d486246f01ce1cec72c04018bbb90df35070528",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "f7a776d",
-    "title": "[cli] bump version to 7.14 (#18440)",
-    "author": "vgao1996",
-    "date": "2026-01-13T19:46:23Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/f7a776d730d725adfcb7cc4954d06d093f9d3a84",
-    "category": "Release"
   },
   {
     "sha": "def1598",

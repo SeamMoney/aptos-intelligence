@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19401,
+      "title": "[dkg] Add shadow mode for chunky DKG",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-15T20:02:32Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19401",
+      "labels": []
+    },
+    {
+      "number": 19449,
+      "title": "[consensus] Add pull loop duration and empty retry metrics",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-15T19:45:42Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19449",
+      "labels": [
+        "v1.44"
+      ]
+    },
+    {
       "number": 19442,
       "title": "[consensus] Per-kind pull counters and inline batch cipher verification",
       "author": "ibalajiarun",
@@ -158,16 +176,8 @@
       "labels": [
         "CICD:build-images"
       ]
-    },
-    {
-      "number": 19437,
-      "title": "[mempool] Avoid cloning SignedTransaction for tracing committed hash",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-13T23:32:47Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19437",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-15T19:19:06.154Z"
+  "lastUpdated": "2026-04-15T20:51:21.510Z"
 }

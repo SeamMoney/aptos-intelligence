@@ -11227,5 +11227,33 @@
     "eli5": "<p><strong>[lint] Suggest using index syntax for global storage access (#19298)</strong> — a change by vineethk.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100048,
+    "githubId": "add9609",
+    "title": "[dkg] Add shadow mode for chunky DKG (#19401)",
+    "author": "ibalajiarun",
+    "date": "2026-04-15T20:02:31Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/add96090dabfcbb97bcd5cad734d6c7ab8971905",
+    "advanced": "<h3>What Changed</h3><p><strong>[dkg] Add shadow mode for chunky DKG (#19401)</strong></p><p>by ibalajiarun on 4/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/add96090dabfcbb97bcd5cad734d6c7ab8971905\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[dkg] Add shadow mode for chunky DKG (#19401)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100049,
+    "githubId": "b35cd71",
+    "title": "[consensus] Add pull loop duration and empty retry metrics (#19449)",
+    "author": "danielxiangzl",
+    "date": "2026-04-15T19:45:42Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/b35cd71c582f09bfbcaaebaaf1ed6e720fe2e420",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] Add pull loop duration and empty retry metrics (#19449)</strong></p><p>by danielxiangzl on 4/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/b35cd71c582f09bfbcaaebaaf1ed6e720fe2e420\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] Add pull loop duration and empty retry metrics (#19449)</strong> — a change by danielxiangzl.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
