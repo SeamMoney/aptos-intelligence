@@ -11143,5 +11143,61 @@
     "eli5": "<p><strong>[consensus] Add QsProofOfStore and BlockReceived tracing stages (#19438)</strong> — a change by danielxiangzl.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100042,
+    "githubId": "68a5510",
+    "title": "[compiler-v2] Add support for range patterns in `match` arms (#19255)",
+    "author": "vineethk",
+    "date": "2026-04-15T01:50:56Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/68a5510ebd04a3a35471de4e24ad3a2993b041d2",
+    "advanced": "<h3>What Changed</h3><p><strong>[compiler-v2] Add support for range patterns in `match` arms (#19255)</strong></p><p>by vineethk on 4/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/68a5510ebd04a3a35471de4e24ad3a2993b041d2\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[compiler-v2] Add support for range patterns in `match` arms (#19255)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100043,
+    "githubId": "f6b6915",
+    "title": "[compiler-v2] Fixing multiple bugs that were a result of not handling `SelectVariants` in different places in the compiler (#19366)",
+    "author": "vineethk",
+    "date": "2026-04-15T01:50:22Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/f6b69150182118fbf0426eb1f9660df3a0dadf8e",
+    "advanced": "<h3>What Changed</h3><p><strong>[compiler-v2] Fixing multiple bugs that were a result of not handling `SelectVariants` in different places in the compiler (#19366)</strong></p><p>by vineethk on 4/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/f6b69150182118fbf0426eb1f9660df3a0dadf8e\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[compiler-v2] Fixing multiple bugs that were a result of not handling `SelectVariants` in different places in the compiler (#19366)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100044,
+    "githubId": "da70c48",
+    "title": "[build] Install clang 21 from LLVM apt repo in CI rust-setup action",
+    "author": "wqfish",
+    "date": "2026-04-15T01:04:53Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/da70c48185fb85346c1e404ba45f2498824cbd22",
+    "advanced": "<h3>What Changed</h3><p><strong>[build] Install clang 21 from LLVM apt repo in CI rust-setup action</strong></p><p>by wqfish on 4/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/da70c48185fb85346c1e404ba45f2498824cbd22\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[build] Install clang 21 from LLVM apt repo in CI rust-setup action</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100045,
+    "githubId": "5964e83",
+    "title": "[Config] Enable validator-PFN connections for mainnet.",
+    "author": "JoshLind",
+    "date": "2026-04-14T21:23:51Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/5964e831a935f793a6a160279eb99336aa349116",
+    "advanced": "<h3>What Changed</h3><p><strong>[Config] Enable validator-PFN connections for mainnet.</strong></p><p>by JoshLind on 4/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/5964e831a935f793a6a160279eb99336aa349116\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[Config] Enable validator-PFN connections for mainnet.</strong> — a change by JoshLind.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

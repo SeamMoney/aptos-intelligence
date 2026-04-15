@@ -1,6 +1,64 @@
 {
   "prs": [
     {
+      "number": 19451,
+      "title": "[build] Install clang 21 from LLVM apt repo in CI rust-setup action",
+      "author": "wqfish",
+      "merged_at": "2026-04-15T02:10:15Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19451",
+      "labels": []
+    },
+    {
+      "number": 19255,
+      "title": "[compiler-v2] Add support for range patterns in `match` arms",
+      "author": "vineethk",
+      "merged_at": "2026-04-15T01:50:56Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19255",
+      "labels": []
+    },
+    {
+      "number": 19366,
+      "title": "[compiler-v2] Fixing multiple bugs that were a result of not handling `SelectVariants` in different places in the compiler",
+      "author": "vineethk",
+      "merged_at": "2026-04-15T01:50:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19366",
+      "labels": []
+    },
+    {
+      "number": 19388,
+      "title": "Shared data structures and algorithms crate",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T00:14:14Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
+      "labels": []
+    },
+    {
+      "number": 19427,
+      "title": "[mono-vm] Representation and perf refactoring within specializer",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T20:53:32Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
+      "labels": []
+    },
+    {
+      "number": 19434,
+      "title": "[cp][aptos-release-v1.44] [consensus] Add state sync trigger metrics",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-14T23:10:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19434",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19447,
+      "title": "[Config] Enable validator-PFN connections for mainnet.",
+      "author": "JoshLind",
+      "merged_at": "2026-04-14T22:55:08Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19447",
+      "labels": []
+    },
+    {
       "number": 19368,
       "title": "[compiler-v2] Fix missing cases in ability transformer",
       "author": "vineethk",
@@ -30,14 +88,6 @@
       "author": "danielxiangzl",
       "merged_at": "2026-04-14T20:56:11Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19438",
-      "labels": []
-    },
-    {
-      "number": 19427,
-      "title": "[mono-vm] Representation and perf refactoring within specializer",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T20:53:32Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
       "labels": []
     },
     {
@@ -120,119 +170,21 @@
       "labels": [
         "v1.44"
       ]
-    },
-    {
-      "number": 19388,
-      "title": "Shared data structures and algorithms crate",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T00:14:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
-      "labels": []
-    },
-    {
-      "number": 19400,
-      "title": "[cp][aptos-release-v1.43] Confidential asset v1.1.2 minor fixes",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-13T22:08:50Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19400",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19395,
-      "title": "[consensus] Add state sync trigger metrics",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-13T20:15:28Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19395",
-      "labels": [
-        "CICD:build-performance-images",
-        "v1.44"
-      ]
-    },
-    {
-      "number": 19420,
-      "title": "[storage] Extend crash recovery truncation to hot state DBs",
-      "author": "wqfish",
-      "merged_at": "2026-04-13T19:30:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19420",
-      "labels": []
-    },
-    {
-      "number": 19379,
-      "title": "[prover] Enable dynamic dispatch in the prover",
-      "author": "wrwg",
-      "merged_at": "2026-04-13T19:19:35Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19379",
-      "labels": []
-    },
-    {
-      "number": 19396,
-      "title": "[consensus] Relax need_sync_for_ledger_info to reduce unnecessary state sync",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-13T18:46:53Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19396",
-      "labels": [
-        "CICD:build-performance-images"
-      ]
-    },
-    {
-      "number": 19411,
-      "title": "[vm] Replace variant_name_placeholder mutex with pre-computed static array",
-      "author": "wqfish",
-      "merged_at": "2026-04-13T18:56:59Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19411",
-      "labels": []
-    },
-    {
-      "number": 19419,
-      "title": "[Storage] Enable hot state root hash computation on mainnet",
-      "author": "wqfish",
-      "merged_at": "2026-04-13T18:35:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19419",
-      "labels": []
     }
   ],
   "issues": [
     {
-      "number": 17473,
-      "title": "[Bug] Bytecode verifier MOVELOC_EXISTS_BORROW_ERROR when variable in if condition and its reference are used as arguments",
-      "author": "zzjas",
-      "state": "closed",
-      "created_at": "2025-09-03T15:44:03Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/17473",
-      "labels": [
-        "bug",
-        "stale-exempt",
-        "compiler-v2",
-        "move-smith"
-      ]
-    },
-    {
-      "number": 17615,
-      "title": "[Bug] Compiler generated code causes bytecode verification failure on `inline` functions",
+      "number": 19360,
+      "title": "[Bug] Compiler produces bytecode verification failure BORROWFIELD_TYPE_MISMATCH_ERROR",
       "author": "vineethk",
       "state": "closed",
-      "created_at": "2025-09-16T21:29:51Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/17615",
-      "labels": [
-        "bug",
-        "stale-exempt",
-        "compiler-v2"
-      ]
-    },
-    {
-      "number": 19345,
-      "title": "[Bug] `STLOC_TYPE_MISMATCH_ERROR` caused by reference mode leaks through Block/IfElse",
-      "author": "zzjas",
-      "state": "closed",
-      "created_at": "2026-04-06T20:16:47Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19345",
+      "created_at": "2026-04-07T22:31:36Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19360",
       "labels": [
         "bug",
         "compiler-v2"
       ]
     }
   ],
-  "lastUpdated": "2026-04-14T22:47:29.860Z"
+  "lastUpdated": "2026-04-15T02:36:11.620Z"
 }
