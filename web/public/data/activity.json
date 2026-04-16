@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19467,
+      "title": "[trivial] [spec] turn off the spec of `try_complete_after_grace_period`",
+      "author": "rahxephon89",
+      "merged_at": "2026-04-16T01:38:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19467",
+      "labels": []
+    },
+    {
       "number": 19388,
       "title": "Shared data structures and algorithms crate",
       "author": "vineethk",
@@ -174,18 +182,21 @@
       "merged_at": "2026-04-14T08:36:42Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19417",
       "labels": []
-    },
+    }
+  ],
+  "issues": [
     {
-      "number": 19291,
-      "title": "[dkg] Graceful PublicParameters initialization with file-based loading and chain-aware fallback",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-14T05:30:50Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19291",
+      "number": 18043,
+      "title": "[Feature Request] Add ARM64 Docker image support for aptos-node in release process",
+      "author": "erikburt",
+      "state": "open",
+      "created_at": "2025-11-05T22:22:20Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18043",
       "labels": [
-        "CICD:build-images"
+        "enhancement",
+        "Stale"
       ]
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-15T22:42:10.887Z"
+  "lastUpdated": "2026-04-16T02:43:49.228Z"
 }
