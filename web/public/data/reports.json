@@ -11353,5 +11353,19 @@
     "eli5": "<p><strong>[mono-move] Add gas design doc (#19209)</strong> — a change by calintat.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100057,
+    "githubId": "c1dfd4f",
+    "title": "Adjust quorum store queue handling (#19446)",
+    "author": "ibalajiarun",
+    "date": "2026-04-16T17:33:49Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/c1dfd4f5655402667e5c5ccb5ee328deca12af5f",
+    "advanced": "<h3>What Changed</h3><p><strong>Adjust quorum store queue handling (#19446)</strong></p><p>by ibalajiarun on 4/16/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/c1dfd4f5655402667e5c5ccb5ee328deca12af5f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Adjust quorum store queue handling (#19446)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
