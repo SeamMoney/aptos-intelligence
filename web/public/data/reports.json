@@ -11381,5 +11381,33 @@
     "eli5": "<p><strong>Update Docker images</strong> — a change by aptos-bot.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100059,
+    "githubId": "217874c",
+    "title": "[types] Bind encrypted payloads to auth keys (#19460)",
+    "author": "ibalajiarun",
+    "date": "2026-04-16T22:24:59Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/217874c8beb5df046152dc3086d13f01be2eff3f",
+    "advanced": "<h3>What Changed</h3><p><strong>[types] Bind encrypted payloads to auth keys (#19460)</strong></p><p>by ibalajiarun on 4/16/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/217874c8beb5df046152dc3086d13f01be2eff3f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[types] Bind encrypted payloads to auth keys (#19460)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100060,
+    "githubId": "db26bbc",
+    "title": "fix benchmark option for Move prover (#19472)",
+    "author": "rahxephon89",
+    "date": "2026-04-16T20:58:16Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/db26bbc35cd5ad7640bcf0cbdd542cd1f348293f",
+    "advanced": "<h3>What Changed</h3><p><strong>fix benchmark option for Move prover (#19472)</strong></p><p>by rahxephon89 on 4/16/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/db26bbc35cd5ad7640bcf0cbdd542cd1f348293f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>fix benchmark option for Move prover (#19472)</strong> — a change by rahxephon89.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

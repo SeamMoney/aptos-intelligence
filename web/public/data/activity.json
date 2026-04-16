@@ -1,6 +1,32 @@
 {
   "prs": [
     {
+      "number": 19460,
+      "title": "Bind encrypted payload verification to sender auth keys",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-16T22:25:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19460",
+      "labels": []
+    },
+    {
+      "number": 19433,
+      "title": "Confidential assets v1.1.3: add emergency pause",
+      "author": "alinush",
+      "merged_at": "2026-04-16T16:18:26Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19433",
+      "labels": [
+        "1.44"
+      ]
+    },
+    {
+      "number": 19472,
+      "title": "[trivial][Move prover] fix benchmark option",
+      "author": "rahxephon89",
+      "merged_at": "2026-04-16T20:58:16Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19472",
+      "labels": []
+    },
+    {
       "number": 19424,
       "title": "Update Docker images",
       "author": "github-actions[bot]",
@@ -17,16 +43,6 @@
       "merged_at": "2026-04-16T17:33:50Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19446",
       "labels": []
-    },
-    {
-      "number": 19433,
-      "title": "Confidential assets v1.1.3: add emergency pause",
-      "author": "alinush",
-      "merged_at": "2026-04-16T16:18:26Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19433",
-      "labels": [
-        "1.44"
-      ]
     },
     {
       "number": 19209,
@@ -177,22 +193,6 @@
       "merged_at": "2026-04-14T22:46:50Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19368",
       "labels": []
-    },
-    {
-      "number": 19429,
-      "title": "[encrypted mempool] New digest key file format",
-      "author": "rex1fernando",
-      "merged_at": "2026-04-14T21:40:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19429",
-      "labels": []
-    },
-    {
-      "number": 19369,
-      "title": "[compiler-v2] Fix reference mode leak in stackless bytecode gen",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T22:21:43Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19369",
-      "labels": []
     }
   ],
   "issues": [
@@ -233,19 +233,7 @@
         "stale-exempt",
         "compiler-v2"
       ]
-    },
-    {
-      "number": 19127,
-      "title": "[Feature Request] Add a linter for checking use of deprecated items",
-      "author": "junxzm1990",
-      "state": "closed",
-      "created_at": "2026-03-18T23:18:29Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19127",
-      "labels": [
-        "enhancement",
-        "compiler-v2"
-      ]
     }
   ],
-  "lastUpdated": "2026-04-16T20:50:34.391Z"
+  "lastUpdated": "2026-04-16T22:41:13.402Z"
 }

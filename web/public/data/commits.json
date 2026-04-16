@@ -1,15 +1,15 @@
 [
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,20 +24,36 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "217874c",
+    "title": "[types] Bind encrypted payloads to auth keys (#19460)",
+    "author": "ibalajiarun",
+    "date": "2026-04-16T22:24:59Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/217874c8beb5df046152dc3086d13f01be2eff3f",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "db26bbc",
+    "title": "fix benchmark option for Move prover (#19472)",
+    "author": "rahxephon89",
+    "date": "2026-04-16T20:58:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/db26bbc35cd5ad7640bcf0cbdd542cd1f348293f",
+    "category": "Security"
   },
   {
     "sha": "c1dfd4f",
@@ -4789,22 +4805,6 @@
     "author": "ibalajiarun",
     "date": "2026-01-15T00:39:47Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/31180f5a86a2955a376ecb9326fa83a5d41555f4",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "d49896b",
-    "title": "[move-prover] Adding behavioral predicates to the parser (#18428)",
-    "author": "wrwg",
-    "date": "2026-01-14T23:01:19Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d49896be27f4c071cdaeb4a2e6ddc0ddd97a93c5",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "8fc3fd0",
-    "title": "[qs] fix flaky batch store test",
-    "author": "ibalajiarun",
-    "date": "2026-01-14T21:44:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/8fc3fd06e972d26f654a958158300ec98c0a124a",
     "category": "Feature Progress"
   },
   {
