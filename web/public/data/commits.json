@@ -1,15 +1,15 @@
 [
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,20 +24,44 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "48c6902",
+    "title": "fix reference safety checker v3 for non-reference Call destinations (#19409)",
+    "author": "rahxephon89",
+    "date": "2026-04-16T05:26:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/48c6902d0bb1fc2b04d5a89da07e1a3d2942698b",
+    "category": "Security"
+  },
+  {
+    "sha": "587f6b5",
+    "title": "[compiler-v1] Removing Move 1 feature gating from the compiler and elsewhere, fully sunset Move 1 (#19320)",
+    "author": "vineethk",
+    "date": "2026-04-16T03:21:06Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/587f6b5871c335a2304665fb010403d65add5ce9",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "fe777df",
+    "title": "fix ability check for function values (#19397)",
+    "author": "rahxephon89",
+    "date": "2026-04-16T03:04:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fe777dfe9cd6cf6071b2a955dcc3782b7a150604",
+    "category": "Security"
   },
   {
     "sha": "a846471",
@@ -4782,30 +4806,6 @@
     "date": "2026-01-14T20:42:02Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/8dbb447c80688bbd8e6bea2ebe234916e40fcca9",
     "category": "Security"
-  },
-  {
-    "sha": "eac80f9",
-    "title": "[Hot State] Compute root hash for hot state",
-    "author": "wqfish",
-    "date": "2026-01-14T19:35:27Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/eac80f96a072eaef61f00d84e3001dfacbd2581e",
-    "category": "Release"
-  },
-  {
-    "sha": "a900b30",
-    "title": "[Storage] Move log out of loop in StateSnapshotCommitter",
-    "author": "wqfish",
-    "date": "2026-01-14T19:35:27Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/a900b30bc2ceddf48786635a69d20265501f0178",
-    "category": "Performance"
-  },
-  {
-    "sha": "d434f8e",
-    "title": "[encrypted mempool] Switch curve to BLS (#18442)",
-    "author": "rex1fernando",
-    "date": "2026-01-14T15:43:14Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d434f8e649ca2b4a09f253209673efceca5c8612",
-    "category": "Feature Progress"
   },
   {
     "sha": "def1598",
