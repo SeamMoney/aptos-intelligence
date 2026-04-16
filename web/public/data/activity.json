@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19424,
+      "title": "Update Docker images",
+      "author": "github-actions[bot]",
+      "merged_at": "2026-04-16T20:40:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19424",
+      "labels": [
+        "CICD:run-e2e-tests"
+      ]
+    },
+    {
       "number": 19446,
       "title": "Adjust quorum store queue handling",
       "author": "ibalajiarun",
@@ -237,5 +247,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-16T19:16:46.055Z"
+  "lastUpdated": "2026-04-16T20:50:34.391Z"
 }
