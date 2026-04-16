@@ -1,15 +1,15 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,19 +24,35 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "7479153",
+    "title": "Confidential assets v1.1.3: add emergency pause (#19433)",
     "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "date": "2026-04-16T16:18:26Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/747915347898d88b91c048601f5e8ce3eb1b96fc",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "32bb839",
+    "title": "[mono-move] Add gas design doc (#19209)",
+    "author": "calintat",
+    "date": "2026-04-16T15:59:04Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/32bb8399f465fed5189decf7a58f92eda4677042",
     "category": "Feature Progress"
   },
   {
@@ -4768,14 +4784,6 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "d91d3c5",
-    "title": "[compiler] fix issue 18335 (#18411)",
-    "author": "junxzm1990",
-    "date": "2026-01-14T21:59:08Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d91d3c50c183387d83cbc54734d988e9cdf8449c",
-    "category": "Security"
-  },
-  {
     "sha": "8fc3fd0",
     "title": "[qs] fix flaky batch store test",
     "author": "ibalajiarun",
@@ -4798,14 +4806,6 @@
     "date": "2026-01-14T20:48:15Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/c83c8f2746481137cbede06181d34d04ed6713ee",
     "category": "Performance"
-  },
-  {
-    "sha": "8dbb447",
-    "title": "[transaction simulation] fix bug in fund_apt_fungible_store (#18448)",
-    "author": "vgao1996",
-    "date": "2026-01-14T20:42:02Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/8dbb447c80688bbd8e6bea2ebe234916e40fcca9",
-    "category": "Security"
   },
   {
     "sha": "def1598",

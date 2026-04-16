@@ -11325,5 +11325,33 @@
     "eli5": "<p><strong>fix ability check for function values (#19397)</strong> — a change by rahxephon89.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100055,
+    "githubId": "7479153",
+    "title": "Confidential assets v1.1.3: add emergency pause (#19433)",
+    "author": "alinush",
+    "date": "2026-04-16T16:18:26Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/747915347898d88b91c048601f5e8ce3eb1b96fc",
+    "advanced": "<h3>What Changed</h3><p><strong>Confidential assets v1.1.3: add emergency pause (#19433)</strong></p><p>by alinush on 4/16/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/747915347898d88b91c048601f5e8ce3eb1b96fc\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Confidential assets v1.1.3: add emergency pause (#19433)</strong> — a change by alinush.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100056,
+    "githubId": "32bb839",
+    "title": "[mono-move] Add gas design doc (#19209)",
+    "author": "calintat",
+    "date": "2026-04-16T15:59:04Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/32bb8399f465fed5189decf7a58f92eda4677042",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Add gas design doc (#19209)</strong></p><p>by calintat on 4/16/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/32bb8399f465fed5189decf7a58f92eda4677042\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Add gas design doc (#19209)</strong> — a change by calintat.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

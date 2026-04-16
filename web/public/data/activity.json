@@ -1,6 +1,26 @@
 {
   "prs": [
     {
+      "number": 19433,
+      "title": "Confidential assets v1.1.3: add emergency pause",
+      "author": "alinush",
+      "merged_at": "2026-04-16T16:18:26Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19433",
+      "labels": [
+        "1.44"
+      ]
+    },
+    {
+      "number": 19209,
+      "title": "[mono-move] Add gas design doc",
+      "author": "calintat",
+      "merged_at": "2026-04-16T15:59:05Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19209",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19409,
       "title": "[compiler] fix reference safety checker v3 for non-reference Call destinations",
       "author": "rahxephon89",
@@ -163,49 +183,59 @@
       "merged_at": "2026-04-14T20:56:11Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19438",
       "labels": []
-    },
-    {
-      "number": 19350,
-      "title": "[linter] Add mutable_view_function and unsafe_friend_package_entry lint",
-      "author": "GotenJBZ",
-      "merged_at": "2026-04-14T18:29:16Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19350",
-      "labels": []
-    },
-    {
-      "number": 19405,
-      "title": "Tighten validation checks",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-14T17:52:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19405",
-      "labels": []
     }
   ],
   "issues": [
     {
-      "number": 19394,
-      "title": "[Bug] STLOC_UNSAFE_TO_DESTROY_ERROR caued by missing ref safety check for non-reference Call destinations",
+      "number": 19322,
+      "title": "[Bug] AST simplifier missing SelectVariants causes silent mutation drops on enum fields",
       "author": "zzjas",
       "state": "closed",
-      "created_at": "2026-04-10T17:27:35Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19394",
+      "created_at": "2026-04-03T18:04:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19322",
       "labels": [
         "bug",
         "compiler-v2"
       ]
     },
     {
-      "number": 18401,
-      "title": "[Task] Removing support for language v1",
+      "number": 15119,
+      "title": "[Bug][Compiler]The view tag does not strictly check global mutable variables",
+      "author": "blackyc",
+      "state": "closed",
+      "created_at": "2024-10-30T07:21:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/15119",
+      "labels": [
+        "bug",
+        "stale-exempt",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 12729,
+      "title": "[Feature Request][move compiler] Flag view functions with side-effects on global state",
+      "author": "brmataptos",
+      "state": "closed",
+      "created_at": "2024-03-28T20:13:03Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/12729",
+      "labels": [
+        "enhancement",
+        "stale-exempt",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 19127,
+      "title": "[Feature Request] Add a linter for checking use of deprecated items",
       "author": "junxzm1990",
       "state": "closed",
-      "created_at": "2026-01-02T19:03:59Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/18401",
+      "created_at": "2026-03-18T23:18:29Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19127",
       "labels": [
-        "stale-exempt",
+        "enhancement",
         "compiler-v2"
       ]
     }
   ],
-  "lastUpdated": "2026-04-16T15:27:26.037Z"
+  "lastUpdated": "2026-04-16T17:15:52.476Z"
 }
