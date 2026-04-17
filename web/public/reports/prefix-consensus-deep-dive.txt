@@ -16,8 +16,6 @@ Prefix Consensus: How Aptos Is Building Censorship-Resistant, Leaderless BFT
 
 In February 2026, three Aptos Labs researchers — Zhuolun Xiang (Daniel), Andrei Tonkikh, and Alexander Spiegelman — published "Prefix Consensus For Censorship Resistant BFT" (arXiv:2602.02892). This paper introduces a new BFT primitive that fundamentally changes how blockchain consensus can work: instead of requiring all honest validators to agree on a single value, it allows them to agree on a prefix of ordered proposals. This is not incremental. It is the theoretical foundation for Aptos's next-generation consensus layer.
 
-
-
 The Primitive: What Is Prefix Consensus?
 
 Classical BFT consensus (like PBFT, HotStuff, Jolteon) solves this problem: n parties each have an input value, and they must all agree on a single output. This is single-value agreement. It requires a leader to drive the protocol, and that leader becomes a single point of failure for both liveness and censorship.
@@ -43,9 +41,37 @@ Prefix Consensus:
           Party3=(v_low=[tx1,tx2,tx3], v_high=[tx1,tx2,tx3,tx5])
   Guarantee: v_low always extends max common prefix [tx1,tx2]
 
+Formally, the paper defines two variants. Weak Prefix Consensus (WPC) guarantees only the low/high consistency above and can be solved asynchronously in 3 rounds. Strong Prefix Consensus (SPC) additionally requires that all honest parties output the same v_{\text{high}} — this is what lets an SMR protocol built on top commit a single canonical sequence. SPC requires partial synchrony (explained further in a later section) but still inherits the 3-round round-complexity in the good case.
+
+The Adversary Model: What Prefix Consensus Actually Assumes
+
+Understanding what Prefix Consensus proves requires being precise about what it assumes. Consensus lower bounds are notorious for being misread — so we spell out every assumption the paper makes.
+
+
+Byzantine fault bound: f < n/3. The protocol tolerates up to f arbitrary Byzantine faults out of n = 3f+1 parties. This is the classical BFT threshold (Lamport–Shostak–Pease 1982, Dwork–Lynch–Stockmeyer 1988). No BFT protocol in the standard model can do better.
+Partial synchrony (for SPC and the SMR protocol). The network is asynchronous until an unknown Global Stabilization Time (GST), after which message delays are bounded by some unknown \Delta. Before GST, the adversary may delay messages arbitrarily. After GST, delivery is timely.
+Weak Prefix Consensus is fully asynchronous. WPC does not require GST — it always terminates in 3 rounds regardless of network behaviour. This matters because WPC is the building block; SPC is the composite.
+One-suspension-per-round tolerance. The SMR protocol remains live even if, in addition to f−1 Byzantine parties, the adversary suspends (halts and restarts) exactly one additional honest party per round. This is a strictly stronger adversary than HotStuff or PBFT tolerate — both of those assume the set of crashed parties is static per view.
+Static corruption. The adversary selects the Byzantine set at the start of the protocol. Adaptive corruption (deciding who to corrupt based on the protocol transcript) is out of scope; the paper notes that adapting SPC to adaptive adversaries requires mixing in threshold signatures with unique-suffix guarantees.
+Authenticated channels and a PKI. Every pair of parties shares a mutually-authenticated channel and a digital-signature PKI is set up before the protocol begins. This is the same model as HotStuff, Tendermint, and Jolteon.
+
+
+Compare this to the closest-related protocols:
+
+
+ProtocolFault BoundNetwork ModelLeaderSuspension Tolerance
+PBFT (1999)f < n/3Partial syncRotating viewNone (view-change required)
+HotStuff (2019)f < n/3Partial syncRotating viewNone (pacemaker required)
+Jolteon (2022)f < n/3Partial syncRotating viewNone
+Bullshark (2022)f < n/3Eventual syncAnchorsPer-wave
+Prefix Consensus SMRf < n/3Partial syncNoneOne per round after GST
+
+
+The one-suspension tolerance is the reason Prefix Consensus is described as "leaderless in the strong sense." In every other partial-sync BFT protocol, suspending the current leader halts the protocol until a view change completes — a 2-to-3-round penalty. In Prefix Consensus, suspending any single party in any round still lets the protocol commit within its standard round bound.
+
 The 3-Round Async Protocol
 
-The paper proves that Strong Prefix Consensus can be solved in exactly 3 asynchronous rounds — and that this is a tight lower bound (2 rounds is impossible). The protocol works as follows:
+The paper proves that Strong Prefix Consensus can be solved in exactly 3 asynchronous rounds — and that this is a tight lower bound (2 rounds is impossible unless n &ge; 5f+1). The protocol works as follows:
 
 
 Round 1 — Broadcast: Every party broadcasts its input vector to all other parties
@@ -54,6 +80,34 @@ Round 3 — Vote: Upon receiving 2f+1 echo messages, each party computes the com
 
 
 This achieves O(n^3) message complexity in the worst case. In the fault-free case, the protocol completes in 3 rounds with immediate output. When integrated into a full SMR (State Machine Replication) protocol, the commit latency is 4 rounds (3 for the prefix consensus instance + 1 for chaining), dropping to 3 rounds in the fault-free fast path.
+
+The Trie-Based Data Structure
+
+A subtle but load-bearing engineering detail of the Prefix Consensus paper is its choice of data structure: the common-prefix computations that sit at the heart of both Round 2 and Round 3 are implemented over tries (radix trees), not sorted lists. This is not an incidental optimization — it is what makes the protocol fit inside a real blockchain round budget.
+
+Consider what Round 2 must do. A party receives 2f+1 input vectors, each of which may be thousands of transaction hashes long. It must compute the longest common prefix of all of them. A naive implementation compares every vector against every other pairwise — that is O(n · k²) where k is the vector length. For n=100, k=10,000, that is 1010 comparisons — far too slow for a round budget of 200ms.
+
+The trie-based approach is radically cheaper. Each input vector is inserted into a single shared trie; edges are labelled with transaction hashes; each leaf is tagged with the set of parties whose vector reached that leaf. The longest-common-prefix computation becomes a single DFS that stops at the first branch where fewer than 2f+1 parties' tags are present. Total cost: O(k) per insertion, O(k) for the final LCP walk, O(n · k) overall. For the same example, 106 operations — four orders of magnitude less.
+
+                   ┌─[tx1]───┐
+                   │          │
+    root ──[tx0]───┤          ├── [tx2] ── [tx3] ── {P1, P3}   (len=4)
+                   │          │
+                   │          └── [tx2] ── [tx4] ── {P2}        (len=3)
+                   │
+                   └─[txA]───── ... (not enough votes here)
+
+  LCP walk: root -> tx0 -> tx1 (3 votes) -> tx2 (3 votes) -> stop
+  Common prefix = [tx0, tx1, tx2]  (this becomes v_low)
+
+Two additional properties make the trie choice especially well-suited:
+
+
+Quorum certificates bind the trie root. A party signs the Merkle root of its trie rather than an enumeration of entries. Receivers verify the signature once; challenges against specific entries use standard Merkle inclusion proofs. This keeps signature cost constant in k.
+Differing-entry encoding. When two parties agree on a long prefix and diverge only at the tail, they can send only the divergent subtree rather than the full vector. The paper's communication-optimized variant uses this to push raw communication below the naive O(n⁴) bound for large validator sets.
+
+
+The memory cost is O(n · k) per slot — acceptable given that Aptos validators already buffer quorum-store batches of similar magnitude. Trie reuse across slots is not safe (each slot is an independent instance) but the trie for one slot can be garbage-collected as soon as commit is durable.
 
 From Prefix Consensus to Full BFT SMR
 
@@ -68,6 +122,57 @@ Demotion rule: If an honest party's proposal is excluded from the committed pref
 Convergence guarantee: After at most f censored slots post-GST (Global Stabilization Time), all honest parties' proposals rank first forever. The protocol self-heals.
 
 
+Walkthrough: One Full Slot of Leaderless SMR
+
+To make the abstract protocol concrete, walk through exactly one slot with n=4, f=1 validators named V0, V1, V2, V3. Assume V3 is Byzantine, the other three are honest, the network is post-GST (timely), and the deterministic ranking for this slot is [V0, V1, V2, V3] (V0 is ranked first).
+
+┌────────────────────────────────────────────────────────────────────┐
+│                    SLOT 42 — TIMELINE                              │
+├────────────────────────────────────────────────────────────────────┤
+│ T+0ms   PROPOSE: every validator broadcasts a batch to all others  │
+│                                                                    │
+│   V0 -> [a, b, c, d]       (from V0's mempool)                    │
+│   V1 -> [a, b, c, e]       (V1 has seen tx e, V0 has seen tx d)   │
+│   V2 -> [a, b, c, d, e]    (V2 has seen both tails)               │
+│   V3 -> [a, b, z]          (Byzantine — tries to censor d,e)      │
+│                                                                    │
+│ T+80ms  ROUND 1 complete — each validator has 4 input vectors.     │
+│                                                                    │
+│ T+80ms  ECHO: each validator ranks proposals by deterministic       │
+│         ranking [V0, V1, V2, V3], chains them, and computes the     │
+│         longest common prefix of the 2f+1=3 received vectors.       │
+│                                                                    │
+│   V0 sees {V0,V1,V2,V3 inputs}; chains ranked as                    │
+│       [a,b,c,d] || [a,b,c,e] || [a,b,c,d,e] || [a,b,z]              │
+│   LCP of first three (highest ranks honest) = [a,b,c]               │
+│   V0 broadcasts ECHO(prefix=[a,b,c])                                │
+│                                                                    │
+│   V1 and V2 compute the same LCP; V3 may echo garbage (ignored).    │
+│                                                                    │
+│ T+160ms ROUND 2 complete — each validator has 2f+1=3 honest echoes. │
+│                                                                    │
+│ T+160ms VOTE: each validator computes:                              │
+│   v_low  = common prefix of the 3 received echoes = [a,b,c]         │
+│   v_high = [a,b,c,d,e]  (union/extension from the input trie)       │
+│                                                                    │
+│ T+240ms COMMIT: v_low = [a,b,c] is committed. The "high" range      │
+│         [d,e] waits one more slot for a deterministic tie-break.    │
+│                                                                    │
+│ T+240ms DEMOTION CHECK: did V0 (rank-1) suppress an honest proposal?│
+│         No — V0 and V1 both included c. V0 keeps its rank.          │
+│         V3's censored [a,b,z] does not match any honest input and   │
+│         is ignored — V3's rank is unchanged because it wasn't the   │
+│         rank-1 proposer this slot.                                  │
+│                                                                    │
+│ T+240ms CONTRAST: if V3 had been rank-1 and proposed [a,b,z] to     │
+│         exclude c, the committed v_low would have excluded c too.   │
+│         But c was in at least 2f+1=3 honest inputs — so the         │
+│         protocol detects the mismatch and demotes V3 permanently.   │
+│         Next slot's ranking becomes [V0, V1, V2, ].     │
+└────────────────────────────────────────────────────────────────────┘
+
+Three things to notice. First, the protocol committed after 3 rounds (240ms) with no leader, no view change, and no view-change penalty for V3's Byzantine behaviour. Second, the demotion rule requires evidence of censorship — specifically, an honest proposal that was in 2f+1 inputs but absent from the rank-1 proposer's output. The deterministic ranking makes this evidence publicly verifiable. Third, the v_high range lets the next slot pick up any transactions that weren't yet fully agreed — the protocol never "forgets" a proposal once it has been seen by f+1 honest parties.
+
 The Demotion Rule: Why f-Censorship Resistance Is Guaranteed
 
 The demotion rule is the key innovation that makes this protocol censorship-resistant. Here is the logic:
@@ -81,8 +186,6 @@ Honest validators do not censor, so all honest proposals are included from that 
 
 
 This means the protocol tolerates at most f censorship events before achieving permanent censorship resistance. This is provably optimal — no protocol can do better than f censorship events when facing f Byzantine parties.
-
-
 
 Leaderless vs Multi-Proposer — The Distinction That Matters
 
@@ -113,6 +216,64 @@ Communication-optimized variants. Aggregated signatures plus compact encoding of
 
 These are the building blocks that make Archon's full leaderless mode practical at mainnet scale — not just theoretically sound.
 
+Communication Complexity Deep Dive
+
+Consensus protocols are judged on two different axes: message complexity (how many discrete messages hit the wire) and communication complexity (total bytes transferred). Prefix Consensus optimizes both, but the path from the naive bound to the production-ready bound is worth spelling out.
+
+Naive upper bound: O(n³) messages, O(n⁴) communication. Round 1 has n parties each broadcasting a vector to n parties — that is n² messages. Round 2 has n parties broadcasting the computed prefix to n parties — another n² messages. Round 3 is the same. Total: 3n² messages, which is O(n²) — wait, the paper says O(n³). Why?
+
+The answer is that "message complexity" in the Dwork-Lynch-Stockmeyer sense counts per-recipient deliveries, and the protocol must handle view-change-like retries across n rotations in the worst case. For each of n potential bad slots, all n parties may replay to all n parties — so n · n² = n³ in the pathological scenario. Communication is O(n⁴) because each message carries an O(n)-sized vector of hashes.
+
+Optimization 1: threshold signatures. Replace each 2f+1-party quorum certificate (O(n) signatures) with a single aggregated BLS signature. Verification is constant-time; the QC becomes O(1) bytes instead of O(n). This drops communication by a factor of n — from O(n⁴) to O(n³).
+
+Optimization 2: compact differing-entry encoding. As described in the trie section, parties that agree on a long common prefix need only transmit the divergent suffix. In expectation — because honest mempools overlap heavily — the divergent suffix is much smaller than the full vector. With k-length vectors that share a prefix of length k - \delta, communication drops from O(n²k) to O(n²δ). The paper proves that for typical mempool overlap patterns, δ ≪ k, giving near-linear scaling in practice.
+
+Optimization 3: pipeline the rounds. Round r of slot s and Round r−1 of slot s+1 can share the same network flight — each party piggybacks its next-slot message onto its current-slot message. This does not reduce asymptotic complexity but cuts wall-clock latency by ~30% in global deployments.
+
+Compared side-by-side:
+
+
+ProtocolMessages (good case)Messages (worst case)CommunicationCommit Rounds
+HotStuffO(n)O(n²)O(n²)3
+JolteonO(n)O(n²)O(n²)2 (fast path) / 3
+DAG BullsharkO(n²)O(n²)O(n²)~3 waves
+MysticetiO(n²)O(n²)O(n²)3
+Prefix ConsensusO(n²)O(n³)O(n³)3–4
+
+
+Prefix Consensus pays a factor of n in worst-case messages and communication versus HotStuff. That cost buys leaderless operation, multi-proposer fairness, and f-censorship resistance — three properties HotStuff cannot achieve at any price.
+
+The 2-Round Optimistic Fast Path
+
+The paper presents a 2-round optimistic variant that commits in the good case and falls back to the 3-round protocol when the good case fails. This is how real BFT protocols cheat the asymptotic lower bound: the bound is tight for adversarial executions, but most executions are not adversarial.
+
+The fast path condition is:
+
+
+All n = 5f+1 parties are honest and timely (no Byzantine behaviour, no GST violation, no one-per-round suspension)
+All parties' input vectors share a common prefix of length at least equal to some threshold k₀
+All first-round echoes agree
+
+
+When all three conditions hold, a party that receives 4f+1 matching first-round echoes commits immediately — in 2 rounds. If even one echo diverges, or fewer than 4f+1 arrive within the timeout, the party falls back to Round 3 of the standard protocol. The fallback is seamless: the standard protocol's messages are a superset of the fast-path messages, so no retransmission is needed.
+
+The n = 5f+1 requirement is why the fast path is optional. With n = 3f+1, the 2-round lower bound is impossibility. To get 2 rounds, you need a larger quorum size — specifically, 4f+1 out of 5f+1 — which shrinks the ratio of tolerable faults. Most deployments run n = 3f+1 and accept the 3-round worst case; some security-critical deployments (e.g., a custodial consortium) prefer 5f+1 and the faster fast path.
+
+For Aptos's case: the production validator set is n ≈ 150 with economic assumptions targeting f ≈ 49 Byzantine tolerance (roughly 3f+1). Archon will ship with the 3-round worst case by default and a configurable fast-path toggle that users can opt into with a larger quorum.
+
+Liveness Under Partial Synchrony
+
+Strong Prefix Consensus and the full SMR protocol are liveness-guaranteed only after GST. Before GST, the protocol is still safe — no two honest parties will ever commit conflicting sequences — but it may not make progress. Understanding why this is the right tradeoff requires looking at what happens across the GST boundary.
+
+Before GST. The adversary controls message delays. If it delays every Round-2 echo long enough, no party collects 2f+1 echoes within the round timeout. Parties retry with a longer timeout. The WPC primitive still terminates (it is fully asynchronous), so parties may commit v_low ranges locally; the SMR protocol simply accumulates uncommitted v_high tails. No safety violation is possible — the common-prefix invariant holds under any message schedule.
+
+At GST. All in-flight messages are delivered within \Delta. Parties detect this via the success of a full round: if all 2f+1 echoes arrive on time, the timeout doubling that was in effect decays back toward \Delta.
+
+After GST. The protocol commits v_high ranges deterministically, and within f slots (the demotion rule bound) the rank-1 slot is always filled by an honest party. From that point on, every slot commits every honest proposal within 3 rounds of the proposal's broadcast.
+
+The post-GST worst-case latency is 3Δ + demotion-delay, where demotion-delay is at most f · 3Δ if every Byzantine rank-1 slot censors maximally. For typical settings (Δ = 80ms, f = 49), this is 3·80ms + 49·3·80ms = 240ms + 11.76s — a pathological bound that is almost never hit. In practice, Byzantine validators that systematically censor would be economically slashed long before they exhausted their rank-1 budget.
+
+The more interesting question is what happens during flapping: GST → violation → GST → violation. The paper shows that the demotion rule accumulates across GST boundaries — a validator that was demoted does not un-demote — so over many GST transitions the honest-validator-majority is monotonically strengthened.
 
 Why This Kills DAG-Based Approaches
 
@@ -154,6 +315,65 @@ Optimized message complexity for mainnet-scale validator sets
 
 
 The prefix-consensus-prototype branch in the Aptos Core repository contains active development toward Archon's consensus layer.
+
+Integration Points in aptos-core
+
+Tracing the Prefix Consensus protocol through the aptos-core codebase shows where each abstraction lands. The relevant paths, current as of the prefix-consensus-prototype branch:
+
+
+consensus/src/round_manager.rs — RoundManager is the central coordinator. In Baby Raptr this handles the 4-hop pipeline (propose → vote → order-vote → commit); in Archon it will fan out to per-proposer round managers for the multi-proposer fan.
+consensus/src/quorum_store/batch_coordinator.rs — handles inbound BatchMsg deliveries, which become the raw input vectors in Prefix Consensus terms. The BatchInfoExt type (with its BatchKind::Encrypted variant) is the on-wire encoding of one proposer's input.
+consensus/src/quorum_store/proof_manager.rs — manages ProofOfStore certificates; these are the threshold-signature attestations that bind each proposer's vector to a quorum of signers. In Archon these become the Round-1 attestations of the three-round protocol.
+consensus/src/dag/ — the current DAG transport used by Shoal++ and its predecessors. The Archon migration replaces the DAG commit rule with the Prefix Consensus commit rule while retaining the DAG-like parallel broadcast structure.
+crates/aptos-consensus-types/ — shared types. The VoteMsg, OrderVoteMsg, and the upcoming PrefixVoteMsg (on the prototype branch) carry the Round-2 echoes and Round-3 votes.
+consensus/src/pipeline/ — the Zaptos optimistic-execution pipeline. Prefix Consensus slots into this as the ordering source; speculative execution begins on v_high and is confirmed when v_low catches up.
+
+
+The observable contract between Prefix Consensus and the rest of Aptos is the OrderedBlocks channel — once a block is ordered (its v_low is committed), the execution pipeline receives it with the same API it sees today. This is why Baby Raptr could ship without disturbing Block-STM or the storage layer, and why Archon will follow the same pattern.
+
+The Encrypted Mempool + Prefix Consensus Interaction
+
+Prefix Consensus is content-blind by design: it orders hashes of proposals, not the proposals themselves. That is the property that lets it compose cleanly with the encrypted mempool (BIBE — Batched Identity-Based Encryption).
+
+The end-to-end flow:
+
+
+User-side encryption. A user encrypts their transaction payload with BIBE, producing a BIBECiphertext (G2Affine curve elements, padded symmetric key, ciphertext blob). The ciphertext is signed with Ed25519 and wrapped in a TransactionPayload::EncryptedPayload.
+Mempool admission. Validators verify only the signature and format of the ciphertext — they cannot read the plaintext. This is the MEV-resistance guarantee.
+Quorum Store batching. Encrypted transactions are batched as BatchKind::Encrypted. The batch ciphertexts are verified in parallel (per Balaji Arun's PR #19130) and the PerBatchKindTxnLimits config caps how many encrypted transactions a single batch can contain — this is the throttle that prevents an adversary from flooding the encrypted-decryption pipeline.
+Ordering via Prefix Consensus. The consensus protocol orders the hashes of these batches. Because the protocol is content-blind, there is no way for a Byzantine validator to reorder encrypted transactions based on their contents — it simply cannot read them.
+Post-ordering threshold decryption. Once v_low is committed, validators run a threshold decryption protocol (2f+1 shares) to open the ciphertexts. The decrypted transactions enter Block-STM in the order set by consensus.
+
+
+The critical invariant: ordering precedes decryption. No validator sees plaintext until the order is final. Any attempt at front-running or sandwich attacks would require decrypting before ordering — which requires 2f+1 collusion, equivalent to a safety violation.
+
+The PerBatchKindTxnLimits throttle deserves a callout. Without it, a cheap DoS becomes possible: an adversary submits encrypted-gibberish transactions that fail decryption, wasting validators' BIBE-decryption CPU. The throttle caps encrypted txns per batch (the config is tunable on-chain), so the decryption cost is always bounded regardless of adversarial input rates.
+
+MEV, Censorship, and the Trading Application
+
+Why does Aptos specifically care about leaderless multi-proposer BFT? Because the intended application is high-frequency trading, and trading's failure modes are dominated by MEV and censorship — not by throughput or block-time.
+
+Consider the specific adversaries a trading venue faces:
+
+
+Sandwich attacks. A leader sees a user's large buy order, inserts its own buy before and sell after. Resolved by encrypted mempool — but only if the ordering layer cannot choose which encrypted transactions to include.
+Back-running. A leader delays one user's fill by a few slots to let a different fill at a worse price execute first. Resolved by multi-proposer ordering — a single leader cannot unilaterally delay.
+Selective censorship. A leader systematically excludes one market-maker's orders to benefit a competing market-maker. This is the failure mode Prefix Consensus specifically targets — the f-censorship-resistance guarantee bounds the total number of excluded honest proposals at f, after which the demotion rule makes exclusion impossible.
+Time-bandit reorgs. A coalition of Byzantine validators reorders finalized blocks to rewind an unwanted trade. Out of scope for Prefix Consensus (this is a finality-depth problem), but the self-healing property of the demotion rule means coalitions of Byzantine validators can only attempt this f times before being demoted.
+
+
+Compare the competitive landscape from a trading venue's perspective:
+
+
+ChainConsensusMEV PostureCensorship Resistance
+Ethereum L1LMD-GHOST + Casper FFGProposer–Builder Separation via MEV-boost — censorship is a market outcomeLow — sanctioned addresses are demonstrably filtered by some builders
+SolanaLeader-based PoH; MCP proposedJito auctions; validator front-running documentedLow — single-slot leader can censor for its leader slot window
+SuiMysticeti (DAG)No encrypted mempoolMedium — DAG structure helps, but anchor validator can still exclude
+MonadMonadBFT (HotStuff derivative)No encrypted mempool at launchLow — single leader per slot
+Aptos (Archon)Prefix Consensus SMRBIBE encrypted mempool, content-blind orderingProvable f-censorship resistance + demotion rule
+
+
+The moonshiesty / toly / Daniel thread on X in March 2026 made this rivalry explicit. Daniel's response — linking the paper as a direct rebuttal to "MCP is leader-based" — was not a marketing moment. It was a load-bearing technical claim: Aptos has a formal paper proving that the property Solana aspires to with MCP is achievable, and Aptos is the only chain implementing the primitive that achieves it.
 
 Shoal++ Is Dead — Prefix Consensus Replaces It
 
@@ -210,6 +430,54 @@ Multi-proposerYes (all validators)Yes (all validators)No (single leader)
 Self-healingYes (after f slots)NoView change
 
 
+Performance Targets
+
+Hard numbers matter. The paper gives theoretical bounds; Aptos's production deployment gives empirical ones. Combining them yields the following targets under specific network assumptions:
+
+
+DeploymentValidatorsΔ (one-hop)Committed TPSp50 latencyp99 latencyCensorship bound
+Baby Raptr (live)~15080ms20,000750ms1.5sRotating-leader f-bounded (soft)
+Baby Raptr + Zaptos (live)~15080ms20,000450ms900msSame as above
+Archon target (testnet 2026)~15080ms100,000+320ms650msProvable f-CR (paper)
+Archon + Shardines (future)~15080ms1,000,000+320ms650msProvable f-CR
+Archon 2-round fast path~150 (5f+1)80ms100,000+220ms450msProvable f-CR
+
+
+Assumptions: geographically distributed validators across 6 continents, Δ measured as the 80th-percentile one-hop latency, batch size tuned for ~2500-txn batches, encrypted mempool enabled. The p50 numbers come from Raptr paper experiments; p99 is derived from the 3·Δ + demotion-delay worst-case.
+
+Two things to note. First, Archon does not ship faster p50 than Baby Raptr + Zaptos automatically — the latency improvement comes from the elimination of leader-based pipelining bubbles, not from protocol rounds. Second, the "provable" column is where Archon genuinely differentiates: Baby Raptr's censorship resistance is a property of the rotating-leader schedule; Archon's is a theorem.
+
+Roadmap: Prefix Consensus to Archon Deployment
+
+The path from paper to mainnet, staged:
+
+
+Paper (published Feb 2026). arXiv:2602.02892 defines WPC, SPC, the 3-round protocol, the SMR construction, and the demotion rule. Peer review via cryptography and distributed-systems venues is in progress.
+Prototype (aptos-core prefix-consensus-prototype branch, active). Reference implementation of the 3-round primitive, trie-based common-prefix, and the demotion-rule bookkeeping. Integration tests run against a 4-to-16-validator simnet.
+Devnet integration (mid-2026 target). Archon's consensus path merges into aptos-core's main consensus trait. The existing Baby Raptr path stays live behind a config flag; Archon runs on an isolated devnet cluster.
+Testnet activation (Q4 2026 target). Archon replaces Baby Raptr on a public testnet. Validators upgrade; the mainnet path stays on Baby Raptr. Soak-testing focuses on the demotion rule under adversarial stress.
+Mainnet flag-flip (2027 target). Once Archon has sustained a configurable number of epochs on testnet with no safety or liveness regressions, a governance vote activates it on mainnet. Activation criteria include: no demotion-false-positives in 30 consecutive days, p99 latency within 1.5x of Baby Raptr, no regressions in encrypted-mempool decryption throughput.
+Shardines composition (2027+). Archon composes over Shardines' per-shard consensus substreams, multiplying throughput by the shard count. This is where the million-TPS target actually lands.
+
+
+The prototype branch today contains enough to run a 7-validator simnet. The gap to mainnet is primarily soak-testing and the demotion-rule bookkeeping (which needs to survive validator-set reconfiguration across epochs — see next section).
+
+Limitations and Open Problems
+
+The paper is precise about what it proves, and precise about what it does not solve. Honest engineering requires acknowledging both.
+
+
+Reconfiguration. The paper's validator set is static for the duration of the protocol. Aptos mainnet reconfigures its validator set every epoch (2 hours). Carrying demotion-rule state across reconfigurations is an open engineering problem: if a demoted validator unstakes and re-stakes, does it rejoin with a clean slate? The tentative answer is no — demotion is economic-signed, so un-staking and re-staking burns capital — but the formal theorem has not yet been extended to the reconfiguration setting.
+Validator churn during GST transitions. If the validator set changes across a GST boundary, the f-bound in the demotion rule technically resets. The paper's GST analysis assumes a stable set. For Aptos's 2-hour epochs this is acceptable (most GST transitions occur within an epoch) but it is a caveat.
+Cross-shard composition. When Shardines comes online, each shard runs its own Prefix Consensus instance. Cross-shard transactions require coordination between shards' ordering layers. The composition theorem for Prefix Consensus across shards is not in the paper; it will require a follow-up.
+Cost of Byzantine provers. The demotion rule requires a publicly-verifiable proof that a rank-1 proposer censored an honest proposal. Constructing that proof on-chain costs gas. For high-frequency slots, the on-chain accounting for demotions may be the bottleneck, not the consensus itself.
+Adaptive adversaries. The paper's proofs assume a static adversary. Extending to adaptive corruption (adversary picks Byzantine set based on protocol transcript) likely requires mixing in unique threshold signatures — straightforward in theory, non-trivial in an aggregated-signature implementation.
+Withholding attacks. A Byzantine rank-1 proposer that selectively withholds its proposal (proposes nothing rather than censoring selectively) is demoted by the standard liveness path. But a proposer that publishes in Round 1 and then disappears is a subtler case — the paper handles it correctly, but the engineering surface-area is non-trivial and a likely source of devnet bugs.
+Economic calibration. The theoretical f-bound assumes Byzantine parties cost nothing to be. In production, Byzantine behaviour requires stake. What is the right stake-to-demotion-severity ratio so that Byzantine behaviour is economically irrational? The paper does not prescribe one; it is a governance-layer question Aptos Labs will have to answer.
+
+
+None of these are show-stoppers. They are the kind of "known unknowns" that separate a paper from a mainnet deployment — and they are why Archon is targeted for 2027 rather than 2026.
+
 Key Contributors
 
 
@@ -232,12 +500,20 @@ Paper: arXiv:2602.02892 — "Prefix Consensus For Censorship Resistant BFT" (Feb
 
 The Big Picture: Imagine a classroom where every student has an idea for what the class project should be. In most classrooms, there is one class president (the "leader") who picks which ideas to use. The problem? If the class president is unfair, they can ignore certain students' ideas every time. This is called censorship.
 
-What Prefix Consensus Does: Prefix Consensus is like a new classroom rule where there is no class president. Instead, every student writes their idea on a piece of paper and passes it around. Every student looks at all the ideas and figures out which ones everyone agrees on — starting from the ideas at the top of the list and working down. The ideas that everyone saw and agreed on get added to the project. No single student gets to decide what is included or excluded.
+Why One Class President Is Dangerous: Think about a post office where only one person — the postmaster — decides which letters get delivered and in what order. If the postmaster has a grudge against someone, they can "accidentally" lose that person's mail for weeks. Nobody else sees it happen. Most blockchains today work exactly like this post office: one validator at a time picks which transactions get included in the next block. If that validator doesn't like you — maybe you're trading against their friends, or maybe your address is on a sanctions list they want to enforce — they can just leave you out. You won't even know why.
 
-The Demotion Rule — Cheaters Get Sent to the Back: What about cheaters? If a troublemaker tries to hide someone else's idea (censorship), the class notices. The troublemaker gets "demoted" — sent to the back of the line so they have less influence in the next round. Since there can be at most a few troublemakers in the class, after each one gets caught and sent to the back, eventually only fair students are left in the front. From that point on, every honest student's idea gets included every time. The class self-corrects.
+What "Censorship" Actually Means in Trading: Say you're a trader and you want to sell 1000 shares at $10 each. You send that order to the blockchain. In a leader-based chain, the leader validator sees your order first — before anyone else. If they also run a trading desk, they can buy ahead of you (knowing your sell is coming), then let your sell execute at a slightly worse price, then sell what they just bought at a profit. That's called a "sandwich attack." Or they can just drop your order entirely if they'd rather their friends' orders fill first. Both of those are forms of censorship, and both cost real traders real money every day on every leader-based chain that exists.
 
-Why This Beats the "DAG" Approach: Some other blockchains (like Sui and Hedera) use something called a DAG, which sounds like "everyone proposes." But there is a sneaky trick: even in a DAG, someone called an "anchor" still gets to pick which proposals count. It is like saying "everyone gets to suggest ideas" but the class president still picks which 2/3 of the suggestions to actually use. Prefix Consensus removes that hidden leader entirely.
+What Prefix Consensus Does: Prefix Consensus is like a new classroom rule where there is no class president. Instead, every student writes their idea on a piece of paper and passes it around. Every student looks at all the ideas and figures out which ones everyone agrees on — starting from the ideas at the top of the list and working down. The ideas that everyone saw and agreed on get added to the project. No single student gets to decide what is included or excluded. Imagine a voting booth where every voter drops in the same list of candidates they support — and we only commit to the candidates that appear on a majority of lists. No precinct captain decides who to count.
 
-Where This Lives Today: Aptos already uses a simpler version of this (called Baby Raptr) on its live network. The full version — with the cheater-demotion rule — is being built into something called Archon, which will make Aptos the first major blockchain with provable censorship resistance built directly into its consensus.
+The Demotion Rule — Voted Off the Island for Being a Bad Proposer: What about cheaters? If a troublemaker tries to hide someone else's idea (censorship), the class notices immediately, because the ranking of who-proposes-first is known in advance. The troublemaker gets "demoted" — sent to the back of the line so they have less influence in the next round. It's like being voted off the island on a reality show: once you've been caught pulling a fast one, the tribe remembers, and you don't get another turn at the front. Since there can be at most a few troublemakers in the whole class (a third at most), after each one gets caught and sent to the back, eventually only fair students are left in the front. From that point on, every honest student's idea gets included every time. The class self-corrects, without anyone needing to file a complaint or run a new election.
 
-What You Learned: You just learned about Prefix Consensus — a new way for computers to agree on things without needing a leader, where cheaters automatically get pushed aside. It is the foundation for making Aptos censorship-resistant at the deepest level of the system.
+Why This Is Different from a DAG: Some other blockchains (like Sui and Hedera) use something called a DAG — imagine a swarm of delivery drones all flying parcels around, any-to-any. Sounds fully parallel, right? But here's the trick: at the end of the day, someone still has to pick which drones' parcels actually get loaded onto the delivery truck. That "someone" is called the anchor, and it's really a hidden leader. The anchor picks 2-out-of-3 of the drone parcels and leaves the last third sitting on the tarmac. So even though the drones all flew in parallel, a single anchor still decides what ships. Prefix Consensus doesn't have an anchor. The decision about what gets loaded onto the truck is the common overlap of every drone's independent flight log — no one person chooses.
+
+How the Auction House Analogy Works: Another way to see it. Picture an auction house where a hundred auctioneers are all calling bids at the same time. In a normal auction, one auctioneer decides whose bid counts — they can "miss" a bid from someone they don't like. In Prefix Consensus, every auctioneer writes down the bids they hear. At the end, we only count bids that most auctioneers wrote down. If one auctioneer systematically misses Alice's bids, the mismatch is loud — everyone else wrote her bid down, and that one auctioneer didn't. The cheating auctioneer gets fired. After enough cheaters are fired, only honest auctioneers are left, and no bid gets "missed" again.
+
+Where This Lives Today: Aptos already uses a simpler version of this (called Baby Raptr) on its live network. The full version — with the cheater-demotion rule — is being built into something called Archon, which will make Aptos the first major blockchain with provable censorship resistance built directly into its consensus. The paper that proves it works came out in February 2026, written by three Aptos researchers: Daniel Xiang, Andrei Tonkikh, and Alexander Spiegelman.
+
+Why It Matters for Trading: If you're a market maker, a DeFi user, or anyone who cares whether your transactions land on-chain in a fair order, this is the first chain where the consensus layer — the deepest layer of the system, below everything else — is mathematically designed so that no single validator can front-run you or ignore your orders. Combined with the encrypted mempool (which hides your transactions from validators until after they've been ordered), this is the closest any blockchain has come to a provably-neutral ordering service. That's the pitch.
+
+What You Learned: You just learned about Prefix Consensus — a new way for computers to agree on things without needing a leader, where cheaters automatically get pushed aside. The post office has been replaced with a neighborhood bulletin board where every neighbor signs off on which flyers go up. The class president has been replaced with a rule that says "anything most of the class saw gets included." And the drone fleet doesn't have a dispatcher anymore — the overlap of their flight logs is the delivery manifest. It's the foundation for making Aptos censorship-resistant at the deepest level of the system, and it's the reason the research team at Aptos Labs believes this is the stack that finally makes on-chain trading viable at the level real markets need.

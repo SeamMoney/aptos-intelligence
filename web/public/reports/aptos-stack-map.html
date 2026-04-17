@@ -77,6 +77,8 @@
 
 <p>Aptos's next-generation technical roadmap is five pieces of research shipping in parallel: Prefix Consensus, Raptr / Archon, Zaptos, Block-STM v2, Shardines, and the encrypted mempool. Each deep-dive on this site covers one piece. This page is the canonical map of how they fit together — and what each layer is actually responsible for.</p>
 
+<p>If you only remember one thing, remember this: <strong>Aptos is not trying to pick between throughput, privacy, and censorship resistance. It is trying to build a single cohesive stack that delivers all three at once.</strong> Every layer below was designed with the other layers in mind, by a tightly coupled research team of roughly a dozen people. That is why it composes. That is why the diagrams are clean. And that is why the benchmarks keep going up even as the threat model gets stronger.</p>
+
 <h3>The Layered Architecture</h3>
 
 <pre><code>┌───────────────────────────────────────────────────────────────────┐
@@ -84,7 +86,7 @@
 │  Encrypted Mempool (BIBE, PerBatchKindTxnLimits, Quorum Store)    │
 ├───────────────────────────────────────────────────────────────────┤
 │                        CONSENSUS / ORDERING                       │
-│  Prefix Consensus  ─&gt;  Raptr (live)  ─&gt;  Archon (next)            │
+│  Prefix Consensus  ─>  Raptr (live)  ─>  Archon (next)            │
 │  Baby Raptr + Velociraptr already ordering blocks on mainnet      │
 ├───────────────────────────────────────────────────────────────────┤
 │                        PIPELINING                                 │
@@ -97,6 +99,8 @@
 │                        STATE / STORAGE                            │
 │  AptosDB + Jellyfish Merkle Tree + Hot State Cache + RocksDB      │
 └───────────────────────────────────────────────────────────────────┘</code></pre>
+
+<p>Each horizontal band is a self-contained research area with its own paper, its own lead researcher, its own mainnet rollout plan. But the interfaces between bands are deliberately narrow — a layer above the line only sees the output of the layer below it, never its internals. This is the same discipline that keeps TCP from knowing how Ethernet works, and it is the reason Aptos can keep shipping consensus, execution, and storage upgrades independently.</p>
 
 <h3>What Each Layer Is Actually Responsible For</h3>
 
@@ -120,13 +124,318 @@
 
 <p>Underneath everything sits AptosDB: a Jellyfish Merkle Tree (versioned sparse Merkle tree), a hot state cache that keeps frequently-accessed resources in memory, and RocksDB as the persistent store. Storage is not currently on the active research frontier — the JMT is mature — but storage sharding is the first layer of Shardines that will ship.</p>
 
+<h3>The Full Transaction Lifecycle</h3>
+
+<p>This is the single most important section on the page. It walks, end-to-end, through what happens to one transaction — from the moment a user signs it in their wallet to the moment it becomes part of the canonical state root. Every layer described above plays a role. Timings are approximate numbers for a healthy mainnet under typical load, and they shift as the encrypted mempool and Zaptos roll out.</p>
+
+<pre><code>   USER WALLET             NETWORK / FULLNODE        VALIDATOR SET           EXECUTION               STORAGE
+   ───────────             ──────────────────        ─────────────           ─────────               ───────
+
+t=0ms
+  build SignedTransaction
+  (payload, seq#, gas, exp)
+  sign w/ Ed25519
+  encrypt payload w/ BIBE  ──>  [5ms] verify ciphertext
+  under epoch public key         add to CoreMempool
+                                 forward to validator gossip
+
+t=50ms                                                    receive BatchMsgV2
+                                                          (BatchKind::Encrypted)
+                                                          rayon-parallel ct verify
+                                                          (~40us per txn × 5000 = 200ms
+                                                           wall-clock via par_iter)
+                                                          build Proof-of-Store:
+                                                          collect 2f+1 ack sigs
+
+t=250ms                                                   RoundManager receives
+                                                          ProposalMsg with batch
+                                                          digests only (no raw txns
+                                                          on critical path)
+                                                          safety_rules.vote_proposal
+                                                          broadcast VoteMsg
+
+t=400ms                                                   2f+1 votes gathered
+                                                          OrderVoteMsg sent with
+                                                          piggy-backed state cert
+                                                          signature (Zaptos trick #3)
+
+t=450ms  (OPT-SPECULATIVE)
+                                                          ChunkyDKG threshold
+                                                          decryption: each validator
+                                                          submits 1 share; 2f+1
+                                                          combined => plaintext
+
+t=500ms                                                                         Zaptos speculative
+                                                                                exec begins on
+                                                                                candidate ordering
+                                                                                before commit cert
+
+                                                                                Block-STM v2:
+                                                                                dispatch all txns
+                                                                                to rayon pool
+                                                                                (256 cores)
+                                                                                MVHashMap reads/writes
+                                                                                delayed fields for
+                                                                                aggregators, hot-state
+                                                                                cache for repeats
+
+t=600ms                                                                         validation wave:
+                                                                                re-exec conflicts
+                                                                                convergence ~1-3
+                                                                                incarnations typical
+
+t=650ms                                                                                                  apply
+                                                                                                         WriteSet
+                                                                                                         to 16-shard
+                                                                                                         JMT in parallel
+                                                                                                         RocksDB LSM
+                                                                                                         OptCommit (Zaptos)
+
+t=700ms                                                   consensus quorum
+                                                          finalizes → block
+                                                          committed
+                                                          LedgerInfoWithSignatures
+                                                          broadcast
+
+t=750ms  client REST poll
+         /transactions/by_hash
+         returns success,
+         gas_used, events,
+         new ledger version</code></pre>
+
+<p>Five things are worth noticing in this trace:</p>
+
+<ol>
+<li><strong>The critical path is dominated by consensus rounds, not execution.</strong> Execution takes ~150ms of a ~700ms end-to-end. That is why Zaptos attacks the overlap between consensus and execution rather than either one in isolation.</li>
+<li><strong>Ciphertext verification is parallel.</strong> A batch of 5000 encrypted transactions takes ~200ms of <em>parallelised</em> CPU but only ~20-40ms of wall-clock time on a modern validator. This is PR #19130's payoff.</li>
+<li><strong>The proposer never carries raw transactions.</strong> Batch digests only — the Quorum Store layer has already disseminated the content. This is the Narwhal insight inherited into Aptos.</li>
+<li><strong>Decryption happens after ordering, never before.</strong> This is the entire security argument for the encrypted mempool. If a validator could decrypt before ordering, it could front-run. It cannot, because the threshold key requires 2f+1 shares and those shares are only released after the order is locked.</li>
+<li><strong>Storage writes overlap with the final consensus round.</strong> The "OptCommit" phase applies the WriteSet to the JMT while certification votes are still being gathered. If certification fails (rare), the OptCommit is rolled back by version tag, not by undoing I/O.</li>
+</ol>
+
+<h3>Layer 1: Networking and Mempool</h3>
+
+<p>Every transaction begins its life in the Aptos Network — a peer-to-peer overlay derived from the original Libra Network protocol. Validators and fullnodes maintain persistent QUIC-like sessions with a curated peer set, authenticated via on-chain validator keys for the validator network and via discovery services for public fullnodes.</p>
+
+<p>When a client submits a transaction to any fullnode's REST API (<code>/transactions</code>), the fullnode parses the <code>SignedTransaction</code>, runs pre-validation via the transaction validator (signature check, sequence number, expiration, gas balance), and inserts it into <code>CoreMempool</code> (<code>mempool/src/core_mempool/mempool.rs</code>). From there, <code>SharedMempool::coordinator</code> runs a <code>tokio::select!</code> loop multiplexing five event sources: client events, network events, quorum-store batch requests, commit notifications, and reconfig events.</p>
+
+<p>Transactions gossip via a timeline index: each mempool tracks which peers have received which transactions, and broadcasts new additions in priority-weighted bursts. The <code>BroadcastPeerPriority</code> enum (Primary vs Failover) throttles bandwidth by preferring a small set of high-quality peers for the bulk of broadcasts.</p>
+
+<p>Spam and rate-limit policies operate at two layers: the network layer rate-limits bytes per peer, and the mempool applies a use-case history (<code>use_case_history: Arc&lt;Mutex&lt;UseCaseHistory&gt;&gt;</code>) that down-weights senders flooding the same entry function. Encrypted transactions inherit all of this, plus <code>PerBatchKindTxnLimits</code> which caps how many encrypted transactions one batch may contain — so a single encrypted submission cannot monopolise the decryption pipeline.</p>
+
+<h3>Layer 2: Privacy — BIBE, AIP-143, Encrypted Mempool, Confidential Assets</h3>
+
+<p>Aptos's privacy story has two distinct layers that are sometimes confused. They are complementary, not alternatives.</p>
+
+<p><strong>Encrypted Mempool</strong> hides transaction <em>contents</em> from validators until after ordering. This eliminates content-based MEV (front-running, sandwiching, reordering) but does not hide <em>who sent what</em> on-chain after execution. The primitive is Batched Identity-Based Encryption (BIBE), a Boneh-Franklin-style pairing-based scheme adapted to the validator set. Users encrypt payloads under the current epoch's IBE public key. Validators hold threshold shares of the corresponding private key via the Chunky DKG ceremony; 2f+1 shares reconstruct a batch decryption, so no minority can peek and no single party holds the key.</p>
+
+<p><strong>Confidential Assets (AIP-143)</strong> hides <em>amounts and balances on-chain</em> via Twisted ElGamal encryption and zero-knowledge proofs. Amounts live in the range [0, 2^64) via Bulletproofs, balances in [0, 2^128). The six Move entry functions (<code>register</code>, <code>deposit</code>, <code>withdraw</code>, <code>transfer</code>, <code>rotate_key</code>, <code>balance</code>) provide a complete privacy-preserving fungible token API. Proof generation is ~25ms client-side; verification is ~2ms validator-side. Mainnet target is April 2026. For the full protocol walkthrough, see the <a href="/reports/confidential-assets-deep-dive">Confidential Assets deep dive</a>.</p>
+
+<p>The encrypted mempool interacts tightly with the randomness beacon: the WVUF (Weighted Verifiable Unpredictable Function) DKG that generates the block randomness also provides the threshold secret shares for BIBE batch decryption, amortising cryptographic overhead. PR #19130 (Balaji Arun, March 2026) introduced <code>PerBatchKindTxnLimits</code> in proposal pull, throttling encrypted batches per block so that a slow DKG round cannot DoS the ordering pipeline.</p>
+
+<p>For the randomness subsystem in detail — WVUF construction, OnChainRandomnessConfig, dapp integration via <code>aptos_framework::randomness</code> — see the <a href="/reports/randomness-deep-dive">Randomness deep dive</a>.</p>
+
+<h3>Layer 3: Consensus in Depth</h3>
+
+<p>Consensus in Aptos has been through four named generations. The knowledge base makes the lineage explicit:</p>
+
+<table>
+<tr><th>Era</th><th>Protocol</th><th>Commit Rounds</th><th>Status</th></tr>
+<tr><td>2022</td><td>DiemBFT / HotStuff-variant</td><td>3</td><td>Retired</td></tr>
+<tr><td>2023</td><td>Jolteon + separate Quorum Store</td><td>6 net hops</td><td>Retired</td></tr>
+<tr><td>2024</td><td>Shoal / Shoal++ (DAG-BFT)</td><td>3-4</td><td>Deprecated (DAG censorship limits)</td></tr>
+<tr><td>2025</td><td>Baby Raptr / Velociraptr</td><td>4 net hops</td><td>Live on mainnet</td></tr>
+<tr><td>2026+</td><td>Archon (Prefix Consensus v2)</td><td>4 (3 fast-path)</td><td>Research, prefix-consensus-prototype branch</td></tr>
+</table>
+
+<p>Baby Raptr is what you are hitting when you submit to mainnet today. It merges Jolteon's consensus with Quorum Store's data dissemination so that the proposer can reference certified batch digests without waiting for the full Proof-of-Store round — cutting consensus from six network hops to four, a 100–150 ms latency improvement. The code path lives in <code>consensus/src/round_manager.rs</code>, centered on <code>RoundManager::process_proposal_msg</code> and <code>process_vote_msg</code>.</p>
+
+<p>Proposer ranking in Baby Raptr is stake-weighted round-robin with reputation modifiers. The <code>UnequivocalProposerElection</code> struct enforces that a validator cannot equivocate (propose two different blocks in the same round) — equivocation is detectable and slashable. Safety is enforced separately by <code>MetricsSafetyRules</code>, which keeps the <em>highest voted round</em> and <em>highest committed round</em> in persistent local storage so that a validator cannot vote twice across a crash.</p>
+
+<p>Archon replaces this ranking with genuine <em>multi-proposer prefix consensus</em>. Every validator broadcasts a proposal every slot; the protocol runs Strong Prefix Consensus on the hashes and commits the common prefix of 2f+1 proposals. If a Byzantine validator ranked first censors an honest proposal, the demotion rule pushes it to the back of the ranking permanently. After at most f censorship events post-GST, only honest validators rank first and the protocol achieves permanent f-censorship resistance. The full protocol, proofs, and message complexity (O(n³)) are covered in the <a href="/reports/prefix-consensus-deep-dive">Prefix Consensus deep dive</a>.</p>
+
+<p>The randomness beacon is a consensus sub-protocol, not a separate layer. Each block includes a WVUF evaluation over the block hash, aggregated from validator shares. Daniel Xiang's commits through 2026 (<code>[consensus] Add optimistic randomness share verification</code>, <code>[consensus] Defer randomness aggregation for non-rand blocks</code>, <code>[consensus] Remove randomness fast path code</code>) show the beacon maturing from an optional fast-path to a hardened default-path feature. OnChainRandomnessConfig governs which blocks require randomness output, saving cycles when no smart contract requested one.</p>
+
+<h3>Layer 4: Pipelining — Zaptos</h3>
+
+<p>Zaptos exists because the classical "decide order, then execute, then commit" sequence was leaving hundreds of milliseconds of CPU and I/O time idle. The Zaptos paper (Li, Xiang et al.) identifies three overlaps that are safe to exploit:</p>
+
+<ol>
+<li><strong>Optimistic execution.</strong> A validator starts executing a proposed block the moment it receives the proposal, not when consensus commits. The execution result is a pure function of (block contents, parent state). If consensus later chooses a different block, the speculative output is simply thrown away — no safety violation.</li>
+<li><strong>Optimistic commit.</strong> Execution results are persisted to AptosDB as <em>OptCommitted</em> before the final state certification round completes. When certification lands, a single metadata flip marks the version Committed. Storage I/O overlaps with the certification vote, removing T_cmt from the latency critical path.</li>
+<li><strong>Piggy-backed state certification.</strong> Instead of running a separate certification vote, validators attach their state-root signature directly to the OrderVote. This saves one full network round trip. It is the reason you see <code>OrderVoteMsg</code> carrying a state certificate field in <code>RoundManager</code>'s <code>VerifiedEvent</code> enum.</li>
+</ol>
+
+<p><strong>Baseline latency:</strong> <code>2·δ_cf + 2·δ_fv + δ_vv + T_con + 2·T_exe + 2·T_cmt</code><br>
+<strong>Zaptos latency:</strong> <code>2·δ_cf + 2·δ_fv + T_con + max(T_exe+T_cmt−2·δ_vv, 0) + max(T_exe−δ_vv, 0) + max(T_cmt−δ_vv, 0)</code></p>
+
+<p>Where δ_cf, δ_fv, δ_vv are client-fullnode, fullnode-validator, and validator-validator network delays respectively. In practice the measured effect is a 40% reduction in end-to-end latency at 20,000 TPS across 100 geographically distributed validators — sub-second confirmation for typical mainnet traffic.</p>
+
+<p><strong>Rollback protocol.</strong> If consensus reorders the block (rare, only under network partitions), Zaptos invalidates the speculative MVHashMap entries keyed by the discarded block hash and re-dispatches execution on the new order. Because Block-STM's MVCC layer is already designed to handle speculative reads, this is essentially a cache bust — no durable state is corrupted because OptCommit writes carry the block hash and are overwritten atomically.</p>
+
+<p><strong>4-round → 2-round interaction with Prefix Consensus.</strong> The Prefix Consensus paper proves a tight 4-round commit bound (3 rounds fault-free). Zaptos's optimistic commit effectively shaves a round by piggy-backing certification. The result at steady state is a 2-round optimistic path (propose + vote-with-cert) and a 4-round worst case — still within the Prefix Consensus lower bound.</p>
+
+<h3>Layer 5: Execution — Block-STM and Block-STM v2</h3>
+
+<p>Block-STM (PPoPP 2023, Gelashvili et al.) is the parallel execution engine that turned Aptos from "a Move chain" into "the fastest production Move chain." It has since been adopted by Polygon, Sei, and Starknet. The core idea is simple: treat a block as a preset serial order and then speculatively execute transactions in parallel, using MVCC and collaborative scheduling to ensure the final state matches serial execution.</p>
+
+<p><strong>MVHashMap.</strong> The multi-version data structure at the heart of Block-STM. Each key maps to an ordered list of (version, value) pairs, where version is the transaction index plus an incarnation number. <code>MVMemory.read(key, idx)</code> returns the highest-versioned write from a transaction k &lt; idx. This is the "best guess" for speculative reads.</p>
+
+<p><strong>Scheduler.</strong> A lock-light coordinator in <code>aptos-move/block-executor/src/scheduler.rs</code>. Worker threads pull <code>SchedulerTask::ExecutionTask</code> or <code>ValidationTask</code> from a shared queue. The scheduler uses atomics for the <code>execution_idx</code> and <code>validation_idx</code> cursors, cache-padded per-txn status locks, and a dependency wakeup graph (<code>txn_dependency: Vec&lt;CachePadded&lt;Mutex&lt;Vec&lt;TxnIndex&gt;&gt;&gt;&gt;</code>) to avoid busy-waiting.</p>
+
+<p><strong>Validation + re-execution.</strong> After a transaction executes, its read-set is revalidated: for each read, does the MVHashMap still agree on the version? If any read is invalidated (a lower-index txn wrote a new value), the transaction aborts. Its writes are marked <code>ESTIMATION</code> so dependents know to pause, and it is re-queued with a higher incarnation number. The block's preset order bounds dependency chains, so the protocol always converges.</p>
+
+<p><strong>What v2 changes.</strong> Block-STM v2 (config flag <code>blockstm_v2</code>, dispatched via <code>execute_transactions_parallel_v2</code> in <code>executor.rs</code>) is Rati Gelashvili's second-generation redesign with four main changes:</p>
+
+<ul>
+<li><strong>Delayed fields.</strong> Aggregator v2 style counters are tracked as deltas in the <code>DelayedFieldID</code> map rather than as raw reads. A mint transaction records "+1 to supply counter" without reading the current value; Block-STM materialises the deltas at commit. This eliminates the dominant read-write conflict in NFT-style workloads.</li>
+<li><strong>Pre-write timestamps.</strong> Each transaction publishes its intended write-set keys before executing, allowing the scheduler to predict dependency chains and schedule validation waves more intelligently. This cuts re-execution waves from ~5-15% on v1 to ~1-3% on v2.</li>
+<li><strong>Hot-state cache coordination.</strong> The MVHashMap now integrates with the hot-state cache's RCU (read-copy-update) pattern. Hot state reads bypass MVCC entirely when proven non-conflicting, shrinking the hot-path instruction count.</li>
+<li><strong>Redesigned MVHashMap.</strong> Internal index structures moved from locked Vec to lock-free skip-lists for contended keys; validation is now O(log k) per key rather than O(k).</li>
+</ul>
+
+<p>The end result is a credible 2–3× throughput improvement on mixed workloads and near-linear scaling to 256 cores. Benchmarks reported &gt;160,000 TPS on v1 for non-conflicting workloads; v2 is targeted at &gt;300,000 TPS per validator on equivalent hardware.</p>
+
+<h3>Layer 6: Execution Scaling — Shardines</h3>
+
+<p>Shardines is what turns a single fast validator into a horizontally scalable cluster <em>inside one validator</em>. Rather than cross-chain sharding (which fragments state and breaks atomic composability), Shardines partitions the three inner layers — storage, execution, and consensus — independently within each validator node.</p>
+
+<p>Storage sharding is already on mainnet: the 16-shard JMT distributes keys by hash and handles writes in parallel RocksDB instances. Execution sharding (in development) runs multiple Block-STM v2 instances per validator, each with its own MVHashMap, coordinated by a dynamic partitioner that minimises cross-shard dependencies. Consensus sharding (in design) runs multiple Quorum Store dissemination shards in parallel, each producing independent Proof-of-Store certificates.</p>
+
+<p>Target: &gt;1,000,000 TPS for non-conflicting transactions, &gt;500,000 TPS for conflicting transactions. Full protocol details, partitioner algorithm, and micro-batching pipeline are in the <a href="/reports/shardines-deep-dive">Shardines deep dive</a>.</p>
+
+<h3>Layer 7: State — AptosDB + JMT + Hot State Cache</h3>
+
+<p>State lives in <code>storage/aptosdb/src/db/mod.rs</code> as a single <code>AptosDB</code> struct owning several sub-databases: <code>LedgerDb</code> for transaction info and write sets, <code>StateKvDb</code> for the state key-value store (sharded), <code>StateMerkleDb</code> for JMT nodes (sharded), <code>EventStore</code>, <code>TransactionStore</code>, and a newer <code>hot_state_kv_db</code> column family for the hot-state cache.</p>
+
+<p><strong>Jellyfish Merkle Tree.</strong> A space-optimised 256-bit sparse Merkle tree. Keys are hashes of (account address, resource type). Internal nodes compress 4 levels of binary trie into one node with up to 16 children (a 4× IOPS reduction vs naive binary Merkle). Subtrees with 0 or 1 leaf collapse to a placeholder or the leaf itself, so the tree only pays for branches that actually contain state.</p>
+
+<p><strong>Versioning.</strong> Every committed transaction creates a new tree version. Node keys combine (Version, NibblePath), and the JMT uses a monotonically increasing version schema optimised for RocksDB's LSM-tree. Old versions are pruned asynchronously by <code>LedgerPrunerManager</code> with configurable retention.</p>
+
+<p><strong>Hot state cache.</strong> wqfish led 33 storage commits in 90 days building out a DashMap-based cache with age metrics, deferred merge, RCU for race-free reads during compaction, and an HotStateConfig-gated WriteSet hotness layer. Hot state lives in its own RocksDB column family for fast lookup; cold state falls through to the JMT path.</p>
+
+<p><strong>Storage sharding</strong> — the already-live first milestone of Shardines — partitions the JMT across 16 shards. <code>batch_put_value_set_for_shard</code> takes a shard_id and applies updates independently; <code>put_top_levels_nodes</code> then stitches per-shard root hashes into a single block root. Per-shard write rate at 20K TPS is ~1,250 ops/shard — well under a modern NVMe's 100K-500K IOPS envelope.</p>
+
+<h3>Layer 8: Move VM</h3>
+
+<p>The Move VM is the execution runtime for every smart contract on Aptos. The core is <code>third_party/move/move-vm/runtime/src/move_vm.rs</code> — a completely stateless interpreter that executes a single loaded function given type arguments, serialised args, a data cache, a gas meter, and a loader. Aptos wraps this in <code>AptosVM</code> (<code>aptos-move/aptos-vm/src/aptos_vm.rs</code>), which adds transaction validation, prologue/epilogue, and the Aptos-specific gas schedule.</p>
+
+<p><strong>Bytecode verification</strong> happens at module publish time. The verifier enforces type safety, resource safety (no duplication or loss of <code>key</code>-ability structs), and reference safety. Once verified, modules are cached in a global module cache (<code>GlobalModuleCache&lt;ModuleId, CompiledModule, Module, AptosModuleExtension&gt;</code>) so subsequent loads are instant.</p>
+
+<p><strong>Resource model.</strong> Move's linear type system guarantees at compile time that resources cannot be duplicated or silently dropped. <code>key</code> ability means a struct can live as a top-level resource in an account; <code>store</code> means it can be nested; <code>copy</code> and <code>drop</code> opt into duplication and destruction. This is what makes Move a safer fit for fungible tokens, NFTs, and DeFi than EVM's loose mutable-storage model.</p>
+
+<p><strong>Static dispatch.</strong> Move has no virtual function tables. Every function call is statically resolved, which enables precise static dependency analysis — and that is what Block-STM uses to aggressively parallelise execution without runtime speculation on the call graph.</p>
+
+<p><strong>Gas metering.</strong> Every bytecode instruction has an on-chain gas cost defined by the gas schedule. Execution halts if the gas budget is exhausted; the transaction is then marked aborted but still committed (gas is consumed). The Move Prover verifies formal specifications on framework code — a different tool than the VM but shipped alongside it.</p>
+
+<p><strong>MonoMove and Compiler v2.</strong> Aptos Labs is building a next-generation VM runtime called MonoMove (vgao1996, georgemitenkov, calintat) with a new instruction set, global arena allocation (no per-tx malloc/free), identifier interning, and a garbage collector. Early benchmarks suggest 2–5× speedups per transaction. Compiler v2 (vineethk and rahxephon89) is the parallel front-end upgrade that will emit optimised bytecode for MonoMove. Both are still in prototype as of v1.43.</p>
+
+<h3>Layer 9: Aggregators and AIP-160</h3>
+
+<p>Aggregator v2 / delayed fields are the primitive that turned NFT minting from a parallelism nightmare into a near-embarrassingly-parallel workload. Before aggregators, every mint had to read-modify-write the same collection supply counter — a guaranteed Block-STM conflict that forced sequential re-executions. Aggregators replace the read-modify-write with a <em>delta operation</em>: the transaction records "+1" and Block-STM materialises the accumulated delta at commit time. No read of the pre-state, no conflict.</p>
+
+<p>The execution output carries the deltas in <code>delayed_field_change_set(): BTreeMap&lt;DelayedFieldID, DelayedChange&gt;</code>, and the shared sync params include a <code>delayed_field_id_counter: &amp;AtomicU32</code> for fresh ID allocation. Aggregator v1 (simpler, integer counters only) lives alongside v2 for backward compatibility; the v1 API sits in <code>aggregator_v1_delta_set(): BTreeMap&lt;Key, DeltaOp&gt;</code>.</p>
+
+<p>Shipped in AIP-160 and refined through 2024–2025, aggregators are what make the 20M-NFT benchmark feasible in 11–16 minutes on the current stack and &lt;30 seconds under the projected Shardines stack. Full protocol walkthrough — including the interaction with Block-STM v2's pre-write timestamps and the cross-shard delta protocol in Shardines — is in the <a href="/reports/aggregator-nft-deep-dive">Aggregators &amp; NFT Scale deep dive</a>.</p>
+
+<h3>The 20M NFT Benchmark as a Stack Test</h3>
+
+<p>A 20-million-NFT mint is the single best stress test of the Aptos stack because it simultaneously exercises every layer:</p>
+
+<ul>
+<li><strong>Mempool ingestion.</strong> 20M transactions at ~600 bytes each = ~12 GB of inbound traffic. Distributed across Quorum Store dissemination shards.</li>
+<li><strong>Execution parallelism.</strong> Each mint writes a unique token object — zero write-write conflict. The only shared write is the supply counter, which aggregators defuse. Near-ideal Block-STM workload.</li>
+<li><strong>Storage throughput.</strong> 20M new JMT leaves + 3–8 internal node updates per leaf = 60–160M node writes. With 16-shard storage: ~3.7–10M writes per shard over the mint duration.</li>
+<li><strong>Consensus latency.</strong> Requires sustained 4 blocks/sec (~5,000 txns/block at 20K TPS) without buffer blowup. Baby Raptr has demonstrated this.</li>
+</ul>
+
+<table>
+<tr><th>Scenario</th><th>Sustained TPS</th><th>Time to Mint 20M</th><th>Gas Cost (APT)</th></tr>
+<tr><td>Mainnet conservative</td><td>15,000</td><td>22.2 min</td><td>2,200</td></tr>
+<tr><td>Mainnet observed</td><td>20,000</td><td>16.7 min</td><td>2,200</td></tr>
+<tr><td>Mainnet peak (aggregators tuned)</td><td>30,000</td><td>11.1 min</td><td>2,200</td></tr>
+<tr><td>+Full Raptr +Block-STM v2 +Zaptos</td><td>100,000</td><td>3.3 min</td><td>1,100–1,650</td></tr>
+<tr><td>+Shardines conservative</td><td>500,000</td><td>40 sec</td><td>660–1,100</td></tr>
+<tr><td>+Shardines theoretical max</td><td>1,000,000</td><td>20 sec</td><td>440–880</td></tr>
+</table>
+
+<p>The cost curve is interesting: the dominant saving from Shardines is time, not gas. Gas is a function of the per-transaction instruction cost, so aggressive Move VM optimisation (MonoMove) is the lever that actually reduces the bill. Throughput scaling reduces <em>wall-clock to mint</em>, which is the UX lever.</p>
+
+<h3>Benchmarks and Performance Math</h3>
+
+<table>
+<tr><th>Stack Configuration</th><th>End-to-End Latency</th><th>Sustained TPS</th><th>Single Validator Cores</th></tr>
+<tr><td>Current mainnet (Baby Raptr + Block-STM v1)</td><td>~700 ms</td><td>20,000</td><td>32–64 used</td></tr>
+<tr><td>+ Full Raptr (multi-proposer)</td><td>~500 ms</td><td>60,000</td><td>same</td></tr>
+<tr><td>+ Zaptos (optimistic pipelining)</td><td>~350 ms</td><td>80,000</td><td>same</td></tr>
+<tr><td>+ Block-STM v2 (delayed fields)</td><td>~300 ms</td><td>160,000</td><td>128</td></tr>
+<tr><td>+ Shardines storage (live)</td><td>~300 ms</td><td>220,000</td><td>128</td></tr>
+<tr><td>+ Shardines execution + consensus</td><td>~300 ms</td><td>500,000</td><td>256</td></tr>
+<tr><td>+ Full Shardines + MonoMove</td><td>~250 ms</td><td>1,000,000+</td><td>256+</td></tr>
+</table>
+
+<p>Latency is dominated by network RTTs between geographically distributed validators, which is why the floor is ~250 ms and not ~50 ms. Throughput is dominated by execution parallelism and storage I/O, which is where each stack layer adds multiplicative gains.</p>
+
+<h3>The Aptos Labs Research Team</h3>
+
+<p>This stack is the work of a small, tightly coupled research group. Named below are the individuals actually cited in the knowledge base or in the existing deep-dive reports — not everyone who touched a commit:</p>
+
+<table>
+<tr><th>Researcher</th><th>Handle</th><th>Primary Focus</th></tr>
+<tr><td>Zhuolun Xiang (Daniel)</td><td>danielxiangzl</td><td>Consensus theory, Prefix Consensus first author, Raptr, Archon, randomness beacon</td></tr>
+<tr><td>Andrei Tonkikh</td><td>—</td><td>Prefix Consensus co-author, consensus protocol design</td></tr>
+<tr><td>Alexander Spiegelman</td><td>—</td><td>Prefix Consensus co-author, consensus theory and proofs</td></tr>
+<tr><td>Rati Gelashvili</td><td>—</td><td>Block-STM original author, Block-STM v2 redesign, parallel execution</td></tr>
+<tr><td>Balaji Arun</td><td>ibalajiarun</td><td>Encrypted mempool, BIBE integration, Chunky DKG infra, Quorum Store V2</td></tr>
+<tr><td>Zekun Li</td><td>—</td><td>Consensus systems, Zaptos implementation</td></tr>
+<tr><td>Manu Dhundi</td><td>—</td><td>Execution and sharding, Shardines co-lead</td></tr>
+<tr><td>Alin Tomescu</td><td>alinush</td><td>Cryptography, Confidential Assets AIP-143 author, ZK proofs</td></tr>
+<tr><td>Rex Fernando</td><td>rex1fernando</td><td>Encrypted mempool crypto, BIBE ciphertext design</td></tr>
+<tr><td>waamm</td><td>waamm</td><td>Shplonked / BSGS / aptos-dkg refactors</td></tr>
+<tr><td>wqfish</td><td>wqfish</td><td>Storage, hot state cache, RocksDB tuning</td></tr>
+<tr><td>vgao1996, georgemitenkov, calintat</td><td>—</td><td>MonoMove VM, interpreter, arena, GC</td></tr>
+<tr><td>vineethk, rahxephon89</td><td>—</td><td>Compiler v2</td></tr>
+<tr><td>wrwg</td><td>wrwg</td><td>Move Prover, framework specifications</td></tr>
+<tr><td>Avery Ching</td><td>—</td><td>CTO, public confirmation of four-priority roadmap (Zaptos, Shardines, Block-STM v2, Archon)</td></tr>
+</table>
+
+<h3>Comparison to Other L1s — Feature-by-Feature</h3>
+
+<table>
+<tr><th>Feature</th><th>Aptos</th><th>Solana</th><th>Sui</th><th>Ethereum</th><th>Monad</th></tr>
+<tr><td>Leaderless consensus</td><td>Yes (Archon)</td><td>No (PoH leader)</td><td>No (DAG anchor)</td><td>No (slot leader)</td><td>No (HotStuff leader)</td></tr>
+<tr><td>Censorship-resistant at protocol</td><td>f-censorship-resistant (Archon)</td><td>No</td><td>No (anchor censors)</td><td>No</td><td>No</td></tr>
+<tr><td>Parallel execution</td><td>Yes (Block-STM v2, 256 cores)</td><td>Yes (Sealevel, conflict-declared)</td><td>Yes (object-based)</td><td>No (sequential EVM)</td><td>Yes (optimistic)</td></tr>
+<tr><td>State sharding</td><td>Yes (Shardines, internal)</td><td>No</td><td>No (objects)</td><td>External (rollups)</td><td>No</td></tr>
+<tr><td>Native content privacy</td><td>Yes (BIBE encrypted mempool + CA)</td><td>No</td><td>No</td><td>No (app-layer only)</td><td>No</td></tr>
+<tr><td>TPS target (production)</td><td>20k now, 1M+ with Shardines</td><td>~65k advertised</td><td>~8k</td><td>~15 (L1)</td><td>10k target</td></tr>
+<tr><td>Atomic composability</td><td>Yes (unified chain)</td><td>Yes</td><td>Partial (object scope)</td><td>Fragmented across rollups</td><td>Yes</td></tr>
+<tr><td>Native on-chain randomness</td><td>Yes (AIP-41, WVUF)</td><td>No (VRF per dapp)</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td>Smart contract language</td><td>Move (linear types)</td><td>Rust/C via eBPF</td><td>Move (Sui-modified)</td><td>Solidity/EVM</td><td>EVM</td></tr>
+</table>
+
+<h3>The AIP Roadmap</h3>
+
+<p>The AIPs cited in the knowledge base that gate this stack's progression:</p>
+
+<table>
+<tr><th>AIP</th><th>Title</th><th>Status</th><th>What It Unlocks</th></tr>
+<tr><td>AIP-41</td><td>On-Chain Randomness (WVUF)</td><td>Active (~80%)</td><td>Randomness beacon for dapps and BIBE DKG</td></tr>
+<tr><td>AIP-61</td><td>Keyless Accounts</td><td>Accepted / Deployed (~95%)</td><td>OIDC-based accounts, no secret key management</td></tr>
+<tr><td>AIP-125</td><td>Scheduled Transactions</td><td>Tracked (~20%)</td><td>Auto-trigger transactions at future times</td></tr>
+<tr><td>AIP-143</td><td>Confidential APT</td><td>In progress (code merged)</td><td>Privacy-preserving transfers, mainnet April 2026</td></tr>
+<tr><td>AIP-160</td><td>Aggregators v2 / Delayed Fields</td><td>Shipped</td><td>Conflict-free counters, 20M NFT mint feasibility</td></tr>
+</table>
+
+<p>For a full running status of all ten tracked features — Baby Raptr, Block-STM v2, Storage Sharding, Encrypted Mempool, Confidential Assets, Keyless, Randomness, Scheduled Transactions, MonoMove, Chunky DKG — see the <a href="/reports/feature-progress-overview">Feature Progress Overview</a>.</p>
+
 <h3>The Dependency Graph</h3>
 
 <pre><code>Encrypted Mempool (shipping)   ─┐
-                                ├─&gt; Prefix Consensus ─&gt; Raptr (live) ─&gt; Archon (next)
+                                ├─> Prefix Consensus ─> Raptr (live) ─> Archon (next)
 Prefix Consensus (paper Feb26) ─┘                              │
                                                                v
-                                                            Zaptos ─&gt; Block-STM v2 ─&gt; Shardines
+                                                            Zaptos ─> Block-STM v2 ─> Shardines
                                                            (merged) (in progress)   (research)</code></pre>
 
 <p>Reading this graph: the left-to-right order is roughly the order in which each piece locks in. Encrypted mempool is already merging (PR #19130 landed in March 2026). Raptr is live on mainnet. Zaptos is shipping. Block-STM v2 is in active development. Archon and Shardines are the two biggest remaining unlocks — Archon for consensus, Shardines for execution.</p>
@@ -141,8 +450,36 @@ Prefix Consensus (paper Feb26) ─┘                              │
 <tr><td>Archon</td><td>Research / design</td><td>Zhuolun Xiang, Andrei Tonkikh</td><td>2026–2027</td></tr>
 <tr><td>Zaptos</td><td>Merged + on-chain config</td><td>Zekun Li, Zhuolun Xiang</td><td>Shipped</td></tr>
 <tr><td>Block-STM v2</td><td>Active development</td><td>Rati Gelashvili</td><td>2026</td></tr>
-<tr><td>Shardines</td><td>Research (~15%)</td><td>Rati Gelashvili, Manu Dhundi</td><td>2027+</td></tr>
+<tr><td>Shardines</td><td>Storage live; exec research</td><td>Rati Gelashvili, Manu Dhundi</td><td>2027+</td></tr>
+<tr><td>Confidential Assets (AIP-143)</td><td>Code merged (v1.43)</td><td>Alin Tomescu</td><td>April 2026</td></tr>
+<tr><td>Keyless Accounts (AIP-61)</td><td>Deployed</td><td>—</td><td>Shipped</td></tr>
+<tr><td>MonoMove VM</td><td>Prototype</td><td>vgao1996, georgemitenkov</td><td>2027+</td></tr>
 </table>
+
+<h3>What Happens in 2027</h3>
+
+<p>If the roadmap holds, here is what the stack looks like by the end of 2027:</p>
+
+<ul>
+<li><strong>Consensus:</strong> Archon live, full leaderless multi-proposer BFT with f-censorship resistance. Randomness beacon integrated and consumed by dapps. Encrypted mempool on by default, with per-batch-kind throttling tuned.</li>
+<li><strong>Execution:</strong> Block-STM v2 on by default. Shardines execution sharding live on mainnet validators, 4–8 shards per node. MonoMove VM in late preview, 2–5× faster per transaction than the current MoveVM.</li>
+<li><strong>State:</strong> 32-shard JMT (up from 16). Hot-state cache mature and default-on. Pruning horizons configurable per dapp.</li>
+<li><strong>Privacy:</strong> Confidential APT live. Confidential staking and confidential governance in design. ACE (threshold decryption) composable with CA — encrypted transfers of confidential amounts become possible.</li>
+<li><strong>Throughput / latency posture:</strong> Sub-300ms end-to-end latency typical. Sustained throughput 500k–1M TPS under non-adversarial workloads. 20M NFT mint in under a minute.</li>
+<li><strong>MEV posture:</strong> Content-based MEV (front-running, sandwiching) eliminated by the encrypted mempool. Order-level MEV (timing games on transaction submission) remains an open problem, addressed partially by random leader rotation in Archon.</li>
+</ul>
+
+<h3>Open Problems the Stack Does Not Solve</h3>
+
+<p>Honest engineering requires naming what is still open. Five problems that this stack does not close on its own:</p>
+
+<ol>
+<li><strong>Cross-chain settlement.</strong> Aptos is a single unified chain, which gives it atomic composability within the chain but does not solve inter-chain liquidity. Bridges remain a trust assumption outside the Aptos security envelope.</li>
+<li><strong>Validator churn under Prefix Consensus.</strong> The demotion rule works cleanly in the static validator set case. Handling validator joins and exits during a demotion cycle (epoch boundaries, slashing) requires additional machinery that is still under design.</li>
+<li><strong>Quantum-resistant signatures.</strong> Ed25519 and BLS are both quantum-vulnerable in the long run. PQ signatures are cheap to add to the signature scheme whitelist; rotating the entire validator set key material across an epoch boundary is the harder problem.</li>
+<li><strong>Long-range attacks.</strong> A pure PoS chain with weak subjectivity checkpoints remains vulnerable to adversaries who acquire historical validator keys. Aptos uses waypoints via the State Sync driver to mitigate this, but the underlying assumption remains: trust the waypoint.</li>
+<li><strong>MEV from ordering even without content.</strong> Even with a fully encrypted mempool, an adversarial validator can still game <em>which</em> encrypted transactions to include and in what order. Encryption defuses content-based MEV but not submission-timing games. Addressing this fully requires fair ordering protocols that are still an active research area.</li>
+</ol>
 
 <h3>Why This Stack Beats the Alternatives</h3>
 
@@ -153,6 +490,7 @@ Prefix Consensus (paper Feb26) ─┘                              │
 <li><strong>Sui / Mysten.</strong> DAG-based (multi-proposer), but not formally censorship-resistant — the anchor validator can still drop honest proposals. Also fragments state across objects in a way that limits atomic composability.</li>
 <li><strong>Ethereum.</strong> Rollup-centric scaling, which fragments liquidity and breaks synchronous composability between rollups.</li>
 <li><strong>Hedera.</strong> DAG-based, but permissioned and governance-bottlenecked.</li>
+<li><strong>Monad.</strong> Fast parallel EVM, but still a single leader per slot and no native privacy.</li>
 </ul>
 
 <p>Aptos's bet is that you can have all four at once: <strong>leaderless + multi-proposer + censorship-resistant + unified chain at &gt;1M TPS</strong>. Prefix Consensus is the theoretical proof that it is possible. The other four pieces are the engineering to ship it.</p>
@@ -163,8 +501,7 @@ Prefix Consensus (paper Feb26) ─┘                              │
 
 <p>That is why Aptos Labs's leadership (publicly, Avery Ching) has stated that the four active research priorities are Zaptos, Shardines, Block-STM v2, and Archon — with Prefix Consensus as the primitive underneath Archon. Shoal++, the 2024 DAG-BFT upgrade that came before Raptr, has been deprecated. The stack you see here is the one that is actually shipping.</p>
 
-<p><strong>For deeper reading:</strong> see the individual deep-dive pages for <a href="#" data-github-id="prefix-consensus-deep-dive">Prefix Consensus</a>, <a href="#" data-github-id="shardines-deep-dive">Shardines</a>, <a href="#" data-github-id="confidential-assets-deep-dive">Confidential Assets</a>, <a href="#" data-github-id="randomness-deep-dive">On-Chain Randomness</a>, and <a href="#" data-github-id="aggregator-nft-deep-dive">Aggregators &amp; NFT Scale</a>.</p>
-
+<p><strong>For deeper reading:</strong> see the individual deep-dive pages for <a href="/reports/prefix-consensus-deep-dive">Prefix Consensus</a>, <a href="/reports/shardines-deep-dive">Shardines</a>, <a href="/reports/confidential-assets-deep-dive">Confidential Assets</a>, <a href="/reports/randomness-deep-dive">On-Chain Randomness</a>, <a href="/reports/aggregator-nft-deep-dive">Aggregators &amp; NFT Scale</a>, the <a href="/reports/ans-deep-dive">Aptos Name Service</a>, and the running <a href="/reports/feature-progress-overview">Feature Progress Overview</a>.</p>
 
     <hr class="section-divider">
 
@@ -172,27 +509,65 @@ Prefix Consensus (paper Feb26) ─┘                              │
       <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
       <p><strong>Aptos is five pieces of technology being built at the same time. Here is what each one actually does, in order.</strong></p>
 
-<p><strong>1. Encrypted Mempool — the "sealed envelope" layer.</strong> When you send a transaction, validators can't read it until after they've decided the order. No more front-running, no more MEV extraction based on content.</p>
+<p><strong>1. Encrypted Mempool — the "sealed envelope" layer.</strong> When you send a transaction, validators can't read it until after they've decided the order. No more front-running, no more MEV extraction based on content. Think of it like a sealed bid auction: everyone drops their envelopes into a box, the order of envelopes is decided first, and only then are the envelopes opened. Nobody can peek and put a higher bid right on top of yours, because nobody knows what you bid until the ordering is already locked in.</p>
 
-<p><strong>2. Prefix Consensus, Raptr, Archon — the "no boss" layer.</strong> Instead of one leader deciding the order of transactions (who can censor yours), every validator proposes at the same time and the protocol forces all honest proposals to be included.</p>
+<p><strong>2. Prefix Consensus, Raptr, Archon — the "no boss" layer.</strong> Instead of one leader deciding the order of transactions (who can censor yours), every validator proposes at the same time and the protocol forces all honest proposals to be included. Imagine a classroom where, instead of the teacher picking three students' ideas for the group project, every student writes their idea on a card, all the cards go into the middle, and the class rule is "include every idea that a majority of honest students wrote down." No teacher pet, no favouritism — the rules bake the fairness in.</p>
 
-<p><strong>3. Zaptos — the "don't wait" layer.</strong> Consensus and execution used to be sequential: decide the order, then run the code. Zaptos runs the code while consensus is still deciding, and only redoes work if the order changes.</p>
+<p><strong>3. Zaptos — the "don't wait" layer.</strong> Consensus and execution used to be sequential: decide the order, then run the code. Zaptos runs the code while consensus is still deciding, and only redoes work if the order changes. It is the same trick a short-order cook uses when they start frying the eggs before the waiter has finished taking your full order, because eggs-with-bacon and eggs-with-sausage both start the same way. If you end up asking for something different, the cook throws out the eggs and starts over — but most of the time they save thirty seconds.</p>
 
-<p><strong>4. Block-STM v2 — the "256 hands" layer.</strong> Execution runs in parallel across 256 CPU cores, with a smart conflict detector that notices when two transactions touch the same thing and re-runs only those.</p>
+<p><strong>4. Block-STM v2 — the "256 hands" layer.</strong> Execution runs in parallel across 256 CPU cores, with a smart conflict detector that notices when two transactions touch the same thing and re-runs only those. This is like a warehouse with 256 workers unpacking 256 boxes at once. If two workers both reach for the same shelf, the floor manager notices and has one of them wait two seconds before trying again. The other 254 never had to stop, because they were each working on their own shelf.</p>
 
-<p><strong>5. Shardines — the "one factory, sixteen production lines" layer.</strong> Each validator internally splits its work across 16 sub-executors, targeting over 1 million transactions per second on a single chain.</p>
+<p><strong>5. Shardines — the "one factory, sixteen production lines" layer.</strong> Each validator internally splits its work across 16 sub-executors, targeting over 1 million transactions per second on a single chain. Think of a car factory with one giant assembly line versus one with 16 specialised sub-lines feeding into a final merge point — same factory, same team, same product, but 16× the throughput because you stopped forcing every car through one bottleneck.</p>
 
-<p><strong>How do they fit?</strong> Each one depends on the one above it. Encrypted mempool feeds into consensus. Consensus feeds into Zaptos. Zaptos feeds into Block-STM v2. Block-STM v2 is the foundation for Shardines.</p>
+<h3>What is a blockchain actually, and why do these layers exist?</h3>
 
-<p><strong>Where are they today?</strong> Raptr is live. Zaptos is shipping. Encrypted mempool is merging this quarter. Block-STM v2 is mid-development. Archon and Shardines are the two biggest ongoing research efforts.</p>
+<p>A blockchain is a giant shared spreadsheet. Everyone who participates keeps their own copy, and the network has to make sure everyone agrees on what is in each cell after every change. That "agreeing" part is surprisingly hard because computers don't trust each other by default. You need rules for who can propose a change (consensus), rules for how to run the change without letting cheaters cheat (execution), rules for storing the history so nobody can secretly rewrite it (storage), and rules for moving all this information around the internet fast enough to keep up (networking). Each of the layers above is one of those rulebooks. When you stack them together correctly, you get a spreadsheet that a thousand strangers can edit at once and still all agree on, at the speed of a video game.</p>
 
-<p><strong>The point:</strong> every other fast chain has picked one or two of these and given up the rest. Aptos is trying to have all five at once — and a small team of maybe ten researchers is actually shipping it.</p>
+<h3>What happens when you make a trade, step by step</h3>
 
+<p>Let's trace what happens when you click "Swap 10 USDC for APT" in your wallet. Every layer plays a role, and the whole thing takes less than a second.</p>
+
+<ol>
+<li><strong>Your wallet signs the trade.</strong> It takes your private key (which never leaves your device) and wraps it around the instructions. This is your unforgeable signature that proves it was really you.</li>
+<li><strong>The encrypted mempool seals it.</strong> Your wallet also wraps everything in a cryptographic envelope using the validators' shared public key. Now even the servers receiving your transaction can't read the content.</li>
+<li><strong>It flies through the network.</strong> The sealed envelope gets gossiped around validator nodes worldwide in about 50 milliseconds — the blink of an eye.</li>
+<li><strong>The validators order it.</strong> Every validator proposes a batch of sealed envelopes. The Prefix Consensus protocol mashes the proposals together and picks a canonical order. Nobody has read anyone's content yet. Nobody can.</li>
+<li><strong>The envelopes get opened.</strong> Once the order is locked in, a threshold of validators each publishes a tiny piece of the decryption key. Combined, they decrypt the whole batch at once. Yours is in there.</li>
+<li><strong>The code runs in parallel.</strong> Block-STM hands your trade off to a CPU core along with a few hundred other trades. They all try to run at once. If two of them touch the same liquidity pool, one gets re-run with the updated state. Your trade either succeeds (APT shows up in your wallet) or fails (you get your USDC back and pay a small gas fee).</li>
+<li><strong>The result is committed.</strong> The new state is written to disk across 16 parallel storage shards. A new Merkle root is computed. A certificate is signed by the validators and broadcast — your trade is now part of the permanent ledger.</li>
+<li><strong>Your wallet sees it.</strong> When your wallet polls the blockchain a moment later, it sees the new balance. Elapsed time: about 700 milliseconds today, dropping toward 300 milliseconds as the stack matures.</li>
+</ol>
+
+<h3>Why most chains can't have all five properties</h3>
+
+<p>Fast, parallel, private, censorship-resistant, unified — pick all five. That is the Aptos bet. Most other chains had to pick:</p>
+
+<ul>
+<li><strong>Solana picked fast and parallel</strong> but kept a single leader per slot. A hostile leader can drop your transaction. Also has no native privacy — every transaction's contents are public before it's ordered.</li>
+<li><strong>Ethereum picked unified and neutral</strong> but gave up on speed, then tried to recover speed via rollups — which broke the "unified" part because each rollup is its own island.</li>
+<li><strong>Sui picked parallel via objects</strong> but ended up with a fragmented state model that can't always support atomic multi-asset trades cleanly. Also still has an "anchor" in its DAG consensus that can censor.</li>
+<li><strong>Monad picked fast parallel EVM</strong> but uses classical leader-based HotStuff consensus underneath. Leader can censor. No privacy.</li>
+</ul>
+
+<p>Aptos's argument is that you don't have to give up any of them if you design all five layers together. The reason the team is small — roughly a dozen researchers — is actually a feature: it means the person designing consensus and the person designing execution and the person designing the encrypted mempool are all in the same weekly meeting, so the interfaces between their work are negotiable rather than fossilised.</p>
+
+<h3>When will this be real?</h3>
+
+<p>Parts of it already are. Here is a rough timeline for normal end-users:</p>
+
+<ul>
+<li><strong>Today (April 2026).</strong> You are already using Baby Raptr consensus, Block-STM v1 execution, 16-shard JMT storage, and aggregators every time you send a transaction on Aptos mainnet. Sustained throughput is ~20,000 transactions per second. End-to-end confirmation is under a second.</li>
+<li><strong>Late 2026.</strong> Confidential Assets will be live on mainnet (April 2026 target). The encrypted mempool will graduate from testnet to mainnet. Block-STM v2 will start taking over execution behind a config flag. You will begin to notice that MEV front-running has basically stopped on major DEXs.</li>
+<li><strong>2027.</strong> Archon replaces Baby Raptr. Full leaderless consensus with provable censorship resistance. Shardines execution sharding goes live. Throughput targets leap toward 500,000 TPS. MonoMove VM enters preview, gas fees drop another 30-50%.</li>
+<li><strong>2028.</strong> Full Shardines stack. Confidential staking. 1M+ TPS sustained. Under-300-ms confirmation. A 20-million-NFT drop completes in under a minute.</li>
+</ul>
+
+<p><strong>The big idea:</strong> every other fast chain has picked one or two of these properties and given up the rest. Aptos is trying to have all five at once — and a small team of maybe a dozen researchers is actually shipping it, one paper and one PR at a time.</p>
     </section>
 
     <hr class="section-divider"><h3>Related Systems</h3><div><span class="tag">Prefix Consensus</span><span class="tag">Raptr</span><span class="tag">Archon</span><span class="tag">Zaptos</span><span class="tag">Block-STM v2</span><span class="tag">Shardines</span><span class="tag">Encrypted Mempool</span></div>
 
-    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a><a href="/reports/ans-deep-dive">Aptos Names Service (ANS) — Complete Deep Dive</a></div>
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a><a href="/reports/shardines-deep-dive">Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator</a></div>
 
     <hr class="section-divider">
     <p style="color: var(--text-faint); font-size: 13px;">
