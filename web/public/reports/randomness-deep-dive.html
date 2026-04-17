@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art — Aptos Intelligence</title>
+<meta name="description" content="Aptos On-Chain Randomness: Complete Technical Deep Dive Aptos provides native on-chain randomness — cryptographically secure, unbiasable random values generated directly by the validator set and avail">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/randomness-deep-dive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art">
+<meta property="og:description" content="Aptos On-Chain Randomness: Complete Technical Deep Dive Aptos provides native on-chain randomness — cryptographically secure, unbiasable random values generated directly by the validator set and avail">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/randomness-deep-dive">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art">
+<meta name="twitter:description" content="Aptos On-Chain Randomness: Complete Technical Deep Dive Aptos provides native on-chain randomness — cryptographically secure, unbiasable random values generated directly by the validator set and avail">
+<meta name="author" content="aptos-labs">
+<meta name="article:published_time" content="2026-04-10T00:00:00.000Z">
+<link rel="alternate" type="text/plain" href="/reports/randomness-deep-dive.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art","description":"Aptos On-Chain Randomness: Complete Technical Deep Dive Aptos provides native on-chain randomness — cryptographically secure, unbiasable random values generated directly by the validator set and avail","author":{"@type":"Person","name":"aptos-labs"},"datePublished":"2026-04-10T00:00:00.000Z","url":"https://aptos-intelligence.vercel.app/reports/randomness-deep-dive","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/randomness-deep-dive","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":"randomness, cryptography, vuf, dkg, aip-41"}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</h1>
+    <div class="meta">
+      <span>By aptos-labs</span>
+      <span>Apr 9, 2026</span>
+      <span>Feature Progress</span>
+      <span>Importance 10/10</span>
+      <span><a href="https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move" rel="noopener">Source</a></span>
+    </div>
+    <div style="margin-bottom: 2em;"><span class="tag">randomness</span><span class="tag">cryptography</span><span class="tag">vuf</span><span class="tag">dkg</span><span class="tag">aip-41</span></div>
+
+    <h2>Aptos On-Chain Randomness: Complete Technical Deep Dive</h2>
+
+<p>Aptos provides <strong>native on-chain randomness</strong> — cryptographically secure, unbiasable random values generated directly by the validator set and available synchronously within Move smart contracts. Defined by <strong>AIP-41</strong> (API design) and <strong>AIP-79</strong> (cryptographic implementation), this is the most advanced on-chain randomness system deployed on any production blockchain.</p>
+
+<h3>Three-Layer Architecture</h3>
+
+<pre><code>Layer 1: Distributed Key Generation (DKG)
+  Runs once per epoch (~2 hours)
+  Validators collectively generate a shared secret via weighted PVSS
+  Output: secret key shares distributed to validators
+
+Layer 2: Randomness Generation (per block)
+  Validators produce weighted VUF shares for each block
+  Shares are aggregated into a single 32-byte seed
+  Seed is injected into block_prologue_ext()
+
+Layer 3: Move API (per transaction)
+  aptos_framework::randomness module
+  Derives per-tx randomness: SHA3-256(DST || seed || tx_hash || counter)
+  Counter increments per call within a transaction</code></pre>
+
+<h3>The Cryptographic Core: Pinkas Weighted VUF</h3>
+
+<p>Aptos uses the <strong>Pinkas Weighted Verifiable Unpredictable Function (WVUF)</strong> — a novel construction on BLS12-381 pairings. This is NOT a standard threshold BLS signature or a simple VRF. From <code>types/src/randomness.rs</code>:</p>
+
+<pre><code>pub type WVUF = weighted_vuf::pinkas::PinkasWUF;
+pub type PK = &lt;WVUF as WeightedVUF&gt;::PubKey;        // G2 dealt public key
+pub type SKShare = &lt;WVUF as WeightedVUF&gt;::SecretKeyShare;  // G1 secret shares
+pub type ProofShare = &lt;WVUF as WeightedVUF&gt;::ProofShare;   // G2Projective
+pub type Evaluation = &lt;WVUF as WeightedVUF&gt;::Evaluation;   // Gt (target group)</code></pre>
+
+<p>The Pinkas WVUF scheme works in five steps:</p>
+
+<ol>
+<li><strong>Key augmentation:</strong> Each validator randomizes their DKG-dealt key shares with a random scalar <code>r</code>, producing <code>RandomizedPKs { pi: g^r, rks: [g^(r*sk_i)] }</code></li>
+<li><strong>Share creation:</strong> For each block, validators compute <code>H(metadata)^(1/r)</code> where H is hash-to-curve (from <code>crates/aptos-dkg/src/weighted_vuf/pinkas/mod.rs</code>):
+<pre><code>fn create_share(ask: &amp;Self::AugmentedSecretKeyShare, msg: &amp;[u8]) -&gt; Self::ProofShare {
+    let (r_inv, _) = ask;
+    let hash = Self::hash_to_curve(msg);
+    hash.mul(r_inv)
+}</code></pre></li>
+<li><strong>Share verification:</strong> Uses bilinear pairings: <code>e(pi, proof) == e(g, H(msg))</code></li>
+<li><strong>Aggregation:</strong> Shares are aggregated using weighted Lagrange coefficients via <code>WVUF::aggregate_shares()</code></li>
+<li><strong>Evaluation derivation:</strong> <code>WVUF::derive_eval()</code> produces a <code>Gt</code> element (pairing target group), then <code>SHA3-256(BCS(eval))</code> gives the final 32-byte seed</li>
+</ol>
+
+<p>From <code>consensus/src/rand/rand_gen/types.rs</code>:</p>
+<pre><code>fn aggregate&lt;'a&gt;(
+    shares: impl Iterator&lt;Item = &amp;'a RandShare&lt;Self&gt;&gt;,
+    rand_config: &amp;RandConfig,
+    rand_metadata: RandMetadata,
+) -&gt; anyhow::Result&lt;Randomness&gt; {
+    let apks_and_proofs = Self::build_apks_and_proofs(&amp;shares_vec, rand_config)?;
+    let proof = WVUF::aggregate_shares(&amp;rand_config.wconfig, &amp;apks_and_proofs);
+    let eval = WVUF::derive_eval(
+        &amp;rand_config.wconfig, &amp;rand_config.vuf_pp,
+        metadata_serialized.as_slice(),
+        &amp;rand_config.get_all_certified_apk(), &amp;proof,
+        THREAD_MANAGER.get_non_exe_cpu_pool(),
+    )?;
+    let rand_bytes = Sha3_256::digest(bcs::to_bytes(&amp;eval)?).to_vec();
+    Ok(Randomness::new(rand_metadata, rand_bytes))
+}</code></pre>
+
+<h3>Distributed Key Generation (DKG)</h3>
+
+<p>The DKG runs once per epoch during reconfiguration. From <code>dkg.move</code>:</p>
+
+<pre><code>struct DKGSessionMetadata has copy, drop, store {
+    dealer_epoch: u64,
+    randomness_config: RandomnessConfig,
+    dealer_validator_set: vector&lt;ValidatorConsensusInfo&gt;,
+    target_validator_set: vector&lt;ValidatorConsensusInfo&gt;,
+}</code></pre>
+
+<p>The DKG uses <strong>weighted PVSS (Publicly Verifiable Secret Sharing)</strong> based on the DAS scheme, implemented in <code>crates/aptos-dkg/src/pvss/</code>. It supports both a standard and a "chunky" variant for larger validator sets. The Rust implementation at <code>types/src/dkg/real_dkg/mod.rs</code> uses <code>pvss::das::WeightedTranscript</code> as the core transcript type.</p>
+
+<p>Configuration thresholds from <code>randomness_config.move</code>:</p>
+<pre><code>struct ConfigV1 has copy, drop, store {
+    // Cannot reconstruct if subset_power/total_power &lt;= this
+    secrecy_threshold: FixedPoint64,     // typically ~1/2
+    // Guaranteed to reconstruct if subset_power/total_power &gt; this
+    reconstruction_threshold: FixedPoint64, // typically ~2/3
+}
+
+struct ConfigV2 has copy, drop, store {
+    secrecy_threshold: FixedPoint64,
+    reconstruction_threshold: FixedPoint64,
+    fast_path_secrecy_threshold: FixedPoint64, // for fast path
+}</code></pre>
+
+<h3>Per-Block Seed Injection</h3>
+
+<p>The randomness seed enters the Move VM through the block prologue. From <code>block.move</code>:</p>
+
+<pre><code>fun block_prologue_ext(
+    vm: signer,
+    hash: address, epoch: u64, round: u64,
+    proposer: address,
+    failed_proposer_indices: vector&lt;u64&gt;,
+    previous_block_votes_bitvec: vector&lt;u8&gt;,
+    timestamp: u64,
+    randomness_seed: Option&lt;vector&lt;u8&gt;&gt;
+) {
+    // ...
+    randomness::on_new_block(&amp;vm, epoch, round, randomness_seed);
+}</code></pre>
+
+<p>Without the randomness feature enabled (old <code>block_prologue</code>), the seed is <code>option::none()</code>, and any randomness API call will abort.</p>
+
+<h3>Per-Transaction Derivation</h3>
+
+<p>From <code>randomness.move</code> — the core derivation function:</p>
+
+<pre><code>const DST: vector&lt;u8&gt; = b"APTOS_RANDOMNESS";
+
+fun next_32_bytes(): vector&lt;u8&gt; acquires PerBlockRandomness {
+    assert!(is_unbiasable(), E_API_USE_IS_BIASIBLE);
+    let input = DST;
+    let seed = *randomness.seed.borrow();
+    input.append(seed);                              // block seed
+    input.append(transaction_context::get_transaction_hash()); // tx hash
+    input.append(fetch_and_increment_txn_counter());  // call counter
+    hash::sha3_256(input)
+}</code></pre>
+
+<p>This ensures that:</p>
+<ul>
+<li>Different blocks get different randomness (different seeds)</li>
+<li>Different transactions within a block get different randomness (different tx hashes)</li>
+<li>Multiple calls within a transaction get different randomness (incrementing counter)</li>
+</ul>
+
+<h3>The Move API</h3>
+
+<p>The <code>aptos_framework::randomness</code> module exposes:</p>
+
+<table>
+<tr><th>Function</th><th>Description</th></tr>
+<tr><td><code>u8_integer()</code> through <code>u256_integer()</code></td><td>Uniform random integers of each size</td></tr>
+<tr><td><code>u8_range(min, max)</code> through <code>u256_range(min, max)</code></td><td>Uniform random in [min, max)</td></tr>
+<tr><td><code>bytes(n)</code></td><td>Generate n random bytes</td></tr>
+<tr><td><code>permutation(n)</code></td><td>Random permutation of [0, 1, ..., n-1] via Fisher-Yates</td></tr>
+</table>
+
+<p>Usage requires the <code>#[randomness]</code> annotation on a <strong>private</strong> entry function:</p>
+<pre><code>#[randomness]
+entry fun roll_dice(player: &amp;signer) {
+    let result = aptos_framework::randomness::u64_range(1, 7);
+    // result is uniformly random in {1, 2, 3, 4, 5, 6}
+}</code></pre>
+
+<h3>Anti-Bias Security</h3>
+
+<p>The <code>#[randomness]</code> annotation is enforced by the native <code>is_unbiasable()</code> function in <code>aptos-move/framework/natives/src/randomness.rs</code>:</p>
+
+<pre><code>pub struct RandomnessContext {
+    txn_local_state: Vec&lt;u8&gt;,  // 8-byte counter
+    unbiasable: bool,           // set by VM based on annotation
+}
+
+pub fn is_unbiasable(
+    context: &amp;mut SafeNativeContext, ...
+) -&gt; SafeNativeResult&lt;SmallVec&lt;[Value; 1]&gt;&gt; {
+    let is_unbiasable = context.extensions().get::&lt;RandomnessContext&gt;().is_unbiasable();
+    Ok(smallvec![Value::bool(is_unbiasable)])
+}</code></pre>
+
+<p>This prevents the <strong>test-and-abort attack</strong>: a user calling a public randomness function, checking the result, and aborting if unfavorable. Since the entry function must be private, the user cannot wrap it in their own abort logic.</p>
+
+<p>Additionally, <code>randomness_api_v0_config.move</code> provides a <code>RequiredGasDeposit</code> to pre-charge maximum gas, mitigating <strong>undergassing attacks</strong> where users set gas limits that only allow favorable code paths to complete.</p>
+
+<h3>The RandManager: Consensus Integration</h3>
+
+<p>The <code>RandManager</code> in <code>consensus/src/rand/rand_gen/rand_manager.rs</code> orchestrates the per-block randomness generation pipeline:</p>
+
+<ol>
+<li>Block is ordered by consensus</li>
+<li><code>RandManager</code> broadcasts a <code>RequestShare</code> to all validators via reliable broadcast</li>
+<li>Each validator computes their WVUF proof share and responds</li>
+<li>Shares are collected in <code>RandStore</code> until the reconstruction threshold is met</li>
+<li>Shares are aggregated into a <code>Randomness</code> value</li>
+<li>The randomness seed is included in the block metadata</li>
+</ol>
+
+<p>From the <code>RandManager</code> struct:</p>
+<pre><code>pub struct RandManager&lt;S: TShare, D: TAugmentedData&gt; {
+    author: Author,
+    epoch_state: Arc&lt;EpochState&gt;,
+    rand_store: Arc&lt;Mutex&lt;RandStore&lt;S&gt;&gt;&gt;,
+    aug_data_store: AugDataStore&lt;D&gt;,
+    block_queue: BlockQueue,
+    reliable_broadcast: Arc&lt;ReliableBroadcast&lt;RandMessage&lt;S, D&gt;, ExponentialBackoff&gt;&gt;,
+    // ...
+}</code></pre>
+
+<h3>Comparison: Every Other Chain</h3>
+
+<table>
+<tr><th>Property</th><th>Aptos (Pinkas WVUF)</th><th>Chainlink VRF</th><th>Solana</th><th>Sui (drand)</th><th>Ethereum RANDAO</th></tr>
+<tr><td><strong>Native</strong></td><td>Yes</td><td>No (oracle)</td><td>Yes</td><td>No (external)</td><td>Yes</td></tr>
+<tr><td><strong>Latency</strong></td><td>Same-tx (~200ms)</td><td>2+ blocks (~24s)</td><td>Same-tx</td><td>1+ round (~3s)</td><td>Same-block</td></tr>
+<tr><td><strong>Cost</strong></td><td>Gas only</td><td>~$10+ per req</td><td>Gas only</td><td>Gas only</td><td>Free</td></tr>
+<tr><td><strong>Unbiasable</strong></td><td>Yes (WVUF)</td><td>Yes (VRF)</td><td>No</td><td>Yes (tBLS)</td><td>No (last-revealer)</td></tr>
+<tr><td><strong>Unpredictable</strong></td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td><td>Partial</td></tr>
+<tr><td><strong>Synchronous API</strong></td><td>Yes</td><td>No (callback)</td><td>Yes</td><td>No</td><td>N/A</td></tr>
+<tr><td><strong>Security model</strong></td><td>PoS validators</td><td>Oracle operators</td><td>Leader trust</td><td>drand committee</td><td>PoS validators</td></tr>
+<tr><td><strong>Weighted</strong></td><td>Yes (by stake)</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+</table>
+
+<h4>Chainlink VRF (Ethereum/Multi-chain)</h4>
+<p>Chainlink VRF uses a standalone Verifiable Random Function with a commit-reveal pattern. A user submits a request in transaction 1, Chainlink node operators compute the VRF output off-chain, then submit the result in transaction 2 via a callback. Latency is 2+ blocks (~24 seconds on Ethereum L1), cost is ~$10+ per request, and security relies on trusting Chainlink node operators — a completely separate trust assumption from the chain's own validators.</p>
+
+<h4>Solana (SlotHashes / recent_blockhash)</h4>
+<p>Solana has no true randomness primitive. Developers use <code>recent_blockhash</code> or <code>SlotHashes</code> as pseudo-random seeds. These are trivially manipulable: the block producer (leader) can choose to skip their slot to change the hash, biasing any randomness derived from it. There is no VRF, no threshold cryptography, no verifiability.</p>
+
+<h4>Sui (drand-based)</h4>
+<p>Sui integrates the <strong>drand</strong> beacon (League of Entropy) for randomness. drand uses threshold BLS signatures across a committee of independent operators. The randomness is unbiasable and unpredictable, but it is <strong>external to Sui's own validator set</strong>. If the drand network experiences issues, Sui's randomness stops. The API is also not synchronous — contracts must wait for the next drand round.</p>
+
+<h4>Ethereum RANDAO</h4>
+<p>The Ethereum beacon chain uses RANDAO — an XOR of validator RANDAO reveals during block proposals. This suffers from the <strong>last-revealer bias</strong>: the last validator to reveal can choose to withhold their reveal (forfeiting their block reward) to bias the XOR output. The cost of manipulation is one block reward, which may be economically rational for high-value applications.</p>
+
+<h3>Web2 Comparison</h3>
+
+<p>On-chain randomness is a <strong>fundamentally different category</strong> from Web2 randomness:</p>
+<ul>
+<li><strong>Intel RDRAND:</strong> CPU thermal noise, ~100ns per value, not verifiable by third parties</li>
+<li><strong>/dev/urandom:</strong> OS-level CSPRNG (ChaCha20), fast but single-machine, not distributed</li>
+<li><strong>Random.org:</strong> Atmospheric noise, centralized trust, not adversarial-resistant</li>
+</ul>
+<p>On-chain randomness must be <strong>distributed</strong> (no single party knows the output), <strong>publicly verifiable</strong> (anyone can check correctness), <strong>deterministic</strong> (for consensus), and <strong>adversarially secure</strong> (malicious participants cannot bias output). Hardware RNG solves a strictly easier problem.</p>
+
+<h3>Is Aptos State of the Art?</h3>
+
+<p><strong>Yes.</strong> Aptos has the most advanced production on-chain randomness system as of April 2026:</p>
+<ul>
+<li><strong>Only chain with weighted VUF:</strong> The Pinkas WVUF respects stake weight, meaning security is proportional to stake — not just validator count</li>
+<li><strong>Only chain with same-transaction unbiasable randomness:</strong> Chainlink VRF is unbiasable but asynchronous. Solana is synchronous but biasable. Only Aptos is both.</li>
+<li><strong>Native DKG:</strong> The DKG is built into the consensus protocol itself — not an external system like drand</li>
+<li><strong>Provable security:</strong> Security reduces to the hardness of the BLS12-381 pairing assumption under the same PoS threshold that secures the chain</li>
+<li><strong>Developer UX:</strong> A single <code>#[randomness]</code> annotation and one function call — no oracle subscriptions, no callback patterns, no external dependencies</li>
+</ul>
+
+<h3>Key Contributors</h3>
+<table>
+<tr><th>Contributor</th><th>Role</th></tr>
+<tr><td>Alin Tomescu (alinush)</td><td>aptos-dkg crate, Pinkas WVUF, cryptographic primitives</td></tr>
+<tr><td>Daniel Xiang (zhuolun-xiang)</td><td>Consensus integration, randomness pipeline</td></tr>
+<tr><td>Balaji Arun (ibalajiarun)</td><td>RandManager, DKG manager, reliable broadcast</td></tr>
+</table>
+
+<h3>Key Source Files</h3>
+<ul>
+<li><code>aptos-move/framework/aptos-framework/sources/randomness.move</code> — Move API (642 lines)</li>
+<li><code>aptos-move/framework/aptos-framework/sources/dkg.move</code> — DKG on-chain state</li>
+<li><code>aptos-move/framework/natives/src/randomness.rs</code> — Native function implementations</li>
+<li><code>consensus/src/rand/rand_gen/types.rs</code> — Share creation, verification, aggregation</li>
+<li><code>consensus/src/rand/rand_gen/rand_manager.rs</code> — Per-block randomness orchestration</li>
+<li><code>crates/aptos-dkg/src/weighted_vuf/pinkas/mod.rs</code> — Pinkas WVUF (core crypto)</li>
+<li><code>crates/aptos-dkg/src/weighted_vuf/traits.rs</code> — WeightedVUF trait definition</li>
+<li><code>types/src/randomness.rs</code> — Core type aliases</li>
+</ul>
+
+<hr/>
+
+<h2>Deep Comparison: Why Aptos Randomness Is Superior</h2>
+
+<p>The summary table above provides a quick overview, but the real story is in the details. This section dissects every major competitor — Solana, Sui, Ethereum RANDAO, Chainlink VRF, Pyth Entropy, API3 QRNG, and RedStone — and explains precisely why Aptos on-chain randomness is the state of the art.</p>
+
+<h3>Solana: Fundamentally Broken Randomness</h3>
+
+<p>Solana has <strong>no native randomness primitive</strong>. Developers resort to three approaches, all of which are insecure:</p>
+
+<h4>1. SlotHashes / recent_blockhash (The Common Mistake)</h4>
+
+<p>The <code>SlotHashes</code> sysvar stores 32-byte SHA-256 hashes from Solana's Proof-of-History mechanism for each of the most recent 512 slots. Many developers use <code>recent_blockhash</code> or slot hashes as pseudo-random seeds. This is <strong>trivially exploitable</strong>:</p>
+
+<ul>
+<li><strong>Deterministic values:</strong> Slot hashes are computed from PoH tick sequences, transaction data, and block metadata — all of which are known to the current leader before the block is finalized</li>
+<li><strong>Leader manipulation:</strong> The block producer (leader) controls transaction ordering within their slot. By reordering, including, or excluding transactions, they can change the slot hash and thus any "randomness" derived from it</li>
+<li><strong>Client-side simulation:</strong> Users can simulate transactions locally against the current state, predict which slot hashes will produce favorable outcomes, and only submit during those slots. This turned NFT mints with "random" trait assignment into deterministic farming operations</li>
+<li><strong>MEV exploitation:</strong> Searchers and validators with Jito or similar MEV infrastructure can front-run randomness-dependent transactions, observe the outcome, and sandwich or reorder to extract value</li>
+</ul>
+
+<h4>2. The "Last Leader" Problem</h4>
+
+<p>Solana assigns leaders to consecutive 4-slot sequences. A validator who is the last leader before a randomness-consuming transaction can influence the outcome by choosing whether to produce a block or skip their slots. If the leader skips, the next leader must create PoH entries for the skipped slots, changing all downstream hashes. The cost of skipping is just the foregone block rewards and tips for those 4 slots — potentially rational for high-value randomness outcomes like large NFT mints or DeFi liquidations.</p>
+
+<p>This is a weaker version of Ethereum's RANDAO last-revealer bias, but on Solana it affects <em>every</em> application using slot-derived randomness, which is most of them.</p>
+
+<h4>3. Switchboard VRF / ORAO VRF (Oracle Workarounds)</h4>
+
+<p>To address native randomness's failings, Solana developers use oracle-based VRF services:</p>
+
+<ul>
+<li><strong>Switchboard VRF v2:</strong> Uses Ed25519-based VRF with oracle nodes. Cost was initially 0.1 SOL per request, reduced to ~0.002 SOL. Requires a callback pattern — request in one transaction, receive result in another — adding at least one block of latency (~400ms). The oracle operator is a single point of trust for each request.</li>
+<li><strong>Switchboard v3 (TEE-based):</strong> Moved to Intel SGX trusted execution environments. Claims sub-100ms latency via WebSocket streaming. The security model now depends on Intel SGX not being compromised — a weaker assumption than cryptographic threshold schemes, given SGX's history of side-channel attacks (Foreshadow, Plundervolt, SGAxe).</li>
+<li><strong>ORAO VRF:</strong> Another Solana VRF oracle, similar callback pattern, similar trust assumptions.</li>
+</ul>
+
+<p><strong>Bottom line:</strong> Solana developers must choose between (a) insecure native randomness that is trivially manipulable, or (b) oracle-based VRF that introduces external trust assumptions, callback latency, and per-request fees. Neither option provides same-transaction, unbiasable, trust-minimized randomness.</p>
+
+<h3>Sui: Native Randomness With Caveats</h3>
+
+<p>Sui deserves credit for implementing <strong>native validator-based randomness</strong> — making it, alongside Aptos, one of only two chains with randomness generated by validators using threshold cryptography rather than external oracles. However, there are meaningful differences:</p>
+
+<h4>Architecture</h4>
+
+<p>Sui's implementation uses a DKG protocol at each epoch to distribute secret shares among validators, who then produce randomness for each checkpoint. The randomness is generated in parallel with consensus — validators produce their shares after a transaction is ordered but before execution. The <code>sui::random</code> module at reserved address <code>0x8</code> provides the Move API.</p>
+
+<h4>Where Sui Falls Short vs. Aptos</h4>
+
+<ul>
+<li><strong>No weighted VUF:</strong> Sui uses standard threshold BLS signatures for randomness generation. This treats all participants in the threshold scheme equally during aggregation. In a PoS network, this is a mismatch — a validator with 10% of stake should have proportionally more influence on the security guarantee than one with 0.1%. Aptos's Pinkas WVUF weights each validator's contribution by their stake, so the security threshold is measured in <em>stake fraction</em>, not <em>validator count</em>.</li>
+<li><strong>Historical drand dependency:</strong> Sui originally planned to use the drand beacon (League of Entropy) as its randomness source. drand is an external threshold BLS beacon run by a committee of organizations (Cloudflare, Protocol Labs, etc.). While Sui later moved to native validator-based randomness, the drand dependency remains in the codebase and documentation for compatibility. The drand testnet experienced a 45-minute outage on February 21, 2024, when API incompatibilities and node operator errors caused enough nodes to go offline that the network fell below its threshold — illustrating the fragility of external randomness dependencies.</li>
+<li><strong>Different anti-manipulation model:</strong> Sui relies on Move's type system and Programmable Transaction Block restrictions to prevent manipulation. Aptos uses the <code>#[randomness]</code> annotation enforced at the VM level with a dedicated <code>RandomnessContext</code> that tracks the <code>unbiasable</code> flag and a per-transaction counter. Additionally, Aptos implements a <code>RequiredGasDeposit</code> mechanism that pre-charges maximum gas to prevent undergassing attacks — a subtlety that Sui's documentation does not address.</li>
+<li><strong>No per-call counter isolation:</strong> Aptos derives per-call randomness as <code>SHA3-256(DST || block_seed || tx_hash || counter)</code>, where the counter increments with each <code>randomness::*</code> call within a transaction. This guarantees that multiple randomness calls in the same transaction receive independent values, with a formal domain separation tag ("APTOS_RANDOMNESS").</li>
+</ul>
+
+<p><strong>Bottom line:</strong> Sui has competent native randomness, but Aptos's implementation is more cryptographically sophisticated (weighted VUF vs. threshold BLS), has stronger anti-manipulation protections (undergassing prevention, VM-enforced annotations), and has been in production longer.</p>
+
+<h3>Ethereum RANDAO: Biasable by Design</h3>
+
+<p>Post-Merge Ethereum uses RANDAO for in-protocol randomness. Each block proposer mixes a BLS signature of the epoch number into a running XOR accumulator:</p>
+
+<pre><code>new_randao = old_randao XOR BLS_sign(proposer_key, epoch)</code></pre>
+
+<p>The fundamental weakness is the <strong>last-revealer bias</strong>: the final proposer in an epoch (or any sequence of consecutive slots they control) can observe the accumulated RANDAO value, compute what the final value would be with their contribution, and choose to <em>skip</em> their proposal if the result is unfavorable. The cost is one missed block reward (~0.05 ETH at current rates), which is economically rational to sacrifice for any randomness-dependent outcome worth more than that.</p>
+
+<p>With 32 consecutive slots per epoch and probabilistic assignment, validators with large stake can sometimes control 2-3 consecutive proposals, giving them multiple bits of bias. This makes RANDAO unsuitable for high-value applications — which is why the Ethereum community universally recommends Chainlink VRF for anything security-critical.</p>
+
+<p><strong>Aptos advantage:</strong> The Pinkas WVUF is algebraically unbiasable. A validator who withholds their share simply delays randomness generation until enough other shares arrive — they cannot influence the output value. The WVUF evaluation is deterministic given any sufficient subset of shares.</p>
+
+<h3>Chainlink VRF v2.5: Secure but Slow, Expensive, and Awkward</h3>
+
+<p>Chainlink VRF is the most widely used randomness oracle in crypto, and it <em>is</em> cryptographically secure — the VRF construction guarantees unbiasability and unpredictability. But it has severe practical limitations:</p>
+
+<h4>The Callback Pattern</h4>
+
+<p>Chainlink VRF requires a two-transaction flow:</p>
+<ol>
+<li><strong>Request:</strong> Your contract calls <code>requestRandomWords()</code>, which emits a log event</li>
+<li><strong>Wait:</strong> Chainlink node operators see the event, compute the VRF proof off-chain, and submit a fulfillment transaction</li>
+<li><strong>Callback:</strong> Your contract's <code>fulfillRandomWords(requestId, randomWords)</code> is called with the result</li>
+</ol>
+
+<p>This asynchronous pattern forces developers to split their logic across two functions, manage request IDs, handle the case where the callback never arrives, and deal with state that may have changed between request and fulfillment. For a dice game, this means: user clicks "roll" → waits 2+ blocks → result appears. The UX is fundamentally worse than Aptos's synchronous <code>randomness::u64_range(1, 7)</code>.</p>
+
+<h4>Cost</h4>
+
+<p>Chainlink VRF v2.5 charges a percentage-based premium on top of the callback gas cost, payable in LINK or native token. On Ethereum L1, a single VRF request costs $10-30+ depending on gas prices. On L2s like Arbitrum or Base, costs drop to $0.10-0.50, but the architectural overhead remains. Developers must either maintain a LINK-funded subscription or use direct funding, both requiring treasury management and monitoring.</p>
+
+<p><strong>Aptos cost:</strong> Zero beyond normal transaction gas. No subscription. No LINK tokens. No premium fees.</p>
+
+<h4>Latency</h4>
+
+<p>Chainlink VRF v2.5 targets ~2-second end-to-end latency under optimal conditions, but real-world latency is typically 1-3 blocks on the target chain. On Ethereum L1, this means 12-36 seconds. On faster L2s, it can be 2-6 seconds. This is still fundamentally asynchronous — there is always a gap between request and fulfillment.</p>
+
+<p><strong>Aptos latency:</strong> Zero additional latency. Randomness is available in the same transaction, within the same function call. Total transaction finality is ~200ms.</p>
+
+<h4>Trust Model</h4>
+
+<p>Chainlink VRF security depends on trusting the Chainlink node operator network — a completely separate set of entities from the chain's own validators. You are adding a second trust assumption on top of the chain's consensus. If Chainlink's node operators collude or go offline, your application's randomness stops working regardless of the base chain's health.</p>
+
+<h3>Pyth Entropy: Better Than Chainlink, Still Not Native</h3>
+
+<p>Pyth Network, known primarily as a price oracle, launched <strong>Entropy</strong> — a randomness service using a two-party commit-reveal protocol. As of 2025, Entropy v2 is live on 15+ EVM chains with over 10 million requests served.</p>
+
+<h4>How Entropy Works</h4>
+
+<ol>
+<li>User generates a random number locally, computes its hash (commitment), and submits it on-chain along with a fee</li>
+<li>Pyth's provider also has a pre-committed random number for that sequence number</li>
+<li>After a configurable reveal delay (to handle block reorgs), Pyth's keeper submits the provider's random number</li>
+<li>The final randomness is derived by combining both parties' random numbers — neither party alone can predict or bias the output</li>
+</ol>
+
+<h4>Limitations</h4>
+
+<ul>
+<li><strong>Still asynchronous:</strong> Like Chainlink, Entropy requires a callback pattern. Request in one transaction, receive result in another. The reveal delay adds additional blocks of latency beyond the minimum.</li>
+<li><strong>Two-party trust model:</strong> Security relies on the user and Pyth's provider not colluding. If the provider sees the user's commitment and can predict or influence which random number to reveal, the scheme breaks. In practice, the provider uses pre-committed values (a hash chain), but this is still a weaker guarantee than threshold cryptography among dozens of validators.</li>
+<li><strong>Per-request fees:</strong> Entropy charges a provider fee plus a protocol fee (subject to Pyth DAO governance) on top of gas costs. The fees are denominated in native tokens and vary by chain, determined dynamically via <code>entropy.getFeeV2()</code>.</li>
+<li><strong>External dependency:</strong> If Pyth's keeper network goes down or the provider fails to reveal, your application's randomness stalls. There is no fallback.</li>
+</ul>
+
+<p><strong>Credit where due:</strong> Entropy's commit-reveal is simpler and cheaper than Chainlink VRF, and the two-party model provides reasonable security for most applications. But it remains an oracle service with external dependencies, callback latency, and per-request costs — all things Aptos eliminates.</p>
+
+<h3>API3 QRNG: Quantum Theater</h3>
+
+<p>API3 QRNG markets itself as "quantum random number generation" for blockchains, sourcing entropy from the Australian National University's (ANU) quantum vacuum fluctuation measurements.</p>
+
+<h4>The Reality</h4>
+
+<ul>
+<li><strong>It is an oracle, not a quantum computer on-chain:</strong> ANU measures quantum vacuum noise in their lab, produces random numbers, and API3 relays those numbers to smart contracts via their first-party oracle (Airnode) infrastructure. The randomness quality is excellent — genuinely quantum-derived — but the delivery mechanism is a standard oracle callback.</li>
+<li><strong>Trust model:</strong> You must trust (a) ANU's quantum measurement apparatus, (b) API3's Airnode relay infrastructure, and (c) that the Airnode operator is faithfully relaying the quantum numbers without substitution. The "quantum" part does not help with the trust problem — it only ensures the numbers are truly random at the source, not that they arrive unmanipulated.</li>
+<li><strong>Callback latency:</strong> Same asynchronous request-callback pattern as Chainlink VRF. Request in one transaction, receive quantum random number in a later transaction.</li>
+<li><strong>Limited chain support:</strong> Available on ~13 chains, none of which include Solana or Sui. Not available on Aptos.</li>
+<li><strong>Free (gas only):</strong> API3 does not charge per-request fees for QRNG, which is a genuine advantage over Chainlink VRF's pricing. However, you still pay callback gas.</li>
+</ul>
+
+<p><strong>The quantum marketing is irrelevant to the security problem.</strong> On-chain randomness does not need quantum-derived entropy — it needs <em>distributed, unbiasable, verifiable</em> entropy. A threshold VUF among 100+ validators provides stronger guarantees than a single quantum source relayed through an oracle, because the security depends on the delivery and verification mechanism, not the entropy source.</p>
+
+<h3>RedStone: Wrong Category Entirely</h3>
+
+<p>RedStone is a <strong>price oracle</strong>, not a randomness oracle. It appears in randomness discussions because of its headline "10ms updates" — specifically, <strong>RedStone Bolt</strong>, which delivers price feed updates every 2.4 milliseconds on MegaETH's testnet.</p>
+
+<h4>What RedStone Actually Does</h4>
+
+<ul>
+<li><strong>Price feeds:</strong> Aggregates price data from 50+ sources (Binance, Coinbase, Uniswap, etc.) across 100+ blockchains</li>
+<li><strong>Pull-based model:</strong> Unlike Chainlink's push oracles, RedStone uses a "pull" model where price data is attached to user transactions as calldata, reducing costs by not requiring separate oracle update transactions</li>
+<li><strong>RedStone Bolt:</strong> A specialized ultra-low-latency push oracle for MegaETH (10ms block times). Delivers 400+ price updates per second. Currently testnet-only.</li>
+</ul>
+
+<h4>Why This Is Not Randomness</h4>
+
+<p>Price feeds and randomness solve completely different problems:</p>
+<ul>
+<li><strong>Price feeds</strong> relay a known, observable real-world value (e.g., ETH/USD = $3,200) — the goal is <em>accuracy</em> and <em>freshness</em></li>
+<li><strong>Randomness</strong> generates an unknown, unpredictable value — the goal is <em>unpredictability</em> and <em>unbiasability</em></li>
+</ul>
+
+<p>You cannot derive secure randomness from price feeds. Price movements are partially predictable (especially at millisecond timescales), subject to manipulation (wash trading, spoofing), and observable by the oracle operator before on-chain delivery. Using price feed updates as a randomness source would be even worse than Solana's SlotHashes approach.</p>
+
+<p>RedStone does not offer a randomness product. Including it here is only to clarify that <strong>fast price oracles and on-chain randomness are fundamentally different infrastructure</strong>.</p>
+
+<h3>The Seven Reasons Aptos Wins</h3>
+
+<p>Combining all the analysis above, here is why Aptos on-chain randomness is technically superior to every alternative:</p>
+
+<table>
+<tr><th>#</th><th>Property</th><th>Aptos</th><th>Best Competitor</th><th>Why It Matters</th></tr>
+<tr><td>1</td><td><strong>Synchronous</strong></td><td>Same transaction, same function call</td><td>Sui (same tx, but post-ordering)</td><td>No callback patterns, no request IDs, no split logic. One line: <code>randomness::u64_range(1,7)</code>. Every oracle-based solution (Chainlink, Pyth, API3) requires async callbacks.</td></tr>
+<tr><td>2</td><td><strong>Unbiasable</strong></td><td>Algebraic (WVUF)</td><td>Chainlink VRF (computational VRF)</td><td>Withholding a share delays but cannot bias the output. Solana is trivially biasable. Ethereum RANDAO has last-revealer bias costing only ~0.05 ETH to exploit.</td></tr>
+<tr><td>3</td><td><strong>No external dependency</strong></td><td>Validator-native</td><td>Sui (also validator-native)</td><td>Chainlink, Pyth, API3 all add a second trust layer. If the oracle network goes down, randomness stops — regardless of chain health.</td></tr>
+<tr><td>4</td><td><strong>Weighted by stake</strong></td><td>Pinkas WVUF</td><td>None</td><td>Aptos is the <em>only</em> chain where the randomness security threshold is measured in stake fraction. Standard threshold BLS (Sui, drand) treats all shares equally, mismatching PoS economics. A validator with 10% of stake contributes 10% of the security guarantee.</td></tr>
+<tr><td>5</td><td><strong>Gas-only cost</strong></td><td>Zero additional fees</td><td>API3 QRNG (also free), Sui (gas only)</td><td>Chainlink VRF costs $10-30 per request on Ethereum L1. Pyth Entropy charges provider + protocol fees. On Aptos, randomness is a free primitive like addition or hashing.</td></tr>
+<tr><td>6</td><td><strong>VM-enforced anti-manipulation</strong></td><td><code>#[randomness]</code> + <code>RequiredGasDeposit</code></td><td>Sui (PTB restrictions)</td><td>The Move VM refuses to execute randomness functions from non-annotated entry points — preventing test-and-revert attacks at the infrastructure level, not the application level. The gas deposit mechanism additionally prevents undergassing attacks where users set gas limits to only allow favorable code paths to complete.</td></tr>
+<tr><td>7</td><td><strong>Per-call uniqueness</strong></td><td><code>SHA3-256(DST &#124;&#124; seed &#124;&#124; tx_hash &#124;&#124; counter)</code></td><td>Sui (similar derivation)</td><td>Formal domain separation with "APTOS_RANDOMNESS" DST. Incrementing counter guarantees independence across multiple calls within a single transaction. The derivation is deterministic and verifiable.</td></tr>
+</table>
+
+<h3>Summary: The Competitive Landscape</h3>
+
+<table>
+<tr><th>Solution</th><th>Type</th><th>Synchronous?</th><th>Unbiasable?</th><th>Native?</th><th>Weighted?</th><th>Cost</th><th>Verdict</th></tr>
+<tr><td><strong>Aptos WVUF</strong></td><td>Native threshold</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Gas only</td><td><strong>Best in class</strong></td></tr>
+<tr><td>Sui Random</td><td>Native threshold</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Gas only</td><td>Strong, lacks WVUF</td></tr>
+<tr><td>Chainlink VRF v2.5</td><td>Oracle VRF</td><td>No</td><td>Yes</td><td>No</td><td>No</td><td>$10-30+ (L1)</td><td>Secure but slow/expensive</td></tr>
+<tr><td>Pyth Entropy v2</td><td>Oracle commit-reveal</td><td>No</td><td>Yes</td><td>No</td><td>No</td><td>Provider + protocol fee</td><td>Simpler than VRF, still async</td></tr>
+<tr><td>API3 QRNG</td><td>Oracle quantum</td><td>No</td><td>Yes*</td><td>No</td><td>No</td><td>Gas only</td><td>Marketing > substance</td></tr>
+<tr><td>Ethereum RANDAO</td><td>Native accumulator</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td><td>Free</td><td>Biasable, unsuitable</td></tr>
+<tr><td>Solana SlotHashes</td><td>Native hash</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td><td>Free</td><td>Trivially exploitable</td></tr>
+<tr><td>Switchboard VRF</td><td>Oracle TEE</td><td>No</td><td>Depends*</td><td>No</td><td>No</td><td>~0.002 SOL</td><td>SGX trust assumption</td></tr>
+</table>
+
+<p><em>* API3 QRNG is unbiasable at the source but relies on oracle delivery trust. Switchboard v3 security depends on SGX enclave integrity.</em></p>
+
+<p>Aptos occupies a unique position: it is the only blockchain that simultaneously provides synchronous access, algebraic unbiasability, stake-weighted security, zero additional cost, and VM-enforced anti-manipulation — all without any external dependency. No other chain or oracle service achieves all of these properties together.</p>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p><strong>The Big Picture:</strong> Imagine you and your friends want to flip a coin, but nobody trusts anyone else to do the flipping. What if one person flips and says "heads" — how do you know they are telling the truth? And what if they peeked at the coin mid-air and changed their call?</p>
+
+<p><strong>What Aptos Does:</strong> Aptos solved this problem for blockchains. Instead of one person flipping the coin, ALL the validators (the computers running the network) each secretly create a piece of a random number. No single piece is useful on its own — you need enough pieces combined to reveal the actual random number. Once enough pieces arrive, the number appears, and nobody could have predicted or changed it.</p>
+
+<p><strong>The Coin Flip Analogy:</strong> Think of it like this — imagine 100 people each write a secret number on a piece of paper and lock it in a box. Nobody can open anyone else's box. Then a special math formula combines all the locked numbers into one final number. No single person knew what the final number would be. No single person could change it. And everyone can verify the math was done correctly. That is what Aptos randomness does — except with fancy cryptography (called a Pinkas Weighted VUF) instead of paper and boxes.</p>
+
+<p><strong>Why This Is Better Than Everything Else:</strong></p>
+<ul>
+<li><strong>vs. Solana:</strong> On Solana, the block producer can literally choose which random number you get by reordering transactions or skipping their slot. There is no real randomness — just predictable hashes that anyone can game. NFT mints on Solana have been farmed this way.</li>
+<li><strong>vs. Ethereum:</strong> Ethereum uses something called RANDAO, where the last person to contribute can cheat by choosing not to participate if the result is unfavorable. The cost to cheat is just one block reward (~$160).</li>
+<li><strong>vs. Sui:</strong> Sui also has validator-based randomness (good!), but it treats every validator equally regardless of how much stake they have. Aptos weighs each validator's contribution by their stake, which is more secure and matches how proof-of-stake actually works.</li>
+<li><strong>vs. Chainlink VRF:</strong> Chainlink gives you secure randomness, but you have to wait for a separate company's computers to respond (12-36 seconds on Ethereum), pay $10-30 per request, and write your code in a complicated two-step "request then callback" pattern. On Aptos, you just call one function and get the answer instantly.</li>
+<li><strong>vs. Pyth/API3:</strong> These are oracle services — external companies that send random numbers to your contract. If their service goes down, your randomness stops. On Aptos, randomness is built into the chain itself.</li>
+</ul>
+
+<p><strong>How Developers Use It:</strong> A developer just writes <code>#[randomness]</code> above their function and calls <code>randomness::u64_range(1, 7)</code> to get a dice roll. That is it. One line of code for a provably fair random number — something that used to require entire oracle networks, callback patterns, and per-request payments.</p>
+
+<p><strong>What You Learned:</strong> You just learned about on-chain randomness — how Aptos uses advanced cryptography to let smart contracts generate truly fair random numbers without trusting anyone, faster and cheaper than any other blockchain. It is the only chain where randomness is instant, free, unbiasable, and weighted by stake — all at once.</p>
+    </section>
+
+    <hr class="section-divider"><h3>Related Systems</h3><div><span class="tag">On-Chain Randomness</span><span class="tag">DKG</span><span class="tag">Encrypted Mempool</span><span class="tag">Baby Raptr Consensus</span></div>
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a><a href="/reports/ans-deep-dive">Aptos Names Service (ANS) — Complete Deep Dive</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#randomness-deep-dive">https://aptos-intelligence.vercel.app/#randomness-deep-dive</a>.
+      Plain-text version: <a href="/reports/randomness-deep-dive.txt">/reports/randomness-deep-dive.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>

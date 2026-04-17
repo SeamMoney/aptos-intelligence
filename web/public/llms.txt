@@ -1,44 +1,47 @@
 # Aptos Intelligence
 > Real-time technical analysis of every commit to aptos-labs/aptos-core
 
-## Deep Dives
-- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/#a9d20cd): Feature Progress by ibalajiarun
-- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/#bef2812): Infrastructure by ibalajiarun
-- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/#9a3caae): API by JoshLind
-- [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/#ans-deep-dive): Feature Progress by 0xChucky
-- [fix function checker for struct visibility (#19351)](https://aptos-intelligence.vercel.app/#0e8dad7): Security by rahxephon89
-- [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/#aggregator-nft-deep-dive): Feature Progress by aptos-labs
-- [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/#prefix-consensus-deep-dive): Feature Progress by aptos-labs
+## Deep Dives (19 reports)
 
-## Feature Progress
-- Encrypted Mempool: 80% (Testnet) — BIBE-based encrypted transaction ordering. Hides transaction contents until afte
-- Confidential Assets (AIP-143): 65% (Code Merged) — Zero-knowledge proof based private transfers. Balances and transfer amounts hidd
-- Baby Raptr Consensus: 95% (Mainnet) — Merged Jolteon consensus + Quorum Store. Proposer optimistically includes batch 
-- Block-STM v2: 60% (Development) — Next-gen parallel execution engine. Improved conflict resolution, better schedul
-- MonoMove VM: 40% (Development) — Unified Move VM runtime that combines interpreter, compiler, and framework into 
-- Keyless Accounts (AIP-61): 95% (Mainnet) — Social login → blockchain accounts via OIDC + ZK proofs. No private key manageme
-- Zaptos (Optimistic Pipelining): 25% (Research) — Start executing transactions BEFORE consensus finalizes. Speculate on likely ord
-- Shardines (Internal Sharding): 15% (Research) — Each validator internally shards execution across multiple sub-executors. Target
-- Aptos Names Service: 90% (Mainnet (V2)) — Domain name system for Aptos. Maps .apt names to addresses. V2 on Token Objects 
+- [Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art](https://aptos-intelligence.vercel.app/reports/randomness-deep-dive): Feature Progress, importance 10/10
+- [Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos](https://aptos-intelligence.vercel.app/reports/confidential-assets-deep-dive): Feature Progress, importance 10/10
+- [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/reports/prefix-consensus-deep-dive): Feature Progress, importance 10/10
+- [Aptos Feature Progress — 10 Features Tracked from Research to Mainnet](https://aptos-intelligence.vercel.app/reports/feature-progress-overview): Feature Progress, importance 10/10
+- [The Aptos Stack — One Map of How Every Piece Fits Together](https://aptos-intelligence.vercel.app/reports/aptos-stack-map): Feature Progress, importance 10/10
+- [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive): Feature Progress, importance 9/10
+- [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/reports/ans-deep-dive): Feature Progress, importance 9/10
+- [Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator](https://aptos-intelligence.vercel.app/reports/shardines-deep-dive): Feature Progress, importance 9/10
+- [fix function checker for struct visibility (#19351)](https://aptos-intelligence.vercel.app/reports/0e8dad7): Security, importance 8/10
+- [[prover] Global memory support for behavioral predicates](https://aptos-intelligence.vercel.app/reports/3366941053): Feature Progress, importance 8/10
+- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/reports/9a3caae): API, importance 7/10
+- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/reports/bef2812): Infrastructure, importance 7/10
+- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/reports/a9d20cd): Feature Progress, importance 7/10
+- [[compiler-v2] Fix type inference to allow unifying struct constraints and receiver function constraints (#18929)](https://aptos-intelligence.vercel.app/reports/d22380f): Security, importance 7/10
+- [[vm] Fix several correctness issues in Move VM runtime (#19052)](https://aptos-intelligence.vercel.app/reports/c8db4ac): Security, importance 7/10
+- [[Smoke Test] Small race condition fixes.](https://aptos-intelligence.vercel.app/reports/544323b): Security, importance 7/10
+- [Confidential assets v1.1 (#18973)](https://aptos-intelligence.vercel.app/reports/3044960): Infrastructure, importance 7/10
+- [[Mainnet] Aptos Node Release v1.41.9](https://aptos-intelligence.vercel.app/reports/297966303): Release, importance 6/10
+- [[storage] Persist hot state KV insertions/evictions to DB](https://aptos-intelligence.vercel.app/reports/3368033534): Feature Progress, importance 6/10
 
-## Stats
-- 603 commits tracked
-- 767 reports with analysis
-- 9 features tracked
-- Auto-refreshes every 2 hours via GitHub Actions
+## Plain-text versions for LLMs
 
-## Full Content
-- [llms-full.txt](https://aptos-intelligence.vercel.app/llms-full.txt): Complete text of all reports
-
-## Static Report Pages (for LLM indexing)
-- [Report Index](https://aptos-intelligence.vercel.app/reports/index.txt): Index of all deep dive reports as plain text
+- [Index](https://aptos-intelligence.vercel.app/reports/index.txt)
+- [Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art](https://aptos-intelligence.vercel.app/reports/randomness-deep-dive.txt)
+- [Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos](https://aptos-intelligence.vercel.app/reports/confidential-assets-deep-dive.txt)
+- [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/reports/prefix-consensus-deep-dive.txt)
+- [Aptos Feature Progress — 10 Features Tracked from Research to Mainnet](https://aptos-intelligence.vercel.app/reports/feature-progress-overview.txt)
+- [The Aptos Stack — One Map of How Every Piece Fits Together](https://aptos-intelligence.vercel.app/reports/aptos-stack-map.txt)
+- [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive.txt)
+- [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/reports/ans-deep-dive.txt)
+- [Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator](https://aptos-intelligence.vercel.app/reports/shardines-deep-dive.txt)
+- [fix function checker for struct visibility (#19351)](https://aptos-intelligence.vercel.app/reports/0e8dad7.txt)
+- [[prover] Global memory support for behavioral predicates](https://aptos-intelligence.vercel.app/reports/3366941053.txt)
+- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/reports/9a3caae.txt)
+- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/reports/bef2812.txt)
+- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/reports/a9d20cd.txt)
+- [[compiler-v2] Fix type inference to allow unifying struct constraints and receiver function constraints (#18929)](https://aptos-intelligence.vercel.app/reports/d22380f.txt)
+- [[vm] Fix several correctness issues in Move VM runtime (#19052)](https://aptos-intelligence.vercel.app/reports/c8db4ac.txt)
+- [[Smoke Test] Small race condition fixes.](https://aptos-intelligence.vercel.app/reports/544323b.txt)
+- [Confidential assets v1.1 (#18973)](https://aptos-intelligence.vercel.app/reports/3044960.txt)
 - [[Mainnet] Aptos Node Release v1.41.9](https://aptos-intelligence.vercel.app/reports/297966303.txt)
 - [[storage] Persist hot state KV insertions/evictions to DB](https://aptos-intelligence.vercel.app/reports/3368033534.txt)
-- [[prover] Global memory support for behavioral predicates](https://aptos-intelligence.vercel.app/reports/3366941053.txt)
-- [Confidential assets v1.1 (#18973)](https://aptos-intelligence.vercel.app/reports/3044960.txt)
-- [[api] Add EncryptedTransactionPayload enum to REST API and indexer gRPC (#18951)](https://aptos-intelligence.vercel.app/reports/a9d20cd.txt)
-- [[vm] Fix several correctness issues in Move VM runtime (#19052)](https://aptos-intelligence.vercel.app/reports/c8db4ac.txt)
-- [[compiler-v2] Fix type inference to allow unifying struct constraints and receiver function constraints (#18929)](https://aptos-intelligence.vercel.app/reports/d22380f.txt)
-- [[test] Add encrypted transaction decryption smoke test (#18760)](https://aptos-intelligence.vercel.app/reports/bef2812.txt)
-- [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/reports/9a3caae.txt)
-- [[Smoke Test] Small race condition fixes.](https://aptos-intelligence.vercel.app/reports/544323b.txt)

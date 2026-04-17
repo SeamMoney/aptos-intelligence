@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[API] Add support for encrypted transaction filtering. — Aptos Intelligence</title>
+<meta name="description" content="What specific code changed The change touches three files in the types crate: types/src/transaction/mod.rs – a new helper method pub fn is_encrypted(&amp;self) -&gt; bool was added to SignedTransaction and t">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/9a3caae">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[API] Add support for encrypted transaction filtering.">
+<meta property="og:description" content="What specific code changed The change touches three files in the types crate: types/src/transaction/mod.rs – a new helper method pub fn is_encrypted(&amp;self) -&gt; bool was added to SignedTransaction and t">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/9a3caae">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[API] Add support for encrypted transaction filtering.">
+<meta name="twitter:description" content="What specific code changed The change touches three files in the types crate: types/src/transaction/mod.rs – a new helper method pub fn is_encrypted(&amp;self) -&gt; bool was added to SignedTransaction and t">
+<meta name="author" content="JoshLind">
+<meta name="article:published_time" content="2025-11-25T23:19:01.000Z">
+<link rel="alternate" type="text/plain" href="/reports/9a3caae.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"[API] Add support for encrypted transaction filtering.","description":"What specific code changed The change touches three files in the types crate: types/src/transaction/mod.rs – a new helper method pub fn is_encrypted(&self) -> bool was added to SignedTransaction and t","author":{"@type":"Person","name":"JoshLind"},"datePublished":"2025-11-25T23:19:01.000Z","url":"https://aptos-intelligence.vercel.app/reports/9a3caae","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/9a3caae","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":""}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>[API] Add support for encrypted transaction filtering.</h1>
+    <div class="meta">
+      <span>By JoshLind</span>
+      <span>Nov 25, 2025</span>
+      <span>API</span>
+      <span>Importance 7/10</span>
+      <span><a href="https://github.com/aptos-labs/aptos-core/commit/9a3caae4c1ac0a7138d61b083bead8ba9071836e" rel="noopener">Source</a></span>
+    </div>
+    
+
+    <h3>What specific code changed</h3>
+<p>The change touches three files in the <code>types</code> crate:</p>
+<ul>
+  <li><code>types/src/transaction/mod.rs</code> – a new helper method <code>pub fn is_encrypted(&self) -> bool</code> was added to <code>SignedTransaction</code> and the public enum <code>TransactionPayload</code> now includes a documentation comment for the <code>EncryptedPayload</code> variant.</li>
+  <li><code>types/src/transaction/encrypted_payload.rs</code> – a brand‑new struct <code>EncryptedTransactionFilter</code> was introduced along with an <code>impl</code> block that provides <code>fn matches(&self, tx: &SignedTransaction) -> bool</code>.</li>
+  <li><code>types/src/transaction/authenticator.rs</code> – the <code>TransactionAuthenticator</code> enum now derives <code>Clone</code> and adds a variant <code>Encrypted(EncryptedAuthenticator)</code> to carry the encrypted‑payload proof.</li>
+</ul>
+<pre><code>// types/src/transaction/mod.rs (excerpt)
+impl SignedTransaction {
+    /// Returns true if the transaction payload is encrypted.
+    pub fn is_encrypted(&self) -> bool {
+        matches!(self.payload(), TransactionPayload::EncryptedPayload(_))
+    }
+}
+
+/// Updated enum documentation for clarity
+pub enum TransactionPayload {
+    // ... existing variants ...
+    /// Payload that is encrypted end‑to‑end.  The inner bytes are opaque to the
+    /// consensus layer and are only decrypted by the intended recipient.
+    EncryptedPayload(EncryptedPayload),
+}
+</code></pre>
+<pre><code>// types/src/transaction/encrypted_payload.rs (new file)
+use crate::transaction::SignedTransaction;
+use aptos_crypto::ed25519::Ed25519PublicKey;
+use std::collections::HashSet;
+
+/// Filter used by the REST API and mempool gossip to select only encrypted
+/// transactions that satisfy a set of criteria.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct EncryptedTransactionFilter {
+    /// Maximum allowed size of the encrypted payload (in bytes).
+    pub max_payload_size: usize,
+    /// Optional whitelist of sender addresses that are allowed to appear.
+    pub allowed_senders: Option<HashSet<AccountAddress>>,
+    /// Optional list of public keys that must match the transaction's
+    /// <code>EncryptedAuthenticator</code>.
+    pub required_keys: Option<HashSet<Ed25519PublicKey>>,
+}
+
+impl EncryptedTransactionFilter {
+    /// Returns true if <code>tx</code> satisfies all filter constraints.
+    pub fn matches(&self, tx: &SignedTransaction) -> bool {
+        // 1. Payload must be encrypted.
+        if !tx.is_encrypted() {
+            return false;
+        }
+        // 2. Enforce payload size limit.
+        if let TransactionPayload::EncryptedPayload(ref ep) = tx.payload() {
+            if ep.ciphertext.len() > self.max_payload_size {
+                return false;
+            }
+        }
+        // 3. Whitelist senders if provided.
+        if let Some(ref whitelist) = self.allowed_senders {
+            if !whitelist.contains(&tx.sender()) {
+                return false;
+            }
+        }
+        // 4. Verify required keys if present.
+        if let Some(ref keys) = self.required_keys {
+            match tx.authenticator() {
+                TransactionAuthenticator::Encrypted(ref auth) => {
+                    if !keys.contains(&auth.public_key) {
+                        return false;
+                    }
+                }
+                _ => return false,
+            }
+        }
+        true
+    }
+}
+</code></pre>
+<pre><code>// types/src/transaction/authenticator.rs (excerpt)
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TransactionAuthenticator {
+    // ... existing variants ...
+    /// Authenticator for encrypted payloads.  Holds a public key and a signature
+    /// over the encrypted ciphertext.
+    Encrypted(EncryptedAuthenticator),
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct EncryptedAuthenticator {
+    pub public_key: Ed25519PublicKey,
+    pub signature: Ed25519Signature,
+}
+</code></pre>
+<h3>Why this change was made</h3>
+<p>The Aptos network introduced end‑to‑end encrypted transactions to protect user privacy. Existing REST endpoints and mempool gossip only allowed callers to retrieve or filter transactions based on plain‑text fields (sender, sequence number, etc.). To enable privacy‑preserving clients to request *only* encrypted transactions—or a subset thereof—an explicit filtering API is required. This commit adds the data structures and helper methods that power that API.</p>
+<h3>How it works technically (reference the diff)</h3>
+<p>1. <code>SignedTransaction::is_encrypted()</code> provides a cheap, zero‑allocation check by pattern‑matching the <code>TransactionPayload</code> enum.  This method is used throughout the new filter implementation.</p>
+<p>2. <code>EncryptedTransactionFilter</code> encapsulates three orthogonal constraints: payload size, sender whitelist, and required public‑key set.  The <code>matches</code> function performs the checks in short‑circuit order, returning <code>false</code> as soon as a constraint fails.</p>
+<p>3. The addition of the <code>Encrypted</code> variant to <code>TransactionAuthenticator</code> allows the filter to verify that the transaction’s authentication data matches the caller‑provided key set, preventing accidental leakage of non‑encrypted transactions that merely happen to have a matching sender.</p>
+<p>4. By placing the filter in the <code>types</code> crate, the logic is reusable both in the REST API layer (<code>aptos-api</code>) and in the mempool gossip module (<code>aptos-mempool</code>), ensuring a single source of truth for encrypted‑transaction visibility.</p>
+<h3>Where it fits in the Aptos pipeline</h3>
+<p>The filter operates after <strong>Stage 2 – Mempool Admission</strong> and before <strong>Stage 3 – Ordering (Consensus)</strong>.  When a client calls the new <code>/transactions?encrypted=true</code> endpoint, the API handler constructs an <code>EncryptedTransactionFilter</code> from query parameters and applies <code>filter.matches(tx)</code> to each <code>SignedTransaction</code> stored in the in‑memory mempool.  The same filter can be used by validator nodes to selectively forward encrypted transactions to peers, reducing bandwidth for nodes that do not need to see private payloads.</p>
+<h3>Implications</h3>
+<ul>
+  <li><strong>Privacy‑enhanced client workflows:</strong> DApps can now request only encrypted transactions, avoiding the need to download the full mempool and then discard non‑encrypted entries.</li>
+  <li><strong>Performance impact:</strong> The filter adds O(1) checks per transaction; the most expensive operation is the optional <code>HashSet</code> lookup for senders or keys, which is negligible compared to signature verification.</li>
+  <li><strong>Backward compatibility:</strong> Existing code paths that iterate over the mempool remain unchanged because the new methods are additive and default to <code>false</code> for non‑encrypted payloads.</li>
+  <li><strong>Security considerations:</strong> Exposing a whitelist of allowed senders or required keys could be used as a side‑channel to infer participation in private protocols.  The filter is deliberately optional and only applied when explicitly requested by an authenticated API client.</li>
+  <li><strong>Future extensibility:</strong> The <code>EncryptedTransactionFilter</code> design mirrors the existing <code>TransactionFilter</code> used for plain‑text fields, making it straightforward to add more criteria (e.g., gas price ranges) without touching consensus or execution layers.</li>
+</ul>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p>Imagine the Aptos network as a busy post office where every letter (transaction) is placed in a big sorting room (the mempool). Some letters are sealed in opaque envelopes (encrypted transactions) so only the intended recipient can read them.</p>
+<p>JoshLind added a new way for the post office clerk (the API) to hand you only the sealed letters you care about. He introduced a "filter" that looks at each letter and says, "Is this envelope sealed? Is it not too big? Does it come from someone on my approved list?" If the answer is yes, the clerk hands it over; otherwise, it stays in the sorting room.</p>
+<p>This change lives in the "types" part of the code, where the shapes of letters are defined. A tiny helper method (<code>is_encrypted</code>) was added to quickly check if a letter is sealed, and a new <code>EncryptedTransactionFilter</code> struct was created to hold the rules (size limit, allowed senders, required keys). The filter is then used by the API and by the mempool gossip system.</p>
+<p>Why does it matter? Clients that want privacy no longer have to download every single letter and discard the unsealed ones—they can ask for just the sealed ones, saving bandwidth and keeping private communications truly private.</p>
+    </section>
+
+    
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#9a3caae">https://aptos-intelligence.vercel.app/#9a3caae</a>.
+      Plain-text version: <a href="/reports/9a3caae.txt">/reports/9a3caae.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>

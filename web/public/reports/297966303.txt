@@ -5,7 +5,8 @@ Date: 2026-03-23T00:00:00.000Z
 Category: Release
 Importance: 6/10
 Source: https://github.com/aptos-labs/aptos-core/releases/tag/aptos-node-v1.41.9
-URL: https://aptos-intelligence.vercel.app/#297966303
+Canonical: https://aptos-intelligence.vercel.app/reports/297966303
+Interactive: https://aptos-intelligence.vercel.app/#297966303
 
 ---
 

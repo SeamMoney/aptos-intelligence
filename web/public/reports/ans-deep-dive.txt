@@ -5,7 +5,8 @@ Date: 2026-04-08T00:00:00Z
 Category: Feature Progress
 Importance: 9/10
 Source: https://github.com/aptos-labs/aptos-names-contracts
-URL: https://aptos-intelligence.vercel.app/#ans-deep-dive
+Canonical: https://aptos-intelligence.vercel.app/reports/ans-deep-dive
+Interactive: https://aptos-intelligence.vercel.app/#ans-deep-dive
 
 ---
 

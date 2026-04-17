@@ -5,7 +5,8 @@ Date: 2026-04-10T00:00:00Z
 Category: Feature Progress
 Importance: 10/10
 Source: https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move
-URL: https://aptos-intelligence.vercel.app/#randomness-deep-dive
+Canonical: https://aptos-intelligence.vercel.app/reports/randomness-deep-dive
+Interactive: https://aptos-intelligence.vercel.app/#randomness-deep-dive
 
 ---
 

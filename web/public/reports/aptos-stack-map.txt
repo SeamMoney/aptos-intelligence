@@ -1,0 +1,127 @@
+# The Aptos Stack — One Map of How Every Piece Fits Together
+
+Author: aptos-labs
+Date: 2026-04-17T00:00:00Z
+Category: Feature Progress
+Importance: 10/10
+Source: https://github.com/aptos-labs/aptos-core
+Canonical: https://aptos-intelligence.vercel.app/reports/aptos-stack-map
+Interactive: https://aptos-intelligence.vercel.app/#aptos-stack-map
+
+---
+
+## Advanced Analysis
+
+The Aptos Stack — One Map of How Every Piece Fits Together
+
+Aptos's next-generation technical roadmap is five pieces of research shipping in parallel: Prefix Consensus, Raptr / Archon, Zaptos, Block-STM v2, Shardines, and the encrypted mempool. Each deep-dive on this site covers one piece. This page is the canonical map of how they fit together — and what each layer is actually responsible for.
+
+The Layered Architecture
+
+┌───────────────────────────────────────────────────────────────────┐
+│                        PRIVACY / MEV PROTECTION                   │
+│  Encrypted Mempool (BIBE, PerBatchKindTxnLimits, Quorum Store)    │
+├───────────────────────────────────────────────────────────────────┤
+│                        CONSENSUS / ORDERING                       │
+│  Prefix Consensus  ─>  Raptr (live)  ─>  Archon (next)            │
+│  Baby Raptr + Velociraptr already ordering blocks on mainnet      │
+├───────────────────────────────────────────────────────────────────┤
+│                        PIPELINING                                 │
+│  Zaptos — optimistic validation + execution before final order    │
+├───────────────────────────────────────────────────────────────────┤
+│                        EXECUTION                                  │
+│  Block-STM v2 (single node, 256 cores)                            │
+│  Shardines (multi-node internal, 1M+ TPS target)                  │
+├───────────────────────────────────────────────────────────────────┤
+│                        STATE / STORAGE                            │
+│  AptosDB + Jellyfish Merkle Tree + Hot State Cache + RocksDB      │
+└───────────────────────────────────────────────────────────────────┘
+
+What Each Layer Is Actually Responsible For
+
+Privacy — Encrypted Mempool
+
+Transactions arrive from users as BIBE ciphertexts. Validators cannot see the plaintext, so they cannot front-run or reorder by content. The encrypted mempool layer verifies ciphertexts in parallel (via Balaji Arun's PR #19130), caps encrypted txns per batch kind via PerBatchKindTxnLimits, and threads encrypted batches through Quorum Store without blocking the decryption pipeline. Decryption happens after ordering, so ordering is content-blind.
+
+Consensus — Prefix Consensus, Raptr, Archon
+
+The Prefix Consensus primitive (arXiv:2602.02892) is the theoretical foundation. Raptr is the production instantiation — Baby Raptr is already ordering blocks on mainnet. Velociraptr is the optimized variant. Archon is the next-generation deployment, bringing the fully leaderless multi-proposer SMR protocol with f-censorship resistance and the demotion rule. No single validator can censor transactions for more than f slots after GST.
+
+Pipelining — Zaptos
+
+Consensus decides the order. Execution decides the result. Zaptos runs execution speculatively on the current candidate order while consensus is still finalizing. If the order is confirmed, execution is already done; if the order changes, Zaptos re-executes only the delta. This collapses end-to-end latency from the consensus-finality-then-execute sequential model into a single overlapped pipeline.
+
+Execution — Block-STM v2 and Shardines
+
+Block-STM v2 is the single-node parallel execution engine. Transactions are speculatively executed in parallel across up to 256 cores via MVCC, with delayed fields, pre-write timestamps, and a redesigned MVHashMap that reduces validation overhead. Shardines extends this to multi-executor within a single logical validator — the target is >1M TPS on non-conflicting workloads. Shardines depends on Block-STM v2; it is not an alternative, it is an extension.
+
+State — AptosDB
+
+Underneath everything sits AptosDB: a Jellyfish Merkle Tree (versioned sparse Merkle tree), a hot state cache that keeps frequently-accessed resources in memory, and RocksDB as the persistent store. Storage is not currently on the active research frontier — the JMT is mature — but storage sharding is the first layer of Shardines that will ship.
+
+The Dependency Graph
+
+Encrypted Mempool (shipping)   ─┐
+                                ├─> Prefix Consensus ─> Raptr (live) ─> Archon (next)
+Prefix Consensus (paper Feb26) ─┘                              │
+                                                               v
+                                                            Zaptos ─> Block-STM v2 ─> Shardines
+                                                           (merged) (in progress)   (research)
+
+Reading this graph: the left-to-right order is roughly the order in which each piece locks in. Encrypted mempool is already merging (PR #19130 landed in March 2026). Raptr is live on mainnet. Zaptos is shipping. Block-STM v2 is in active development. Archon and Shardines are the two biggest remaining unlocks — Archon for consensus, Shardines for execution.
+
+Current State — Where Each Piece Actually Is
+
+
+PieceStatusLeadMainnet Target
+Encrypted MempoolMerging (PR #19130 live)Balaji Arun (ibalajiarun)2026 rollout
+Prefix Consensus (primitive)Paper + prototype branchZhuolun XiangGoes into Archon
+Raptr / Baby RaptrLive on mainnetZhuolun Xiang, Balaji ArunShipped
+ArchonResearch / designZhuolun Xiang, Andrei Tonkikh2026–2027
+ZaptosMerged + on-chain configZekun Li, Zhuolun XiangShipped
+Block-STM v2Active developmentRati Gelashvili2026
+ShardinesResearch (~15%)Rati Gelashvili, Manu Dhundi2027+
+
+
+Why This Stack Beats the Alternatives
+
+Every major L1 has picked one or two of these properties and sacrificed the others:
+
+
+Solana. Fast and parallel, but MCP is leader-based — censorship-vulnerable by the consensus protocol's design.
+Sui / Mysten. DAG-based (multi-proposer), but not formally censorship-resistant — the anchor validator can still drop honest proposals. Also fragments state across objects in a way that limits atomic composability.
+Ethereum. Rollup-centric scaling, which fragments liquidity and breaks synchronous composability between rollups.
+Hedera. DAG-based, but permissioned and governance-bottlenecked.
+
+
+Aptos's bet is that you can have all four at once: leaderless + multi-proposer + censorship-resistant + unified chain at >1M TPS. Prefix Consensus is the theoretical proof that it is possible. The other four pieces are the engineering to ship it.
+
+The Cohesive Vision
+
+Every one of these pieces is led or co-led by a small core team: Zhuolun Xiang (Daniel), Andrei Tonkikh, Alexander Spiegelman, Rati Gelashvili, Zekun Li, Balaji Arun, Manu Dhundi. The same researchers who wrote the Prefix Consensus paper wrote the Raptr paper and the Zaptos paper. The same engineering team building Block-STM v2 is designing Shardines. This is not five disconnected research projects that happen to share a codebase — it is one cohesive vision for what the next decade of L1 infrastructure should look like, executed by a team small enough that the pieces compose.
+
+That is why Aptos Labs's leadership (publicly, Avery Ching) has stated that the four active research priorities are Zaptos, Shardines, Block-STM v2, and Archon — with Prefix Consensus as the primitive underneath Archon. Shoal++, the 2024 DAG-BFT upgrade that came before Raptr, has been deprecated. The stack you see here is the one that is actually shipping.
+
+For deeper reading: see the individual deep-dive pages for Prefix Consensus, Shardines, Confidential Assets, On-Chain Randomness, and Aggregators & NFT Scale.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Aptos is five pieces of technology being built at the same time. Here is what each one actually does, in order.
+
+1. Encrypted Mempool — the "sealed envelope" layer. When you send a transaction, validators can't read it until after they've decided the order. No more front-running, no more MEV extraction based on content.
+
+2. Prefix Consensus, Raptr, Archon — the "no boss" layer. Instead of one leader deciding the order of transactions (who can censor yours), every validator proposes at the same time and the protocol forces all honest proposals to be included.
+
+3. Zaptos — the "don't wait" layer. Consensus and execution used to be sequential: decide the order, then run the code. Zaptos runs the code while consensus is still deciding, and only redoes work if the order changes.
+
+4. Block-STM v2 — the "256 hands" layer. Execution runs in parallel across 256 CPU cores, with a smart conflict detector that notices when two transactions touch the same thing and re-runs only those.
+
+5. Shardines — the "one factory, sixteen production lines" layer. Each validator internally splits its work across 16 sub-executors, targeting over 1 million transactions per second on a single chain.
+
+How do they fit? Each one depends on the one above it. Encrypted mempool feeds into consensus. Consensus feeds into Zaptos. Zaptos feeds into Block-STM v2. Block-STM v2 is the foundation for Shardines.
+
+Where are they today? Raptr is live. Zaptos is shipping. Encrypted mempool is merging this quarter. Block-STM v2 is mid-development. Archon and Shardines are the two biggest ongoing research efforts.
+
+The point: every other fast chain has picked one or two of these and given up the rest. Aptos is trying to have all five at once — and a small team of maybe ten researchers is actually shipping it.

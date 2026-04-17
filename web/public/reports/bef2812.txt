@@ -5,7 +5,8 @@ Date: 2026-02-19T05:17:26Z
 Category: Infrastructure
 Importance: 7/10
 Source: https://github.com/aptos-labs/aptos-core/commit/bef28124761f4cde83ce6a9911f19514d5a289b4
-URL: https://aptos-intelligence.vercel.app/#bef2812
+Canonical: https://aptos-intelligence.vercel.app/reports/bef2812
+Interactive: https://aptos-intelligence.vercel.app/#bef2812
 
 ---
 

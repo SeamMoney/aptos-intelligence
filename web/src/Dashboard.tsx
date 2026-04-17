@@ -832,9 +832,13 @@ function ReportView({ r, tab, setTab }: { r: WebReport; tab: "advanced"|"eli5"; 
           </div>
         </div>
       )}
-      <div className="flex items-center gap-3 mt-7 pt-4 border-t border-[var(--color-border-muted)]">
+      <div className="flex items-center gap-3 mt-7 pt-4 border-t border-[var(--color-border-muted)] flex-wrap">
         <span className="label-specimen-sm font-mono tracking-[0.25em] text-[var(--color-border)]">|||||||||||||||</span>
         <span className="label-specimen-sm text-[var(--color-text-faint)]">RPT-{String(r.id).padStart(4, "0")} · {r.category.toUpperCase()}</span>
+        <span className="label-specimen-sm text-[var(--color-text-faint)] ml-auto">PERMALINK</span>
+        <a href={`/reports/${r.githubId}`} className="label-specimen-sm text-[var(--color-accent)] no-underline hover:underline flex items-center gap-1">
+          /reports/{r.githubId} <ExternalLink className="w-3 h-3" />
+        </a>
       </div>
     </div>
   );

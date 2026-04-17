@@ -5,7 +5,8 @@ Date: 2026-03-23T02:55:42Z
 Category: Feature Progress
 Importance: 8/10
 Source: https://github.com/aptos-labs/aptos-core/pull/18979
-URL: https://aptos-intelligence.vercel.app/#3366941053
+Canonical: https://aptos-intelligence.vercel.app/reports/3366941053
+Interactive: https://aptos-intelligence.vercel.app/#3366941053
 
 ---
 

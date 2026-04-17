@@ -5,7 +5,8 @@ Date: 2026-04-09T04:25:56Z
 Category: Security
 Importance: 8/10
 Source: https://github.com/aptos-labs/aptos-core/commit/0e8dad7b9b2f06ab023ad40c0aa42b950974d2e1
-URL: https://aptos-intelligence.vercel.app/#0e8dad7
+Canonical: https://aptos-intelligence.vercel.app/reports/0e8dad7
+Interactive: https://aptos-intelligence.vercel.app/#0e8dad7
 
 ---
 

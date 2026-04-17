@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[test] Add encrypted transaction decryption smoke test (#18760) — Aptos Intelligence</title>
+<meta name="description" content="Files Modified Cargo.lock: added env_logger to the lockfile. dkg/src/chunky/dkg_manager.rs: streamlined an async call, added two info! log statements, and tweaked a comment. testsuite/smoke-test/Cargo">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/bef2812">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[test] Add encrypted transaction decryption smoke test (#18760)">
+<meta property="og:description" content="Files Modified Cargo.lock: added env_logger to the lockfile. dkg/src/chunky/dkg_manager.rs: streamlined an async call, added two info! log statements, and tweaked a comment. testsuite/smoke-test/Cargo">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/bef2812">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[test] Add encrypted transaction decryption smoke test (#18760)">
+<meta name="twitter:description" content="Files Modified Cargo.lock: added env_logger to the lockfile. dkg/src/chunky/dkg_manager.rs: streamlined an async call, added two info! log statements, and tweaked a comment. testsuite/smoke-test/Cargo">
+<meta name="author" content="ibalajiarun">
+<meta name="article:published_time" content="2026-02-19T05:17:26.000Z">
+<link rel="alternate" type="text/plain" href="/reports/bef2812.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"[test] Add encrypted transaction decryption smoke test (#18760)","description":"Files Modified Cargo.lock: added env_logger to the lockfile. dkg/src/chunky/dkg_manager.rs: streamlined an async call, added two info! log statements, and tweaked a comment. testsuite/smoke-test/Cargo","author":{"@type":"Person","name":"ibalajiarun"},"datePublished":"2026-02-19T05:17:26.000Z","url":"https://aptos-intelligence.vercel.app/reports/bef2812","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/bef2812","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":""}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>[test] Add encrypted transaction decryption smoke test (#18760)</h1>
+    <div class="meta">
+      <span>By ibalajiarun</span>
+      <span>Feb 18, 2026</span>
+      <span>Infrastructure</span>
+      <span>Importance 7/10</span>
+      <span><a href="https://github.com/aptos-labs/aptos-core/commit/bef28124761f4cde83ce6a9911f19514d5a289b4" rel="noopener">Source</a></span>
+    </div>
+    
+
+    <h3>Files Modified</h3>
+<ul>
+<li><code>Cargo.lock</code>: added <code>env_logger</code> to the lockfile.</li>
+<li><code>dkg/src/chunky/dkg_manager.rs</code>: streamlined an async call, added two <code>info!</code> log statements, and tweaked a comment.</li>
+<li><code>testsuite/smoke-test/Cargo.toml</code>: added <code>env_logger</code> as a workspace dependency for the smoke‑test crate.</li>
+<li><code>testsuite/smoke-test/src/consensus/consensus_only.rs</code>: extended the call to <code>run_consensus_only_test</code> (or equivalent) with two extra arguments <code>false</code> and <code>None</code>.</li>
+<li><code>testsuite/smoke-test/src/consensus/quorum_store_fault_tolerance.rs</code>: same extra arguments added to the test harness.</li>
+<li><code>testsuite/smoke-test/src/helpers.rs</code>: refactored the traffic generation call to a multi‑line style for readability (no functional change).</li>
+<li><code>testsuite/smoke-test/src/decryption.rs</code>: new 215‑line test module that implements an end‑to‑end encrypted‑transaction decryption smoke test.</li>
+<li><code>testsuite/smoke-test/src/lib.rs</code>: added <code>mod decryption;</code> under the <code>#[cfg(test)]</code> block so the new test is compiled only for tests.</li>
+</ul>
+
+<h3>Why This Change Was Made</h3>
+<p>The Aptos team introduced a smoke test to verify that encrypted user transactions can be decrypted after the DKG‑derived encryption key becomes available on‑chain. The test exercises the full stack: DKG key generation, ledger epoch transition, and the <code>encryption_key</code> field exposed by <code>LedgerInfo</code>. Adding <code>env_logger</code> ensures the new <code>info!</code> statements surface during CI runs, making debugging easier. The extra boolean and <code>None</code> arguments in the consensus harness likely toggle the inclusion of encrypted‑payload handling, aligning the existing consensus‑only tests with the new decryption scenario.</p>
+
+<h3>Technical Details (Reference the Diff)</h3>
+<p>In <code>dkg/src/chunky/dkg_manager.rs</code> the async call was collapsed from a two‑line block to a single line:</p>
+<pre><code>self.process_certified_aggregated_subtranscript(certified_transcript).await</code></pre>
+<p>Two new log statements were inserted to make the key‑derivation path observable:</p>
+<pre><code>info!("deriving encryption key");
+info!("forming ceritified_transcript struct");</code></pre>
+<p>The new test module <code>testsuite/smoke-test/src/decryption.rs</code> defines two helper functions. The first, <code>wait_for_epoch</code>, polls the REST endpoint until the ledger reaches a target epoch and then returns <code>state.encryption_key</code> (an <code>Option<Vec<u8>></code>). The second (truncated in the diff) will generate traffic, wait for the epoch transition, retrieve the on‑chain encryption key, and attempt to decrypt any <code>EncryptedPayload</code> transactions that landed in the committed range.</p>
+<p>Key types referenced:</p>
+<ul>
+<li><code>aptos_types::on_chain_config::OnChainChunkyDKGConfig</code> – provides the DKG parameters used to derive the encryption key.</li>
+<li><code>aptos_types::transaction::EncryptedPayload</code> – the payload variant that stores ciphertext and a nonce.</li>
+<li><code>aptos_rest_client::Client::get_ledger_information</code> – returns a struct containing <code>encryption_key: Option<Vec<u8>></code>.</li>
+</ul>
+<p>The test harness in <code>testsuite/smoke-test/src/consensus/consensus_only.rs</code> and <code>.../quorum_store_fault_tolerance.rs</code> now passes <code>false</code> and <code>None</code> to the underlying test runner, which likely correspond to flags controlling whether encrypted payloads are emitted and whether a custom decryption key is supplied.</p>
+
+<h3>Where It Fits in the Aptos Pipeline</h3>
+<p>This change lives at the intersection of three layers:</p>
+<ul>
+<li><strong>Consensus</strong>: The test spins up a validator swarm, runs the consensus‑only flow, and ensures blocks are produced across epochs.</li>
+<li><strong>Execution</strong>: Encrypted transactions are executed by the Move VM; the VM produces a write set but the payload remains encrypted until the decryption key is available.</li>
+<li><strong>Storage / Ledger Info</strong>: Once the DKG completes, the on‑chain <code>encryption_key</code> field is populated in <code>LedgerInfo</code>. The smoke test reads this field via the REST client and uses it to decrypt the stored <code>EncryptedPayload</code> bytes.</li>
+</ul>
+<p>Thus the test validates the end‑to‑end flow from DKG key generation → ledger epoch transition → key exposure → payload decryption.</p>
+
+<h3>Implications</h3>
+<ul>
+<li>Confidence: CI now automatically checks that encrypted transaction support works after a DKG round, reducing the risk of regressions in the upcoming <code>EncryptedMempool</code> feature.</li>
+<li>Observability: The added <code>info!</code> logs give operators visibility into when the encryption key is derived and when the certified transcript struct is built, which is useful for debugging DKG failures.</li>
+<li>Dependency Footprint: Adding <code>env_logger</code> to both the core lockfile and the smoke‑test crate introduces a lightweight logger that respects the <code>Aptos_LOGGER</code> env var, but it also slightly enlarges the binary size for test builds.</li>
+<li>Test Harness Changes: The extra boolean and <code>None</code> arguments may affect other smoke‑test scenarios; downstream developers need to ensure they understand the new signature of the test runner.</li>
+<li>Future Work: Once the decryption path is proven stable, the same scaffolding can be reused for performance benchmarks of encrypted payload handling and for integration tests that involve cross‑shard encrypted mempool traffic.</li>
+</ul>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p>Imagine Aptos as a secret‑sharing party where everyone writes notes (transactions) in a locked box. The lock key is created by a group activity called DKG, and the key only appears on the party's scoreboard (ledger) after the activity finishes.</p>
+<p>Developer <code>ibalajiarun</code> added a new "smoke test" that sets up a mini‑party, waits until the scoreboard shows the new lock key, then tries to open the locked boxes and read the notes. If it works, we know the secret‑sharing and decryption pipeline is wired correctly.</p>
+<p>To see what’s happening, they also turned on a tiny logger (<code>env_logger</code>) and added a couple of <code>info!</code> messages that shout "deriving encryption key" and "forming certified transcript" when the DKG step runs. The test harness was tweaked to pass extra flags (false, None) so the party knows it should include encrypted notes in this round.</p>
+<p>Why it matters: without this check, a future update could break the ability to read encrypted transactions, and the whole blockchain would silently drop those notes. This test catches that early, and the logs help developers pinpoint where the problem occurs if it does.</p>
+    </section>
+
+    
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#bef2812">https://aptos-intelligence.vercel.app/#bef2812</a>.
+      Plain-text version: <a href="/reports/bef2812.txt">/reports/bef2812.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>

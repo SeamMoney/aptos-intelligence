@@ -1,0 +1,138 @@
+# Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator
+
+Author: aptos-labs
+Date: 2026-04-17T00:00:00Z
+Category: Feature Progress
+Importance: 9/10
+Source: https://github.com/aptos-labs/aptos-core
+Canonical: https://aptos-intelligence.vercel.app/reports/shardines-deep-dive
+Interactive: https://aptos-intelligence.vercel.app/#shardines-deep-dive
+
+---
+
+## Advanced Analysis
+
+Shardines — Internal Validator Sharding for 1M+ TPS on a Single Logical Node
+
+Shardines is Aptos's approach to horizontal scaling inside a single validator. Rather than cross-chain sharding (which fragments state and breaks atomic composability), Shardines partitions execution across multiple sub-executors within each validator node. The target is over 1 million TPS for non-conflicting transactions and over 500,000 TPS for conflicting transactions — on a single logical validator, not a multi-chain construction.
+
+As of April 2026, Shardines sits at roughly 15% progress. The research design is complete, the partition algorithm is the active open problem, and the prototype depends on Block-STM v2 landing first. Mainnet deployment is targeted 2027+.
+
+The Core Idea: Three-Layer Internal Sharding
+
+Traditional sharding (Ethereum danksharding, NEAR Nightshade, Polkadot parachains) partitions the chain itself. Every shard has its own validator subset, its own state, and cross-shard transactions require bridging. This breaks synchronous composability — the single most valuable property of a DeFi-focused L1.
+
+Shardines takes the opposite approach. The chain stays unified. Each validator internally partitions its own work across three layers:
+
+
+Storage sharding. AptosDB / Jellyfish Merkle Tree state is partitioned across storage nodes within the validator. Reads and writes go to the correct partition; cross-partition reads are resolved via a local coordinator.
+Execution sharding. Block-STM v2 is extended to run multiple parallel speculation engines — one per shard — with cross-shard conflict resolution at commit time.
+Consensus-layer sharding. Proposal dissemination (Quorum Store batches) and certification are fanned out across shards so the consensus layer itself scales.
+
+
+All three layers are partitioned independently, and the partition function is chosen to minimize cross-shard traffic. The chain remains one chain; only the internal implementation is multi-machine.
+
+┌─────────────────────────────────────────────────────────┐
+│  VALIDATOR NODE (one logical identity)                  │
+│                                                          │
+│  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐         │
+│  │ Shard0 │  │ Shard1 │  │ Shard2 │  │ Shard3 │         │
+│  │        │  │        │  │        │  │        │         │
+│  │ Exec   │  │ Exec   │  │ Exec   │  │ Exec   │         │
+│  │ Store  │  │ Store  │  │ Store  │  │ Store  │         │
+│  │ QS     │  │ QS     │  │ QS     │  │ QS     │         │
+│  └────────┘  └────────┘  └────────┘  └────────┘         │
+│      │           │           │           │              │
+│      └───────────┴────┬──────┴───────────┘              │
+│                       │                                  │
+│              Cross-shard coordinator                    │
+│        (micro-batching + pipelined commits)             │
+└─────────────────────────────────────────────────────────┘
+
+Micro-Batching and Pipelining
+
+The central engineering problem is that cross-shard messages would otherwise dominate throughput. Shardines solves this with micro-batching: small batches of cross-shard messages are pipelined so communication overlaps with computation. Each shard processes its local block while exchanging only hashes and deltas with other shards, never full transaction bodies.
+
+The partition function is the other central challenge. A naive hash partition would scatter related accounts across shards and explode cross-shard traffic. The research prototype uses a workload-aware partitioner that co-locates accounts that frequently transact together (a variant of METIS-style graph partitioning applied to the recent block-transaction graph), with periodic rebalancing.
+
+Dependencies — Why Block-STM v2 Must Land First
+
+Shardines cannot be built on the current Block-STM. Block-STM v1 assumes a single MVHashMap shared across all worker threads and a single global commit log. For multi-shard execution, each shard needs its own MVHashMap plus a cross-shard conflict detector that runs at commit time without blocking local progress.
+
+Block-STM v2 (currently in development by Rati Gelashvili and team) is the primitive that makes this possible. It adds delayed fields, pre-write timestamps, and a redesigned MVHashMap specifically so multi-executor coordination is efficient. Only after v2 ships can the Shardines prototype graduate from research to implementation.
+
+Throughput Targets and Realistic Expectations
+
+
+ConfigurationTarget TPSStatus
+Current mainnet (pre-Shardines)~12,000 TPS sustained, ~40,000 peakLive
+Block-STM v2 only2–3&times; improvement over v1In development
+Shardines conservative (4 shards)>500,000 TPS (conflicting workload)Research
+Shardines full (16 shards, non-conflicting)>1,000,000 TPSResearch
+
+
+The 1M+ TPS number assumes a predominantly non-conflicting workload (e.g., NFT mints, independent token transfers, payment rails). Real DeFi workloads will hit the conservative number because of hotspot accounts (AMM pools, liquidation engines). Both remain a generational leap over any production L1.
+
+Relationship to the Rest of the Stack
+
+Shardines is strictly an execution-layer upgrade. It does not change the consensus protocol, the fee model, the state model, or the developer API. This is by design:
+
+
+Consensus (Prefix / Raptr / Archon) orders the transactions. Shardines executes the ordered block.
+Zaptos pipelines optimistic execution before full ordering. Shardines makes each pipelined step faster.
+Block-STM v2 is the single-node parallel engine. Shardines extends it to multi-node.
+Encrypted mempool is orthogonal — ciphertexts are decrypted before execution regardless of sharding.
+
+
+This layering is important. When Avery Ching (Aptos CTO) publicly stated the four active research priorities are Zaptos, Shardines, Block-STM v2, and Archon, the layering is why it works: each piece is independently shippable and each composes with the others.
+
+The 20M NFT Scenario — Why Shardines Matters Economically
+
+The canonical benchmark for Shardines is the "20M NFT mint" scenario analyzed internally by Aptos Labs. At today's throughput, minting 20 million NFTs takes hours. With full optimizations active (Raptr + Block-STM v2 + Zaptos + full Shardines), the projected time collapses to 20 seconds at 1M TPS, or 40 seconds at the conservative 500K TPS.
+
+The economic framing matters: if a single chain can settle 20M atomic mints in under a minute, the addressable workload expands from "crypto-native apps" to "every web-scale consumer app that needs ownership." That is the entire point of the execution-scale roadmap.
+
+Current State and Open Questions
+
+
+ComponentStatus
+Three-layer design documentComplete (internal)
+Workload-aware partition algorithmResearch — active open problem
+Cross-shard atomic commit protocolDesign phase
+PrototypeBlocked on Block-STM v2
+Testnet validation2027 target
+Mainnet deployment2027+ target
+
+
+Lead researchers: design and partitioning work is led by the execution team (Rati Gelashvili, Manu Dhundi). Consensus-layer sharding overlap is coordinated with the Archon team (Zhuolun Xiang, Andrei Tonkikh).
+
+The Bottom Line
+
+Shardines is the most ambitious piece of the Aptos execution roadmap and the one with the longest timeline. It is not a near-term ship. But when it lands, it collapses the execution bottleneck that every L1 hits at scale, while keeping the chain unified and composable. The short-term story is Block-STM v2 plus Zaptos. The long-term story is Shardines turning one validator into the throughput equivalent of an entire sharded chain — without the fragmentation.
+
+---
+
+## ELI5 (Explain Like I'm 5)
+
+Imagine a single factory that makes one million products an hour — without splitting into multiple factories.
+
+That is Shardines. Today, every Aptos validator is like a factory with one assembly line. Shardines turns each validator into a factory with sixteen assembly lines running in parallel, coordinated by one foreman.
+
+Why not just build more factories?
+
+Other blockchains (Ethereum shards, Polkadot parachains) solve scale by building more factories — but then the factories can't easily ship products to each other. You can't atomically trade a token on factory A for a token on factory B without a bridge. Bridges break, and worse, they make apps think harder than they should have to.
+
+Shardines keeps one factory. One chain. One atomic transaction model. It just makes the factory's internal production lines parallel.
+
+The three production lines:
+
+Where things are stored (storage shards)
+Who does the assembling (execution shards)
+Who writes down what got built (consensus shards)
+
+
+What's the target? Over 1 million transactions per second for non-competing work, over 500,000 for competing work. For context: Visa peaks around 65,000 transactions per second.
+
+When? It's still in the research phase (~15% done). The partition algorithm — deciding which accounts go on which production line — is the hard open problem. It also depends on Block-STM v2 shipping first. Realistic mainnet timeline: 2027 or later.
+
+Why it matters: if Aptos can mint 20 million NFTs in 20 seconds on a unified chain, the class of apps that can live on-chain stops being "DeFi and crypto-natives" and starts being "every consumer app that needs verifiable ownership."

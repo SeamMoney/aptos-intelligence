@@ -5,7 +5,8 @@ Date: 2026-04-10T00:00:00Z
 Category: Feature Progress
 Importance: 10/10
 Source: https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset
-URL: https://aptos-intelligence.vercel.app/#confidential-assets-deep-dive
+Canonical: https://aptos-intelligence.vercel.app/reports/confidential-assets-deep-dive
+Interactive: https://aptos-intelligence.vercel.app/#confidential-assets-deep-dive
 
 ---
 

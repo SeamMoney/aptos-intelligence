@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Mainnet] Aptos Node Release v1.41.9 — Aptos Intelligence</title>
+<meta name="description" content="What ChangedThis release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flushes, and constant size computation fixes.">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/297966303">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Mainnet] Aptos Node Release v1.41.9">
+<meta property="og:description" content="What ChangedThis release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flushes, and constant size computation fixes.">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/297966303">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[Mainnet] Aptos Node Release v1.41.9">
+<meta name="twitter:description" content="What ChangedThis release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flushes, and constant size computation fixes.">
+<meta name="author" content="JoshLind">
+<meta name="article:published_time" content="2026-03-23T00:00:00.000Z">
+<link rel="alternate" type="text/plain" href="/reports/297966303.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"[Mainnet] Aptos Node Release v1.41.9","description":"What ChangedThis release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flushes, and constant size computation fixes.","author":{"@type":"Person","name":"JoshLind"},"datePublished":"2026-03-23T00:00:00.000Z","url":"https://aptos-intelligence.vercel.app/reports/297966303","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/297966303","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":""}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>[Mainnet] Aptos Node Release v1.41.9</h1>
+    <div class="meta">
+      <span>By JoshLind</span>
+      <span>Mar 22, 2026</span>
+      <span>Release</span>
+      <span>Importance 6/10</span>
+      <span><a href="https://github.com/aptos-labs/aptos-core/releases/tag/aptos-node-v1.41.9" rel="noopener">Source</a></span>
+    </div>
+    
+
+    <h3>What Changed</h3><p>This release includes several security hotfixes for the Move VM and block execution, such as layout validation, cache flushes, and constant size computation fixes. The specific PRs that introduced these changes are: <code>https://github.com/aptos-labs/aptos-core/pull/19006</code>, <code>https://github.com/aptos-labs/aptos-core/pull/18965</code>, <code>https://github.com/aptos-labs/aptos-core/pull/19099</code>, and <code>https://github.com/aptos-labs/aptos-core/pull/19110</code>. The core structs and functions touched by these changes include the Move VM's layout validation and cache flushes.</p><h3>Where This Fits in Aptos</h3><p>This change applies to the <strong>Execution</strong> stage of the transaction lifecycle pipeline: Client -> Mempool -> Quorum Store -> <strong>Execution</strong> -> Storage. The Execution stage is responsible for executing transactions in parallel using the Block-STM engine. The Move VM is a critical component of this stage, as it provides the runtime environment for smart contracts.</p><pre><code>Client -> Mempool -> Quorum Store -> Execution (Block-STM) -> Storage</code></pre><p>The subsystem touched by this change is the Move VM, which is responsible for executing smart contracts. The Move VM plays a crucial role in ensuring the safety and correctness of transaction execution.</p><h3>How It Works (Step by Step)</h3><p>When a validator executes a transaction, it uses the Move VM to run the smart contract code. The Move VM performs layout validation and cache flushes to ensure that the contract code is executed correctly. The specific steps involved in this process are: (1) the Move VM loads the contract code and performs layout validation, (2) it executes the contract code and performs cache flushes as needed, and (3) it checks the results of the execution to ensure that they are correct.</p><pre><code>let contract_code = ...; // load contract code</code></pre><pre><code>let result = execute_contract(contract_code); // execute contract code</code></pre><p>The before/after behavior of this change is that the Move VM now performs additional checks to ensure the safety and correctness of transaction execution. Specifically, it adds layout validation and improves cache flushes to prevent potential security vulnerabilities.</p><h3>Why This Matters</h3><p>This change matters because it improves the safety and correctness of transaction execution on the Aptos network. By adding layout validation and improving cache flushes, the Move VM can prevent potential security vulnerabilities that could be exploited by malicious actors. This change also ensures that the Aptos network remains secure and reliable for users.</p><h3>Architectural Connections</h3><p>This change interacts with other Aptos subsystems, such as the Quorum Store and the Block-STM engine. The Quorum Store is responsible for disseminating transactions to validators, while the Block-STM engine is responsible for executing transactions in parallel. The Move VM plays a critical role in ensuring that transactions are executed correctly and safely, and its interactions with these other subsystems are crucial to the overall security and reliability of the Aptos network.</p>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p><strong>The Big Picture:</strong> Imagine a super-secure computer that runs special programs called smart contracts. This computer is like a fortress that keeps all the programs and data safe. The fortress has a special guard that checks everything that goes in and out to make sure it's safe and correct.</p><p><strong>What Changed:</strong> The guard just got a big upgrade to make it even better at keeping everything safe. The upgrade adds some new checks to make sure the programs are running correctly and that the data is safe. It's like the guard got some new tools to help it do its job even better.</p><p><strong>Why It Matters:</strong> This upgrade matters because it helps keep the fortress (the computer) and all the programs and data inside it safe from bad guys who might try to hack in. It's like having a super-strong lock on the fortress door that keeps everything inside safe and secure.</p><p><strong>What You Learned:</strong> You just learned about the Move VM, which is like the guard that keeps the smart contracts and data safe on the Aptos network. You also learned about the importance of security upgrades and how they help keep the network safe and reliable.
+    </section>
+
+    
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#297966303">https://aptos-intelligence.vercel.app/#297966303</a>.
+      Plain-text version: <a href="/reports/297966303.txt">/reports/297966303.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>

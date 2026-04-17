@@ -5,7 +5,8 @@ Date: 2025-11-25T23:19:01Z
 Category: API
 Importance: 7/10
 Source: https://github.com/aptos-labs/aptos-core/commit/9a3caae4c1ac0a7138d61b083bead8ba9071836e
-URL: https://aptos-intelligence.vercel.app/#9a3caae
+Canonical: https://aptos-intelligence.vercel.app/reports/9a3caae
+Interactive: https://aptos-intelligence.vercel.app/#9a3caae
 
 ---
 

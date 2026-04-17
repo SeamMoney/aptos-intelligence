@@ -5,7 +5,8 @@ Date: 2026-04-12T07:55:33.671Z
 Category: Feature Progress
 Importance: 10/10
 Source: https://github.com/aptos-labs/aptos-core
-URL: https://aptos-intelligence.vercel.app/#feature-progress-overview
+Canonical: https://aptos-intelligence.vercel.app/reports/feature-progress-overview
+Interactive: https://aptos-intelligence.vercel.app/#feature-progress-overview
 
 ---
 

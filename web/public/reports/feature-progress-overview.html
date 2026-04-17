@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aptos Feature Progress — 10 Features Tracked from Research to Mainnet — Aptos Intelligence</title>
+<meta name="description" content="Aptos Feature Progress — April 2026 Real-time tracking of 10 major features being built into Aptos.">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/feature-progress-overview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aptos Feature Progress — 10 Features Tracked from Research to Mainnet">
+<meta property="og:description" content="Aptos Feature Progress — April 2026 Real-time tracking of 10 major features being built into Aptos.">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/feature-progress-overview">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aptos Feature Progress — 10 Features Tracked from Research to Mainnet">
+<meta name="twitter:description" content="Aptos Feature Progress — April 2026 Real-time tracking of 10 major features being built into Aptos.">
+<meta name="author" content="aptos-labs">
+<meta name="article:published_time" content="2026-04-12T07:55:33.671Z">
+<link rel="alternate" type="text/plain" href="/reports/feature-progress-overview.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Aptos Feature Progress — 10 Features Tracked from Research to Mainnet","description":"Aptos Feature Progress — April 2026 Real-time tracking of 10 major features being built into Aptos.","author":{"@type":"Person","name":"aptos-labs"},"datePublished":"2026-04-12T07:55:33.671Z","url":"https://aptos-intelligence.vercel.app/reports/feature-progress-overview","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/feature-progress-overview","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":"roadmap, progress, features"}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</h1>
+    <div class="meta">
+      <span>By aptos-labs</span>
+      <span>Apr 12, 2026</span>
+      <span>Feature Progress</span>
+      <span>Importance 10/10</span>
+      <span><a href="https://github.com/aptos-labs/aptos-core" rel="noopener">Source</a></span>
+    </div>
+    <div style="margin-bottom: 2em;"><span class="tag">roadmap</span><span class="tag">progress</span><span class="tag">features</span></div>
+
+    <h2>Aptos Feature Progress — April 2026</h2>
+<p>Real-time tracking of 10 major features being built into Aptos. Data sourced from 600+ commits to <a href="https://github.com/aptos-labs/aptos-core" target="_blank">aptos-labs/aptos-core</a>, AIP status, and release tags.</p>
+
+<h3>Overview</h3>
+<table>
+<tr><th>Feature</th><th>Status</th><th>Progress</th><th>Lead</th><th>Commits (90d)</th></tr><tr><td><strong>Baby Raptr Consensus</strong></td><td>Mainnet</td><td>95%</td><td>ibalajiarun</td><td>20</td></tr><tr><td><strong>Keyless Accounts (AIP-61)</strong></td><td>Mainnet</td><td>95%</td><td>alinush</td><td>3</td></tr><tr><td><strong>Aptos Names Service</strong></td><td>Mainnet (V2)</td><td>90%</td><td>0xChucky</td><td>3</td></tr><tr><td><strong>Encrypted Mempool</strong></td><td>Testnet</td><td>80%</td><td>ibalajiarun</td><td>19</td></tr><tr><td><strong>Confidential Assets (AIP-143)</strong></td><td>Code Merged</td><td>65%</td><td>alinush</td><td>5</td></tr><tr><td><strong>Block-STM v2</strong></td><td>Development</td><td>60%</td><td>gelash</td><td>8</td></tr><tr><td><strong>MonoMove VM</strong></td><td>Development</td><td>40%</td><td>georgemitenkov</td><td>13</td></tr><tr><td><strong>Archon (Proxy-Primary Consensus)</strong></td><td>Design / Early Dev</td><td>35%</td><td>Zhuolun Xiang</td><td>9</td></tr><tr><td><strong>Zaptos (Optimistic Pipelining)</strong></td><td>Research</td><td>25%</td><td>TBD</td><td>0</td></tr><tr><td><strong>Shardines (Internal Sharding)</strong></td><td>Research</td><td>15%</td><td>TBD</td><td>0</td></tr></table>
+<h3>Baby Raptr Consensus — 95% (Mainnet)</h3>
+<p>Merged Jolteon consensus + Quorum Store. Proposer optimistically includes batch digests without waiting for full PoS certificates. 4 hops instead of 6.</p>
+<p><strong>Lead:</strong> ibalajiarun · <strong>Recent commits:</strong> 20 in 90 days</p>
+<h4>What is being done</h4><p>Deployed on mainnet. 20% latency improvement (100-150ms). Full Raptr adds prefix commit for further optimization.</p>
+<h4>What is needed for production</h4><p>Full Raptr (decoupled prefix voting) still in development</p>
+<h4>Effects</h4><p>Faster block times, reduced consensus latency by 20%, foundation for full Raptr and Zaptos.</p>
+<h4>Dependencies</h4><ul><li>Quorum Store V2 (deployed)</li></ul>
+<h4>Milestones (3/4)</h4>
+<ul><li>✅ Design complete <em>(2025-06-01)</em></li><li>✅ Testnet deployment <em>(2025-09-01)</em></li><li>✅ Mainnet deployment <em>(2025-11-15)</em></li><li>⬜ Full Raptr (prefix voting)</li></ul>
+<h3>Keyless Accounts (AIP-61) — 95% (Mainnet)</h3>
+<p>Social login → blockchain accounts via OIDC + ZK proofs. No private key management needed.</p>
+<p><strong>Lead:</strong> alinush · <strong>Recent commits:</strong> 3 in 90 days</p>
+<h4>What is being done</h4><p>Deployed and operational on mainnet. Google, Apple Sign-In working.</p>
+<h4>What is needed for production</h4><p>More identity provider integrations, UX improvements</p>
+<h4>Effects</h4><p>Mainstream user onboarding without crypto wallets. Users sign in with Google/Apple and get a blockchain account.</p>
+<h4>Dependencies</h4><ul></ul>
+<h4>Milestones (3/4)</h4>
+<ul><li>✅ AIP-61 accepted <em>(2024-06-01)</em></li><li>✅ Testnet deployment <em>(2024-09-01)</em></li><li>✅ Mainnet deployment <em>(2025-01-15)</em></li><li>⬜ Additional providers</li></ul>
+<h3>Aptos Names Service — 90% (Mainnet (V2))</h3>
+<p>Domain name system for Aptos. Maps .apt names to addresses. V2 on Token Objects with router, renewal, free subdomains.</p>
+<p><strong>Lead:</strong> 0xChucky · <strong>Recent commits:</strong> 3 in 90 days</p>
+<h4>What is being done</h4><p>V2 deployed and operational. Move-2 syntax PR open. Router handles v1/v2 dual mode.</p>
+<h4>What is needed for production</h4><p>Move 2 migration completion, additional wallet integrations</p>
+<h4>Effects</h4><p>Human-readable addresses across the entire Aptos ecosystem — wallets, dApps, on-chain contracts.</p>
+<h4>Dependencies</h4><ul><li>Token Objects (deployed)</li><li>Aptos Framework (deployed)</li></ul>
+<h4>Milestones (4/5)</h4>
+<ul><li>✅ V1 launch <em>(2022-12-07)</em></li><li>✅ V2 rewrite <em>(2023-10-03)</em></li><li>✅ Migration support <em>(2023-10-03)</em></li><li>✅ Security hardening <em>(2024-06-07)</em></li><li>⬜ Move 2 migration</li></ul>
+<h3>Encrypted Mempool — 80% (Testnet)</h3>
+<p>BIBE-based encrypted transaction ordering. Hides transaction contents until after consensus ordering — prevents MEV, front-running, sandwich attacks.</p>
+<p><strong>Lead:</strong> ibalajiarun · <strong>Recent commits:</strong> 19 in 90 days</p>
+<h4>What is being done</h4><p>Ciphertext verification in Quorum Store batches, per-BatchKind txn limits, decryption pipeline performance optimization, Chunky DKG integration</p>
+<h4>What is needed for production</h4><p>Mainnet governance approval, security audit completion, DKG key rotation testing at scale</p>
+<h4>Effects</h4><p>Fair transaction ordering for DeFi. No more front-running or sandwich attacks. CEX-like confidentiality with blockchain guarantees.</p>
+<h4>Dependencies</h4><ul><li>Baby Raptr consensus (deployed)</li><li>Quorum Store V2 (deployed)</li><li>Chunky DKG (in progress)</li></ul>
+<h4>Milestones (8/11)</h4>
+<ul><li>✅ Secret sharing infra <em>(2025-12-17)</em></li><li>✅ OptQS V2 payload <em>(2025-12-03)</em></li><li>✅ Decryption pipeline <em>(2026-02-14)</em></li><li>✅ Encrypted tx execution <em>(2026-02-14)</em></li><li>✅ Ciphertext verification <em>(2026-03-19)</em></li><li>✅ Per-kind batch limits <em>(2026-03-19)</em></li><li>✅ Forge test suite <em>(2026-03-05)</em></li><li>✅ Testnet deployment <em>(2026-03-16)</em></li><li>⬜ Security audit</li><li>⬜ Mainnet governance vote</li><li>⬜ Mainnet deployment</li></ul>
+<h3>Confidential Assets (AIP-143) — 65% (Code Merged)</h3>
+<p>Zero-knowledge proof based private transfers. Balances and transfer amounts hidden using Twisted ElGamal encryption + range proofs.</p>
+<p><strong>Lead:</strong> alinush · <strong>Recent commits:</strong> 5 in 90 days</p>
+<h4>What is being done</h4><p>v1.1 shipped with homomorphic framework replacement, global auditor support, gas benchmarks. Tagged for v1.43 release.</p>
+<h4>What is needed for production</h4><p>Security audits, testnet stress testing, governance approval, gas optimization</p>
+<h4>Effects</h4><p>Private balances and transfers on Aptos. Users can send APT without revealing amounts. Foundation for confidential DeFi.</p>
+<h4>Dependencies</h4><ul><li>Move framework v1.43 (in progress)</li><li>Twisted ElGamal (deployed)</li></ul>
+<h4>Milestones (5/7)</h4>
+<ul><li>✅ AIP-143 accepted <em>(2025-10-01)</em></li><li>✅ Core module implementation <em>(2026-01-15)</em></li><li>✅ v1.0 merged <em>(2026-02-20)</em></li><li>✅ v1.1 (homomorphic framework) <em>(2026-03-23)</em></li><li>✅ Testnet launch <em>(2026-03-01)</em></li><li>⬜ Security audit</li><li>⬜ Mainnet (target Apr 2026)</li></ul>
+<h3>Block-STM v2 — 60% (Development)</h3>
+<p>Next-gen parallel execution engine. Improved conflict resolution, better scheduling, support for cross-shard execution with Shardines.</p>
+<p><strong>Lead:</strong> gelash · <strong>Recent commits:</strong> 8 in 90 days</p>
+<h4>What is being done</h4><p>V2 executor behind config flag in block_executor.rs. New scheduler with better task assignment. MVHashMap optimizations.</p>
+<h4>What is needed for production</h4><p>Performance benchmarks vs v1, integration with Shardines, testnet validation</p>
+<h4>Effects</h4><p>Higher throughput (target 2-3x over v1), lower re-execution rate, better CPU utilization, enables Shardines.</p>
+<h4>Dependencies</h4><ul><li>Shardines (research)</li><li>MonoMove VM (in progress)</li></ul>
+<h4>Milestones (3/6)</h4>
+<ul><li>✅ V2 architecture design <em>(2025-08-01)</em></li><li>✅ V2 executor implementation <em>(2026-01-01)</em></li><li>✅ Config flag in block_executor <em>(2026-02-15)</em></li><li>⬜ Performance benchmarks</li><li>⬜ Testnet rollout</li><li>⬜ Mainnet rollout</li></ul>
+<h3>MonoMove VM — 40% (Development)</h3>
+<p>Unified Move VM runtime that combines interpreter, compiler, and framework into a single optimized execution path. Gas instrumentation and executable caching.</p>
+<p><strong>Lead:</strong> georgemitenkov · <strong>Recent commits:</strong> 13 in 90 days</p>
+<h4>What is being done</h4><p>Executable cache template, gas instrumentation prototype, design document updates, runtime benchmarks.</p>
+<h4>What is needed for production</h4><p>Executable cache stabilization, gas model finalization, compiler integration</p>
+<h4>Effects</h4><p>Faster smart contract execution, reduced memory overhead, simplified VM architecture, better gas accuracy.</p>
+<h4>Dependencies</h4><ul><li>Move Compiler v2 (active)</li><li>Block-STM v2 (in progress)</li></ul>
+<h4>Milestones (3/6)</h4>
+<ul><li>✅ Design document <em>(2026-02-01)</em></li><li>✅ Executable cache template <em>(2026-03-24)</em></li><li>✅ Gas instrumentation prototype <em>(2026-03-24)</em></li><li>⬜ Runtime benchmarks</li><li>⬜ Testnet integration</li><li>⬜ Mainnet deployment</li></ul>
+<h3>Archon (Proxy-Primary Consensus) — 35% (Design / Early Dev)</h3>
+<p>Next-gen validator coordination architecture. Replaces single-leader rotation with a proxy-primary cluster model. Co-located validators share state for ~10ms block times and ~30ms inclusion proofs. Built on Prefix Consensus (leaderless, f-censorship resistant).</p>
+<p><strong>Lead:</strong> Zhuolun Xiang · <strong>Recent commits:</strong> 9 in 90 days</p>
+<h4>What is being done</h4><p>Prefix Consensus prototype branch is live and actively updated. Strong Prefix Consensus paper published (arXiv:2602.02892). Baby Raptr and Velociraptr deployed on mainnet as stepping stones. Proxy-primary architecture being designed.</p>
+<h4>What is needed for production</h4><p>Prefix Consensus prototype integration, proxy-primary coordination protocol finalization, testnet validation, performance benchmarks vs Baby Raptr</p>
+<h4>Effects</h4><p>CEX-like latency (~10ms block times) with full decentralization. Enables real-time trading on-chain. Combined with encrypted mempool, creates a censorship-resistant global trading engine.</p>
+<h4>Dependencies</h4><ul><li>Baby Raptr (deployed)</li><li>Prefix Consensus (prototype)</li><li>Encrypted Mempool (testnet)</li></ul>
+<h4>Milestones (4/8)</h4>
+<ul><li>✅ Baby Raptr on mainnet <em>(2025-11-15)</em></li><li>✅ Velociraptr (40% block time reduction) <em>(2026-01-15)</em></li><li>✅ Prefix Consensus paper published <em>(2026-02-02)</em></li><li>✅ Prefix Consensus prototype branch <em>(2026-03-19)</em></li><li>⬜ Strong Prefix Consensus implementation</li><li>⬜ Proxy-primary coordination protocol</li><li>⬜ Testnet deployment</li><li>⬜ Mainnet deployment</li></ul>
+<h3>Zaptos (Optimistic Pipelining) — 25% (Research)</h3>
+<p>Start executing transactions BEFORE consensus finalizes. Speculate on likely order based on Quorum Store batches. If correct (common case), execution is 'free'.</p>
+<p><strong>Lead:</strong> TBD · <strong>Recent commits:</strong> 0 in 90 days</p>
+<h4>What is being done</h4><p>Research phase. Depends on Baby Raptr (now deployed) and Block-STM v2 for speculation support.</p>
+<h4>What is needed for production</h4><p>Baby Raptr stabilization (done), speculation accuracy testing, rollback mechanism</p>
+<h4>Effects</h4><p>Near-zero execution latency in the common case. Sub-200ms end-to-end finality target.</p>
+<h4>Dependencies</h4><ul><li>Baby Raptr (deployed)</li><li>Block-STM v2 (in progress)</li></ul>
+<h4>Milestones (2/5)</h4>
+<ul><li>✅ Research paper <em>(2025-06-01)</em></li><li>✅ Baby Raptr prerequisite <em>(2025-11-15)</em></li><li>⬜ Prototype implementation</li><li>⬜ Testnet validation</li><li>⬜ Mainnet deployment</li></ul>
+<h3>Shardines (Internal Sharding) — 15% (Research)</h3>
+<p>Each validator internally shards execution across multiple sub-executors. Target: >1M TPS by parallelizing within a single validator.</p>
+<p><strong>Lead:</strong> TBD · <strong>Recent commits:</strong> 0 in 90 days</p>
+<h4>What is being done</h4><p>Research phase. Three-layer approach: intra-block sharding, inter-block pipelining, and cross-shard atomic commits.</p>
+<h4>What is needed for production</h4><p>Block-STM v2 completion, partition algorithm, cross-shard communication protocol</p>
+<h4>Effects</h4><p>1M+ TPS. Makes Aptos the fastest L1 blockchain by a massive margin.</p>
+<h4>Dependencies</h4><ul><li>Block-STM v2 (in progress)</li><li>Zaptos (research)</li></ul>
+<h4>Milestones (1/5)</h4>
+<ul><li>✅ Research design <em>(2025-09-01)</em></li><li>⬜ Partition algorithm</li><li>⬜ Prototype</li><li>⬜ Testnet validation</li><li>⬜ Mainnet deployment</li></ul>
+<h3>Full Stack Integration</h3>
+<pre><code>Client → Keyless Account (AIP-61)
+  → Encrypted Mempool (BIBE)
+    → Quorum Store (batch + disseminate)
+      → Consensus: Baby Raptr → Archon (Prefix Consensus v2, leaderless)
+        → Execution: Block-STM v2 + MonoMove VM
+          → Shardines (internal sharding, >1M TPS)
+            → Zaptos (optimistic pipelining)
+              → Storage: JMT + Hot State
+
+User-facing: ANS (.apt domains) + Confidential Assets (AIP-143)</code></pre>
+
+<h3>Timeline</h3>
+<table>
+<tr><th>Phase</th><th>Features</th><th>Expected</th></tr>
+<tr><td><strong>Live on Mainnet</strong></td><td>Baby Raptr, Keyless Accounts, ANS v2, Storage Sharding</td><td>Now</td></tr>
+<tr><td><strong>Testnet / Code Merged</strong></td><td>Encrypted Mempool, Confidential Assets</td><td>Q2 2026</td></tr>
+<tr><td><strong>Active Development</strong></td><td>Block-STM v2, MonoMove VM, Archon</td><td>H2 2026</td></tr>
+<tr><td><strong>Research / Design</strong></td><td>Zaptos, Shardines</td><td>2027+</td></tr>
+</table>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p><strong>9 big upgrades are being built for Aptos right now. Here is where each one stands:</strong></p>
+
+<p>🟢 <strong>Already live:</strong> Baby Raptr (faster consensus, 20% improvement), Keyless Accounts (sign in with Google), Aptos Names (.apt domains), Storage Sharding</p>
+
+<p>🟡 <strong>Almost ready:</strong> Encrypted Mempool (80% — hides your trades so nobody can front-run you), Confidential Assets (65% — private balances using zero-knowledge proofs)</p>
+
+<p>🔵 <strong>Being built:</strong> Block-STM v2 (60% — faster parallel execution), MonoMove VM (40% — entirely new engine for running smart contracts)</p>
+
+<p>⚪ <strong>Research phase:</strong> Zaptos (25% — execute before consensus confirms), Shardines (15% — split work across sub-engines for 1M+ TPS)</p>
+
+<p><strong>The end goal:</strong> When everything ships together, Aptos will process over 1 million transactions per second with sub-200ms finality, no front-running possible, private balances, social login, and human-readable names. That is the full vision.</p>
+
+<p><strong>Who is building what:</strong> Daniel Xiang leads consensus (Raptr/Prefix). Balaji Arun leads the encrypted mempool. georgemitenkov leads MonoMove VM. wqfish leads storage optimization. alinush leads Confidential Assets and Keyless Accounts.</p>
+    </section>
+
+    <hr class="section-divider"><h3>Related Systems</h3><div><span class="tag">Baby Raptr Consensus</span><span class="tag">Keyless Accounts (AIP-61)</span><span class="tag">Aptos Names Service</span><span class="tag">Encrypted Mempool</span><span class="tag">Confidential Assets (AIP-143)</span><span class="tag">Block-STM v2</span><span class="tag">MonoMove VM</span><span class="tag">Zaptos (Optimistic Pipelining)</span><span class="tag">Shardines (Internal Sharding)</span></div>
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a><a href="/reports/ans-deep-dive">Aptos Names Service (ANS) — Complete Deep Dive</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#feature-progress-overview">https://aptos-intelligence.vercel.app/#feature-progress-overview</a>.
+      Plain-text version: <a href="/reports/feature-progress-overview.txt">/reports/feature-progress-overview.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>

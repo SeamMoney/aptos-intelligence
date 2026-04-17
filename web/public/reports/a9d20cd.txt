@@ -5,7 +5,8 @@ Date: 2026-03-16T22:53:25Z
 Category: Feature Progress
 Importance: 7/10
 Source: https://github.com/aptos-labs/aptos-core/commit/a9d20cdaea4b30ded5f1eeebc328bda983be8749
-URL: https://aptos-intelligence.vercel.app/#a9d20cd
+Canonical: https://aptos-intelligence.vercel.app/reports/a9d20cd
+Interactive: https://aptos-intelligence.vercel.app/#a9d20cd
 
 ---
 

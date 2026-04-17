@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confidential assets v1.1 (#18973) — Aptos Intelligence</title>
+<meta name="description" content="What specific code changed The commit introduces a comprehensive gas benchmarking suite for confidential assets in aptos-move/e2e-move-tests/src/tests/confidential_asset.rs (1,454 new lines).">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/3044960">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Confidential assets v1.1 (#18973)">
+<meta property="og:description" content="What specific code changed The commit introduces a comprehensive gas benchmarking suite for confidential assets in aptos-move/e2e-move-tests/src/tests/confidential_asset.rs (1,454 new lines).">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/3044960">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Confidential assets v1.1 (#18973)">
+<meta name="twitter:description" content="What specific code changed The commit introduces a comprehensive gas benchmarking suite for confidential assets in aptos-move/e2e-move-tests/src/tests/confidential_asset.rs (1,454 new lines).">
+<meta name="author" content="alinush">
+<meta name="article:published_time" content="2026-03-23T17:45:03.000Z">
+<link rel="alternate" type="text/plain" href="/reports/3044960.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Confidential assets v1.1 (#18973)","description":"What specific code changed The commit introduces a comprehensive gas benchmarking suite for confidential assets in aptos-move/e2e-move-tests/src/tests/confidential_asset.rs (1,454 new lines).","author":{"@type":"Person","name":"alinush"},"datePublished":"2026-03-23T17:45:03.000Z","url":"https://aptos-intelligence.vercel.app/reports/3044960","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/3044960","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":""}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>Confidential assets v1.1 (#18973)</h1>
+    <div class="meta">
+      <span>By alinush</span>
+      <span>Mar 23, 2026</span>
+      <span>Infrastructure</span>
+      <span>Importance 7/10</span>
+      <span><a href="https://github.com/aptos-labs/aptos-core/commit/3044960972b2faed9de356d26adfee9fa801cfab" rel="noopener">Source</a></span>
+    </div>
+    
+
+    <h3>What specific code changed</h3>
+<p>The commit introduces a comprehensive gas benchmarking suite for confidential assets in <code>aptos-move/e2e-move-tests/src/tests/confidential_asset.rs</code> (1,454 new lines). Key additions include:</p>
+<ul>
+<li>New test module with gas profiling functions like <code>bench_gas_confidential_mint</code>, <code>bench_gas_confidential_transfer</code>, and <code>bench_gas_confidential_burn</code></li>
+<li>Integration of the <code>thousands</code> crate for readable gas cost formatting via <code>Separable</code> trait</li>
+<li>New feature flag <code>move-harness-with-test-only</code> in <code>e2e-move-tests/Cargo.toml</code> to enable test-only framework functions</li>
+<li>Enhanced <code>MoveHarnessImpl</code> with <code>evaluate_gas_with_profiler_and_status</code> methods that return <code>TransactionStatus</code> alongside gas logs</li>
+</ul>
+
+<h3>Why this change was made</h3>
+<p>Confidential assets (privacy-preserving token operations) require precise gas metering due to their cryptographic overhead. The benchmarking suite quantifies the computational cost of ElGamal encryption, Bulletproofs range proofs, and zero-knowledge verification that underpin confidential mint, transfer, and burn operations. This data feeds into the on-chain gas schedule to ensure economic sustainability while maintaining competitive transaction fees.</p>
+
+<h3>How it works technically</h3>
+<p>The harness leverages the existing <code>TransactionGasLog</code> infrastructure. When tests run with <code>--features move-harness-with-test-only</code>, they invoke framework functions marked <code>#[test_only]</code> that expose confidential asset operations. The diff shows:</p>
+<pre><code>pub fn evaluate_gas_with_profiler_and_status(
+    &mut self,
+    account: &Account,
+    payload: TransactionPayload,
+) -> (TransactionStatus, TransactionGasLog, u64, Option<FeeStatement>)
+</code></pre>
+<p>Each benchmark constructs a confidential transaction payload, executes it via <code>FakeExecutorImpl</code>, and extracts the gas cost. Results are printed with comma separators via <code>thousands::Separable</code> for readability.</p>
+
+<h3>Where it fits in the Aptos pipeline</h3>
+<p>The benchmarks sit at the intersection of the Move VM execution layer and the gas schedule subsystem. Measured costs flow from <code>e2e-move-tests</code> → <code>aptos-gas-schedule</code> → on-chain configuration under <code>0x1::gas_schedule</code>. When a confidential asset transaction is submitted, the VM looks up the pre-computed gas units for <code>confidential_mint</code>, <code>confidential_transfer</code>, etc., multiplies by the dynamic gas price, and deducts from the sender balance.</p>
+
+<h3>What the implications are</h3>
+<p>Validators now have empirical data to price confidential operations accurately, preventing under- or over-charging. Developers integrating privacy features can estimate costs before deployment. Future upgrades to the confidential asset module can be benchmarked against this baseline to detect performance regressions. The <code>move-harness-with-test-only</code> pattern also establishes a precedent for safely exposing test framework internals without bloating production binaries.</p>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p>Imagine you're running a secret candy shop where customers can buy treats without revealing what or how much they bought. The shop needs to set prices, but the special privacy wrappers (like invisible bags and secret receipts) take extra work. Alinush added a measuring tape that times exactly how long each privacy step takes—wrapping the candy, printing the secret receipt, checking the invisible bag—so the shop can charge the right amount.</p>
+
+<p>He created a new test file, <code>confidential_asset.rs</code>, that runs these privacy candy sales over and over while a stopwatch records every millisecond. The numbers are printed with commas so 1234567 gas units shows up as 1,234,567, making it easy to read. A special flag, <code>move-harness-with-test-only</code>, unlocks these timing tests without letting regular shoppers mess with them.</p>
+
+<p>Now the Aptos blockchain knows the fair price for secret candy trades, keeping the shop profitable while customers pay only for the privacy they use. Next time you send a hidden token on Aptos, the fee you see comes from these exact measurements.</p>
+    </section>
+
+    
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#3044960">https://aptos-intelligence.vercel.app/#3044960</a>.
+      Plain-text version: <a href="/reports/3044960.txt">/reports/3044960.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>
