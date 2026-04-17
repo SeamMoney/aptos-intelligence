@@ -10,16 +10,17 @@ const DAY_NAMES = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const DAY_HEADERS = ["S", "M", "T", "W", "T", "F", "S"];
 
 const PINNED_SHAS = [
+  "aptos-stack-map",
+  "prefix-consensus-deep-dive",
+  "shardines-deep-dive",
   "aggregator-nft-deep-dive",
   "randomness-deep-dive",
   "confidential-assets-deep-dive",
-  "prefix-consensus-deep-dive",
   "ans-deep-dive",
   "9a3caae",
   "a9d20cd",
   "bef2812",
   "c8db4ac",
-  "0e8dad7",
 ];
 
 const SUBSYSTEMS = [
@@ -489,7 +490,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex gap-[3px] mt-2">
                   {fp.milestones.map((m, i) => (
-                    <div key={i} className="h-[4px] flex-1 rounded-full" style={{ background: m.done ? fp.color : "var(--color-border-muted)" }} title={m.name} />
+                    <div key={i} className="h-[4px] flex-1 rounded-full" style={{ background: m.done ? "var(--color-accent)" : "var(--color-border-muted)" }} title={m.name} />
                   ))}
                 </div>
               </div>
