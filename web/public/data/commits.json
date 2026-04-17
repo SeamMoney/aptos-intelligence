@@ -1,15 +1,15 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,20 +24,60 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "db98b19",
+    "title": "Harden encrypted transaction decryption handling (#19461)",
+    "author": "ibalajiarun",
+    "date": "2026-04-17T00:46:43Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/db98b19f9ef3e23f029800f4d50784605595db51",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "e65a8d1",
+    "title": "[storage] Load hot state from DB on restart when persistence is enabled",
+    "author": "wqfish",
+    "date": "2026-04-16T23:30:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/e65a8d11ca597635ca6585b2db0292fc735ecc12",
+    "category": "Release"
+  },
+  {
+    "sha": "1f25be6",
+    "title": "[storage] Truncate hot and cold state merkle DBs to the same version on restart",
+    "author": "wqfish",
+    "date": "2026-04-16T22:40:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1f25be618999e00121d0c7316c3e28f53f89c8e1",
+    "category": "Release"
+  },
+  {
+    "sha": "b50e6c9",
+    "title": "[storage] Move total_value_bytes tracking into HotStateLRU and simplify total_key_bytes",
+    "author": "wqfish",
+    "date": "2026-04-16T22:40:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b50e6c9bb6443f3374ddebe076d4bbfc1d3de290",
+    "category": "Security"
+  },
+  {
+    "sha": "8c36781",
+    "title": "[storage] Extract helpers from create_buffered_state_from_latest_snapshot",
+    "author": "wqfish",
+    "date": "2026-04-16T22:40:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/8c3678182e76506303b09c877a54a817fb3478a7",
+    "category": "Release"
   },
   {
     "sha": "217874c",
@@ -110,6 +150,14 @@
     "date": "2026-04-16T01:38:22Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/a846471a5eaa00301edf64ff6b781417b708d647",
     "category": "Security"
+  },
+  {
+    "sha": "c805f71",
+    "title": "[forge] bump deployer version",
+    "author": "aptos-bot",
+    "date": "2026-04-16T00:03:51Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c805f718de8dfc8ce29a2e99bc76ea2e7363a5eb",
+    "category": "Release"
   },
   {
     "sha": "42743b8",
@@ -4773,54 +4821,6 @@
     "author": "mkurnikov",
     "date": "2026-01-16T04:53:46Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/1a40fb345f99f93c887a251177e145a8f1148059",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "be9ff3e",
-    "title": "add support for SLH-DSA-SHA2-128s TXN authenticators (#18300)",
-    "author": "alinush",
-    "date": "2026-01-15T23:26:29Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/be9ff3ec5ea5cdb23e3096cc1220bcdb4893a917",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "11f6f5d",
-    "title": "Add conversion fns from blst consensus keys to chunky encryption keys (#18454)",
-    "author": "rex1fernando",
-    "date": "2026-01-15T14:18:55Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/11f6f5db3444402ee84953f75abb57fbf579a34a",
-    "category": "Release"
-  },
-  {
-    "sha": "6ec9e87",
-    "title": "[forge] bump deployer version (#18446)",
-    "author": "aptos-bot",
-    "date": "2026-01-15T01:11:58Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/6ec9e872816a6e056b95b425a9e6b3feb389c24a",
-    "category": "Release"
-  },
-  {
-    "sha": "31180f5",
-    "title": "[api] add validations for batch txn submission",
-    "author": "ibalajiarun",
-    "date": "2026-01-15T00:39:47Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/31180f5a86a2955a376ecb9326fa83a5d41555f4",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "def1598",
-    "title": "[batch-encryption] remove happy path in trait and impls",
-    "author": "ibalajiarun",
-    "date": "2025-12-26T18:00:16Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/def15982b2697135b139aadfdd53bab607f5d587",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "d2839e6",
-    "title": "[api] feature flag for enc txn submission",
-    "author": "ibalajiarun",
-    "date": "2025-12-18T16:56:43Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/d2839e69a39b1421a7277ed15028ce0789b3604a",
     "category": "Infrastructure"
   },
   {

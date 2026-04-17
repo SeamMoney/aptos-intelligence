@@ -1,6 +1,33 @@
 {
   "prs": [
     {
+      "number": 19399,
+      "title": "[storage] Load hot state from DB on restart when persistence is enabled",
+      "author": "wqfish",
+      "merged_at": "2026-04-17T01:40:37Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19399",
+      "labels": []
+    },
+    {
+      "number": 19461,
+      "title": "Harden encrypted transaction decryption handling",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-17T00:46:43Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19461",
+      "labels": []
+    },
+    {
+      "number": 19349,
+      "title": "[forge] bump deployer version",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-16T23:32:56Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19349",
+      "labels": [
+        "CICD:run-e2e-tests",
+        "CICD:run-framework-upgrade-test"
+      ]
+    },
+    {
       "number": 19460,
       "title": "Bind encrypted payload verification to sender auth keys",
       "author": "ibalajiarun",
@@ -159,81 +186,8 @@
       "merged_at": "2026-04-15T01:50:56Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19255",
       "labels": []
-    },
-    {
-      "number": 19366,
-      "title": "[compiler-v2] Fixing multiple bugs that were a result of not handling `SelectVariants` in different places in the compiler",
-      "author": "vineethk",
-      "merged_at": "2026-04-15T01:50:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19366",
-      "labels": []
-    },
-    {
-      "number": 19434,
-      "title": "[cp][aptos-release-v1.44] [consensus] Add state sync trigger metrics",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-14T23:10:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19434",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19447,
-      "title": "[Config] Enable validator-PFN connections for mainnet.",
-      "author": "JoshLind",
-      "merged_at": "2026-04-14T22:55:08Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19447",
-      "labels": []
-    },
-    {
-      "number": 19368,
-      "title": "[compiler-v2] Fix missing cases in ability transformer",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T22:46:50Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19368",
-      "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 19322,
-      "title": "[Bug] AST simplifier missing SelectVariants causes silent mutation drops on enum fields",
-      "author": "zzjas",
-      "state": "closed",
-      "created_at": "2026-04-03T18:04:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19322",
-      "labels": [
-        "bug",
-        "compiler-v2"
-      ]
-    },
-    {
-      "number": 15119,
-      "title": "[Bug][Compiler]The view tag does not strictly check global mutable variables",
-      "author": "blackyc",
-      "state": "closed",
-      "created_at": "2024-10-30T07:21:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/15119",
-      "labels": [
-        "bug",
-        "stale-exempt",
-        "compiler-v2"
-      ]
-    },
-    {
-      "number": 12729,
-      "title": "[Feature Request][move compiler] Flag view functions with side-effects on global state",
-      "author": "brmataptos",
-      "state": "closed",
-      "created_at": "2024-03-28T20:13:03Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/12729",
-      "labels": [
-        "enhancement",
-        "stale-exempt",
-        "compiler-v2"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-04-16T22:41:13.402Z"
+  "issues": [],
+  "lastUpdated": "2026-04-17T02:39:04.512Z"
 }
