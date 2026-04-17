@@ -9,6 +9,19 @@ import { highlightCodeBlocks } from "./highlight";
 const DAY_NAMES = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const DAY_HEADERS = ["S", "M", "T", "W", "T", "F", "S"];
 
+const PINNED_SHAS = [
+  "aggregator-nft-deep-dive",
+  "randomness-deep-dive",
+  "confidential-assets-deep-dive",
+  "prefix-consensus-deep-dive",
+  "ans-deep-dive",
+  "9a3caae",
+  "a9d20cd",
+  "bef2812",
+  "c8db4ac",
+  "0e8dad7",
+];
+
 const SUBSYSTEMS = [
   { key: "consensus", name: "Consensus", desc: "Quorum Store + Raptr ordering", color: "#0047ff" },
   { key: "storage", name: "Storage", desc: "AptosDB + Jellyfish Merkle Tree", color: "#ef4444" },
@@ -210,6 +223,25 @@ export default function Dashboard() {
     return new Map([...map.entries()].sort((a, b) => b[0].localeCompare(a[0])));
   }, [commits, search, subFilter]);
 
+  // Pinned deep-dives — only show when no filter/search is active
+  const pinnedCommits = useMemo(() => {
+    if (subFilter || search) return [];
+    const bySha = new Map(commits.map(c => [c.sha, c]));
+    return PINNED_SHAS.map(sha => bySha.get(sha)).filter((c): c is Commit => !!c);
+  }, [commits, subFilter, search]);
+
+  const pinnedShaSet = useMemo(() => new Set(pinnedCommits.map(c => c.sha)), [pinnedCommits]);
+
+  const commitsByDateUnpinned = useMemo(() => {
+    if (pinnedShaSet.size === 0) return commitsByDate;
+    const out = new Map<string, Commit[]>();
+    for (const [date, dayCommits] of commitsByDate) {
+      const kept = dayCommits.filter(c => !pinnedShaSet.has(c.sha));
+      if (kept.length > 0) out.set(date, kept);
+    }
+    return out;
+  }, [commitsByDate, pinnedShaSet]);
+
   const commitCounts = useMemo(() => {
     const map = new Map<string, number>();
     for (const c of commits) { const k = c.date.slice(0, 10); map.set(k, (map.get(k)||0)+1); }
@@ -350,7 +382,29 @@ export default function Dashboard() {
 
           {/* Commit list */}
           <div className="flex-1 overflow-y-auto relative z-10 no-scrollbar">
-            {[...commitsByDate.entries()].map(([dateStr, dayCommits]) => (
+            {pinnedCommits.length > 0 && (
+              <div>
+                <div className="sticky top-0 z-10 px-4 py-1.5 label-specimen-sm text-[var(--color-accent)]" style={{ background: "var(--color-surface)" }}>
+                  ★ DEEP DIVES · {pinnedCommits.length} pages
+                </div>
+                {pinnedCommits.map(c => {
+                  const hasReport = !!findReport(c);
+                  return (
+                    <div key={c.sha} onClick={() => openCommit(c)}
+                      className="cursor-pointer px-4 py-3 transition-all border-l-2 border-l-[var(--color-accent)]/40 hover:bg-[var(--color-surface-alt)] hover:border-l-[var(--color-accent)]">
+                      <p className="text-[12px] font-medium text-[var(--color-text)] leading-snug line-clamp-2">{c.title}</p>
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <img src={`https://github.com/${c.author}.png`} alt="" className="w-3.5 h-3.5 rounded-full" />
+                        <span className="label-specimen-sm text-[var(--color-text-faint)]">{c.author}</span>
+                        <div className="w-[5px] h-[5px] rounded-full" style={{ background: catColor(c.category) }} />
+                        {hasReport && <span className="label-specimen-sm text-[var(--color-accent)]">REPORT</span>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            {[...commitsByDateUnpinned.entries()].map(([dateStr, dayCommits]) => (
               <div key={dateStr}>
                 <div className="sticky top-0 z-10 px-4 py-1.5 label-specimen-sm text-[var(--color-text-faint)]" style={{ background: "var(--color-surface)" }}>
                   {fmtDateFull(dateStr)} · {dayCommits.length} commits
@@ -424,10 +478,10 @@ export default function Dashboard() {
                 }}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="label-specimen-sm text-[var(--color-text)]">{fp.name}</span>
-                  <span className="label-specimen-sm" style={{ color: fp.color }}>{fp.progress}%</span>
+                  <span className="label-specimen-sm text-[var(--color-accent)]">{fp.progress}%</span>
                 </div>
                 <div className="h-[3px] rounded-full overflow-hidden" style={{ background: "var(--color-border-muted)" }}>
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${fp.progress}%`, background: fp.color }} />
+                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${fp.progress}%`, background: "var(--color-accent)" }} />
                 </div>
                 <div className="flex items-center justify-between mt-2">
                   <span className="label-specimen-sm text-[var(--color-text-faint)]">{fp.status}</span>
@@ -611,10 +665,10 @@ export default function Dashboard() {
               }}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-[13px] font-medium text-white">{fp.name}</span>
-                  <span className="text-[10px] font-bold" style={{ color: fp.color }}>{fp.progress}%</span>
+                  <span className="text-[10px] font-bold text-[var(--color-accent)]">{fp.progress}%</span>
                 </div>
                 <div className="h-[3px] rounded-full overflow-hidden bg-white/10">
-                  <div className="h-full rounded-full" style={{ width: `${fp.progress}%`, background: fp.color }} />
+                  <div className="h-full rounded-full" style={{ width: `${fp.progress}%`, background: "var(--color-accent)" }} />
                 </div>
                 <div className="flex items-center justify-between mt-1">
                   <span className="text-[9px] text-white/40">{fp.status}</span>
@@ -623,7 +677,7 @@ export default function Dashboard() {
                 {/* Milestone dots */}
                 <div className="flex gap-[2px] mt-1.5">
                   {fp.milestones.map((m, i) => (
-                    <div key={i} className="h-[3px] flex-1 rounded-full" style={{ background: m.done ? fp.color : "rgba(255,255,255,0.1)" }} />
+                    <div key={i} className="h-[3px] flex-1 rounded-full" style={{ background: m.done ? "var(--color-accent)" : "rgba(255,255,255,0.1)" }} />
                   ))}
                 </div>
               </div>
