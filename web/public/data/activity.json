@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19363,
+      "title": "[vm] Add closure design doc for mono-move runtime",
+      "author": "vgao1996",
+      "merged_at": "2026-04-18T06:05:01Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19363",
+      "labels": []
+    },
+    {
       "number": 19483,
       "title": "[cp][aptos-release-v1.44] Confidential assets v1.1.3: add emergency pause",
       "author": "aptos-bot",
@@ -172,16 +180,8 @@
       "merged_at": "2026-04-14T20:53:32Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
       "labels": []
-    },
-    {
-      "number": 19462,
-      "title": "[test] Fix test_large_total_stake div-by-zero in fee distribution",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-15T21:23:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19462",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-18T05:42:01.381Z"
+  "lastUpdated": "2026-04-18T07:10:03.786Z"
 }
