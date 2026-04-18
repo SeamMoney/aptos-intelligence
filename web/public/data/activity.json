@@ -176,6 +176,17 @@
   ],
   "issues": [
     {
+      "number": 19495,
+      "title": "[Bug] Fuzzing build failure due to missing ModuleStorage method in SnapshotModuleView",
+      "author": "xingyaner",
+      "state": "open",
+      "created_at": "2026-04-18T14:55:25Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19495",
+      "labels": [
+        "bug"
+      ]
+    },
+    {
       "number": 19422,
       "title": "[prover] Z3 seed sensitivity causes timeout on calculator::number with inline_spec_lets=false",
       "author": "wrwg",
@@ -185,5 +196,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-04-18T14:40:44.017Z"
+  "lastUpdated": "2026-04-18T16:42:15.097Z"
 }
