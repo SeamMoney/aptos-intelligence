@@ -172,14 +172,6 @@
       "merged_at": "2026-04-14T00:14:14Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
       "labels": []
-    },
-    {
-      "number": 19427,
-      "title": "[mono-vm] Representation and perf refactoring within specializer",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T20:53:32Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
-      "labels": []
     }
   ],
   "issues": [
@@ -193,5 +185,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-04-18T08:53:10.100Z"
+  "lastUpdated": "2026-04-18T10:41:33.185Z"
 }
