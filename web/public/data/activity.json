@@ -156,6 +156,14 @@
       "merged_at": "2026-04-16T03:04:22Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19397",
       "labels": []
+    },
+    {
+      "number": 19467,
+      "title": "[trivial] [spec] turn off the spec of `try_complete_after_grace_period`",
+      "author": "rahxephon89",
+      "merged_at": "2026-04-16T01:38:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19467",
+      "labels": []
     }
   ],
   "issues": [
@@ -180,5 +188,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-04-19T16:41:55.004Z"
+  "lastUpdated": "2026-04-19T18:53:24.726Z"
 }
