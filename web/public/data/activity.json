@@ -156,22 +156,6 @@
       "merged_at": "2026-04-16T03:04:22Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19397",
       "labels": []
-    },
-    {
-      "number": 19467,
-      "title": "[trivial] [spec] turn off the spec of `try_complete_after_grace_period`",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-16T01:38:23Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19467",
-      "labels": []
-    },
-    {
-      "number": 19388,
-      "title": "Shared data structures and algorithms crate",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T00:14:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
-      "labels": []
     }
   ],
   "issues": [
@@ -196,5 +180,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-04-19T05:58:57.109Z"
+  "lastUpdated": "2026-04-19T07:42:20.936Z"
 }
