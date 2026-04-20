@@ -1,6 +1,30 @@
 {
   "prs": [
     {
+      "number": 19485,
+      "title": "[lint] Create a new lint check for unreachable code warning",
+      "author": "vineethk",
+      "merged_at": "2026-04-20T22:41:53Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19485",
+      "labels": []
+    },
+    {
+      "number": 19481,
+      "title": "[lint] Fix false positive in needless visibility checker",
+      "author": "vineethk",
+      "merged_at": "2026-04-20T22:05:10Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19481",
+      "labels": []
+    },
+    {
+      "number": 19474,
+      "title": "[consensus] Fix proposer_delay_proposal histogram buckets",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-20T21:45:45Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19474",
+      "labels": []
+    },
+    {
       "number": 19511,
       "title": "docs(consensus): fix 'QuorurmCertificate' -> 'QuorumCertificate' in block/block_data doc comments",
       "author": "MukundaKatta",
@@ -122,89 +146,35 @@
       "merged_at": "2026-04-17T00:46:43Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19461",
       "labels": []
-    },
-    {
-      "number": 19349,
-      "title": "[forge] bump deployer version",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-16T23:32:56Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19349",
-      "labels": [
-        "CICD:run-e2e-tests",
-        "CICD:run-framework-upgrade-test"
-      ]
-    },
-    {
-      "number": 19460,
-      "title": "Bind encrypted payload verification to sender auth keys",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-16T22:25:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19460",
-      "labels": []
     }
   ],
   "issues": [
     {
-      "number": 19512,
-      "title": "[Bug][prover] spec infer does not work for intrinsic specs",
+      "number": 11707,
+      "title": "[Feature Request][compiler-v2] Implement dead or unreachable code warning",
+      "author": "vineethk",
+      "state": "closed",
+      "created_at": "2024-01-19T17:32:33Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/11707",
+      "labels": [
+        "enhancement",
+        "starter-task",
+        "stale-exempt",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 19514,
+      "title": "[Bug][prover] spec infer uses impure Move function in the generated spec",
       "author": "rahxephon89",
       "state": "open",
-      "created_at": "2026-04-20T18:23:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19512",
+      "created_at": "2026-04-20T22:26:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19514",
       "labels": [
         "bug",
         "move-prover"
       ]
-    },
-    {
-      "number": 19508,
-      "title": "[Bug] Inlining functions that emit events",
-      "author": "georgemitenkov",
-      "state": "open",
-      "created_at": "2026-04-20T15:34:13Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19508",
-      "labels": [
-        "bug",
-        "compiler-v2"
-      ]
-    },
-    {
-      "number": 19495,
-      "title": "[Bug] Fuzzing build failure due to missing ModuleStorage method in SnapshotModuleView",
-      "author": "xingyaner",
-      "state": "open",
-      "created_at": "2026-04-18T14:55:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19495",
-      "labels": [
-        "bug"
-      ]
-    },
-    {
-      "number": 16595,
-      "title": "[Bug] Differing behaviors based on use statement regarding function values",
-      "author": "vineethk",
-      "state": "open",
-      "created_at": "2025-05-12T15:46:29Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/16595",
-      "labels": [
-        "bug",
-        "stale-exempt",
-        "compiler-v2"
-      ]
-    },
-    {
-      "number": 16495,
-      "title": "[Bug] Function resolution is not as expected",
-      "author": "vineethk",
-      "state": "open",
-      "created_at": "2025-04-29T14:29:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/16495",
-      "labels": [
-        "bug",
-        "stale-exempt",
-        "compiler-v2"
-      ]
     }
   ],
-  "lastUpdated": "2026-04-20T20:48:56.363Z"
+  "lastUpdated": "2026-04-20T22:43:42.239Z"
 }
