@@ -150,14 +150,6 @@
       "labels": [
         "mono-move"
       ]
-    },
-    {
-      "number": 19409,
-      "title": "[compiler] fix reference safety checker v3 for non-reference Call destinations",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-16T05:26:45Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19409",
-      "labels": []
     }
   ],
   "issues": [
@@ -173,5 +165,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-20T02:46:22.661Z"
+  "lastUpdated": "2026-04-20T06:15:31.742Z"
 }
