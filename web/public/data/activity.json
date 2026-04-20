@@ -154,6 +154,32 @@
   ],
   "issues": [
     {
+      "number": 16595,
+      "title": "[Bug] Differing behaviors based on use statement regarding function values",
+      "author": "vineethk",
+      "state": "open",
+      "created_at": "2025-05-12T15:46:29Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/16595",
+      "labels": [
+        "bug",
+        "stale-exempt",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 16495,
+      "title": "[Bug] Function resolution is not as expected",
+      "author": "vineethk",
+      "state": "open",
+      "created_at": "2025-04-29T14:29:52Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/16495",
+      "labels": [
+        "bug",
+        "stale-exempt",
+        "compiler-v2"
+      ]
+    },
+    {
       "number": 19505,
       "title": "[Bug] State sync fails: no available peers found",
       "author": "btse-phil",
@@ -165,5 +191,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-20T13:44:52.362Z"
+  "lastUpdated": "2026-04-20T15:16:58.800Z"
 }
