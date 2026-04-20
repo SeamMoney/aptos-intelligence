@@ -1,23 +1,15 @@
 [
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -32,20 +24,52 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "2d38f7c",
+    "title": "docs(consensus): fix 'QuorurmCertificate' -> 'QuorumCertificate' in block/block_data doc comments (#19511)",
+    "author": "MukundaKatta",
+    "date": "2026-04-20T20:32:32Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2d38f7c5dc472898c8621113122f529f362cd3bf",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "01cde5c",
+    "title": "[ci] Notify #feed-move-alerts on calibration PR",
+    "author": "georgemitenkov",
+    "date": "2026-04-20T11:02:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/01cde5c58b926ad5fbe9e66cc8cc3630cdcb7a29",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "17687cd",
+    "title": "[ci] Calibrate single-node execution performance values",
+    "author": "aptos-bot",
+    "date": "2026-04-20T04:57:44Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/17687cd6371983bb351997f95b93a61c005006ef",
+    "category": "Performance"
   },
   {
     "sha": "5f8f520",
@@ -4805,30 +4829,6 @@
     "author": "ibalajiarun",
     "date": "2026-01-21T01:17:02Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/429038a3c6d25aa520406e82869898ddabec16ed",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "ab91501",
-    "title": "[qs] support pulling OptQuorumStorePayload::V2 (#18453)",
-    "author": "ibalajiarun",
-    "date": "2026-01-20T22:21:42Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ab91501b90fe6f7fb9276217b8202c8ab2f2a21a",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "41b19a6",
-    "title": "[qs] Populate BatchKind for BatchV2 (#18452)",
-    "author": "ibalajiarun",
-    "date": "2026-01-20T17:52:10Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/41b19a64dc9867ccdb70be075407013bf58dabd4",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "ff38b1d",
-    "title": "[move-unit-test] More information for unexpected aborts (#18432)",
-    "author": "calintat",
-    "date": "2026-01-20T14:36:40Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ff38b1deda7cacc171a6bed7a2c6281302fec2e5",
     "category": "Feature Progress"
   },
   {

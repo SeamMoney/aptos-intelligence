@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19511,
+      "title": "docs(consensus): fix 'QuorurmCertificate' -> 'QuorumCertificate' in block/block_data doc comments",
+      "author": "MukundaKatta",
+      "merged_at": "2026-04-20T20:32:33Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19511",
+      "labels": []
+    },
+    {
+      "number": 19452,
+      "title": "[ci] Calibrate single-node execution performance values",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-20T18:39:46Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19452",
+      "labels": []
+    },
+    {
       "number": 19478,
       "title": "[forge] bump deployer version",
       "author": "aptos-bot",
@@ -125,35 +141,21 @@
       "merged_at": "2026-04-16T22:25:00Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19460",
       "labels": []
-    },
-    {
-      "number": 19472,
-      "title": "[trivial][Move prover] fix benchmark option",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-16T20:58:16Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19472",
-      "labels": []
-    },
-    {
-      "number": 19424,
-      "title": "Update Docker images",
-      "author": "github-actions[bot]",
-      "merged_at": "2026-04-16T20:40:06Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19424",
-      "labels": [
-        "CICD:run-e2e-tests"
-      ]
-    },
-    {
-      "number": 19446,
-      "title": "Adjust quorum store queue handling",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-16T17:33:50Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19446",
-      "labels": []
     }
   ],
   "issues": [
+    {
+      "number": 19512,
+      "title": "[Bug][prover] spec infer does not work for intrinsic specs",
+      "author": "rahxephon89",
+      "state": "open",
+      "created_at": "2026-04-20T18:23:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19512",
+      "labels": [
+        "bug",
+        "move-prover"
+      ]
+    },
     {
       "number": 19508,
       "title": "[Bug] Inlining functions that emit events",
@@ -202,18 +204,7 @@
         "stale-exempt",
         "compiler-v2"
       ]
-    },
-    {
-      "number": 19505,
-      "title": "[Bug] State sync fails: no available peers found",
-      "author": "btse-phil",
-      "state": "open",
-      "created_at": "2026-04-20T08:31:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19505",
-      "labels": [
-        "bug"
-      ]
     }
   ],
-  "lastUpdated": "2026-04-20T17:05:08.260Z"
+  "lastUpdated": "2026-04-20T20:48:56.363Z"
 }
