@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19491,
+      "title": "[cp][aptos-release-v1.45] [Config] Update default testnet seeds.",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-20T02:02:38Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19491",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19109,
       "title": "[vm] Staking-based transaction limits",
       "author": "georgemitenkov",
@@ -148,22 +158,6 @@
       "merged_at": "2026-04-16T05:26:45Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19409",
       "labels": []
-    },
-    {
-      "number": 19320,
-      "title": "[compiler-v2] Removing Move 1 feature gating from the compiler and elsewhere, fully sunset Move 1",
-      "author": "vineethk",
-      "merged_at": "2026-04-16T03:21:06Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19320",
-      "labels": []
-    },
-    {
-      "number": 19397,
-      "title": "[compiler] fix ability check for function values",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-16T03:04:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19397",
-      "labels": []
     }
   ],
   "issues": [
@@ -177,16 +171,7 @@
       "labels": [
         "bug"
       ]
-    },
-    {
-      "number": 19422,
-      "title": "[prover] Z3 seed sensitivity causes timeout on calculator::number with inline_spec_lets=false",
-      "author": "wrwg",
-      "state": "open",
-      "created_at": "2026-04-13T06:14:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19422",
-      "labels": []
     }
   ],
-  "lastUpdated": "2026-04-19T22:37:18.015Z"
+  "lastUpdated": "2026-04-20T02:46:22.661Z"
 }
