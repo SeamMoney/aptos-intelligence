@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19435,
+      "title": "Improve replay-verify scheduler observability and resilience",
+      "author": "vgao1996",
+      "merged_at": "2026-04-21T00:44:50Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19435",
+      "labels": [
+        "CICD:build-performance-images"
+      ]
+    },
+    {
+      "number": 19473,
+      "title": "[consensus] Fix BATCH_NUM_PER_BLOCK histogram buckets",
+      "author": "danielxiangzl",
+      "merged_at": "2026-04-21T00:24:25Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19473",
+      "labels": []
+    },
+    {
       "number": 19485,
       "title": "[lint] Create a new lint check for unreachable code warning",
       "author": "vineethk",
@@ -130,25 +148,31 @@
       "labels": [
         "v1.44"
       ]
-    },
-    {
-      "number": 19399,
-      "title": "[storage] Load hot state from DB on restart when persistence is enabled",
-      "author": "wqfish",
-      "merged_at": "2026-04-17T01:40:37Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19399",
-      "labels": []
-    },
-    {
-      "number": 19461,
-      "title": "Harden encrypted transaction decryption handling",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-17T00:46:43Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19461",
-      "labels": []
     }
   ],
   "issues": [
+    {
+      "number": 19495,
+      "title": "[Bug] Fuzzing build failure due to missing ModuleStorage method in SnapshotModuleView",
+      "author": "xingyaner",
+      "state": "open",
+      "created_at": "2026-04-18T14:55:25Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19495",
+      "labels": [
+        "bug"
+      ]
+    },
+    {
+      "number": 19516,
+      "title": "[compiler-v2] type inference issue",
+      "author": "igor-aptos",
+      "state": "open",
+      "created_at": "2026-04-21T00:30:40Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19516",
+      "labels": [
+        "compiler-v2"
+      ]
+    },
     {
       "number": 11707,
       "title": "[Feature Request][compiler-v2] Implement dead or unreachable code warning",
@@ -176,5 +200,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-20T22:43:42.239Z"
+  "lastUpdated": "2026-04-21T02:39:57.676Z"
 }
