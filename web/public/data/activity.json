@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19521,
+      "title": "[cli] Release Aptos CLI 9.2.0",
+      "author": "gregnazario",
+      "merged_at": "2026-04-21T17:43:58Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19521",
+      "labels": []
+    },
+    {
       "number": 19486,
       "title": "[compiler-v2] Implement a new abstraction for derived call graph query caching: fixes many subtle bugs.",
       "author": "vineethk",
@@ -152,24 +160,6 @@
       "merged_at": "2026-04-18T00:14:19Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19475",
       "labels": []
-    },
-    {
-      "number": 19476,
-      "title": "[consensus] Harden SecretShareManager: state preservation, skipped rounds, requester ordering",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-18T00:12:30Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19476",
-      "labels": []
-    },
-    {
-      "number": 19482,
-      "title": "[Config] Update default testnet seeds.",
-      "author": "JoshLind",
-      "merged_at": "2026-04-17T22:47:47Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19482",
-      "labels": [
-        "v1.45"
-      ]
     }
   ],
   "issues": [
@@ -198,5 +188,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-21T17:03:24.433Z"
+  "lastUpdated": "2026-04-21T19:14:10.138Z"
 }
