@@ -1,13 +1,14 @@
 # Aptos Intelligence
 > Real-time technical analysis of every commit to aptos-labs/aptos-core
 
-## Deep Dives (19 reports)
+## Deep Dives (20 reports)
 
 - [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/reports/prefix-consensus-deep-dive): Feature Progress, importance 10/10
 - [The Aptos Stack — One Map of How Every Piece Fits Together](https://aptos-intelligence.vercel.app/reports/aptos-stack-map): Feature Progress, importance 10/10
 - [Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art](https://aptos-intelligence.vercel.app/reports/randomness-deep-dive): Feature Progress, importance 10/10
 - [Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos](https://aptos-intelligence.vercel.app/reports/confidential-assets-deep-dive): Feature Progress, importance 10/10
 - [Aptos Feature Progress — 10 Features Tracked from Research to Mainnet](https://aptos-intelligence.vercel.app/reports/feature-progress-overview): Feature Progress, importance 10/10
+- [Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks](https://aptos-intelligence.vercel.app/reports/scheduled-transactions-deep-dive): Feature Progress, importance 9/10
 - [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive): Feature Progress, importance 9/10
 - [Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator](https://aptos-intelligence.vercel.app/reports/shardines-deep-dive): Feature Progress, importance 9/10
 - [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/reports/ans-deep-dive): Feature Progress, importance 9/10
@@ -31,6 +32,7 @@
 - [Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art](https://aptos-intelligence.vercel.app/reports/randomness-deep-dive.txt)
 - [Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos](https://aptos-intelligence.vercel.app/reports/confidential-assets-deep-dive.txt)
 - [Aptos Feature Progress — 10 Features Tracked from Research to Mainnet](https://aptos-intelligence.vercel.app/reports/feature-progress-overview.txt)
+- [Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks](https://aptos-intelligence.vercel.app/reports/scheduled-transactions-deep-dive.txt)
 - [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive.txt)
 - [Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator](https://aptos-intelligence.vercel.app/reports/shardines-deep-dive.txt)
 - [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/reports/ans-deep-dive.txt)

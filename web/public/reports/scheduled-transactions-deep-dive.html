@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks — Aptos Intelligence</title>
+<meta name="description" content="Scheduled Transactions — AIP-125 and the End of DeFi&#39;s Keeper-Bot Racket On 15 April 2025, Aptos Labs engineers Manu Dhundi and Zekun Li opened AIP-125 — Scheduled Transactions.">
+<link rel="canonical" href="https://aptos-intelligence.vercel.app/reports/scheduled-transactions-deep-dive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks">
+<meta property="og:description" content="Scheduled Transactions — AIP-125 and the End of DeFi&#39;s Keeper-Bot Racket On 15 April 2025, Aptos Labs engineers Manu Dhundi and Zekun Li opened AIP-125 — Scheduled Transactions.">
+<meta property="og:url" content="https://aptos-intelligence.vercel.app/reports/scheduled-transactions-deep-dive">
+<meta property="og:site_name" content="Aptos Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks">
+<meta name="twitter:description" content="Scheduled Transactions — AIP-125 and the End of DeFi&#39;s Keeper-Bot Racket On 15 April 2025, Aptos Labs engineers Manu Dhundi and Zekun Li opened AIP-125 — Scheduled Transactions.">
+<meta name="author" content="aptos-labs">
+<meta name="article:published_time" content="2026-04-20T00:00:00.000Z">
+<link rel="alternate" type="text/plain" href="/reports/scheduled-transactions-deep-dive.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks","description":"Scheduled Transactions — AIP-125 and the End of DeFi's Keeper-Bot Racket On 15 April 2025, Aptos Labs engineers Manu Dhundi and Zekun Li opened AIP-125 — Scheduled Transactions.","author":{"@type":"Person","name":"aptos-labs"},"datePublished":"2026-04-20T00:00:00.000Z","url":"https://aptos-intelligence.vercel.app/reports/scheduled-transactions-deep-dive","mainEntityOfPage":"https://aptos-intelligence.vercel.app/reports/scheduled-transactions-deep-dive","publisher":{"@type":"Organization","name":"Aptos Intelligence"},"keywords":"scheduled-transactions, aip-125, automation, move, keeper-networks"}</script>
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #1a1a1a; --surface-alt: #242424;
+    --text: #f5f5f5; --text-muted: #c7c7c7; --text-faint: #8f8f8f;
+    --border: #303030; --border-muted: #3f3f46; --accent: #ff6243;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { line-height: 1.65; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { opacity: 0.85; }
+  code { font-family: 'JetBrains Mono', Menlo, monospace; font-size: 0.88em; background: var(--surface-alt); color: var(--accent); padding: 0.15em 0.4em; border: 1px solid var(--border-muted); border-radius: 3px; }
+  pre { background: #0d1117; color: #e6edf3; padding: 1.2em; overflow-x: auto; font-size: 12px; line-height: 1.7; border: 1px solid var(--border); border-radius: 6px; margin: 1.5em 0; }
+  pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+  blockquote { border-left: 3px solid var(--accent); padding-left: 1.2em; margin: 1.5em 0; color: var(--text-muted); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 13px; }
+  th { text-align: left; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--text-faint); padding: 0.6em 0.7em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6em 0.7em; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin: 2em 0 0.75em; }
+  h1 { font-size: 32px; letter-spacing: -0.02em; margin-top: 0.4em; }
+  h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 0.4em; }
+  h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  h4 { font-size: 14px; }
+  ul, ol { padding-left: 1.5em; }
+  li { margin: 0.4em 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.top { border-bottom: 1px solid var(--border); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  header.top a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .meta { color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 2em; display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 2px; font-size: 10px; color: var(--text-muted); margin-right: 6px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 3em 0; }
+  .eli5 { background: var(--surface); border-left: 3px solid var(--accent); padding: 1em 1.4em; border-radius: 4px; }
+  footer.bottom { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 12px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 48px; }
+  .related a { display: inline-block; margin-right: 12px; margin-bottom: 8px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; font-size: 12px; text-decoration: none; color: var(--text-muted); }
+  .related a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/">← Aptos Intelligence</a>
+  <span style="color: var(--text-faint)">Deep Dive</span>
+</header>
+<main class="container">
+  <article>
+    <h1>Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks</h1>
+    <div class="meta">
+      <span>By aptos-labs</span>
+      <span>Apr 19, 2026</span>
+      <span>Feature Progress</span>
+      <span>Importance 9/10</span>
+      <span><a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md" rel="noopener">Source</a></span>
+    </div>
+    <div style="margin-bottom: 2em;"><span class="tag">scheduled-transactions</span><span class="tag">aip-125</span><span class="tag">automation</span><span class="tag">move</span><span class="tag">keeper-networks</span></div>
+
+    <h2>Scheduled Transactions — AIP-125 and the End of DeFi's Keeper-Bot Racket</h2>
+
+<p>On 15 April 2025, Aptos Labs engineers Manu Dhundi and Zekun Li opened <a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md">AIP-125 — Scheduled Transactions</a>. The proposal is deceptively short — about 15KB of markdown — but the primitive it introduces has been absent from every major L1 since Ethereum's launch in 2015. <strong>Native, trustless, validator-run transaction scheduling.</strong> No keeper bot. No Chainlink Automation subscription. No Gelato relayer. No private-key custody by a third party. You write a Move function, hand it a timestamp, and the validator set executes it for you at the scheduled millisecond.</p>
+
+<p>This report takes the AIP apart and reassembles it in full context. We walk through the exact Move types in the draft, the four hard engineering problems scheduled transactions have to solve on a BFT chain, the five-part PR series (<code>#16346</code>, <code>#17181</code>, <code>#17252</code>, <code>#17341</code>, <code>#17363</code>, <code>#16962</code>) that implements it, and how the feature composes with the rest of the Aptos stack — <a href="/reports/prefix-consensus-deep-dive">Prefix Consensus</a>, <a href="/reports/shardines-deep-dive">Shardines</a>, Block-STM v2, the encrypted mempool, and <a href="/reports/confidential-assets-deep-dive">Confidential Assets</a>. By the end, you should understand why this is a sleeper feature that removes the single largest operational-centralization attack surface in DeFi.</p>
+
+<h3>What AIP-125 Actually Is</h3>
+
+<p>The AIP's summary sentence is the cleanest starting point: <em>"This AIP introduces scheduled transactions, enabling users to specify transactions that will be executed automatically when certain conditions are met, such as a specific time."</em> The v1 scope is narrow and deliberate — <strong>time-based triggers only</strong>. Event-driven triggers are explicitly deferred to a future AIP, as is privacy, retry-on-failure, future-gas-market pricing, and deterministic slicing of long-running computations.</p>
+
+<p>Concretely, a scheduled transaction in the draft is a Move struct:</p>
+
+<pre><code>struct ScheduledTransaction has copy, drop, store {
+    // 32 bytes
+    sender_addr: address,
+    // UTC timestamp in milliseconds
+    scheduled_time_ms: u64,
+    // Maximum gas to spend for this transaction
+    max_gas_amount: u64,
+    // Charged at lesser of {max_gas_unit_price, max gas price other than
+    // this in the block executed}
+    max_gas_unit_price: u64,
+    // Option to pass a signer to the function
+    pass_signer: bool,
+    // Variables captured in the closure; optionally a signer is passed;
+    // no return value
+    f: ScheduledFunction
+}
+
+enum ScheduledFunction has copy, store, drop {
+    V1(|Option&lt;signer&gt;| has copy + store + drop),
+}</code></pre>
+
+<p>Two things jump out. First, <code>f</code> is a <strong>first-class function value</strong> — a Move closure with captured variables. This is the reason AIP-125 lists AIP-112 (Function Values in the Move VM) as a hard dependency. Without function values, you would have to pass a <code>(module_address, module_name, function_name, bcs_args)</code> tuple and have the dispatcher resolve it at execution time — doable, but it leaks the V1-versioning surface into every call site. With function values, the closure is just a value; the dispatcher calls it with an optional signer and the captured environment goes along for free.</p>
+
+<p>Second, the payment model is pre-pay plus <em>second-price-like</em> clearing. The user deposits <code>max_gas_amount × max_gas_unit_price</code> APT at schedule time. At execution time, the system charges <code>min(max_gas_unit_price, max_other_gas_unit_price_in_block)</code> — the lesser of the cap the user set and the highest gas price paid by any <em>other</em> transaction in the executed block. Any delta between deposit and actual charge is refunded in the epilogue.</p>
+
+<p>This is a design choice worth pausing on. A first-price rule would mean: whatever you committed to pay, you pay. That invites overbidding — users ratchet up the price to guarantee inclusion, and the marginal cost of scheduling diverges. A pure second-price rule would mean: you pay whatever the next-highest bidder pays. That is what Ethereum-style 1559 priority fees effectively do for user transactions. The AIP-125 rule is a hybrid: capped first-price. You never pay more than your max, you never pay more than the highest competing gas price in the same block. It is MEV-resistant against overpayment and still gives the validator set an incentive to include higher-gas scheduled txns first when the 100-per-block cap bites.</p>
+
+<h3>The Problem Scheduled Transactions Solve</h3>
+
+<p>Zoom out from the Move types. The economic question is: <em>why does every serious DeFi protocol today pay someone to run a bot?</em></p>
+
+<p>Look at any major DeFi primitive and you find an off-chain keeper:</p>
+
+<ul>
+<li><strong>Lending liquidations</strong> — Aave, Compound, Morpho. A position goes underwater, a bot must call <code>liquidate()</code> within seconds or the protocol eats bad debt. Chainlink Keepers, Gelato, and private MEV searchers run these.</li>
+<li><strong>Perpetual funding-rate updates</strong> — GMX, dYdX, Hyperliquid. Funding rates tick every hour; if no one calls the update, traders pay stale rates.</li>
+<li><strong>TWAP and limit orders</strong> — 1inch Limit Order Protocol, CoW Swap, UniswapX. An order must be picked up and executed by a relayer.</li>
+<li><strong>Vesting and payroll</strong> — Sablier, Superfluid. A cliff unlock at timestamp <em>T</em> requires a human (or a bot paid by a human) to call <code>claim()</code>.</li>
+<li><strong>Oracle heartbeat updates</strong> — every price feed you have ever used has a keeper calling <code>updatePrice()</code> every N minutes so the feed does not go stale.</li>
+<li><strong>Auto-compounding vaults</strong> — Yearn, Beefy. Someone has to call <code>harvest()</code> to roll yield back into the principal.</li>
+</ul>
+
+<p>The operational-surface cost of this is enormous. Chainlink Automation's 2024 revenue was reported at north of $30M. Gelato's relayer network processed over 50M transactions. These are not small numbers — and they represent a tax on every DeFi user that exists <em>only because the underlying chain cannot schedule itself</em>.</p>
+
+<p>But the dollar cost is the smaller problem. The real problem is the failure modes:</p>
+
+<ul>
+<li><strong>Centralization.</strong> When Chainlink Automation went down briefly in 2023, a wave of lending positions in secondary protocols went unliquidated. A handful of keeper networks became load-bearing on the health of hundreds of DeFi protocols.</li>
+<li><strong>Key custody.</strong> To give a keeper network permission to call your function, you either (a) use a permissionless callback that anyone can invoke (then you need an economic incentive, which means you build a tip market, which means you build a second protocol), or (b) you grant a specific signer cap to the keeper. Option (b) means your users' capital is only as secure as the keeper's opsec.</li>
+<li><strong>MEV capture.</strong> A liquidator sees the underwater position and races to liquidate. The profit margin becomes a Dutch auction in priority fees. This is value that users originally locked up as collateral and is now paid to whoever wins the gas war — not to the protocol, not to the users.</li>
+<li><strong>Latency variance.</strong> Your vesting cliff unlocks at UTC 09:00. The keeper gets around to calling <code>claim()</code> at 09:00:23.4 — because that is when its cron tick fires. Your auto-pay subscription runs late because the payment bot had a connection hiccup.</li>
+<li><strong>Composability breaks.</strong> You cannot write <code>"when block N arrives, atomically call my function"</code> inside Move because Move does not have a time-triggered entry point. So you build an adapter contract, pay a keeper to poke it, and pray.</li>
+</ul>
+
+<p>Native scheduled transactions collapse all of this. The validator set, which is already processing every transaction anyway, also looks at a sorted queue of scheduled txns at the start of every block and pre-pends the ready ones to the execution pipeline. No tip market. No keeper. No key custody. No latency variance beyond block time. No MEV on the trigger itself (though MEV on the scheduled payload is a separate question we revisit below).</p>
+
+<blockquote>"This is a new feature that provides composability across time. It creates a foundation for more advanced onchain flows like delayed payments, subscriptions, time shifted computations, recurring tasks, async programming patterns, and mission-critical operations that demand sub-millisecond precision — all executed within the deterministic environment of the Aptos blockchain." — <em>AIP-125, Impact section.</em></blockquote>
+
+<h3>The Four Hard Problems</h3>
+
+<p>A native scheduler on a BFT chain is not just "add a cron table to the validator." There are four concrete engineering problems that have killed prior attempts on other chains.</p>
+
+<h4>Problem 1 — Storage pressure</h4>
+
+<p>Scheduled transactions live on-chain indefinitely. If the API is free, an adversary schedules a billion tiny txns and the state Merkle tree bloats. The fix is a paid queue, and the AIP handles this elegantly: users deposit the <em>full</em> gas budget (max_gas_amount × max_gas_unit_price) up front. That deposit goes into a framework-reserved fungible asset store at address <code>@0xb</code>. The AIP pins this choice:</p>
+
+<pre><code>// Create owner account for handling deposits
+let owner_addr = @0xb;
+let (owner_signer, owner_cap) =
+    account::create_framework_reserved_account(owner_addr);
+
+// Initialize fungible store for the owner
+let metadata = ensure_paired_metadata&lt;AptosCoin&gt;();
+primary_fungible_store::ensure_primary_store_exists(
+    signer::address_of(&amp;owner_signer), metadata
+);
+
+struct GasFeeDepositStoreSignerCap has key {
+    cap: account::SignerCapability
+}</code></pre>
+
+<p>The economics: scheduling a 10-million-gas transaction at 100 gas-units-per-second costs you 1B gas-units' worth of APT locked up. At current mainnet pricing (~100 octas per unit of gas), that is on the order of 10 APT pre-locked per scheduled txn. Scheduling a billion of those would require ten billion APT — roughly ten times the circulating supply. Spam becomes un-affordable by construction.</p>
+
+<p>Even better: unused deposit is refunded in the epilogue. If your scheduled function ends up consuming only 100,000 gas out of a 10,000,000 budget, you get 99% of your deposit back after execution. The deposit is a <em>hold</em>, not a fee — which makes the UX match credit-card authorizations rather than pre-paid gift cards.</p>
+
+<p>There is still a second-order storage question: what about the queue itself? The AIP chooses a <code>BigOrderedMap</code>:</p>
+
+<pre><code>struct ScheduleQueue has key {
+    // key_size = 48 bytes; value_size = key_size + object ref size = 80 bytes
+    schedule_map: BigOrderedMap&lt;ScheduleMapKey, ScheduledTransaction&gt;,
+}</code></pre>
+
+<p><code>BigOrderedMap</code> is Aptos's paginated on-disk ordered map — it stores keys in chunks (leaf nodes of a B-tree-like structure) so that insertion, lookup, and ordered iteration all amortize to <em>O(log n)</em> without materializing the full map in memory for any single transaction. The choice matters: if the queue were a flat Move vector, every insert would be linear, and the state footprint per operation would scale with the queue size. With a BigOrderedMap, "what are the next 100 txns due?" is an in-order range scan of one B-tree branch — cheap in both gas and I/O.</p>
+
+<h4>Problem 2 — Gas at scheduling time vs. execution time</h4>
+
+<p>Let's say you schedule a transaction in March 2026 to execute in March 2027. Gas prices will change. The protocol cannot force the user to guess the gas market twelve months out. And it cannot let the user pay "whatever is market at execution time" — that breaks the pre-funding guarantee.</p>
+
+<p>The AIP's solution is the <code>max_gas_unit_price</code> ceiling with a second-price clearing rule:</p>
+
+<blockquote>"When a scheduled transaction is executed successfully, the actual gas fee is computed and deducted from the deposit. Since it is impractical for users to predict the optimal gas price in advance, they provide a max_gas_unit_price. The system uses the lesser of this maximum and the highest gas price of any transaction in the block, ensuring fairly prioritized inclusion without excessive overpayment."</blockquote>
+
+<p>Read carefully: the price charged is <em>min</em>(user's max, highest <em>other</em> gas price in the block). This is a clever reformulation of a Vickrey auction for a single inclusion slot. The user's "bid" is the max they'll pay. The "market price" is set by the highest competing gas bid in the block they land in. If no one else is bidding aggressively, the user pays close to the base fee. If the block is hot, the user pays up to their cap — but never more.</p>
+
+<p>Corner cases the AIP acknowledges in the Risks section:</p>
+
+<ul>
+<li><strong>Cap too low.</strong> If the user's <code>max_gas_unit_price</code> is below the 100-txn-per-block clearing price, the scheduled txn is not selected, gets retried for ~100 blocks (~10 seconds of retries), then expires. The deposit is refunded. The user pays zero and gets nothing.</li>
+<li><strong>Cap too high.</strong> Over-depositing ties up capital but does not cost the user more than the clearing price. Gas market volatility is real, but because of the second-price-like rule, over-bidding is strictly safe for the user. It only costs them the opportunity cost on locked APT.</li>
+<li><strong>Balance-gone scenario.</strong> This is elided because the full deposit is held at schedule time. There is no "my balance is gone when the txn fires" problem — the balance was already moved into <code>@0xb</code>'s fungible store.</li>
+</ul>
+
+<h4>Problem 3 — Determinism and ordering</h4>
+
+<p>This is the deepest problem. At block <em>N</em>, a hundred scheduled txns become eligible at the same millisecond. In what order does the VM run them? And how does that order compose with the user-submitted transactions that also want to land in block <em>N</em>?</p>
+
+<p>The AIP answers with a triple-sort composite key:</p>
+
+<pre><code>// First sorted ascending by time, then by gas priority, then by txn_id.
+// gas_priority = U64_MAX - gas_unit_price so higher price sorts first.
+// txn_id = sha3_256(bcs::to_bytes(&amp;txn))
+struct ScheduleMapKey has copy, drop, store {
+    time: u64,         // UTC ms
+    gas_priority: u64, // U64_MAX - gas_unit_price
+    txn_id: vector&lt;u8&gt;  // SHA3-256 of the BCS-serialized txn
+}</code></pre>
+
+<p>Three levels of tie-breaking:</p>
+
+<ol>
+<li><strong>Time (ascending).</strong> Earliest scheduled_time_ms first. This is the natural ordering — older scheduled work runs before newer.</li>
+<li><strong>Gas priority (higher gas_unit_price first).</strong> Among txns scheduled at the same millisecond, highest gas bid wins inclusion priority.</li>
+<li><strong>txn_id (SHA3-256 of BCS).</strong> Deterministic tie-breaker among txns with identical time <em>and</em> gas price. Because the hash is of the full serialized txn, two structurally different txns essentially never collide on this dimension.</li>
+</ol>
+
+<p>The cap: "The framework establishes <code>GET_READY_TRANSACTIONS_LIMIT</code> as the maximum number of scheduled transactions permitted per block." In the draft the constant is 100. The AIP's perf testing target in the Testing section confirms the design intent: <em>"We must be able to process atleast 100 (perhaps upto 1000) scheduled txns per block without slowing down the block."</em></p>
+
+<p>Where the scheduled txns land inside the block matters. Here the AIP integrates with <a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-068-use-case-aware-block-reordering.md">AIP-68 (Use-Case-Aware Block Reordering)</a>, which is already live. User txns are first shuffled by a use-case-aware reordering algorithm (designed to minimize write conflicts for Block-STM parallelism). Then scheduled txns are <em>inserted into the reordered sequence at positions determined by their gas priority</em>. The scheduler does not run as a separate "pre-block" — it interleaves.</p>
+
+<pre><code>Naive view (wrong):
+  [scheduled_1, scheduled_2, ..., scheduled_100] || [user_1, user_2, ..., user_K]
+
+AIP-125 reality:
+  reorder(user_txns) = [u'_1, u'_2, ..., u'_K]
+  Then insert scheduled txns by gas priority:
+  [u'_1, s_1_hi_gas, u'_2, u'_3, s_2, u'_4, ..., s_100, u'_K]
+  (insertion positions chosen so scheduled txn gas prices fit the block's gas-price gradient)</code></pre>
+
+<p>Why interleave? Because scheduled txns have <em>real</em> gas bids competing with user txns. Running every scheduled txn before every user txn would let low-bid scheduled txns beat high-bid user txns for inclusion — that is a latent MEV opportunity. Interleaving by gas price keeps the block-level inclusion order monotonic in gas price across both cohorts.</p>
+
+<p>One subtle consequence: a user sending an urgent user txn at time <em>T</em> may actually execute <em>after</em> some scheduled txns that fired at <em>T − ε</em> with a higher gas price. That is the correct outcome — the scheduled txn effectively waited in a queue for its slot, paid the price to reserve it, and that reservation is honored.</p>
+
+<h4>Problem 4 — Removing executed transactions</h4>
+
+<p>This one looks trivial but has a nasty interaction with Block-STM. If every scheduled txn removed itself from the <code>ScheduleQueue</code> as its last step, every scheduled txn would write to the same resource (the <code>BigOrderedMap</code>). Block-STM detects write conflicts optimistically and re-executes conflicting transactions serially. A block with 100 scheduled txns would have 100 writes to <code>schedule_map</code> — almost every pair conflicts on <em>some</em> B-tree internal node — and the block's parallelism collapses.</p>
+
+<p>The AIP's answer is a two-phase deletion pattern:</p>
+
+<blockquote>"Executed transactions do not remove themselves from the ScheduleQueue to prevent multiple transactions conflicting on the queue and thereby reducing the block throughput. Instead, they are placed in a parallelized removal table, with actual deletion occurring during the execution of next block's prologue transaction."</blockquote>
+
+<p>Mechanically:</p>
+
+<ul>
+<li>In block <em>N</em>, each scheduled txn is selected for execution, executed, and on success inserts its key into a <strong>parallelized removal table</strong>. This is a data structure explicitly designed for concurrent insertion without cross-transaction conflicts (think: sharded log, per-sender bucket, or append-only table).</li>
+<li>In block <em>N+1</em>'s <strong>prologue transaction</strong>, which runs as a single serial step before the block's parallel user-txn execution begins, the removal table's contents are drained and the corresponding entries are deleted from the <code>ScheduleQueue</code> BigOrderedMap.</li>
+<li>A second consequence: <code>get_ready_transactions()</code> must be told to <em>skip</em> txns already in the removal table — i.e. the "not yet removed but already executed" ones from block <em>N</em>. This is a straightforward set-difference at selection time.</li>
+</ul>
+
+<p>The design pattern is recognizable: it is the same trick as the Aggregator delayed-field pattern. Rather than serializing on a shared resource, each txn writes to its own slot and the reconciliation happens out-of-band. See our <a href="/reports/aggregator-nft-deep-dive">Aggregators and Delta-based counters deep dive</a> for the generalized version of this pattern.</p>
+
+<h3>The Move API in Full</h3>
+
+<p>AIP-125 gives us a minimal but complete set of public entry points. Here is the draft API reproduced from the AIP verbatim, plus annotations on what each function does and why it is shaped that way.</p>
+
+<pre><code>// Insert a scheduled transaction into the queue.
+// ScheduleMapKey is returned to the user — it's the handle used to cancel.
+public fun insert(sender: &amp;signer, txn: ScheduledTransaction): ScheduleMapKey;
+
+// Cancel a scheduled transaction. Must be called by the same signer that
+// scheduled it (the AIP pins this with a permission check on sender_handle).
+public fun cancel(sender: &amp;signer, key: ScheduleMapKey);
+
+// (Internal / runtime) Retrieve transactions ready to execute at timestamp_ms.
+fun get_ready_transactions(timestamp_ms: u64): vector&lt;ScheduledTransactionInfoWithKey&gt;;</code></pre>
+
+<p>Notice what the API does not include:</p>
+
+<ul>
+<li>There is no <code>schedule_every(period_secs, ...)</code> primitive. Recurrence is implemented by the scheduled function itself calling <code>insert()</code> at the end of its body to schedule its next run. The AIP explicitly calls out this pattern: <em>"The transaction can also schedule a subsequent execution at a future interval to enable async or recurring operations."</em> This keeps the runtime's queue data model one-shot; recurrence is a user-space composition on top.</li>
+<li>There is no <code>schedule_on_event()</code>. Event-driven triggers are deferred. The AIP Future Potential section lists them as a subsequent AIP.</li>
+<li>There is no <code>update(key, new_txn)</code>. Modifying a scheduled txn means cancel + re-insert. Simpler state machine, fewer edge cases around in-flight modifications.</li>
+</ul>
+
+<p>The <code>pass_signer: bool</code> field deserves a closer look. When true, the scheduler passes <code>Some(signer)</code> for <code>sender_addr</code> to the closure; when false, it passes <code>None</code>. Why is this opt-in?</p>
+
+<p>Because handing out a signer for an account is the most dangerous permission in Move. If every scheduled txn automatically got a signer for its scheduler, then scheduling a txn would be <em>equivalent to writing a wildcard signer capability into the queue</em>. That defeats the entire Move permission model. Making <code>pass_signer</code> explicit forces the user to acknowledge: "yes, I want this closure to be able to transact as me." It is the Move equivalent of <code>sudo</code>.</p>
+
+<p>The closure itself — <code>|Option&lt;signer&gt;| has copy + store + drop</code> — is a function value with:</p>
+<ul>
+<li><code>copy</code> — can be duplicated (important because the scheduler may need to copy it for gas estimation).</li>
+<li><code>store</code> — can live in on-chain state (required; the queue is global).</li>
+<li><code>drop</code> — can be discarded without explicit destruction (required; canceled/expired txns need to evaporate cleanly).</li>
+</ul>
+
+<p>Enum-versioned with <code>V1(...)</code>: the AIP can introduce V2 closures (e.g., with a <code>Result&lt;(), u64&gt;</code> return for richer failure codes) without breaking every existing scheduled txn in the queue. Forward compatibility built in from day one.</p>
+
+<h3>How It Interacts with Block-STM</h3>
+
+<p>Block-STM is Aptos's optimistic parallel execution engine. It speculatively executes transactions in parallel, tracks reads and writes per txn, and on detecting a conflict, aborts and re-executes the offenders serially until the block is fully consistent. Adding 100 scheduled txns to a block interacts with Block-STM along four axes.</p>
+
+<p><strong>Axis 1 — Write conflicts on the queue itself.</strong> Handled by the parallelized-removal-table pattern described above. The <em>read</em> from <code>ScheduleQueue</code> happens at block proposal time (serial); the <em>writes</em> to remove entries happen in the next block's prologue (also serial). So inside the block, scheduled txns do not compete for the queue resource.</p>
+
+<p><strong>Axis 2 — Gas-fee-deposit resource conflicts.</strong> Every scheduled txn executes, computes its actual gas cost, deducts from the framework-owned fungible store at <code>@0xb</code>, refunds the remainder to the sender's primary fungible store. The <code>@0xb</code> store is touched by every scheduled txn in the block — this is a hotspot. The natural solution is the same trick used for APT gas accounting in regular txns: the deposit store's balance is modeled as an <strong>Aggregator</strong> (delayed field), so concurrent debits do not serialize. See <a href="/reports/aggregator-nft-deep-dive">the Aggregators deep dive</a> for the mechanics; Block-STM v2's delayed-field handling, which Aptos already uses for gas fee accounting, applies directly here.</p>
+
+<p><strong>Axis 3 — Conflicts on the scheduled txn's own payload.</strong> This is purely a function of what the user's closure does. If two scheduled txns both mutate the same oracle price feed, they conflict. Block-STM will serialize them in schedule-key order. If the second one becomes incorrect after the first runs (say, it checks a stale pre-condition), it aborts — and this is the retry-on-failure question the AIP explicitly defers. Per the AIP: "If a scheduled transaction fails during execution, no retry attempts are made. However, we emit a transaction cancellation event with failure code to the user. The user must manually reschedule the transaction."</p>
+
+<p><strong>Axis 4 — Fairness between scheduled and user txns.</strong> Resolved by interleaving scheduled txns into the reordered user-txn stream by gas priority (see Problem 3 above). Scheduled txns do <em>not</em> get unconditional block-front priority — they pay for their priority via the gas market.</p>
+
+<p>The payoff: a block with 100 scheduled txns + 1,900 user txns should run at roughly the same effective parallelism as 2,000 pure user txns. The perf acceptance criterion in the AIP's Testing section pins this explicitly: <em>"Scheduled transactions do not slow down the TPS of regular execution."</em></p>
+
+<h3>How It Interacts with Consensus</h3>
+
+<p>The <a href="/reports/prefix-consensus-deep-dive">Prefix Consensus</a> protocol orders transactions that validators have proposed into their blocks. Scheduled transactions are a new category of input: they are not proposed by any validator — they were inserted into the queue weeks or months ago by an ordinary user's <code>insert()</code> call and have been sitting in on-chain state since then.</p>
+
+<p>The question is: when the block pipeline at height <em>N</em> wakes up and the wall-clock is past the scheduled_time_ms of 100 queued txns, how do those txns enter the block?</p>
+
+<p>The AIP is explicit about the phase: <em>"Scheduled transactions are retrieved during the block pipeline's 'execute' stage. However, it must wait for the parent block to complete execution before fetching ready transactions, as the parent block's completion determines the starting point for processing the ScheduleQueue."</em></p>
+
+<p>Sequence:</p>
+
+<ol>
+<li><strong>Consensus orders user txns.</strong> Prefix Consensus produces an ordered list of user-submitted txns for block <em>N</em>. This is content-blind — the consensus layer does not know which of these are scheduled or regular.</li>
+<li><strong>Block pipeline enters the execute phase.</strong> Before executing, the pipeline calls <code>get_ready_transactions(block_timestamp_ms)</code> against the state <em>as of the end of block N-1</em>. This is why the pipeline has to wait for parent-block execution to complete — the queue state it reads from is the post-execution state of N-1 (which reflects any cancellations, insertions, and removals that happened in N-1).</li>
+<li><strong>Interleave scheduled into user txns.</strong> The pipeline merges the scheduled txns into the AIP-68-reordered user txn list by gas priority.</li>
+<li><strong>Execute the merged block via Block-STM.</strong> Scheduled and user txns are executed in the merged order; the parallelism engine does not distinguish them.</li>
+</ol>
+
+<p>The determinism is critical — every validator must produce the same merged order, because Block-STM's output has to match across validators for state-root agreement. And it does, because:</p>
+
+<ul>
+<li>Every validator has the same on-chain <code>ScheduleQueue</code> state (it is on-chain).</li>
+<li>Every validator uses the same <code>timestamp_ms</code> (the block timestamp is agreed via consensus).</li>
+<li>The <code>ScheduleMapKey</code> composite sort is total.</li>
+<li>AIP-68's reordering is deterministic.</li>
+<li>The interleaving rule — "by gas priority" — is deterministic given the two sorted inputs.</li>
+</ul>
+
+<p>There is a subtle censorship-resistance question. A Byzantine validator cannot hide scheduled txns from inclusion, because the queue is on-chain state and every validator reads it. Prefix Consensus's demotion rule (see our Prefix Consensus deep dive) specifically targets proposal-level censorship — and scheduled txns are immune to that, because they are not <em>proposed</em>, they are <em>retrieved</em> from shared state. The worst a Byzantine validator can do is refuse to propose the block at all, and that gets handled by the standard BFT liveness argument (another validator will step in). <strong>Scheduled txns are structurally censorship-resistant in a way regular txns cannot be.</strong></p>
+
+<h3>Reorgs and Scheduled Txn Firing Semantics</h3>
+
+<p>Aptos is non-reorgable under normal operation — Prefix Consensus's SMR gives committed-is-final. But in edge cases (e.g., an operator-driven rollback for a consensus-layer bug), blocks can be retroactively discarded. What happens to scheduled txns that fired in discarded blocks?</p>
+
+<p>The AIP does not directly address this (reorgs are a protocol-level concern, not a framework-level one), but the semantics fall out naturally from the state model:</p>
+
+<ul>
+<li>When block <em>N</em> is discarded, the on-chain state resets to the pre-<em>N</em> state.</li>
+<li>In the pre-<em>N</em> state, scheduled txns that fired in <em>N</em> are still in the <code>ScheduleQueue</code> (because their removal happened in block <em>N+1</em>'s prologue, which is also discarded).</li>
+<li>In the replayed block <em>N'</em>, <code>get_ready_transactions()</code> returns the same set of txns, in the same order.</li>
+<li>They execute again. This is idempotent — the post-state of <em>N'</em> matches <em>N</em>.</li>
+</ul>
+
+<p>The only edge case is if the wall-clock has advanced past the scheduled_time_ms for <em>additional</em> txns between the original <em>N</em> and the replayed <em>N'</em>. Those extra txns would also fire in <em>N'</em>. But this is also the correct behavior — they were queued to fire at a time that has now passed.</p>
+
+<h3>How It Interacts with Gas and Fees</h3>
+
+<p>Aptos's gas model has three moving parts: a base fee (set per-epoch by governance), per-instruction gas costs (fixed), and per-transaction priority gas (set by the user to bid for inclusion). Scheduled txns interact with all three.</p>
+
+<p><strong>Base fee.</strong> Charged the same as any txn. Deducted from the deposit at execution. If the base fee has risen since scheduling, the scheduled txn pays the current base fee, not the base fee at scheduling time. This is consistent with "gas price" being an epoch-level variable — you cannot lock in an out-of-date rate.</p>
+
+<p><strong>Per-instruction costs.</strong> Fixed per VM version; the scheduled txn pays whatever is active at execution time. If the VM has been upgraded between scheduling and execution, per-instruction costs may have changed. The AIP defers this to "best-effort" — your pre-paid gas budget may turn out to be insufficient in an upgraded VM, in which case the txn aborts and (a) you get a <code>TransactionFailedEvent</code> with <code>CancelledTxnCode::Failed</code>, and (b) the deposit is refunded minus the gas actually consumed before the abort.</p>
+
+<p><strong>Priority gas (max_gas_unit_price).</strong> The AIP's key rule: you pay the <em>lesser</em> of your cap and the highest other price in your execution block. See Problem 2 above. This means your effective priority-gas cost is bounded above by your <code>max_gas_unit_price</code> and below by the block's demand level.</p>
+
+<p><strong>Who does the validator reward flow?</strong> The same path as any txn. Fees collected from scheduled txns flow to the fee-distribution module, which rewards the proposer and the validator set per the normal schedule. There is no separate "keeper reward" because there is no separate keeper — the validators <em>are</em> the keepers and are already compensated through block rewards. <strong>This removes the entire extractive middleman layer that keeper networks exist to extract from today.</strong></p>
+
+<p><strong>Refund on cancel.</strong> User calls <code>cancel(key)</code>, the entire deposit is refunded to their primary store. No partial fee, no cancellation penalty. The AIP does not spec a penalty, and the economic argument is strong: cancellation is a net-positive for the chain (fewer queued txns means less state pressure) and punishing it would discourage legitimate use cases like "schedule hourly, cancel if market conditions change."</p>
+
+<p><strong>Refund on expiry.</strong> Txn sits in the queue, never gets included (max_gas_unit_price too low), 100 blocks pass (~10 seconds on Aptos), txn expires. <code>TransactionFailedEvent</code> emitted with <code>CancelledTxnCode::Expired</code>. Deposit refunded. This is a deliberate design choice — without expiry, a txn with an absurdly low gas bid could sit in the queue for weeks consuming state.</p>
+
+<p><strong>Refund on failure.</strong> Txn executes, aborts during execution. Per the AIP: <em>"Transaction failed to execute"</em> event with <code>CancelledTxnCode::Failed</code>. The gas actually consumed up to the abort is charged; the remainder is refunded. The user must re-schedule manually — no auto-retry.</p>
+
+<h3>Event-Driven Triggers — Deferred to a Future AIP (but Let's Walk Through It Anyway)</h3>
+
+<p>AIP-125 is explicit that event-driven triggers are <em>not</em> in v1. But the AIP's Future Potential section keeps them first on the list. Since the feature is the natural composition with the time-based scheduler, we walk through how it would work — this is forward-looking speculation, not AIP text.</p>
+
+<p>The core data structure needed is a <strong>reverse event index</strong>: for every <em>event type</em> the chain can emit, a subscription list of <code>(scheduled_txn_closure, filter)</code> pairs. When the VM emits an event, it looks up the subscription list and fires matching callbacks.</p>
+
+<p>The design tension is index cost. Every event emission has to look up its subscriber list. If the lookup is <em>O(1)</em> (hash map by event type), the index is fast but state-bloat-prone (you pay to store the subscription forever). If the lookup is <em>O(log n)</em> (BigOrderedMap by event type), subscriptions are cheaper to store but lookup is marginally slower per emission.</p>
+
+<p>A plausible Move API for a v2 AIP:</p>
+
+<pre><code>public fun schedule_on_event&lt;T: store&gt;(
+    sender: &amp;signer,
+    event_handle: EventHandle&lt;T&gt;,
+    filter: EventFilter,
+    handler: |Option&lt;signer&gt;, T| has copy + store + drop,
+    max_gas_amount: u64,
+    max_gas_unit_price: u64,
+): EventSubscriptionKey;</code></pre>
+
+<p>Key differences from time-based:</p>
+
+<ul>
+<li>The handler takes the emitted event as an argument. The VM must pass the event payload into the closure — this is straightforward given function values.</li>
+<li>The filter is a predicate over the event payload. Common cases: "event's <code>amount</code> field &gt; threshold", "event's <code>token</code> field == specific address". Filter evaluation has to be bounded (fixed-gas predicate language) to prevent a hostile filter from DoS-ing event emission.</li>
+<li>The max_gas + max_gas_unit_price is still pre-paid — but how much? A subscription might match zero events or ten thousand. The natural answer is <em>per-event deposit</em>: the subscription has a balance, each matching event deducts the gas budget, when the balance is empty the subscription is deactivated (not deleted — the owner can top it back up).</li>
+</ul>
+
+<p>Cost per emission (estimated):</p>
+
+<pre><code>O(lookup) + O(filter_eval) + O(match_count × handler_schedule)
+  = O(log |event_types|) + O(|filter|) + O(k × 1)
+
+  where k = number of matching subscriptions for this emission</code></pre>
+
+<p>For an event type with no subscribers, the overhead is a single BigOrderedMap lookup — microseconds of VM time, a few units of gas. For a hot event type with thousands of subscribers, the emission cost scales linearly in subscribers. The AIP-in-spirit would need a rate-limit or a per-subscription deposit that scales with subscription cost to prevent an adversary from ("spam a hot event type with cheap subscriptions to bloat its cost").</p>
+
+<p><strong>Storage bloat attack vector.</strong> An adversary subscribes to a common event type (say, <code>0x1::coin::CoinTransfer</code>) with one million throwaway subscriptions. Every transfer on the chain now does a million-entry lookup. Mitigation: bound the per-event subscriber count (e.g., max 1000 subscribers per event type, FIFO eviction), or charge super-linear gas for subscription insertion beyond a threshold.</p>
+
+<p>The reason AIP-125 v1 doesn't ship event triggers is precisely that the bloat-attack analysis is non-trivial and the team wanted to ship time-based cleanly first. It is the right call. But the path to event triggers is clear and the scheduler's data model is already compatible with it — a v2 AIP would extend <code>ScheduledFunction</code> to include event-scope variants and <code>ScheduleMapKey</code> would grow a new variant keyed by event-type-and-sequence-number.</p>
+
+<h3>Security and Abuse Vectors</h3>
+
+<p>Any primitive that lets a function run later without the owner's attention is an attack surface. Walk through the known concerns.</p>
+
+<h4>Infinite schedule loop</h4>
+
+<p>A scheduled function calls <code>insert()</code> at the end of its body to re-schedule itself. If it does this with no termination condition, the queue grows by one entry every execution, forever. At some point the owner's deposit runs out and expiry kicks in — but in the meantime the owner has leaked capital.</p>
+
+<p><strong>Mitigation.</strong> Per-insert deposit is the economic cap. The loop terminates automatically when the owner's APT is gone. The user code can add explicit recursion limits (a counter captured in the closure). The framework could also add a <code>max_chain_depth</code> in a future AIP, though v1 does not.</p>
+
+<h4>Reentrancy via scheduled txn</h4>
+
+<p>A function that both (a) invokes some protocol X and (b) schedules a follow-up call to X could create reentrancy patterns that the protocol author did not anticipate. Example: a flash-loan-style protocol that relied on "no two borrows in the same block from the same address" — a scheduled txn that triggers at the same block breaks that invariant.</p>
+
+<p><strong>Mitigation.</strong> Scheduled txns execute in <em>different</em> Block-STM slots than the scheduling txn. The scheduling txn and the scheduled txn are not atomic with each other. Classic Move reentrancy protections (write locks via signer caps, ownership-style access) continue to apply. Move's resource model makes this much easier to reason about than Solidity's — a resource is either in a given account or it isn't; there is no "in the middle of a call" state.</p>
+
+<h4>Storage-bloat attack on the queue</h4>
+
+<p>Schedule a million txns with the smallest-possible payload at wildly-future timestamps. Storage pressure grows with queue size.</p>
+
+<p><strong>Mitigation.</strong> Per-schedule deposit is the cap. Scheduling a million txns requires a million × min-gas worth of APT locked up. At Aptos's current base fee, that's economically prohibitive. In the AIP's draft implementation, the 48-byte key + 80-byte value per entry means a million-entry queue is 128MB of on-chain state — real but bounded. The <code>BigOrderedMap</code> paginates cleanly so VM operations remain O(log n).</p>
+
+<h4>Cross-module permission escalation</h4>
+
+<p>If a module holds a <code>SignerCapability</code> for some important resource-account, and that module exposes a <code>schedule_via_cap()</code> helper that passes the cap's signer to a user-supplied closure, the user can schedule arbitrary code that runs <em>with the cap's signer</em>. This is a well-known Move anti-pattern, not specific to scheduled txns — but the scheduler makes it an easier mistake to make.</p>
+
+<p><strong>Mitigation.</strong> The AIP's <code>pass_signer: bool</code> is per-scheduled-txn, set by whoever calls <code>insert()</code>. The closure captures whatever signers it wanted captured at the time of insert. The scheduler does not add privileges the caller didn't already have. The vulnerability, if any, is in a module that exposes a <code>SignerCapability</code>-returning helper — Move's permission lint and code-review practice already catch this.</p>
+
+<h4>MEV on scheduled payload</h4>
+
+<p>Even though the scheduled <em>trigger</em> can't be front-run (there is no keeper race), the scheduled <em>payload</em> is still visible in on-chain state from the moment of scheduling. A liquidation scheduled for block <em>N</em> is public at block <em>N-1000</em> — every MEV searcher can see it and plan around it.</p>
+
+<p><strong>Mitigation.</strong> The AIP explicitly lists this in the Privacy section as out-of-scope for v1: <em>"Scheduled transactions will be stored on-chain, and thus visible publicly. Providing privacy for them is out of scope. Users should expect transactions to be publicly accessible, and should not store sensitive information."</em> A future AIP composing scheduled txns with the encrypted mempool (BIBE) could give private scheduled txns — but requires a threshold decryption at scheduled_time_ms, which is a non-trivial cryptographic dance. See the "Composition with Encrypted Mempool" section below.</p>
+
+<h4>Shutdown and kill-switch</h4>
+
+<p>The AIP bakes in a controlled shutdown mechanism via the <code>ShutdownEvent</code> and <code>CancelledTxnCode::Shutdown</code> variant. If a critical bug is discovered in the scheduler, governance can pause the feature, refund all pending deposits, and ship a fix. This is the right posture for a v1 feature of this scope — ability to shut it off without losing user funds.</p>
+
+<pre><code>enum CancelledTxnCode has drop, store {
+    Shutdown,  // scheduling service is stopped
+    Expired,   // transaction wasn't included before expiry window
+    Failed,    // transaction failed to execute
+}
+
+#[event]
+struct TransactionFailedEvent has drop, store {
+    key: ScheduleMapKey,
+    sender_addr: address,
+    cancelled_txn_code: CancelledTxnCode,
+}
+
+#[event]
+struct ShutdownEvent has drop, store {
+    complete: bool,
+}</code></pre>
+
+<p>The <code>complete</code> flag on <code>ShutdownEvent</code> indicates whether the shutdown successfully drained all pending scheduled txns. This matters for governance — a shutdown that halves-through leaves unrefunded deposits.</p>
+
+<h3>Comparison to Other Chains</h3>
+
+<p>The right way to assess AIP-125 is next to what other chains have actually shipped. This is a crowded space of good-faith but failed attempts.</p>
+
+<table>
+<tr><th>Chain</th><th>Native Scheduling?</th><th>Mechanism</th><th>Status</th></tr>
+<tr><td>Ethereum L1</td><td>No</td><td>None at protocol level. Third-party keepers: Chainlink Automation, Gelato, OpenZeppelin Defender.</td><td>Keeper networks are load-bearing. Protocol-level scheduling has been discussed since 2016 (EIP-1077 account abstraction gestures at it) but never shipped.</td></tr>
+<tr><td>Solana</td><td>No</td><td>Clockwork Network was the most serious attempt — a third-party protocol providing scheduled-txn primitives via a network of worker nodes.</td><td>Clockwork defunct since 2023. Shutdown cited economic unsustainability. There is no successor.</td></tr>
+<tr><td>Cosmos chains</td><td>Partial (validator-only)</td><td>BeginBlocker and EndBlocker hooks — modules can register code that runs once per block. Not user-schedulable; they require a chain upgrade to add or modify.</td><td>Live on most Cosmos chains. Adequate for protocol-level cron (inflation, slashing) but unusable as a user feature.</td></tr>
+<tr><td>Monad</td><td>Proposed</td><td>Roadmap hints at scheduled-txn support via "time-based triggers"; no AIP-equivalent published.</td><td>Not shipped as of April 2026.</td></tr>
+<tr><td>Sui</td><td>No</td><td>Object-centric model makes this architecturally harder — no natural "global queue" resource. Move wrapped objects could approximate it but require a keeper.</td><td>No feature announced.</td></tr>
+<tr><td>NEAR</td><td>Limited</td><td>Cross-contract callbacks allow "call me back after my dependency resolves" but not wall-clock scheduling. No deposit model.</td><td>Live but not a general scheduler.</td></tr>
+<tr><td>Near Protocol / Polkadot / Fuel</td><td>No native feature</td><td>Rely on third-party keepers or cron-like account-abstraction wallets.</td><td>Keeper-dependent.</td></tr>
+<tr><td><strong>Aptos (AIP-125)</strong></td><td><strong>Yes (v1 time-based)</strong></td><td><strong>On-chain ordered queue, validator-executed, pre-paid deposit, second-price-like gas clearing.</strong></td><td><strong>Draft. Reference PR #16346. 5-part implementation series in progress.</strong></td></tr>
+</table>
+
+<p>Clockwork's failure is the most instructive data point. It was a good-faith decentralized keeper network built on Solana — technically sound, adequately funded, with real users. It shut down because the economics don't work: a third-party keeper needs to earn enough per invocation to cover its infrastructure cost <em>and</em> provide a staking-level security margin. That cost lands on top of whatever the user is doing. For a daily auto-compound of a 5% APY vault, the keeper fee often exceeds the yield. The economics only work for high-value automation.</p>
+
+<p>Native scheduling breaks the floor: the validator is already there, already running, already paid by block rewards. The marginal cost of adding a scheduled txn to its workload is a few microseconds of CPU. The user pays the standard gas rate — no keeper markup. <strong>This is the feature that makes on-chain micro-scheduling economically viable for the first time.</strong></p>
+
+<h3>Use Cases Unlocked</h3>
+
+<p>Concrete applications that were either impossible or prohibitively expensive before AIP-125.</p>
+
+<p><strong>Recurring on-chain payments and subscriptions.</strong> Alice pays Bob 100 USDC every month for six months. She schedules six txns at +30d, +60d, +90d, +120d, +150d, +180d. Total upfront cost: six deposits + one-time scheduling fee. No keeper fee per payment. No bot needed. If Alice cancels after month three, the remaining three deposits are refunded.</p>
+
+<p><strong>Auto-liquidation without a keeper race.</strong> A lending protocol monitors position health. Instead of relying on an external bot to call <code>liquidate()</code>, it schedules a self-liquidation check to run at regular intervals — e.g., every block. The check runs, reads the oracle price, and liquidates if the position is underwater. No external keeper, no gas auction, no MEV extraction on the liquidation itself.</p>
+
+<p><strong>Vesting cliffs and payroll.</strong> A DAO pays its contributors monthly. At project start, it schedules 12 payment txns — one per month for the year. No ongoing bot. No "oh the treasury forgot to pay us" incident. If a contributor departs, the DAO cancels their remaining payments.</p>
+
+<p><strong>NFT airdrops at specific blocks.</strong> A project wants to airdrop at block <em>N</em>. It schedules the airdrop txn, capped at <em>N</em>'s expected timestamp. Airdrop fires exactly at the planned moment. No "did our bot miss the drop?" scenario.</p>
+
+<p><strong>DEX TWAP and rebalancing.</strong> A DEX schedules a <code>rebalance()</code> every hour. An aggregator (1inch, CoWSwap) schedules chunked execution of a large order over several hours to minimize market impact. Both are today done by keepers; AIP-125 lets them run natively.</p>
+
+<p><strong>Limit orders and stop-losses.</strong> A trader submits "sell 100 ETH if price &lt; $3000, before 2027-01-01". Implemented as a scheduled txn that fires every block until the condition is met or the deadline passes. Today this requires a relayer (think 1inch LOP or UniswapX); natively it's a closure in the scheduled queue.</p>
+
+<p><strong>Gaming tick-based mechanics.</strong> An on-chain game runs a "day cycle" every 24 hours — NPCs move, crops grow, interest compounds. Today the game has to run a bot to tick its own state. Natively it schedules the tick at deployment and re-schedules at the end of each tick.</p>
+
+<p><strong>Oracle heartbeat.</strong> An oracle feed needs to push a price update every 10 minutes even if prices haven't moved much (to prove liveness). Today this requires an off-chain heartbeat service. Natively: schedule a tick every 10 minutes. The tick pulls the latest aggregated price, writes it on-chain.</p>
+
+<p><strong>Sealed-bid auctions with reveal windows.</strong> Bid phase ends at <em>T</em>, reveal phase ends at <em>T+1h</em>, settlement at <em>T+2h</em>. The auction contract schedules the settlement txn at deployment — no reliance on the auctioneer's uptime.</p>
+
+<p><strong>Governance timelocks.</strong> A Compound-style timelock is just a scheduled txn with a +48h delay. Today every governance protocol ships its own timelock contract with a permissioned executor. Natively: schedule the action at +48h, cancel if governance reverses.</p>
+
+<p>Across all of these, the common feature is that the scheduled-txn API collapses a 2-contract pattern (main contract + keeper) into 1 contract (main contract with <code>schedule()</code> calls). Less code, fewer permissions to manage, fewer failure modes.</p>
+
+<h3>Current Implementation Status</h3>
+
+<p>Honest read as of April 2026. The AIP is in <strong>Draft</strong> status. Authors Manu Dhundi and Zekun Li. Created 15 April 2025, last updated 29 May 2025 per the frontmatter. The reference implementation PR is <code>aptos-labs/aptos-core#16346</code>, opened 12 April 2025, closed (not merged) 25 September 2025 at +7201 / −1962 lines across 64 changed files. The PR was closed with the <code>Stale</code> label, suggesting the team broke the implementation into smaller PRs rather than merging the monolith.</p>
+
+<p>The smaller PR series by Manu Dhundi:</p>
+
+<table>
+<tr><th>PR</th><th>Title</th><th>Opened</th><th>State</th></tr>
+<tr><td><a href="https://github.com/aptos-labs/aptos-core/pull/17181">#17181</a></td><td>[scheduled_txns 1/n] Scheduled transactions framework implementation</td><td>2025-07-28</td><td>Closed 2026-01-21 (not merged)</td></tr>
+<tr><td><a href="https://github.com/aptos-labs/aptos-core/pull/17252">#17252</a></td><td>[scheduled_txns 2/n] Execution of scheduled txns in aptos_vm; E2E move tests</td><td>2025-08-02</td><td>Closed (not merged)</td></tr>
+<tr><td><a href="https://github.com/aptos-labs/aptos-core/pull/17341">#17341</a></td><td>[scheduled_txns 3/n] Insert scheduled txns to the block during 'execute phase' of the block</td><td>2025-08-19</td><td>Closed (not merged)</td></tr>
+<tr><td><a href="https://github.com/aptos-labs/aptos-core/pull/17363">#17363</a></td><td>[scheduled_txns 4/n] Measure perf using single_node_performance.py (via executor benchmark)</td><td>2025-08-21</td><td>Closed (not merged)</td></tr>
+<tr><td><a href="https://github.com/aptos-labs/aptos-core/pull/16962">#16962</a></td><td>[scheduled_txns 5/n] Update APIs and make necessary changes for indexer</td><td>2025-06-28</td><td>Closed (not merged)</td></tr>
+</table>
+
+<p>Reading between the lines: the author opened a 7000-line monolith PR, split it into a 5-part series, each part was closed rather than merged, and no successor PR series has surfaced publicly as of April 2026. That is consistent with the AIP still being in Draft — the implementation is being iterated outside of main, likely in a feature branch, pending design questions around shutdown semantics, feature flag wiring, and AIP-112 (function values) integration.</p>
+
+<p>AIP-112 — the function-values dependency — is critical path. AIP-125's entire closure-based <code>ScheduledFunction</code> type cannot ship until function values are live in the Move VM. AIP-112 itself is in active review as of early 2026. The target sequence is clear: ship function values → ship scheduled txns.</p>
+
+<p>Timeline estimate, informed by the AIP text's "Q2 2025" suggested timeline (since passed) and the PR activity pattern:</p>
+
+<ul>
+<li><strong>Testnet activation: H2 2026.</strong> Once the PR series is merged and a feature flag exists, deployment to devnet/testnet is fast. The AIP explicitly pins the feature-flag question as WIP.</li>
+<li><strong>Mainnet activation: 2027.</strong> Requires load-testing (the AIP pins a perf target of 100-1000 scheduled txns/block with no TPS regression), governance vote to activate the feature flag, and at least one cycle of soak-testing.</li>
+<li><strong>Event-driven v2 AIP: 2027+.</strong> Deferred to a future AIP. Likely paired with a privacy-preserving variant.</li>
+</ul>
+
+<h3>Relationship to the Rest of the Stack</h3>
+
+<p>Scheduled transactions compose non-trivially with every other in-flight Aptos feature. Walk through each.</p>
+
+<h4>Encrypted Mempool (BIBE)</h4>
+
+<p>The <a href="/reports/aptos-stack-map">encrypted mempool</a> keeps transaction contents hidden from validators until after Prefix Consensus has ordered them. This provides MEV resistance for user txns. But scheduled txns are in the clear from the moment of scheduling — the payload is in <code>ScheduleQueue</code>. So a scheduled liquidation is visible to MEV searchers weeks ahead of firing.</p>
+
+<p>A future composition could be: <strong>encrypted scheduled txns.</strong> The user encrypts the closure with a time-lock encryption scheme (a natural fit for BIBE's identity-based structure, where the "identity" is the scheduled_time_ms). The scheduler stores only the ciphertext. At scheduled_time_ms, the validator set runs threshold decryption, then executes. This is cryptographically feasible but adds a per-firing decryption cost. Not in v1.</p>
+
+<h4>Prefix Consensus</h4>
+
+<p>Structurally aligned. <a href="/reports/prefix-consensus-deep-dive">Prefix Consensus</a>'s f-censorship-resistance bounds how many honest user txns can be excluded. Scheduled txns are exempt from this concern entirely — they come from on-chain state, not from validator proposals. They are <em>structurally</em> un-censorable (beyond the standard BFT liveness guarantee).</p>
+
+<p>The interaction point is at block-timestamp agreement. Every validator must agree on the timestamp at which <code>get_ready_transactions()</code> is called. Aptos's block timestamp is agreed as part of Prefix Consensus; the scheduler reads it verbatim.</p>
+
+<h4>Zaptos (optimistic pipelining)</h4>
+
+<p>Zaptos pipelines block execution — speculatively executing block <em>N+1</em> before <em>N</em> has finalized. Scheduled txns fit this directly. The speculative execution of <em>N+1</em> calls <code>get_ready_transactions()</code> against the speculated post-<em>N</em> state. If <em>N</em> finalizes as speculated, the scheduled txns in <em>N+1</em> confirm. If <em>N</em> finalizes differently (rare; only happens on a fork), the speculation is rolled back and <em>N+1</em> is re-executed — scheduled txns included.</p>
+
+<h4>Shardines (validator-internal sharding)</h4>
+
+<p><a href="/reports/shardines-deep-dive">Shardines</a> parallelizes execution across internal validator shards. The key question: does a scheduled txn fire on the owner's shard, or is it routed cross-shard?</p>
+
+<p>The natural answer: scheduled txns fire on the shard that contains their <code>sender_addr</code>. The <code>ScheduleQueue</code> could be partitioned per-shard (each shard has its own sub-queue) so that <code>get_ready_transactions()</code> is shard-local and doesn't require cross-shard coordination. Cross-shard scheduled txns (where the scheduled function touches resources on a different shard than the sender) are handled by Shardines's standard cross-shard transaction path.</p>
+
+<p>This is a sketch; the AIP does not spec it, and Shardines itself is not yet live. But the design is compatible.</p>
+
+<h4>Confidential Assets (encrypted balances)</h4>
+
+<p>Our <a href="/reports/confidential-assets-deep-dive">Confidential Assets deep dive</a> covers the encrypted-balance fungible-asset primitive. Composes cleanly with AIP-125: you can schedule a confidential transfer by capturing the twisted-ElGamal ciphertext in the closure. At execution, the scheduled function runs the transfer as any other confidential txn would. The privacy proof is the same, the scheduler just delivers the closure at the right time.</p>
+
+<p>The one caveat: the encryption <em>of the transfer</em> is confidential, but the <em>fact of the scheduled transfer</em> is on-chain in plaintext. An observer knows Alice will transfer some amount to some counterparty at some time — they just don't know the amount or the counterparty. This is still a strong privacy guarantee for most use cases (payroll, subscriptions, time-locked gifts).</p>
+
+<h4>Aggregators (delayed fields)</h4>
+
+<p>Scheduled txns that update counters (TVL trackers, supply indexes, cumulative-interest accumulators) can use <a href="/reports/aggregator-nft-deep-dive">Aggregators</a> as their update target. Block-STM v2's delayed-field handling means many scheduled txns can update the same aggregator in parallel without serializing. This is the exact pattern the AIP uses internally for the gas-fee-deposit store.</p>
+
+<h4>Randomness (on-chain VRF)</h4>
+
+<p>A scheduled txn can consume <a href="/reports/randomness-deep-dive">on-chain randomness</a> when it fires. This enables a class of "random at time T" primitives — lottery draws, NFT mint reveals, random governance participant sampling — that currently require a keeper to coordinate the randomness request and the consumption. With AIP-125 + on-chain VRF, the whole flow is native.</p>
+
+<h3>Commits and Branches to Watch</h3>
+
+<p>If you want to track implementation progress, the paths likely to contain scheduled-txn code, based on the AIP's architectural split:</p>
+
+<ul>
+<li><code>aptos-move/framework/aptos-framework/sources/scheduled_transactions.move</code> — the framework-level <code>ScheduledTransaction</code>, <code>ScheduleMapKey</code>, <code>ScheduleQueue</code>, and <code>insert</code>/<code>cancel</code>/<code>get_ready_transactions</code> functions live here.</li>
+<li><code>aptos-move/framework/aptos-framework/sources/scheduled_transactions.spec.move</code> — Move Prover spec file.</li>
+<li><code>aptos-vm/src/block_executor/</code> — the block pipeline's execute-phase integration, where scheduled txns are retrieved and interleaved with user txns.</li>
+<li><code>aptos-vm/src/aptos_vm.rs</code> — epilogue changes to handle gas deduction and refund for scheduled txns.</li>
+<li><code>consensus/src/pipeline/</code> — the parent-block-completion wait before fetching scheduled txns (as the AIP specifies).</li>
+<li><code>aptos-api/src/transactions.rs</code> and <code>crates/aptos-indexer-grpc-*</code> — PR #16962's territory (API and indexer changes).</li>
+<li><code>testsuite/single_node_performance.py</code> — PR #17363's perf harness.</li>
+</ul>
+
+<p>Branches worth watching: any branch matching <code>scheduled_txns</code>, <code>scheduled-transactions</code>, or <code>scheduler</code> in <code>aptos-labs/aptos-core</code>. The PR labels <code>CICD:run-execution-performance-scheduled-test</code> are auto-generated when a PR touches the perf test harness — a reliable signal.</p>
+
+<h3>The Bottom Line</h3>
+
+<p>AIP-125 is not a flashy feature. It is not going to drive retail TVL on day one the way a new AMM design or an L2 bridge would. But it is one of the most load-bearing pieces of protocol infrastructure that has been proposed in the last five years across any L1, and for a specific reason: <strong>it removes the single largest operational-centralization attack surface in DeFi.</strong></p>
+
+<p>Every DeFi protocol today depends on an off-chain keeper for at least one critical operation — liquidations, funding updates, vesting unlocks, auto-compounding. Those keepers are centralization vectors. Their uptime is load-bearing. Their MEV extraction is a tax. Their key custody is a security risk. The entire $100B+ DeFi market runs on top of this shadow keeper-network economy.</p>
+
+<p>AIP-125 deletes it. When scheduled transactions ship on Aptos mainnet, a payroll protocol, a lending market, a perpetual exchange, and an auto-compound vault can all run <em>end-to-end</em> on-chain, with no off-chain infrastructure, no keeper fees, no private keys held by third parties. The validator set — which is already decentralized, already economically secured by the largest stake pool in the ecosystem — does the work. Users pay the standard gas rate. No middleman.</p>
+
+<p>The second-order effect is composability. On today's chains, you cannot write <code>"when X happens, do Y"</code> as a single atomic unit — you write <code>"when X happens, emit an event; a keeper will do Y"</code>, and the atomicity is fictional. With native scheduling, the atomicity is real. A lending market can schedule its own liquidations. An AMM can schedule its own rebalance. A governance module can schedule its own timelock execution. <strong>Smart contracts can finally be self-contained.</strong></p>
+
+<p>Aptos is not the only chain attempting this — Monad's roadmap gestures at it, some Cosmos chains have primitive forms — but Aptos is the first to publish a complete, technically rigorous AIP with a reference implementation, economic design, and Block-STM-compatible ordering semantics. The five-part PR series is real code. The <code>ScheduleMapKey</code> composite sort is a principled answer to the determinism question. The two-phase-deletion pattern is a clever Block-STM accommodation. The second-price-like gas clearing rule is MEV-resistant by construction.</p>
+
+<p>When AIP-125 ships — call it mid-2027 on mainnet — every DeFi protocol on Aptos will have a strictly-stronger operational posture than the same protocol on any other L1. The end of the keeper-bot racket. Composability across time. The foundation, per the AIP text itself, for "more advanced onchain flows like delayed payments, subscriptions, time shifted computations, recurring tasks, async programming patterns, and mission-critical operations that demand sub-millisecond precision — all executed within the deterministic environment of the Aptos blockchain."</p>
+
+<p><strong>Primary sources:</strong></p>
+<ul>
+<li><a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md">AIP-125: Scheduled Transactions</a> — Manu Dhundi and Zekun Li, draft 15 April 2025, last updated 29 May 2025.</li>
+<li><a href="https://github.com/aptos-labs/aptos-core/pull/16346">PR #16346: Scheduled transactions implementation</a> — the original reference implementation, +7201 lines.</li>
+<li><a href="https://github.com/aptos-labs/aptos-core/pull/17181">PR #17181</a>, <a href="https://github.com/aptos-labs/aptos-core/pull/17252">#17252</a>, <a href="https://github.com/aptos-labs/aptos-core/pull/17341">#17341</a>, <a href="https://github.com/aptos-labs/aptos-core/pull/17363">#17363</a>, <a href="https://github.com/aptos-labs/aptos-core/pull/16962">#16962</a> — the [scheduled_txns 1/n through 5/n] sub-PR series.</li>
+<li><a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-112-function-values-the-move-vm.md">AIP-112: Function Values in the Move VM</a> — critical dependency.</li>
+<li><a href="https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-068-use-case-aware-block-reordering.md">AIP-68: Use-Case-Aware Block Reordering</a> — the block reordering interface into which scheduled txns are interleaved.</li>
+</ul>
+
+    <hr class="section-divider">
+
+    <section class="eli5">
+      <h2 style="border: none; padding: 0; margin-top: 0;">ELI5 — Explain Like I'm 5</h2>
+      <p><strong>The Big Picture:</strong> Imagine you want your bank to pay your rent on the first of every month. You don't want to remember to transfer the money — you want it to just happen. You set up "auto-pay" at your bank. Every month, automatically, the money moves. You never lift a finger. That's scheduled payment, and it's something every bank on Earth has figured out. But blockchains — the computers that run Bitcoin, Ethereum, and most modern crypto — <em>cannot do this</em>. They have no concept of "wake up next Tuesday and do this thing." They only do things when someone explicitly tells them to, right now. Scheduled Transactions — Aptos's AIP-125 — is the feature that finally fixes this. It's the blockchain equivalent of your bank's auto-pay, except nobody runs the bank. The validators — the computers that run Aptos — all agree to wake up and do your thing at the scheduled time, together, automatically.</p>
+
+<p><strong>The Calendar Analogy:</strong> Picture a shared wall calendar in a neighborhood that everyone can read but only you can write to. Each day, the whole neighborhood looks at the calendar and does whatever's written for today. You write "give Bob 10 tokens" on the square for next Friday. When Friday rolls around, the neighborhood reads the calendar, sees your note, and — because they all saw the same thing at the same time — they all agree to transfer 10 tokens from you to Bob. Nobody asks you to confirm. Nobody charges you a service fee for running the calendar (the neighborhood was already going to meet every day anyway). And nobody can cheat or forget, because every single neighbor is watching. That's a scheduled transaction.</p>
+
+<p><strong>Why This Is Shockingly New:</strong> You'd think blockchains could do this already. They can't. On Ethereum, on Solana, on Bitcoin — every transaction has to be actively sent by someone. The blockchain doesn't run on its own clock. It runs when you poke it. So how do things like Aave's liquidations, GMX's funding rate updates, or 1inch's limit orders actually work today? With bots. An army of them. Thousands of server-farms around the world running scripts that poll the chain, notice when something needs doing, and fire off a transaction. Companies like Chainlink Automation and Gelato have built $30-million-a-year businesses just providing "cron jobs for blockchains." Entire protocols pay those companies' fees out of user money. If those bot networks go down, DeFi breaks. The Aave liquidation bots had a scare in 2023 when their primary provider had a glitch and a bunch of loans went un-liquidated for hours. That's real money at risk because a bot hiccupped.</p>
+
+<p><strong>The Doorbell Robot:</strong> Here's another way to picture it. Today, to do "when X happens, do Y" on a blockchain, you need a robot sitting by the front door 24/7, watching the doorbell. When the doorbell rings, the robot pushes a button that runs Y. The robot gets paid for every button-push, and the robot has to be trusted not to ignore the doorbell when it rings. With AIP-125, the blockchain itself is the doorbell <em>and</em> the robot. When the doorbell rings (the scheduled time arrives), the blockchain pushes the button as part of its normal operation. No separate robot. No tip for the robot. No worry that the robot will ignore the doorbell.</p>
+
+<p><strong>How the Scheduling Actually Works (In People Terms):</strong> When you schedule a transaction on Aptos, you hand the network a list of things:</p>
+<ol>
+<li>What you want to happen (some Move code — "send Bob 10 USDC", "cancel my loan", "claim my rewards").</li>
+<li>When you want it to happen (a timestamp — "next Friday 9am UTC", "in 30 days", "at block height 1,000,000").</li>
+<li>How much you're willing to pay in gas fees (the network's running cost, paid by you).</li>
+<li>A deposit that covers the gas cost up-front. The network holds this deposit like a credit-card authorization — it'll spend from it when the time comes, and give back whatever it doesn't use.</li>
+</ol>
+<p>The network puts your request into a giant sorted list of scheduled things, ordered by time. Every block (about 100 milliseconds on Aptos), the network checks: "is it time for anything in the list to run?" If yes, it runs those things, subtracts the gas cost from your deposit, refunds you the leftover, and removes the entry from the list. If no, it moves on.</p>
+
+<p><strong>The Auto-Pay Analogy, Continued:</strong> Your bank's auto-pay works because your bank knows the date and has your money already. Scheduled transactions work the same way: Aptos knows the time (blocks have timestamps), and Aptos has your money already (you deposited it when you scheduled the transaction). The only difference is that Aptos doesn't have a CEO deciding what the bank does. Instead, Aptos has about 150 validators around the world who all run the same software. When the scheduled time arrives, all 150 validators independently realize "oh, this one's due" and all 150 agree that it should run now. They can't cheat, because they're all watching each other, and they can't forget, because the software is the same on every validator and the schedule is public.</p>
+
+<p><strong>What's Hard About It (The Four Problems, Plain English):</strong></p>
+
+<p><em>Problem 1 — The list gets too long.</em> If scheduling were free, a troll could schedule a billion tiny transactions and clog the list forever, slowing down the whole chain. The fix is the deposit: every scheduled thing costs real money to queue up. A billion scheduled things would cost more money than actually exists on the chain. Trolls priced out.</p>
+
+<p><em>Problem 2 — Prices change.</em> If you schedule a transaction for six months from now, the price of running it might have gone up by then. Who pays the difference? Aptos's answer: you tell them the maximum price you're willing to pay, and when the time comes they charge you the lesser of (what you said) and (what the going rate turns out to be). If prices went up but stayed under your cap, you pay the going rate. If prices went up past your cap, your transaction gets skipped and your deposit is refunded. You never overpay. You might not get served.</p>
+
+<p><em>Problem 3 — A hundred things all want to happen at once.</em> When the clock hits "next Friday 9am", maybe fifty people scheduled something for that moment. Who goes first? Aptos sorts them by: (1) scheduled time first, (2) who paid the highest gas price second, (3) a random-looking tiebreaker (a hash) third. This is exactly how airline seat upgrades work: people are ordered by status tier, then by fare class, then by a deterministic tiebreaker. Everyone gets a deterministic answer without arguing.</p>
+
+<p><em>Problem 4 — Cleaning up.</em> When a scheduled thing has run, it needs to be crossed off the list so it doesn't run again. But if every scheduled thing's last step is "cross myself off the list", and fifty things are running at once, they all try to write to the same list simultaneously — that causes a traffic jam. Aptos's trick: each finished thing drops its name in a little bucket, and at the start of the very next block a single worker empties the bucket into the list. No traffic jam. Clean solution.</p>
+
+<p><strong>Why Ethereum Can't Just Do This:</strong> Ethereum was designed fifteen years ago by people who had different priorities. They chose a model where every transaction is submitted by a human (or a human's bot). The Ethereum Virtual Machine has no concept of "a block containing automatic transactions that came from on-chain state." Adding this would require changing the fundamental block structure — a hard-fork that every node operator has to upgrade for. It's been proposed (various EIPs over the years) but never prioritized over other features. So Ethereum has permanently outsourced this work to third-party keeper networks. Aptos, being newer, was designed with this in mind from the start — the Move virtual machine and the block structure both accommodate scheduled transactions natively.</p>
+
+<p><strong>The Freedom of Composability:</strong> Here's the invisible benefit. Today, writing a DeFi protocol is like writing a play where half the characters are off-stage and you have to pay actors to come on-stage at the right moment. With scheduled transactions, every character is on-stage all the time. A lending protocol can schedule its own liquidation checks. An AMM can schedule its own rebalances. A subscription service can schedule its own monthly debits. A vesting contract can schedule its own cliff unlocks. The protocol becomes <em>self-contained</em>. No off-chain bots. No external infrastructure. Pure on-chain logic. This is what people mean when they say "composability across time."</p>
+
+<p><strong>When You'll See It:</strong> The proposal (AIP-125) was written in April 2025 by two Aptos engineers, Manu Dhundi and Zekun Li. The first reference implementation was a giant pull request (seven thousand lines of code) that was later broken into five smaller pieces. As of April 2026, the smaller pieces are still being iterated — none have been merged yet — because AIP-125 also depends on another feature (AIP-112, "function values in the Move VM") that has to land first. The realistic timeline: testnet activation in the second half of 2026, mainnet activation in 2027. A next-generation version — <em>event-driven</em> scheduling (where a transaction fires not at a specific time but when something else happens on the chain) — is on the roadmap for a future AIP after v1 ships.</p>
+
+<p><strong>What It Means for You:</strong> If you use DeFi today, you're paying for a keeper bot somewhere in your transaction's cost stack, whether you see it or not. The protocol you use has a line item for its automation provider. Some of your yield is going to pay that line item. When Aptos's scheduled transactions go live, protocols built on Aptos will be able to kill that line item. They can pass the savings on as better rates, or reinvest into better security, or just run leaner. If you use the protocol as a user, your experience will feel smoother — no "the keeper is delayed, your liquidation is late, you got a worse price than you should have." If you build protocols, you get a strictly simpler mental model: you write the whole thing in Move, deploy once, and the chain runs it forever on its own schedule.</p>
+
+<p><strong>What You Just Learned:</strong> A blockchain is a computer that everyone agrees on. Until AIP-125, blockchains could only do things when someone actively poked them — they couldn't run on their own schedule. To fake scheduling, DeFi protocols hired armies of bots, which costs money, introduces central points of failure, and lets the bot operators extract value from you in the form of fees. Aptos's scheduled transactions let the blockchain itself be the scheduler — you hand it a closure (a function with its arguments baked in), a timestamp, and a deposit, and the network agrees to run it when the time comes. The design handles the four hard problems (list bloat, price changes, simultaneous firings, and cleanup) with an on-chain deposit, a price cap with second-price clearing, a deterministic triple-sort key, and a clever two-phase deletion pattern. It composes cleanly with Aptos's consensus (Prefix Consensus), its execution engine (Block-STM), its sharding (Shardines), its privacy (Confidential Assets), and its randomness (on-chain VRF). It removes the biggest operational centralization in DeFi and it arrives in 2027.</p>
+    </section>
+
+    <hr class="section-divider"><h3>Related Systems</h3><div><span class="tag">Block-STM v2</span><span class="tag">Prefix Consensus</span><span class="tag">Raptr</span><span class="tag">Archon</span><span class="tag">Aggregators</span><span class="tag">Zaptos</span></div>
+
+    <hr class="section-divider"><h3>Other Deep Dives</h3><div class="related"><a href="/reports/prefix-consensus-deep-dive">Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT</a><a href="/reports/aptos-stack-map">The Aptos Stack — One Map of How Every Piece Fits Together</a><a href="/reports/randomness-deep-dive">Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art</a><a href="/reports/confidential-assets-deep-dive">Alin Tomescu&#39;s Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos</a><a href="/reports/feature-progress-overview">Aptos Feature Progress — 10 Features Tracked from Research to Mainnet</a><a href="/reports/aggregator-nft-deep-dive">How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained</a></div>
+
+    <hr class="section-divider">
+    <p style="color: var(--text-faint); font-size: 13px;">
+      View this report interactively with Advanced / ELI5 tabs at
+      <a href="https://aptos-intelligence.vercel.app/#scheduled-transactions-deep-dive">https://aptos-intelligence.vercel.app/#scheduled-transactions-deep-dive</a>.
+      Plain-text version: <a href="/reports/scheduled-transactions-deep-dive.txt">/reports/scheduled-transactions-deep-dive.txt</a>.
+    </p>
+  </article>
+</main>
+<footer class="bottom">
+  Aptos Intelligence — every commit that matters, explained.
+</footer>
+</body>
+</html>

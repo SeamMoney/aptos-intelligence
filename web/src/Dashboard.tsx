@@ -13,6 +13,7 @@ const PINNED_SHAS = [
   "aptos-stack-map",
   "prefix-consensus-deep-dive",
   "shardines-deep-dive",
+  "scheduled-transactions-deep-dive",
   "aggregator-nft-deep-dive",
   "randomness-deep-dive",
   "confidential-assets-deep-dive",
@@ -20,7 +21,6 @@ const PINNED_SHAS = [
   "9a3caae",
   "a9d20cd",
   "bef2812",
-  "c8db4ac",
 ];
 
 const SUBSYSTEMS = [
