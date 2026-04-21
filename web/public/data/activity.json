@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19486,
+      "title": "[compiler-v2] Implement a new abstraction for derived call graph query caching: fixes many subtle bugs.",
+      "author": "vineethk",
+      "merged_at": "2026-04-21T15:23:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19486",
+      "labels": []
+    },
+    {
       "number": 19507,
       "title": "[compiler-v2] Do not inline callees that emit cross-module events",
       "author": "georgemitenkov",
@@ -162,14 +170,6 @@
       "labels": [
         "v1.45"
       ]
-    },
-    {
-      "number": 19487,
-      "title": "[config] Rename decryption_setup_blob_path to digest_key_blob_path",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-17T22:09:37Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19487",
-      "labels": []
     }
   ],
   "issues": [
@@ -196,18 +196,7 @@
         "bug",
         "move-prover"
       ]
-    },
-    {
-      "number": 19495,
-      "title": "[Bug] Fuzzing build failure due to missing ModuleStorage method in SnapshotModuleView",
-      "author": "xingyaner",
-      "state": "open",
-      "created_at": "2026-04-18T14:55:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19495",
-      "labels": [
-        "bug"
-      ]
     }
   ],
-  "lastUpdated": "2026-04-21T15:14:09.731Z"
+  "lastUpdated": "2026-04-21T17:03:24.433Z"
 }
