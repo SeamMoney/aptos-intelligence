@@ -11810,5 +11810,33 @@
     "eli5": "<p><strong>[storage] Filter pointer-only hot-state slots from JMT update paths</strong> — a change by wqfish.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100084,
+    "githubId": "2f7730a",
+    "title": "[compiler-v2] Do not inline callees that emit cross-module events (#19507)",
+    "author": "georgemitenkov",
+    "date": "2026-04-21T12:46:54Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/2f7730aadbc63cae60b47516ba22d9b4b42b363b",
+    "advanced": "<h3>What Changed</h3><p><strong>[compiler-v2] Do not inline callees that emit cross-module events (#19507)</strong></p><p>by georgemitenkov on 4/21/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/2f7730aadbc63cae60b47516ba22d9b4b42b363b\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[compiler-v2] Do not inline callees that emit cross-module events (#19507)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100085,
+    "githubId": "eded91a",
+    "title": "[vm] Remove MoveVmExt pass-through wrapper (#19503)",
+    "author": "georgemitenkov",
+    "date": "2026-04-21T12:12:41Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/eded91a47d6f88b2aa37c4c29d279d4b06d64e60",
+    "advanced": "<h3>What Changed</h3><p><strong>[vm] Remove MoveVmExt pass-through wrapper (#19503)</strong></p><p>by georgemitenkov on 4/21/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/eded91a47d6f88b2aa37c4c29d279d4b06d64e60\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[vm] Remove MoveVmExt pass-through wrapper (#19503)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
