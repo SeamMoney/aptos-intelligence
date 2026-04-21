@@ -175,7 +175,20 @@
       "created_at": "2026-04-21T06:20:19Z",
       "url": "https://github.com/aptos-labs/aptos-core/issues/19518",
       "labels": [
-        "bug"
+        "bug",
+        "move-prover"
+      ]
+    },
+    {
+      "number": 19514,
+      "title": "[Bug][prover] spec infer uses impure Move function in the generated spec",
+      "author": "rahxephon89",
+      "state": "open",
+      "created_at": "2026-04-20T22:26:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19514",
+      "labels": [
+        "bug",
+        "move-prover"
       ]
     },
     {
@@ -201,5 +214,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-21T09:27:46.331Z"
+  "lastUpdated": "2026-04-21T11:08:07.704Z"
 }
