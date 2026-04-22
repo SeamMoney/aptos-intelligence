@@ -1,5 +1,13 @@
 [
   {
+    "sha": "aip-143-mainnet-proposal-188",
+    "title": "AIP-143 (Confidential APT) — Mainnet Activation via Governance Proposal #188",
+    "author": "aptos-governance",
+    "date": "2026-04-21T00:00:00Z",
+    "url": "https://govscan.live/aptos/proposals/188",
+    "category": "Release"
+  },
+  {
     "sha": "scheduled-transactions-deep-dive",
     "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
     "author": "aptos-labs",

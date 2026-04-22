@@ -1,7 +1,7 @@
 # Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos
 
 Author: alinush
-Date: 2026-04-10T00:00:00Z
+Date: 2026-04-21T00:00:00Z
 Category: Feature Progress
 Importance: 10/10
 Source: https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset
@@ -208,6 +208,77 @@ Groth16 verifier exists in Move VM (added for AIP-143) — the circuit needs dep
 IBE infrastructure shared with ACE (already prototyped)
 
 Alin posted the UTT blog March 21, 2026 — three days before the AIP-143 AMA. The sequencing is deliberate: CA ships first, UTT next. All cryptographic primitives are in the VM. One governance vote away.
+
+Mainnet Activation: Governance Proposal #188 (April 21, 2026)
+
+As of April 21, 2026, AIP-143 is no longer a draft or a testnet feature. On-chain governance Proposal #188 — "Enable APT for Confidentiality" is live on Aptos mainnet, with voting in progress. This is the exact on-chain action that flips confidential transfers from "code merged, framework-gated" to "live on every APT balance."
+
+
+FieldValue
+Proposal number#188
+TitleAIP 143: Enable APT for Confidentiality
+NetworkAptos Mainnet
+Proposer0xdb009ab1a3259c4b27a0d8ff9d0e913e13e4c8b657fc73768f4e9bb811c7a1d8
+Execution hash0x34067a0669984c31bf07c84a48ea9f937d96f7966ef39a5ceb7dfc1cd1861d41
+Source module2026-04-21-enable-confidential-apt/Enable-confidential-apt.move
+Vote tally (for)100% — 14,261,274 APT
+Vote tally (against)<1 APT
+Turnout1.19%
+Quorum requirement24.97%
+Discussionaptos-foundation/AIPs discussion #663
+Trackergovscan.live/aptos/proposals/188
+
+
+What Proposal #188 Actually Does
+
+The proposal is narrow and surgical. Its execution payload — the Move script in Enable-confidential-apt.move — flips a single framework flag so that APT itself becomes eligible for confidential transfers. All of the plumbing (the veiled balance resources, the zero-knowledge proof verifiers, the pending inbox mechanics described earlier in this report) is already deployed. The proposal is the feature flag flip.
+
+Why is this significant even though "the code was merged"? Because the confidential-assets framework was designed from day one to be opt-in per coin type. Stablecoins, wrapped assets, and app-specific tokens can be enabled by their respective issuers through targeted governance. APT itself requires a mainnet-wide governance vote — which is exactly what Proposal #188 is.
+
+The Execution Flow
+
+User signs vote
+      │
+      ▼
+Aptos governance module validates stake + voting window
+      │
+      ▼
+If quorum reached AND majority-for:
+   Proposal queued for execution at next epoch
+      │
+      ▼
+Execution window opens
+      │
+      ▼
+Framework upgrade script runs:
+   - Confidential-asset metadata registered for APT FA
+   - Per-account veiled balance resource authorized
+   - ConfidentialCoinStore<APT> enabled in aptos_framework::coin
+      │
+      ▼
+Any account can now call:
+   confidential_asset::veil<APT>(amount)
+   confidential_asset::transfer_veiled<APT>(to, Ciphertext, Proof)
+   confidential_asset::unveil<APT>(amount, Proof)
+
+Why the Turnout Looks Small
+
+1.19% turnout vs. a 24.97% quorum threshold looks low on the surface but is typical for Aptos on-chain governance. Only staked APT with active delegation votes, and the vast majority of staked APT is held by validators that vote as a bloc. The 14,261,274 APT that voted "for" likely represents near-unanimous alignment from the top validators plus the Aptos Foundation delegation. The 11-APT "against" vote is either a protest ballot or a test from a small holder.
+
+What Changes for Users Immediately After Execution
+
+
+Every APT holder gains the ability to move APT into a veiled balance using ElGamal encryption over the user's own public key.
+Veiled transfers hide the amount being sent. The sender, receiver, and transfer event are still visible on-chain — only the amount and the post-transfer balances are encrypted.
+The pending inbox mechanism prevents front-running: incoming confidential transfers sit in a separate encrypted mailbox until the recipient chooses to roll them into their main veiled balance.
+Unveiling a balance (converting veiled APT back to regular APT) requires a zero-knowledge proof that the unveiled amount matches the encrypted balance. Proofs are generated client-side.
+
+
+Combined Picture: Privacy Stack + Consensus Stack
+
+The mainnet activation of AIP-143 is the privacy-layer counterpart to the consensus-layer work covered in the Prefix Consensus deep dive. Together they give Aptos something no other L1 has as of Q2 2026: content-blind ordering at the mempool level via encrypted mempool + amount-blind settlement at the asset level via AIP-143. A sender can route an APT transfer through the encrypted mempool (amount invisible during ordering) and land it as a confidential transfer (amount invisible on-chain after settlement). Every other chain leaks one of these two surfaces.
+
+For the full picture of how privacy layering composes with the rest of the stack, see the Aptos Stack Map.
 
 ---
 

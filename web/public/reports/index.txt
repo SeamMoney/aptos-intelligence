@@ -1,6 +1,6 @@
 # Aptos Intelligence — Deep Dive Index
 
-20 reports, each at /reports/<slug> (HTML) and /reports/<slug>.txt (plaintext).
+21 reports, each at /reports/<slug> (HTML) and /reports/<slug>.txt (plaintext).
 
 - [Prefix Consensus — How Aptos Is Building Leaderless, Censorship-Resistant BFT](https://aptos-intelligence.vercel.app/reports/prefix-consensus-deep-dive) — Feature Progress, importance 10/10
 - [The Aptos Stack — One Map of How Every Piece Fits Together](https://aptos-intelligence.vercel.app/reports/aptos-stack-map) — Feature Progress, importance 10/10
@@ -11,6 +11,7 @@
 - [How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained](https://aptos-intelligence.vercel.app/reports/aggregator-nft-deep-dive) — Feature Progress, importance 9/10
 - [Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator](https://aptos-intelligence.vercel.app/reports/shardines-deep-dive) — Feature Progress, importance 9/10
 - [Aptos Names Service (ANS) — Complete Deep Dive](https://aptos-intelligence.vercel.app/reports/ans-deep-dive) — Feature Progress, importance 9/10
+- [AIP-143 (Confidential APT) — Mainnet Activation via Governance Proposal #188](https://aptos-intelligence.vercel.app/reports/aip-143-mainnet-proposal-188) — Release, importance 9/10
 - [fix function checker for struct visibility (#19351)](https://aptos-intelligence.vercel.app/reports/0e8dad7) — Security, importance 8/10
 - [[prover] Global memory support for behavioral predicates](https://aptos-intelligence.vercel.app/reports/3366941053) — Feature Progress, importance 8/10
 - [[API] Add support for encrypted transaction filtering.](https://aptos-intelligence.vercel.app/reports/9a3caae) — API, importance 7/10
