@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19427,
+      "title": "[mono-vm] Representation and perf refactoring within specializer",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T20:53:32Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
+      "labels": []
+    },
+    {
+      "number": 19388,
+      "title": "Shared data structures and algorithms crate",
+      "author": "vineethk",
+      "merged_at": "2026-04-14T00:14:14Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
+      "labels": []
+    },
+    {
       "number": 19453,
       "title": "[gas] Charge extra gas for encrypted transactions",
       "author": "ibalajiarun",
@@ -158,16 +174,8 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19109,
-      "title": "[vm] Staking-based transaction limits",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-19T22:34:58Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19109",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-22T15:14:30.731Z"
+  "lastUpdated": "2026-04-22T17:02:47.931Z"
 }
