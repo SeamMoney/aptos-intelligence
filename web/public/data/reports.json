@@ -12003,5 +12003,19 @@
     "eli5": "<p><strong>[codeowners] Add dedicated owners for third_party/move/mono-move (#19529)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100096,
+    "githubId": "891bddb",
+    "title": "[mono-vm][specializer] Remove explicit types from simulated operand stack (#19466)",
+    "author": "vineethk",
+    "date": "2026-04-22T22:05:04Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/891bddb7ba87676ab84ffab3163de2041fa3b8e5",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-vm][specializer] Remove explicit types from simulated operand stack (#19466)</strong></p><p>by vineethk on 4/22/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/891bddb7ba87676ab84ffab3163de2041fa3b8e5\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-vm][specializer] Remove explicit types from simulated operand stack (#19466)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
