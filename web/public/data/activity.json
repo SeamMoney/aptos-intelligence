@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19453,
+      "title": "[gas] Charge extra gas for encrypted transactions",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-22T04:11:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19453",
+      "labels": []
+    },
+    {
       "number": 19470,
       "title": "[mono-move] Add gas benchmarks",
       "author": "calintat",
@@ -161,5 +169,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-22T02:38:04.397Z"
+  "lastUpdated": "2026-04-22T06:00:40.848Z"
 }
