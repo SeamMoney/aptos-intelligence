@@ -1,15 +1,31 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,35 +40,51 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
+    "sha": "fc1d67b",
+    "title": "[mono-vm] Factor specializer pipeline out of the executable and into the specialize crate. (#19454)",
+    "author": "vineethk",
+    "date": "2026-04-22T18:38:41Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/fc1d67bcd6da4906172f6d4cf3663f43d2d0b7f9",
     "category": "Feature Progress"
   },
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "62412e7",
+    "title": "[mono-vm][specializer] Move a fusing operation from lowering to destacking phase (#19431)",
+    "author": "vineethk",
+    "date": "2026-04-22T17:43:35Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/62412e7a4993ed71ce36be0208f3f7c2bed15635",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "1a365d3",
+    "title": "[docker] release tags always with the git sha (#19463)",
+    "author": "rustielin",
+    "date": "2026-04-22T17:33:03Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1a365d3f7b7b6e4aa599ae93fc642ab9ca8bead2",
+    "category": "Release"
+  },
+  {
+    "sha": "0ec54dd",
+    "title": "[codeowners] Add dedicated owners for third_party/move/mono-move (#19529)",
+    "author": "georgemitenkov",
+    "date": "2026-04-22T17:22:42Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0ec54dd06fc1369499c2617d864dc0b5861fc74b",
     "category": "Feature Progress"
   },
   {
@@ -4790,38 +4822,6 @@
     "date": "2026-01-27T19:49:39Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/4106b2bc5d25199e64246f0d9ab0038b94cd3dbb",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "eb6ae12",
-    "title": "Expand PVSS benchmarking tables (#18511)",
-    "author": "waamm",
-    "date": "2026-01-27T05:08:29Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/eb6ae1270db66f858cb48258b525d7a82e2ab99e",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "dfe8add",
-    "title": "[telemetry-service] cache vm/prom backend paths (#18455)",
-    "author": "rustielin",
-    "date": "2026-01-26T22:47:40Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/dfe8add8e620a47309f8f5fcfe8a91941f89c952",
-    "category": "Performance"
-  },
-  {
-    "sha": "1e04020",
-    "title": "[Orderbook] Address security review feedback  (#18495)",
-    "author": "sitalkedia",
-    "date": "2026-01-26T19:55:03Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/1e04020aaca03d5c821794390308e77b801f9808",
-    "category": "Security"
-  },
-  {
-    "sha": "a8b5032",
-    "title": "[vm] Adding design doc (#18498)",
-    "author": "georgemitenkov",
-    "date": "2026-01-26T18:42:57Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/a8b50321912c1d15e5cd9c4645c27d1d74dbd728",
-    "category": "Feature Progress"
   },
   {
     "sha": "8a56229",

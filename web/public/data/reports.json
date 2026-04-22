@@ -11947,5 +11947,61 @@
     "eli5": "<p><strong>[gas] Charge extra gas for encrypted transactions (#19453)</strong> — a change by ibalajiarun.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100092,
+    "githubId": "fc1d67b",
+    "title": "[mono-vm] Factor specializer pipeline out of the executable and into the specialize crate. (#19454)",
+    "author": "vineethk",
+    "date": "2026-04-22T18:38:41Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/fc1d67bcd6da4906172f6d4cf3663f43d2d0b7f9",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-vm] Factor specializer pipeline out of the executable and into the specialize crate. (#19454)</strong></p><p>by vineethk on 4/22/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/fc1d67bcd6da4906172f6d4cf3663f43d2d0b7f9\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-vm] Factor specializer pipeline out of the executable and into the specialize crate. (#19454)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100093,
+    "githubId": "62412e7",
+    "title": "[mono-vm][specializer] Move a fusing operation from lowering to destacking phase (#19431)",
+    "author": "vineethk",
+    "date": "2026-04-22T17:43:35Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/62412e7a4993ed71ce36be0208f3f7c2bed15635",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-vm][specializer] Move a fusing operation from lowering to destacking phase (#19431)</strong></p><p>by vineethk on 4/22/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/62412e7a4993ed71ce36be0208f3f7c2bed15635\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-vm][specializer] Move a fusing operation from lowering to destacking phase (#19431)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100094,
+    "githubId": "1a365d3",
+    "title": "[docker] release tags always with the git sha (#19463)",
+    "author": "rustielin",
+    "date": "2026-04-22T17:33:03Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/1a365d3f7b7b6e4aa599ae93fc642ab9ca8bead2",
+    "advanced": "<h3>What Changed</h3><p><strong>[docker] release tags always with the git sha (#19463)</strong></p><p>by rustielin on 4/22/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/1a365d3f7b7b6e4aa599ae93fc642ab9ca8bead2\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[docker] release tags always with the git sha (#19463)</strong> — a change by rustielin.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100095,
+    "githubId": "0ec54dd",
+    "title": "[codeowners] Add dedicated owners for third_party/move/mono-move (#19529)",
+    "author": "georgemitenkov",
+    "date": "2026-04-22T17:22:42Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/0ec54dd06fc1369499c2617d864dc0b5861fc74b",
+    "advanced": "<h3>What Changed</h3><p><strong>[codeowners] Add dedicated owners for third_party/move/mono-move (#19529)</strong></p><p>by georgemitenkov on 4/22/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/0ec54dd06fc1369499c2617d864dc0b5861fc74b\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[codeowners] Add dedicated owners for third_party/move/mono-move (#19529)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

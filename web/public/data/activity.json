@@ -1,6 +1,52 @@
 {
   "prs": [
     {
+      "number": 19451,
+      "title": "[build] Install clang 21 from LLVM apt repo in CI rust-setup action",
+      "author": "wqfish",
+      "merged_at": "2026-04-15T02:10:15Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19451",
+      "labels": [
+        "v1.44"
+      ]
+    },
+    {
+      "number": 19454,
+      "title": "[mono-vm] Factor specializer pipeline out of the executable and into the specialize crate.",
+      "author": "vineethk",
+      "merged_at": "2026-04-22T18:38:42Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19454",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19431,
+      "title": "[mono-vm][specializer] Move a fusing operation from lowering to destacking phase",
+      "author": "vineethk",
+      "merged_at": "2026-04-22T17:43:36Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19431",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19463,
+      "title": "[docker] release tags always with the git sha",
+      "author": "rustielin",
+      "merged_at": "2026-04-22T17:33:03Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19463",
+      "labels": []
+    },
+    {
+      "number": 19529,
+      "title": "[codeowners] Add dedicated owners for third_party/move/mono-move",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-22T17:22:43Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19529",
+      "labels": []
+    },
+    {
       "number": 19427,
       "title": "[mono-vm] Representation and perf refactoring within specializer",
       "author": "vineethk",
@@ -153,29 +199,8 @@
       "merged_at": "2026-04-20T18:39:46Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19452",
       "labels": []
-    },
-    {
-      "number": 19478,
-      "title": "[forge] bump deployer version",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-20T16:11:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19478",
-      "labels": [
-        "CICD:run-e2e-tests",
-        "CICD:run-framework-upgrade-test"
-      ]
-    },
-    {
-      "number": 19491,
-      "title": "[cp][aptos-release-v1.45] [Config] Update default testnet seeds.",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-20T02:02:38Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19491",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-22T17:02:47.931Z"
+  "lastUpdated": "2026-04-22T19:15:28.813Z"
 }
