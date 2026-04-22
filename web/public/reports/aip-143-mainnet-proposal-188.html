@@ -103,7 +103,13 @@
 
 <p>The proposal is narrow and surgical. Its execution payload — the Move script in <code>Enable-confidential-apt.move</code> — flips a single framework flag so that APT itself becomes eligible for confidential transfers. All of the plumbing (the veiled balance resources, the zero-knowledge proof verifiers, the pending inbox mechanics described earlier in this report) is already deployed. The proposal is the feature flag flip.</p>
 
-<p>Why is this significant even though "the code was merged"? Because the confidential-assets framework was designed from day one to be opt-in per coin type. Stablecoins, wrapped assets, and app-specific tokens can be enabled by their respective issuers through targeted governance. APT itself requires a mainnet-wide governance vote — which is exactly what Proposal #188 is.</p>
+<p>Why is this significant even though "the code was merged"? Because AIP-143 is deliberately scoped to APT only at launch — and the restriction is enforced <em>at the framework level</em>, not at the issuer level. Quoting the AIP directly:</p>
+
+<blockquote>"At launch, confidential asset functionality is restricted to APT only and enforced at the framework level. Other assets cannot opt into the confidential asset system."</blockquote>
+
+<p>This is explicit: stablecoin issuers, wrapped-asset issuers, and app-token issuers cannot self-enable confidential transfers for their tokens. The framework blocks them. The AIP describes this as "a product and ecosystem decision rather than a technical limitation" — meaning the plumbing exists, but the policy gate is closed for everything except APT.</p>
+
+<p>Expansion beyond APT is future governance work. The AIP states: <em>"Governance may consider enabling confidential functionality for additional assets in the future, subject to security review, economic alignment, and policy considerations."</em> So each future asset (or a blanket policy change) is itself a governance decision — not an issuer opt-in. Proposal #188 is the APT-specific activation; any USDC, USDT, or app-token equivalent would require its own on-chain vote.</p>
 
 <h4>The Execution Flow</h4>
 
