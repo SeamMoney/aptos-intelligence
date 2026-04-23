@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19488,
+      "title": "[inspection-service] opens immediately",
+      "author": "rustielin",
+      "merged_at": "2026-04-23T18:17:59Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19488",
+      "labels": []
+    },
+    {
       "number": 19520,
       "title": "[storage] Verify hot-state proofs in ProvableStateSummary",
       "author": "wqfish",
@@ -201,16 +209,8 @@
       "merged_at": "2026-04-20T22:05:10Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19481",
       "labels": []
-    },
-    {
-      "number": 19474,
-      "title": "[consensus] Fix proposer_delay_proposal histogram buckets",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-20T21:45:45Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19474",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-23T17:21:58.088Z"
+  "lastUpdated": "2026-04-23T19:11:02.601Z"
 }

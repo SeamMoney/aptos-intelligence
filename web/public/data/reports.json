@@ -12045,5 +12045,19 @@
     "eli5": "<p><strong>[storage] Verify hot-state proofs in ProvableStateSummary</strong> — a change by wqfish.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100099,
+    "githubId": "3660486",
+    "title": "[inspection-service] opens immediately (#19488)",
+    "author": "rustielin",
+    "date": "2026-04-23T18:17:58Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/3660486f2e6208840ba8d43e0181d177e9318108",
+    "advanced": "<h3>What Changed</h3><p><strong>[inspection-service] opens immediately (#19488)</strong></p><p>by rustielin on 4/23/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/3660486f2e6208840ba8d43e0181d177e9318108\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[inspection-service] opens immediately (#19488)</strong> — a change by rustielin.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
