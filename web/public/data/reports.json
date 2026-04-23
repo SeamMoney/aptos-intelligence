@@ -12017,5 +12017,19 @@
     "eli5": "<p><strong>[mono-vm][specializer] Remove explicit types from simulated operand stack (#19466)</strong> — a change by vineethk.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100097,
+    "githubId": "0db93e5",
+    "title": "Switch replay-verify to the main PFN deployments in us-central1",
+    "author": "sionescu",
+    "date": "2026-04-23T00:44:28Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/0db93e5a42dd8fc9df37fd72019ed7f5ed0c2b32",
+    "advanced": "<h3>What Changed</h3><p><strong>Switch replay-verify to the main PFN deployments in us-central1</strong></p><p>by sionescu on 4/23/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/0db93e5a42dd8fc9df37fd72019ed7f5ed0c2b32\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Switch replay-verify to the main PFN deployments in us-central1</strong> — a change by sionescu.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

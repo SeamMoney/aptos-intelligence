@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19533,
+      "title": "Switch replay-verify to the main PFN deployments in us-central1",
+      "author": "sionescu",
+      "merged_at": "2026-04-23T01:35:28Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19533",
+      "labels": []
+    },
+    {
       "number": 19466,
       "title": "[mono-vm][specializer] Remove explicit types from simulated operand stack",
       "author": "vineethk",
@@ -211,6 +219,31 @@
       "labels": []
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-22T22:50:00.203Z"
+  "issues": [
+    {
+      "number": 18987,
+      "title": "[move compiler v2] Name clash in std::cmp when both test_mode and verify_mode are enabled",
+      "author": "junxzm1990",
+      "state": "open",
+      "created_at": "2026-03-08T17:55:08Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18987",
+      "labels": [
+        "Stale",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 18991,
+      "title": "[Bug] [Docker] account resources endpoint requires an indexer",
+      "author": "kheil117",
+      "state": "open",
+      "created_at": "2026-03-08T22:47:14Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18991",
+      "labels": [
+        "bug",
+        "Stale"
+      ]
+    }
+  ],
+  "lastUpdated": "2026-04-23T02:42:04.341Z"
 }
