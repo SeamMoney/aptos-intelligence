@@ -213,6 +213,19 @@
       "labels": []
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-23T20:54:13.689Z"
+  "issues": [
+    {
+      "number": 18043,
+      "title": "[Feature Request] Add ARM64 Docker image support for aptos-node in release process",
+      "author": "erikburt",
+      "state": "open",
+      "created_at": "2025-11-05T22:22:20Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18043",
+      "labels": [
+        "enhancement",
+        "Stale"
+      ]
+    }
+  ],
+  "lastUpdated": "2026-04-23T22:46:30.031Z"
 }
