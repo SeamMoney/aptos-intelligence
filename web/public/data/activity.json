@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19531,
+      "title": "[cp][aptos-release-v1.44] [build] Install clang 21 from LLVM apt repo in CI rust-setup action",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-23T20:36:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19531",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19488,
       "title": "[inspection-service] opens immediately",
       "author": "rustielin",
@@ -201,16 +211,8 @@
       "merged_at": "2026-04-20T22:41:53Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19485",
       "labels": []
-    },
-    {
-      "number": 19481,
-      "title": "[lint] Fix false positive in needless visibility checker",
-      "author": "vineethk",
-      "merged_at": "2026-04-20T22:05:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19481",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-23T19:11:02.601Z"
+  "lastUpdated": "2026-04-23T20:54:13.689Z"
 }
