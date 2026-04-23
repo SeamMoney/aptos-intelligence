@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19520,
+      "title": "[storage] Verify hot-state proofs in ProvableStateSummary",
+      "author": "wqfish",
+      "merged_at": "2026-04-23T15:09:28Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19520",
+      "labels": []
+    },
+    {
       "number": 19533,
       "title": "Switch replay-verify to the main PFN deployments in us-central1",
       "author": "sionescu",
@@ -201,14 +209,6 @@
       "merged_at": "2026-04-20T21:45:45Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19474",
       "labels": []
-    },
-    {
-      "number": 19511,
-      "title": "docs(consensus): fix 'QuorurmCertificate' -> 'QuorumCertificate' in block/block_data doc comments",
-      "author": "MukundaKatta",
-      "merged_at": "2026-04-20T20:32:33Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19511",
-      "labels": []
     }
   ],
   "issues": [
@@ -223,19 +223,7 @@
         "Stale",
         "compiler-v2"
       ]
-    },
-    {
-      "number": 18991,
-      "title": "[Bug] [Docker] account resources endpoint requires an indexer",
-      "author": "kheil117",
-      "state": "open",
-      "created_at": "2026-03-08T22:47:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/18991",
-      "labels": [
-        "bug",
-        "Stale"
-      ]
     }
   ],
-  "lastUpdated": "2026-04-23T13:45:10.716Z"
+  "lastUpdated": "2026-04-23T15:54:29.710Z"
 }
