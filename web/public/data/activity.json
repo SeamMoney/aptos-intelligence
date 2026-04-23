@@ -209,14 +209,6 @@
       "merged_at": "2026-04-20T20:32:33Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19511",
       "labels": []
-    },
-    {
-      "number": 19452,
-      "title": "[ci] Calibrate single-node execution performance values",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-20T18:39:46Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19452",
-      "labels": []
     }
   ],
   "issues": [
@@ -245,5 +237,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-23T06:06:39.993Z"
+  "lastUpdated": "2026-04-23T09:45:26.432Z"
 }
