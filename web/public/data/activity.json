@@ -211,19 +211,6 @@
       "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 18987,
-      "title": "[move compiler v2] Name clash in std::cmp when both test_mode and verify_mode are enabled",
-      "author": "junxzm1990",
-      "state": "open",
-      "created_at": "2026-03-08T17:55:08Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/18987",
-      "labels": [
-        "Stale",
-        "compiler-v2"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-04-23T15:54:29.710Z"
+  "issues": [],
+  "lastUpdated": "2026-04-23T17:21:58.088Z"
 }
