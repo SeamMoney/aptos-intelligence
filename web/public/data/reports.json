@@ -12087,5 +12087,19 @@
     "eli5": "<p><strong>[mono-move] Migrate from using the old type representation to the new one (#19530)</strong> — a change by vineethk.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100102,
+    "githubId": "5507bee",
+    "title": "[gas profiler] Fix native_gas leak; add consistency-check opt-out (#19532)",
+    "author": "vgao1996",
+    "date": "2026-04-24T20:15:00Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/5507beeabbcadc49604e152e06c45b1c3dae4bf5",
+    "advanced": "<h3>What Changed</h3><p><strong>[gas profiler] Fix native_gas leak; add consistency-check opt-out (#19532)</strong></p><p>by vgao1996 on 4/24/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/5507beeabbcadc49604e152e06c45b1c3dae4bf5\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[gas profiler] Fix native_gas leak; add consistency-check opt-out (#19532)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
