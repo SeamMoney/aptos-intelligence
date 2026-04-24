@@ -155,46 +155,6 @@
       "merged_at": "2026-04-21T19:25:37Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19523",
       "labels": []
-    },
-    {
-      "number": 19521,
-      "title": "[cli] Release Aptos CLI 9.2.0",
-      "author": "gregnazario",
-      "merged_at": "2026-04-21T17:43:58Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19521",
-      "labels": []
-    },
-    {
-      "number": 19486,
-      "title": "[compiler-v2] Implement a new abstraction for derived call graph query caching: fixes many subtle bugs.",
-      "author": "vineethk",
-      "merged_at": "2026-04-21T15:23:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19486",
-      "labels": []
-    },
-    {
-      "number": 19507,
-      "title": "[compiler-v2] Do not inline callees that emit cross-module events",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-21T12:46:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19507",
-      "labels": []
-    },
-    {
-      "number": 19503,
-      "title": "[vm] Remove MoveVmExt pass-through wrapper",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-21T12:12:42Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19503",
-      "labels": []
-    },
-    {
-      "number": 19498,
-      "title": "[storage] Filter pointer-only hot-state slots from JMT update paths",
-      "author": "wqfish",
-      "merged_at": "2026-04-21T08:38:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19498",
-      "labels": []
     }
   ],
   "issues": [
@@ -210,5 +170,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-24T09:45:56.900Z"
+  "lastUpdated": "2026-04-24T11:07:13.394Z"
 }
