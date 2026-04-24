@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19537,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.3",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-23T22:57:45Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19537",
+      "labels": []
+    },
+    {
+      "number": 19510,
+      "title": "[mono-move] Initial cross-module call support",
+      "author": "calintat",
+      "merged_at": "2026-04-23T22:56:36Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19510",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19531,
       "title": "[cp][aptos-release-v1.44] [build] Install clang 21 from LLVM apt repo in CI rust-setup action",
       "author": "aptos-bot",
@@ -177,40 +195,6 @@
       "merged_at": "2026-04-21T08:38:14Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19498",
       "labels": []
-    },
-    {
-      "number": 19517,
-      "title": "[smoke-test] Fix aptos-debugger jemalloc HPA hang",
-      "author": "wqfish",
-      "merged_at": "2026-04-21T07:40:02Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19517",
-      "labels": []
-    },
-    {
-      "number": 19435,
-      "title": "Improve replay-verify scheduler observability and resilience",
-      "author": "vgao1996",
-      "merged_at": "2026-04-21T00:44:50Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19435",
-      "labels": [
-        "CICD:build-performance-images"
-      ]
-    },
-    {
-      "number": 19473,
-      "title": "[consensus] Fix BATCH_NUM_PER_BLOCK histogram buckets",
-      "author": "danielxiangzl",
-      "merged_at": "2026-04-21T00:24:25Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19473",
-      "labels": []
-    },
-    {
-      "number": 19485,
-      "title": "[lint] Create a new lint check for unreachable code warning",
-      "author": "vineethk",
-      "merged_at": "2026-04-20T22:41:53Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19485",
-      "labels": []
     }
   ],
   "issues": [
@@ -222,10 +206,9 @@
       "created_at": "2025-11-05T22:22:20Z",
       "url": "https://github.com/aptos-labs/aptos-core/issues/18043",
       "labels": [
-        "enhancement",
-        "Stale"
+        "enhancement"
       ]
     }
   ],
-  "lastUpdated": "2026-04-23T22:46:30.031Z"
+  "lastUpdated": "2026-04-24T02:42:28.936Z"
 }

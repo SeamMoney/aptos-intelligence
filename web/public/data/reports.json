@@ -12059,5 +12059,19 @@
     "eli5": "<p><strong>[inspection-service] opens immediately (#19488)</strong> — a change by rustielin.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100100,
+    "githubId": "41edbe5",
+    "title": "[mono-move] Initial cross-module call support (#19510)",
+    "author": "calintat",
+    "date": "2026-04-23T22:56:36Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/41edbe5cede127be829d44b31a0c8779d351d204",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Initial cross-module call support (#19510)</strong></p><p>by calintat on 4/23/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/41edbe5cede127be829d44b31a0c8779d351d204\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Initial cross-module call support (#19510)</strong> — a change by calintat.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
