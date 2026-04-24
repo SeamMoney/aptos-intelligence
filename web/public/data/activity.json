@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19530,
+      "title": "[mono-move] Migrate from using the old type representation to the new one",
+      "author": "vineethk",
+      "merged_at": "2026-04-24T17:09:16Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19530",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19537,
       "title": "[aptos-release-v1.44] Bump version to 1.44.3",
       "author": "aptos-bot",
@@ -158,5 +168,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-24T16:58:08.496Z"
+  "lastUpdated": "2026-04-24T18:54:20.619Z"
 }
