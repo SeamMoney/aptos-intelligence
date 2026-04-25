@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19539,
+      "title": "[storage] Stable hot state order across restarts",
+      "author": "wqfish",
+      "merged_at": "2026-04-25T02:55:46Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19539",
+      "labels": []
+    },
+    {
       "number": 19506,
       "title": "[mono-move] Add module loader with versioned cache slots",
       "author": "georgemitenkov",
@@ -151,14 +159,6 @@
       "merged_at": "2026-04-14T00:14:14Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
       "labels": []
-    },
-    {
-      "number": 19453,
-      "title": "[gas] Charge extra gas for encrypted transactions",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-22T04:11:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19453",
-      "labels": []
     }
   ],
   "issues": [
@@ -175,5 +175,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-25T02:31:26.924Z"
+  "lastUpdated": "2026-04-25T05:48:42.077Z"
 }
