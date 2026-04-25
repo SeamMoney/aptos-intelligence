@@ -159,16 +159,21 @@
       "merged_at": "2026-04-22T04:11:44Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19453",
       "labels": []
-    },
-    {
-      "number": 19470,
-      "title": "[mono-move] Add gas benchmarks",
-      "author": "calintat",
-      "merged_at": "2026-04-21T23:19:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19470",
-      "labels": []
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-24T22:39:46.975Z"
+  "issues": [
+    {
+      "number": 18830,
+      "title": "[compiler v2] tracking todos of unused checks",
+      "author": "junxzm1990",
+      "state": "closed",
+      "created_at": "2026-02-23T19:32:04Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18830",
+      "labels": [
+        "enhancement",
+        "Stale"
+      ]
+    }
+  ],
+  "lastUpdated": "2026-04-25T02:31:26.924Z"
 }
