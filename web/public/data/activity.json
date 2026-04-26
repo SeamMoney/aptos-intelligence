@@ -151,14 +151,6 @@
       "merged_at": "2026-04-14T20:53:32Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19427",
       "labels": []
-    },
-    {
-      "number": 19388,
-      "title": "Shared data structures and algorithms crate",
-      "author": "vineethk",
-      "merged_at": "2026-04-14T00:14:14Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19388",
-      "labels": []
     }
   ],
   "issues": [
@@ -175,5 +167,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-25T22:37:59.191Z"
+  "lastUpdated": "2026-04-26T02:48:17.165Z"
 }
