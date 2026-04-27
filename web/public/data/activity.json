@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19310,
+      "title": "[Move][Spec] Fix specs and other miscs",
+      "author": "rahxephon89",
+      "merged_at": "2026-04-27T14:53:45Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19310",
+      "labels": []
+    },
+    {
       "number": 19539,
       "title": "[storage] Stable hot state order across restarts",
       "author": "wqfish",
@@ -107,18 +115,8 @@
       "labels": [
         "v1.44"
       ]
-    },
-    {
-      "number": 19454,
-      "title": "[mono-vm] Factor specializer pipeline out of the executable and into the specialize crate.",
-      "author": "vineethk",
-      "merged_at": "2026-04-22T18:38:42Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19454",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-27T13:56:05.447Z"
+  "lastUpdated": "2026-04-27T15:50:11.856Z"
 }
