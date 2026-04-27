@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19543,
+      "title": "[framework] Expose is_encrypted_txn() to Move smart contracts",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-27T20:53:51Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19543",
+      "labels": []
+    },
+    {
+      "number": 19551,
+      "title": "[mono-move] Remove global context dependency for specializer",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-27T20:42:54Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19551",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19556,
       "title": "[mono-vm] Unify tests under testsuite",
       "author": "vineethk",
@@ -97,16 +115,8 @@
       "merged_at": "2026-04-23T18:17:59Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19488",
       "labels": []
-    },
-    {
-      "number": 19520,
-      "title": "[storage] Verify hot-state proofs in ProvableStateSummary",
-      "author": "wqfish",
-      "merged_at": "2026-04-23T15:09:28Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19520",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-27T19:24:04.852Z"
+  "lastUpdated": "2026-04-27T21:03:19.461Z"
 }
