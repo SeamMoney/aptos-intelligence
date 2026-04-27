@@ -12199,5 +12199,61 @@
     "eli5": "<p><strong>[mono-move] Remove global context dependency for specializer (#19551)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100110,
+    "githubId": "622eefe",
+    "title": "chunky DKG stall recovery fixes (#19538)",
+    "author": "ibalajiarun",
+    "date": "2026-04-27T22:16:58Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/622eefe9471710cf455c35ec225cd7745ab2d42a",
+    "advanced": "<h3>What Changed</h3><p><strong>chunky DKG stall recovery fixes (#19538)</strong></p><p>by ibalajiarun on 4/27/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/622eefe9471710cf455c35ec225cd7745ab2d42a\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>chunky DKG stall recovery fixes (#19538)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100111,
+    "githubId": "697e854",
+    "title": "[Rust Setup] Fix linker build issue.",
+    "author": "JoshLind",
+    "date": "2026-04-27T20:03:20Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/697e854e4cab44b218d5f7cfecb4a354a2e84ad9",
+    "advanced": "<h3>What Changed</h3><p><strong>[Rust Setup] Fix linker build issue.</strong></p><p>by JoshLind on 4/27/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/697e854e4cab44b218d5f7cfecb4a354a2e84ad9\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[Rust Setup] Fix linker build issue.</strong> — a change by JoshLind.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100112,
+    "githubId": "a2abcbf",
+    "title": "[natives] Per-caller-thread native rayon pools",
+    "author": "ibalajiarun",
+    "date": "2026-04-27T18:38:15Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/a2abcbfe9efcf1d34f7f3153bffeabb9b6ee61ec",
+    "advanced": "<h3>What Changed</h3><p><strong>[natives] Per-caller-thread native rayon pools</strong></p><p>by ibalajiarun on 4/27/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/a2abcbfe9efcf1d34f7f3153bffeabb9b6ee61ec\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[natives] Per-caller-thread native rayon pools</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100113,
+    "githubId": "56ff86c",
+    "title": "[natives] Isolate rayon work on a dedicated pool",
+    "author": "ibalajiarun",
+    "date": "2026-04-24T18:18:09Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/56ff86ce1558cfff80f0e3dd11954567002cdcb4",
+    "advanced": "<h3>What Changed</h3><p><strong>[natives] Isolate rayon work on a dedicated pool</strong></p><p>by ibalajiarun on 4/24/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/56ff86ce1558cfff80f0e3dd11954567002cdcb4\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[natives] Isolate rayon work on a dedicated pool</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

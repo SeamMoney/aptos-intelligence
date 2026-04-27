@@ -1,6 +1,36 @@
 {
   "prs": [
     {
+      "number": 19541,
+      "title": "[natives] Isolate rayon work on a dedicated pool",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-27T22:48:46Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19541",
+      "labels": [
+        "CICD:run-forge-e2e-perf",
+        "v1.44",
+        "v1.45"
+      ]
+    },
+    {
+      "number": 19538,
+      "title": "chunky DKG stall recovery fixes",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-27T22:16:58Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19538",
+      "labels": [
+        "CICD:run-e2e-tests"
+      ]
+    },
+    {
+      "number": 19564,
+      "title": "[Rust Setup] Fix linker build issue.",
+      "author": "JoshLind",
+      "merged_at": "2026-04-27T21:57:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19564",
+      "labels": []
+    },
+    {
       "number": 19543,
       "title": "[framework] Expose is_encrypted_txn() to Move smart contracts",
       "author": "ibalajiarun",
@@ -87,36 +117,8 @@
       "merged_at": "2026-04-23T22:57:45Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19537",
       "labels": []
-    },
-    {
-      "number": 19510,
-      "title": "[mono-move] Initial cross-module call support",
-      "author": "calintat",
-      "merged_at": "2026-04-23T22:56:36Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19510",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19531,
-      "title": "[cp][aptos-release-v1.44] [build] Install clang 21 from LLVM apt repo in CI rust-setup action",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-23T20:36:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19531",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19488,
-      "title": "[inspection-service] opens immediately",
-      "author": "rustielin",
-      "merged_at": "2026-04-23T18:17:59Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19488",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-27T21:03:19.461Z"
+  "lastUpdated": "2026-04-27T22:53:44.338Z"
 }
