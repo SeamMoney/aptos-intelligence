@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19513,
+      "title": "[ci] Calibrate single-node execution performance values",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-27T17:20:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19513",
+      "labels": []
+    },
+    {
       "number": 19310,
       "title": "[Move][Spec] Fix specs and other miscs",
       "author": "rahxephon89",
@@ -105,18 +113,8 @@
       "labels": [
         "mono-move"
       ]
-    },
-    {
-      "number": 19451,
-      "title": "[build] Install clang 21 from LLVM apt repo in CI rust-setup action",
-      "author": "wqfish",
-      "merged_at": "2026-04-15T02:10:15Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19451",
-      "labels": [
-        "v1.44"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-27T15:50:11.856Z"
+  "lastUpdated": "2026-04-27T17:23:28.026Z"
 }
