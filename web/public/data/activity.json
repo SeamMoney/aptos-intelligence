@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19556,
+      "title": "[mono-vm] Unify tests under testsuite",
+      "author": "vineethk",
+      "merged_at": "2026-04-27T18:15:02Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19556",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19513,
       "title": "[ci] Calibrate single-node execution performance values",
       "author": "aptos-bot",
@@ -95,26 +105,8 @@
       "merged_at": "2026-04-23T15:09:28Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19520",
       "labels": []
-    },
-    {
-      "number": 19533,
-      "title": "Switch replay-verify to the main PFN deployments in us-central1",
-      "author": "sionescu",
-      "merged_at": "2026-04-23T01:35:28Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19533",
-      "labels": []
-    },
-    {
-      "number": 19466,
-      "title": "[mono-vm][specializer] Remove explicit types from simulated operand stack",
-      "author": "vineethk",
-      "merged_at": "2026-04-22T22:05:05Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19466",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-27T17:23:28.026Z"
+  "lastUpdated": "2026-04-27T19:24:04.852Z"
 }
