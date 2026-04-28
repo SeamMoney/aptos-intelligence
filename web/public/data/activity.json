@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19502,
+      "title": "[prover] Universal state quantification and other bug fixes in dynamic dispatch handling",
+      "author": "wrwg",
+      "merged_at": "2026-04-28T05:22:45Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19502",
+      "labels": []
+    },
+    {
       "number": 19541,
       "title": "[natives] Isolate rayon work on a dedicated pool",
       "author": "ibalajiarun",
@@ -141,5 +149,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-28T02:58:04.223Z"
+  "lastUpdated": "2026-04-28T06:29:56.050Z"
 }

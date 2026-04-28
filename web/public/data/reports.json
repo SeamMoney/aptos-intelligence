@@ -12283,5 +12283,19 @@
     "eli5": "<p><strong>Fix encrypted transaction validation for multi-signer and unsupported auth types (#19546)</strong> — a change by ibalajiarun.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100116,
+    "githubId": "a599dab",
+    "title": "[prover] Universal state quantification and other bug fixes in dynamic dispatch handling (#19502)",
+    "author": "wrwg",
+    "date": "2026-04-28T05:22:45Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/a599dabc3bba886e3cc52119434a2aa6f55ca055",
+    "advanced": "<h3>What Changed</h3><p><strong>[prover] Universal state quantification and other bug fixes in dynamic dispatch handling (#19502)</strong></p><p>by wrwg on 4/28/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/a599dabc3bba886e3cc52119434a2aa6f55ca055\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[prover] Universal state quantification and other bug fixes in dynamic dispatch handling (#19502)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
