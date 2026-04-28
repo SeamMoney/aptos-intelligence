@@ -1,14 +1,6 @@
 {
   "prs": [
     {
-      "number": 19548,
-      "title": "[consensus] Reject encrypted batches when feature is disabled",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-28T13:02:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19548",
-      "labels": []
-    },
-    {
       "number": 19555,
       "title": "[mono-move] Lazy layout population",
       "author": "georgemitenkov",
@@ -17,6 +9,22 @@
       "labels": [
         "mono-move"
       ]
+    },
+    {
+      "number": 19549,
+      "title": "[storage] Re-write hot state KV in restart replay",
+      "author": "wqfish",
+      "merged_at": "2026-04-28T14:19:09Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19549",
+      "labels": []
+    },
+    {
+      "number": 19548,
+      "title": "[consensus] Reject encrypted batches when feature is disabled",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-28T13:02:10Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19548",
+      "labels": []
     },
     {
       "number": 19553,
@@ -134,18 +142,8 @@
       "merged_at": "2026-04-25T02:55:46Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19539",
       "labels": []
-    },
-    {
-      "number": 19506,
-      "title": "[mono-move] Add module loader with versioned cache slots",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-24T22:37:24Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19506",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-28T14:12:24.793Z"
+  "lastUpdated": "2026-04-28T17:47:26.382Z"
 }
