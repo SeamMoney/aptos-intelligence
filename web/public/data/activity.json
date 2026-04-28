@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19558,
+      "title": "[paper] Higher-order functions and dynamic dispatch in MVP",
+      "author": "wrwg",
+      "merged_at": "2026-04-28T21:08:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19558",
+      "labels": []
+    },
+    {
       "number": 19572,
       "title": "[mono-move] Combine enum and struct types",
       "author": "georgemitenkov",
@@ -193,5 +201,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-28T21:07:58.868Z"
+  "lastUpdated": "2026-04-28T22:57:24.393Z"
 }
