@@ -12255,5 +12255,33 @@
     "eli5": "<p><strong>[natives] Isolate rayon work on a dedicated pool</strong> — a change by ibalajiarun.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100114,
+    "githubId": "cc0d3a9",
+    "title": "[dkg] Fix security and DoS issues in ChunkyDKG manager (#19544)",
+    "author": "ibalajiarun",
+    "date": "2026-04-28T00:33:51Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/cc0d3a963c93c58045a5124bd94f68964fbad04b",
+    "advanced": "<h3>What Changed</h3><p><strong>[dkg] Fix security and DoS issues in ChunkyDKG manager (#19544)</strong></p><p>by ibalajiarun on 4/28/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/cc0d3a963c93c58045a5124bd94f68964fbad04b\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[dkg] Fix security and DoS issues in ChunkyDKG manager (#19544)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100115,
+    "githubId": "83daaf1",
+    "title": "Fix encrypted transaction validation for multi-signer and unsupported auth types (#19546)",
+    "author": "ibalajiarun",
+    "date": "2026-04-28T00:17:02Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/83daaf1ad40ced8917ef247524a5fa3593e4c27e",
+    "advanced": "<h3>What Changed</h3><p><strong>Fix encrypted transaction validation for multi-signer and unsupported auth types (#19546)</strong></p><p>by ibalajiarun on 4/28/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/83daaf1ad40ced8917ef247524a5fa3593e4c27e\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Fix encrypted transaction validation for multi-signer and unsupported auth types (#19546)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
