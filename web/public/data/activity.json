@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19572,
+      "title": "[mono-move] Combine enum and struct types",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-28T20:18:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19572",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19515,
       "title": "[forge] bump deployer version",
       "author": "aptos-bot",
@@ -155,17 +165,21 @@
       "merged_at": "2026-04-27T14:53:45Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19310",
       "labels": []
-    },
-    {
-      "number": 19539,
-      "title": "[storage] Stable hot state order across restarts",
-      "author": "wqfish",
-      "merged_at": "2026-04-25T02:55:46Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19539",
-      "labels": []
     }
   ],
   "issues": [
+    {
+      "number": 19575,
+      "title": "[Bug][compiler][prover] self is uninstantiated in generic enum spec invariant blocks",
+      "author": "rahxephon89",
+      "state": "open",
+      "created_at": "2026-04-28T20:56:05Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19575",
+      "labels": [
+        "bug",
+        "move-prover"
+      ]
+    },
     {
       "number": 19512,
       "title": "[Bug][prover] spec infer does not work for intrinsic specs",
@@ -179,5 +193,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-28T19:42:57.302Z"
+  "lastUpdated": "2026-04-28T21:07:58.868Z"
 }
