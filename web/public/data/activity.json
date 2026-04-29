@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19578,
+      "title": "[trivial][compiler] fix type parameter issues for enums",
+      "author": "rahxephon89",
+      "merged_at": "2026-04-29T17:35:16Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19578",
+      "labels": []
+    },
+    {
+      "number": 19571,
+      "title": "[cp][aptos-release-v1.43] [natives] Isolate rayon work on a dedicated pool",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-29T17:18:52Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19571",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19558,
       "title": "[paper] Higher-order functions and dynamic dispatch in MVP",
       "author": "wrwg",
@@ -190,28 +208,21 @@
       "merged_at": "2026-04-27T20:53:51Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19543",
       "labels": []
-    },
+    }
+  ],
+  "issues": [
     {
-      "number": 19551,
-      "title": "[mono-move] Remove global context dependency for specializer",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-27T20:42:54Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19551",
+      "number": 19575,
+      "title": "[Bug][compiler][prover] self is uninstantiated in generic enum spec invariant blocks",
+      "author": "rahxephon89",
+      "state": "closed",
+      "created_at": "2026-04-28T20:56:05Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19575",
       "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19556,
-      "title": "[mono-vm] Unify tests under testsuite",
-      "author": "vineethk",
-      "merged_at": "2026-04-27T18:15:02Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19556",
-      "labels": [
-        "mono-move"
+        "bug",
+        "move-prover"
       ]
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-04-29T15:59:52.066Z"
+  "lastUpdated": "2026-04-29T17:46:11.984Z"
 }
