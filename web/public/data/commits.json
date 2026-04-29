@@ -1,15 +1,31 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,35 +40,35 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
+    "sha": "9f544b6",
+    "title": "[consensus] Add UseCaseAndEncryptedTxnsAwareShuffler for encrypted txn ordering (#19562)",
+    "author": "ibalajiarun",
+    "date": "2026-04-29T04:12:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9f544b6b09aed46ecea0e45e2c13fccda3705a24",
     "category": "Feature Progress"
   },
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "f29dc41",
+    "title": "[consensus] Enable sending Batch V2 and OptQS V2 proposals (#19573)",
+    "author": "ibalajiarun",
+    "date": "2026-04-29T04:12:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f29dc41017e06e0138a609806eb6518463ac31b4",
     "category": "Feature Progress"
   },
   {
@@ -4800,14 +4816,6 @@
     "category": "Release"
   },
   {
-    "sha": "ca3072c",
-    "title": "[TSS] add support for randomness in local mode (#18573)",
-    "author": "vgao1996",
-    "date": "2026-01-31T20:03:28Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/ca3072cc40a2c1c3a815e9c886a05802c93d8bce",
-    "category": "Infrastructure"
-  },
-  {
     "sha": "c6d4caf",
     "title": "[Peer Monitoring] Support metadata sanitization.",
     "author": "cursoragent",
@@ -4821,14 +4829,6 @@
     "author": "ibalajiarun",
     "date": "2026-01-29T17:23:05Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/bd70aa5e335c3b33f523ce6317e8a75895347135",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "e4e34ed",
-    "title": "[dkg] Add chunky DKG types and module structure",
-    "author": "ibalajiarun",
-    "date": "2026-01-29T17:19:45Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/e4e34ed9fad5059c9b7f4a4b9e79ea7e235bc2b5",
     "category": "Infrastructure"
   },
   {

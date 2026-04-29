@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19562,
+      "title": "[consensus] Add encrypted-txn-aware transaction shuffler",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-29T04:12:49Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19562",
+      "labels": []
+    },
+    {
+      "number": 19573,
+      "title": "[consensus] Enable sending Batch V2 and OptQS V2 proposals",
+      "author": "ibalajiarun",
+      "merged_at": "2026-04-29T04:12:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19573",
+      "labels": []
+    },
+    {
       "number": 19519,
       "title": "[vm] Initial closure runtime for mono-move",
       "author": "vgao1996",
@@ -183,29 +199,8 @@
       "merged_at": "2026-04-27T17:20:00Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19513",
       "labels": []
-    },
-    {
-      "number": 19310,
-      "title": "[Move][Spec] Fix specs and other miscs",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-27T14:53:45Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19310",
-      "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 19575,
-      "title": "[Bug][compiler][prover] self is uninstantiated in generic enum spec invariant blocks",
-      "author": "rahxephon89",
-      "state": "open",
-      "created_at": "2026-04-28T20:56:05Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19575",
-      "labels": [
-        "bug",
-        "move-prover"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-04-29T02:56:18.076Z"
+  "issues": [],
+  "lastUpdated": "2026-04-29T06:23:51.567Z"
 }

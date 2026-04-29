@@ -12423,5 +12423,33 @@
     "eli5": "<p><strong>[cli] Show rich abort info in local simulation vm_status (#19490)</strong> — a change by vgao1996.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100126,
+    "githubId": "9f544b6",
+    "title": "[consensus] Add UseCaseAndEncryptedTxnsAwareShuffler for encrypted txn ordering (#19562)",
+    "author": "ibalajiarun",
+    "date": "2026-04-29T04:12:49Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/9f544b6b09aed46ecea0e45e2c13fccda3705a24",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] Add UseCaseAndEncryptedTxnsAwareShuffler for encrypted txn ordering (#19562)</strong></p><p>by ibalajiarun on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/9f544b6b09aed46ecea0e45e2c13fccda3705a24\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] Add UseCaseAndEncryptedTxnsAwareShuffler for encrypted txn ordering (#19562)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100127,
+    "githubId": "f29dc41",
+    "title": "[consensus] Enable sending Batch V2 and OptQS V2 proposals (#19573)",
+    "author": "ibalajiarun",
+    "date": "2026-04-29T04:12:18Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/f29dc41017e06e0138a609806eb6518463ac31b4",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] Enable sending Batch V2 and OptQS V2 proposals (#19573)</strong></p><p>by ibalajiarun on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/f29dc41017e06e0138a609806eb6518463ac31b4\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] Enable sending Batch V2 and OptQS V2 proposals (#19573)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
