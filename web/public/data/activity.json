@@ -1,12 +1,23 @@
 {
   "prs": [
     {
+      "number": 19558,
+      "title": "[paper] Higher-order functions and dynamic dispatch in MVP",
+      "author": "wrwg",
+      "merged_at": "2026-04-28T21:08:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19558",
+      "labels": []
+    },
+    {
       "number": 19577,
       "title": "[gha] do not publish docker on hotfix suffix",
       "author": "rustielin",
       "merged_at": "2026-04-29T13:40:57Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19577",
-      "labels": []
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
     },
     {
       "number": 19468,
@@ -48,14 +59,6 @@
       "author": "vgao1996",
       "merged_at": "2026-04-28T22:57:24Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19490",
-      "labels": []
-    },
-    {
-      "number": 19558,
-      "title": "[paper] Higher-order functions and dynamic dispatch in MVP",
-      "author": "wrwg",
-      "merged_at": "2026-04-28T21:08:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19558",
       "labels": []
     },
     {
@@ -210,5 +213,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-29T13:59:03.071Z"
+  "lastUpdated": "2026-04-29T15:59:52.066Z"
 }
