@@ -12493,5 +12493,33 @@
     "eli5": "<p><strong>fix enum bug (#19578)</strong> — a change by rahxephon89.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100131,
+    "githubId": "5846f08",
+    "title": "combining differential and snapshot testing (#19585)",
+    "author": "vineethk",
+    "date": "2026-04-29T20:59:07Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/5846f08356112ef842689e30a15e4fe1929f09bc",
+    "advanced": "<h3>What Changed</h3><p><strong>combining differential and snapshot testing (#19585)</strong></p><p>by vineethk on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/5846f08356112ef842689e30a15e4fe1929f09bc\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>combining differential and snapshot testing (#19585)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100132,
+    "githubId": "b93d811",
+    "title": "[encrypted mempool] Fix PVSS sigma proof shape check (#19587)",
+    "author": "rex1fernando",
+    "date": "2026-04-29T20:44:40Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/b93d811afede567d2a18902b315196c3a8c3621f",
+    "advanced": "<h3>What Changed</h3><p><strong>[encrypted mempool] Fix PVSS sigma proof shape check (#19587)</strong></p><p>by rex1fernando on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/b93d811afede567d2a18902b315196c3a8c3621f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[encrypted mempool] Fix PVSS sigma proof shape check (#19587)</strong> — a change by rex1fernando.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

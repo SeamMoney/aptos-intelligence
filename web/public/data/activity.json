@@ -1,14 +1,22 @@
 {
   "prs": [
     {
-      "number": 19564,
-      "title": "[Rust Setup] Fix linker build issue.",
-      "author": "JoshLind",
-      "merged_at": "2026-04-27T21:57:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19564",
+      "number": 19585,
+      "title": "[mono-vm] Combining differential and snapshot testing",
+      "author": "vineethk",
+      "merged_at": "2026-04-29T20:59:07Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19585",
       "labels": [
-        "v1.44"
+        "mono-move"
       ]
+    },
+    {
+      "number": 19587,
+      "title": "[encrypted mempool] Fix PVSS sigma proof shape check",
+      "author": "rex1fernando",
+      "merged_at": "2026-04-29T20:44:41Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19587",
+      "labels": []
     },
     {
       "number": 19586,
@@ -18,6 +26,16 @@
       "url": "https://github.com/aptos-labs/aptos-core/pull/19586",
       "labels": [
         "cherry-pick"
+      ]
+    },
+    {
+      "number": 19564,
+      "title": "[Rust Setup] Fix linker build issue.",
+      "author": "JoshLind",
+      "merged_at": "2026-04-27T21:57:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19564",
+      "labels": [
+        "v1.44"
       ]
     },
     {
@@ -194,24 +212,6 @@
       "merged_at": "2026-04-28T00:33:52Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19544",
       "labels": []
-    },
-    {
-      "number": 19546,
-      "title": "Fix encrypted transaction validation for multi-signer and unsupported auth types",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-28T00:17:02Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19546",
-      "labels": []
-    },
-    {
-      "number": 19538,
-      "title": "chunky DKG stall recovery fixes",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-27T22:16:58Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19538",
-      "labels": [
-        "CICD:run-e2e-tests"
-      ]
     }
   ],
   "issues": [
@@ -228,5 +228,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-29T19:27:14.075Z"
+  "lastUpdated": "2026-04-29T21:06:52.797Z"
 }
