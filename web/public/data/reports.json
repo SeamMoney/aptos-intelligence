@@ -12465,5 +12465,19 @@
     "eli5": "<p><strong>[vm] Versioned enum-based transaction prologue and epilogue (#19468)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100129,
+    "githubId": "918bb6d",
+    "title": "[gha] do not publish docker on hotfix suffix (#19577)",
+    "author": "rustielin",
+    "date": "2026-04-29T13:40:56Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/918bb6d11239b4e91d8628c66bad1e85ab63bd8c",
+    "advanced": "<h3>What Changed</h3><p><strong>[gha] do not publish docker on hotfix suffix (#19577)</strong></p><p>by rustielin on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/918bb6d11239b4e91d8628c66bad1e85ab63bd8c\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[gha] do not publish docker on hotfix suffix (#19577)</strong> — a change by rustielin.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
