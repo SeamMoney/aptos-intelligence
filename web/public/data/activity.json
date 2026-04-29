@@ -1,6 +1,26 @@
 {
   "prs": [
     {
+      "number": 19564,
+      "title": "[Rust Setup] Fix linker build issue.",
+      "author": "JoshLind",
+      "merged_at": "2026-04-27T21:57:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19564",
+      "labels": [
+        "v1.44"
+      ]
+    },
+    {
+      "number": 19586,
+      "title": "[cp][aptos-release-v1.44] [Rust Setup] Fix linker build issue.",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-29T19:00:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19586",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19578,
       "title": "[trivial][compiler] fix type parameter issues for enums",
       "author": "rahxephon89",
@@ -192,22 +212,6 @@
       "labels": [
         "CICD:run-e2e-tests"
       ]
-    },
-    {
-      "number": 19564,
-      "title": "[Rust Setup] Fix linker build issue.",
-      "author": "JoshLind",
-      "merged_at": "2026-04-27T21:57:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19564",
-      "labels": []
-    },
-    {
-      "number": 19543,
-      "title": "[framework] Expose is_encrypted_txn() to Move smart contracts",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-27T20:53:51Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19543",
-      "labels": []
     }
   ],
   "issues": [
@@ -224,5 +228,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-04-29T17:46:11.984Z"
+  "lastUpdated": "2026-04-29T19:27:14.075Z"
 }
