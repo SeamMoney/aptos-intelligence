@@ -12395,5 +12395,33 @@
     "eli5": "<p><strong>[paper] Higher-order functions and dynamic dispatch in MVP (#19558)</strong> — a change by wrwg.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100124,
+    "githubId": "0c5bc4a",
+    "title": "[vm] Initial closure runtime for mono-move (#19519)",
+    "author": "vgao1996",
+    "date": "2026-04-29T02:06:38Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/0c5bc4a215def0d94acf19c72f34f3215b343880",
+    "advanced": "<h3>What Changed</h3><p><strong>[vm] Initial closure runtime for mono-move (#19519)</strong></p><p>by vgao1996 on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/0c5bc4a215def0d94acf19c72f34f3215b343880\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[vm] Initial closure runtime for mono-move (#19519)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100125,
+    "githubId": "52ec857",
+    "title": "[cli] Show rich abort info in local simulation vm_status (#19490)",
+    "author": "vgao1996",
+    "date": "2026-04-28T22:57:23Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/52ec857ab3ea9ab2a0b315b18d1595f808d9d55a",
+    "advanced": "<h3>What Changed</h3><p><strong>[cli] Show rich abort info in local simulation vm_status (#19490)</strong></p><p>by vgao1996 on 4/28/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/52ec857ab3ea9ab2a0b315b18d1595f808d9d55a\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[cli] Show rich abort info in local simulation vm_status (#19490)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
