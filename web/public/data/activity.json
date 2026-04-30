@@ -1,6 +1,30 @@
 {
   "prs": [
     {
+      "number": 19179,
+      "title": "Add onchain signer utilities",
+      "author": "igor-aptos",
+      "merged_at": "2026-04-30T02:23:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19179",
+      "labels": []
+    },
+    {
+      "number": 19547,
+      "title": "[storage] Persist hot-state promotions in epilogue",
+      "author": "wqfish",
+      "merged_at": "2026-04-30T00:03:42Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19547",
+      "labels": []
+    },
+    {
+      "number": 19584,
+      "title": "[paper] Resolving supposed unsoundness issue around aborts behavioral predicate",
+      "author": "wrwg",
+      "merged_at": "2026-04-29T23:27:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19584",
+      "labels": []
+    },
+    {
       "number": 19585,
       "title": "[mono-vm] Combining differential and snapshot testing",
       "author": "vineethk",
@@ -191,42 +215,8 @@
       "merged_at": "2026-04-28T05:22:45Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19502",
       "labels": []
-    },
-    {
-      "number": 19541,
-      "title": "[natives] Isolate rayon work on a dedicated pool",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-27T22:48:46Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19541",
-      "labels": [
-        "CICD:run-forge-e2e-perf",
-        "v1.43",
-        "v1.44",
-        "v1.45"
-      ]
-    },
-    {
-      "number": 19544,
-      "title": "[dkg] Fix security and DoS issues in ChunkyDKG manager",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-28T00:33:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19544",
-      "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 19575,
-      "title": "[Bug][compiler][prover] self is uninstantiated in generic enum spec invariant blocks",
-      "author": "rahxephon89",
-      "state": "closed",
-      "created_at": "2026-04-28T20:56:05Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19575",
-      "labels": [
-        "bug",
-        "move-prover"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-04-29T22:57:48.573Z"
+  "issues": [],
+  "lastUpdated": "2026-04-30T02:57:21.287Z"
 }

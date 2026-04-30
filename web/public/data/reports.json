@@ -12521,5 +12521,47 @@
     "eli5": "<p><strong>[encrypted mempool] Fix PVSS sigma proof shape check (#19587)</strong> — a change by rex1fernando.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100133,
+    "githubId": "05a4c3d",
+    "title": "Add onchain signer utilities (#19179)",
+    "author": "igor-aptos",
+    "date": "2026-04-30T02:22:59Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/05a4c3d200df698c476860d098aecb5ecbe13f1c",
+    "advanced": "<h3>What Changed</h3><p><strong>Add onchain signer utilities (#19179)</strong></p><p>by igor-aptos on 4/30/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/05a4c3d200df698c476860d098aecb5ecbe13f1c\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Add onchain signer utilities (#19179)</strong> — a change by igor-aptos.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100134,
+    "githubId": "6a2e420",
+    "title": "[paper] Resolving supposed unsoundness issue around aborts behavioral predicate (#19584)",
+    "author": "wrwg",
+    "date": "2026-04-29T23:27:55Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/6a2e4207d1d4ec59686694f2008c662be268cb04",
+    "advanced": "<h3>What Changed</h3><p><strong>[paper] Resolving supposed unsoundness issue around aborts behavioral predicate (#19584)</strong></p><p>by wrwg on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/6a2e4207d1d4ec59686694f2008c662be268cb04\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[paper] Resolving supposed unsoundness issue around aborts behavioral predicate (#19584)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100135,
+    "githubId": "cf97766",
+    "title": "[storage] Persist hot-state promotions in epilogue",
+    "author": "wqfish",
+    "date": "2026-04-29T14:26:48Z",
+    "category": "Performance",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/cf977668e63ef026f303eb3d04eab8f882311347",
+    "advanced": "<h3>What Changed</h3><p><strong>[storage] Persist hot-state promotions in epilogue</strong></p><p>by wqfish on 4/29/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/cf977668e63ef026f303eb3d04eab8f882311347\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[storage] Persist hot-state promotions in epilogue</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
