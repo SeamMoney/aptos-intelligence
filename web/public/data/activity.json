@@ -1,14 +1,21 @@
 {
   "prs": [
     {
-      "number": 19596,
-      "title": "[vm] Iterative Drop for nested Move values (security fix)",
-      "author": "JoshLind",
-      "merged_at": "2026-04-30T17:46:04Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19596",
+      "number": 19607,
+      "title": "[docker] build and release all performance images (#19347)",
+      "author": "rustielin",
+      "merged_at": "2026-04-30T21:20:34Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19607",
+      "labels": []
+    },
+    {
+      "number": 19606,
+      "title": "[cp][aptos-release-v1.45] [vm] Iterative Drop for nested Move values (security fix)",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-30T21:42:42Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19606",
       "labels": [
-        "v1.44",
-        "v1.45"
+        "cherry-pick"
       ]
     },
     {
@@ -18,6 +25,17 @@
       "merged_at": "2026-04-30T20:26:47Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19605",
       "labels": []
+    },
+    {
+      "number": 19596,
+      "title": "[vm] Iterative Drop for nested Move values (security fix)",
+      "author": "JoshLind",
+      "merged_at": "2026-04-30T17:46:04Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19596",
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
     },
     {
       "number": 19602,
@@ -187,16 +205,8 @@
       "labels": [
         "mono-move"
       ]
-    },
-    {
-      "number": 19490,
-      "title": "[cli] Show rich abort info in local simulation vm_status",
-      "author": "vgao1996",
-      "merged_at": "2026-04-28T22:57:24Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19490",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-30T21:02:14.372Z"
+  "lastUpdated": "2026-04-30T22:54:18.215Z"
 }
