@@ -1,6 +1,25 @@
 {
   "prs": [
     {
+      "number": 19596,
+      "title": "[vm] Iterative Drop for nested Move values (security fix)",
+      "author": "JoshLind",
+      "merged_at": "2026-04-30T17:46:04Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19596",
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
+    },
+    {
+      "number": 19605,
+      "title": "[docker] release tags always with the git sha (#19463)",
+      "author": "JoshLind",
+      "merged_at": "2026-04-30T20:26:47Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19605",
+      "labels": []
+    },
+    {
       "number": 19602,
       "title": "[aptos-release-v1.44] Bump version to 1.44.4",
       "author": "aptos-bot",
@@ -15,17 +34,6 @@
       "merged_at": "2026-04-30T18:17:47Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19598",
       "labels": []
-    },
-    {
-      "number": 19596,
-      "title": "[vm] Iterative Drop for nested Move values (security fix)",
-      "author": "JoshLind",
-      "merged_at": "2026-04-30T17:46:04Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19596",
-      "labels": [
-        "v1.44",
-        "v1.45"
-      ]
     },
     {
       "number": 19557,
@@ -187,29 +195,8 @@
       "merged_at": "2026-04-28T22:57:24Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19490",
       "labels": []
-    },
-    {
-      "number": 19515,
-      "title": "[forge] bump deployer version",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-28T18:28:16Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19515",
-      "labels": [
-        "CICD:run-e2e-tests",
-        "CICD:run-framework-upgrade-test"
-      ]
-    },
-    {
-      "number": 19569,
-      "title": "[cp][aptos-release-v1.44] [natives] Isolate rayon work on a dedicated pool",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-28T18:14:17Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19569",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-30T19:23:11.503Z"
+  "lastUpdated": "2026-04-30T21:02:14.372Z"
 }
