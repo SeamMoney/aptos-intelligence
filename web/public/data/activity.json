@@ -1,6 +1,33 @@
 {
   "prs": [
     {
+      "number": 19602,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.4",
+      "author": "aptos-bot",
+      "merged_at": "2026-04-30T19:00:15Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19602",
+      "labels": []
+    },
+    {
+      "number": 19598,
+      "title": "[cherry-pick[[vm] Iterative Drop for nested Move values (security fix) (#415)",
+      "author": "vgao1996",
+      "merged_at": "2026-04-30T18:17:47Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19598",
+      "labels": []
+    },
+    {
+      "number": 19596,
+      "title": "[vm] Iterative Drop for nested Move values (security fix)",
+      "author": "JoshLind",
+      "merged_at": "2026-04-30T17:46:04Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19596",
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
+    },
+    {
       "number": 19557,
       "title": "[mono-move] Eager interning of signatures",
       "author": "georgemitenkov",
@@ -181,44 +208,8 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19555,
-      "title": "[mono-move] Lazy layout population",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-28T10:26:19Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19555",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19549,
-      "title": "[storage] Re-write hot state KV in restart replay",
-      "author": "wqfish",
-      "merged_at": "2026-04-28T14:19:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19549",
-      "labels": []
-    },
-    {
-      "number": 19548,
-      "title": "[consensus] Reject encrypted batches when feature is disabled",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-28T13:02:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19548",
-      "labels": []
-    },
-    {
-      "number": 19553,
-      "title": "[mono-move] LoadedModule with ModuleIR to be used in code cache",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-28T09:37:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19553",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-04-30T17:22:34.431Z"
+  "lastUpdated": "2026-04-30T19:23:11.503Z"
 }

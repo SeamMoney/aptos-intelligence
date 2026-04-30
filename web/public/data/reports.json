@@ -12577,5 +12577,33 @@
     "eli5": "<p><strong>[mono-move] Eager interning of signatures (#19557)</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100137,
+    "githubId": "83d8c2e",
+    "title": "[Cached Packages] Rebuild packages.",
+    "author": "JoshLind",
+    "date": "2026-04-30T17:01:29Z",
+    "category": "Performance",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/83d8c2e2d0423b75ac89aecf5855efc18cdc87b8",
+    "advanced": "<h3>What Changed</h3><p><strong>[Cached Packages] Rebuild packages.</strong></p><p>by JoshLind on 4/30/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/83d8c2e2d0423b75ac89aecf5855efc18cdc87b8\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[Cached Packages] Rebuild packages.</strong> — a change by JoshLind.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100138,
+    "githubId": "d0d1069",
+    "title": "[vm] Iterative Drop for nested Move values (security fix) (#415)",
+    "author": "vgao1996",
+    "date": "2026-04-24T19:57:24Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/d0d10695c5df010fb632762f700b770e064b7fe2",
+    "advanced": "<h3>What Changed</h3><p><strong>[vm] Iterative Drop for nested Move values (security fix) (#415)</strong></p><p>by vgao1996 on 4/24/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/d0d10695c5df010fb632762f700b770e064b7fe2\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[vm] Iterative Drop for nested Move values (security fix) (#415)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
