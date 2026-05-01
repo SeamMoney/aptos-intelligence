@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19614,
+      "title": "[gas] Move V1_46-gated params back to V1_45",
+      "author": "wqfish",
+      "merged_at": "2026-05-01T18:12:11Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19614",
+      "labels": []
+    },
+    {
       "number": 19610,
       "title": "[gas] Fold V1_46 changes into V1_45",
       "author": "wqfish",
@@ -197,14 +205,6 @@
       "merged_at": "2026-04-29T08:24:04Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19468",
       "labels": []
-    },
-    {
-      "number": 19562,
-      "title": "[consensus] Add encrypted-txn-aware transaction shuffler",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-29T04:12:49Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19562",
-      "labels": []
     }
   ],
   "issues": [
@@ -232,5 +232,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-01T16:58:28.239Z"
+  "lastUpdated": "2026-05-01T19:13:36.339Z"
 }
