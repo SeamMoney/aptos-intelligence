@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19615,
+      "title": "[vm] Fix par_exec deadlock in with_native_rayon",
+      "author": "zekun000",
+      "merged_at": "2026-05-01T20:22:57Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19615",
+      "labels": [
+        "CICD:build-performance-images"
+      ]
+    },
+    {
       "number": 19614,
       "title": "[gas] Move V1_46-gated params back to V1_45",
       "author": "wqfish",
@@ -197,14 +207,6 @@
         "v1.44",
         "v1.45"
       ]
-    },
-    {
-      "number": 19468,
-      "title": "[vm] Versioned enum-based transaction prologue and epilogue",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-29T08:24:04Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19468",
-      "labels": []
     }
   ],
   "issues": [
@@ -232,5 +234,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-01T19:13:36.339Z"
+  "lastUpdated": "2026-05-01T20:54:06.899Z"
 }
