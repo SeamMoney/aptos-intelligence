@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19610,
+      "title": "[gas] Fold V1_46 changes into V1_45",
+      "author": "wqfish",
+      "merged_at": "2026-05-01T15:50:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19610",
+      "labels": []
+    },
+    {
       "number": 19581,
       "title": "[mono-move] Integrate loader into cross-module calls",
       "author": "calintat",
@@ -197,14 +205,6 @@
       "merged_at": "2026-04-29T04:12:49Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19562",
       "labels": []
-    },
-    {
-      "number": 19573,
-      "title": "[consensus] Enable sending Batch V2 and OptQS V2 proposals",
-      "author": "ibalajiarun",
-      "merged_at": "2026-04-29T04:12:19Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19573",
-      "labels": []
     }
   ],
   "issues": [
@@ -232,5 +232,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-01T14:56:18.100Z"
+  "lastUpdated": "2026-05-01T16:58:28.239Z"
 }
