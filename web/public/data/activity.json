@@ -1,13 +1,24 @@
 {
   "prs": [
     {
+      "number": 19618,
+      "title": "[cp][aptos-release-v1.43] [vm] Fix par_exec deadlock in with_native_rayon",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-01T22:45:36Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19618",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19615,
       "title": "[vm] Fix par_exec deadlock in with_native_rayon",
       "author": "zekun000",
       "merged_at": "2026-05-01T20:22:57Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19615",
       "labels": [
-        "CICD:build-performance-images"
+        "CICD:build-performance-images",
+        "v1.43"
       ]
     },
     {
@@ -188,25 +199,6 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19558,
-      "title": "[paper] Higher-order functions and dynamic dispatch in MVP",
-      "author": "wrwg",
-      "merged_at": "2026-04-28T21:08:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19558",
-      "labels": []
-    },
-    {
-      "number": 19577,
-      "title": "[gha] do not publish docker on hotfix suffix",
-      "author": "rustielin",
-      "merged_at": "2026-04-29T13:40:57Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19577",
-      "labels": [
-        "v1.44",
-        "v1.45"
-      ]
     }
   ],
   "issues": [
@@ -234,5 +226,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-01T20:54:06.899Z"
+  "lastUpdated": "2026-05-01T22:51:47.843Z"
 }
