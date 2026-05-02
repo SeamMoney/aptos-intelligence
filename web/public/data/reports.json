@@ -12633,5 +12633,33 @@
     "eli5": "<p><strong>[gas] Move V1_46-gated params back to V1_45</strong> — a change by wqfish.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100141,
+    "githubId": "aff3b97",
+    "title": "[mono-move] flesh out u64 arithmetic / bitwise / shift micro-ops (#19591)",
+    "author": "vgao1996",
+    "date": "2026-05-02T00:42:05Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/aff3b97ce017cc1de51237e88e5d53b2ed0ec396",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] flesh out u64 arithmetic / bitwise / shift micro-ops (#19591)</strong></p><p>by vgao1996 on 5/2/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/aff3b97ce017cc1de51237e88e5d53b2ed0ec396\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] flesh out u64 arithmetic / bitwise / shift micro-ops (#19591)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100142,
+    "githubId": "38059a7",
+    "title": "[mono-move] Encapsulate ObjectDescriptor and ObjectDescriptorTable (#19589)",
+    "author": "vgao1996",
+    "date": "2026-05-01T23:50:40Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/38059a7616efc18b07d3e65efa3fcae6a0bb4a11",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Encapsulate ObjectDescriptor and ObjectDescriptorTable (#19589)</strong></p><p>by vgao1996 on 5/1/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/38059a7616efc18b07d3e65efa3fcae6a0bb4a11\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Encapsulate ObjectDescriptor and ObjectDescriptorTable (#19589)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

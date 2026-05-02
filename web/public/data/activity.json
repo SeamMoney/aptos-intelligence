@@ -1,6 +1,36 @@
 {
   "prs": [
     {
+      "number": 19619,
+      "title": "[block-executor] Run workers on std::thread::scope, not rayon",
+      "author": "zekun000",
+      "merged_at": "2026-05-01T23:42:34Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19619",
+      "labels": [
+        "CICD:run-forge-e2e-perf"
+      ]
+    },
+    {
+      "number": 19591,
+      "title": "[mono-move] flesh out u64 arithmetic / bitwise / shift micro-ops",
+      "author": "vgao1996",
+      "merged_at": "2026-05-02T00:42:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19591",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19589,
+      "title": "[mono-move] Encapsulate ObjectDescriptor and ObjectDescriptorTable",
+      "author": "vgao1996",
+      "merged_at": "2026-05-01T23:50:40Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19589",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19618,
       "title": "[cp][aptos-release-v1.43] [vm] Fix par_exec deadlock in with_native_rayon",
       "author": "aptos-bot",
@@ -153,78 +183,8 @@
       "labels": [
         "mono-move"
       ]
-    },
-    {
-      "number": 19587,
-      "title": "[encrypted mempool] Fix PVSS sigma proof shape check",
-      "author": "rex1fernando",
-      "merged_at": "2026-04-29T20:44:41Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19587",
-      "labels": []
-    },
-    {
-      "number": 19586,
-      "title": "[cp][aptos-release-v1.44] [Rust Setup] Fix linker build issue.",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-29T19:00:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19586",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19564,
-      "title": "[Rust Setup] Fix linker build issue.",
-      "author": "JoshLind",
-      "merged_at": "2026-04-27T21:57:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19564",
-      "labels": [
-        "v1.44"
-      ]
-    },
-    {
-      "number": 19578,
-      "title": "[trivial][compiler] fix type parameter issues for enums",
-      "author": "rahxephon89",
-      "merged_at": "2026-04-29T17:35:16Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19578",
-      "labels": []
-    },
-    {
-      "number": 19571,
-      "title": "[cp][aptos-release-v1.43] [natives] Isolate rayon work on a dedicated pool",
-      "author": "aptos-bot",
-      "merged_at": "2026-04-29T17:18:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19571",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
-  "issues": [
-    {
-      "number": 12098,
-      "title": "integration of new features to onboard new markets player",
-      "author": "Abidouz",
-      "state": "open",
-      "created_at": "2024-02-18T17:33:27Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/12098",
-      "labels": [
-        "enhancement",
-        "stale-exempt"
-      ]
-    },
-    {
-      "number": 10666,
-      "title": "stake amount change on stake/restake",
-      "author": "sylviahuang123",
-      "state": "open",
-      "created_at": "2023-10-25T06:53:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/10666",
-      "labels": [
-        "stale-exempt"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-05-01T22:51:47.843Z"
+  "issues": [],
+  "lastUpdated": "2026-05-02T02:45:28.414Z"
 }

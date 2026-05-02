@@ -1,31 +1,15 @@
 [
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -40,20 +24,52 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "aff3b97",
+    "title": "[mono-move] flesh out u64 arithmetic / bitwise / shift micro-ops (#19591)",
+    "author": "vgao1996",
+    "date": "2026-05-02T00:42:05Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/aff3b97ce017cc1de51237e88e5d53b2ed0ec396",
+    "category": "Release"
+  },
+  {
+    "sha": "38059a7",
+    "title": "[mono-move] Encapsulate ObjectDescriptor and ObjectDescriptorTable (#19589)",
+    "author": "vgao1996",
+    "date": "2026-05-01T23:50:40Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/38059a7616efc18b07d3e65efa3fcae6a0bb4a11",
+    "category": "Security"
   },
   {
     "sha": "09dc092",
@@ -4806,22 +4822,6 @@
     "date": "2026-02-05T22:51:08Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/efdad231dda731ad278e070088b278becfb2dabb",
     "category": "Security"
-  },
-  {
-    "sha": "f7babb8",
-    "title": "Introduce Aggregated type for PVSS aggregation in aptos-dkg (#18514)",
-    "author": "waamm",
-    "date": "2026-02-05T21:25:27Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/f7babb8d3a6d4033fe1ad72a756d0268fcef5ecc",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "dce70c7",
-    "title": "[framework] Add abort messages to some native functions (#18534)",
-    "author": "calintat",
-    "date": "2026-02-05T17:45:30Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/dce70c7e143cd9d5dab3f1205d17d442e6000193",
-    "category": "Infrastructure"
   },
   {
     "sha": "c6d4caf",
