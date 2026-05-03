@@ -177,6 +177,17 @@
   ],
   "issues": [
     {
+      "number": 19623,
+      "title": "[Move Prover] State-label spec with ensures_of on |&mut T| closure params generates invalid Boogie (exists  ::)",
+      "author": "rahxephon89",
+      "state": "open",
+      "created_at": "2026-05-03T19:14:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19623",
+      "labels": [
+        "move-prover"
+      ]
+    },
+    {
       "number": 19126,
       "title": "[Feature Request] Cast `bool` as `u64` in Move",
       "author": "alinush",
@@ -190,5 +201,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-03T19:01:20.140Z"
+  "lastUpdated": "2026-05-03T20:43:10.100Z"
 }
