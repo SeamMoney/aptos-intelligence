@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19629,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.6",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-04T12:52:15Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19629",
+      "labels": []
+    },
+    {
       "number": 19619,
       "title": "[block-executor] Run workers on std::thread::scope, not rayon",
       "author": "zekun000",
@@ -165,14 +173,6 @@
       "merged_at": "2026-04-30T00:03:42Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19547",
       "labels": []
-    },
-    {
-      "number": 19584,
-      "title": "[paper] Resolving supposed unsoundness issue around aborts behavioral predicate",
-      "author": "wrwg",
-      "merged_at": "2026-04-29T23:27:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19584",
-      "labels": []
     }
   ],
   "issues": [
@@ -200,5 +200,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-04T10:14:33.385Z"
+  "lastUpdated": "2026-05-04T14:03:04.159Z"
 }
