@@ -1,31 +1,15 @@
 [
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -40,19 +24,59 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "30a20d1",
+    "title": "[storage] sequence kv before tree in snapshot restore",
+    "author": "wqfish",
+    "date": "2026-05-04T16:37:30Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/30a20d13922ab2b5aee59095c2b82977a04f4ba9",
+    "category": "Performance"
+  },
+  {
+    "sha": "9f5fb37",
+    "title": "First-class StorageSlot type and derived StorageSlotOrInline  (#18723)",
+    "author": "igor-aptos",
+    "date": "2026-05-04T16:24:10Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/9f5fb3709869ed711748ea9f1bd191706be99a36",
+    "category": "Security"
+  },
+  {
+    "sha": "2e56da6",
+    "title": "[vm] Use errors for invariant violations (#19627)",
+    "author": "georgemitenkov",
+    "date": "2026-05-04T15:17:23Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/2e56da679c7421c9d17e8848b46383359a02760a",
     "category": "Feature Progress"
   },
   {
@@ -4798,30 +4822,6 @@
     "date": "2026-02-06T00:11:23Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/4df75752eef360ff2773fa64f0595173b677a48a",
     "category": "Infrastructure"
-  },
-  {
-    "sha": "6102e4b",
-    "title": "Reduce worker threads for admin service and inspection service",
-    "author": "wqfish",
-    "date": "2026-02-06T00:11:23Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/6102e4b5d11cbe1761ec56c558bb9dd136b2f706",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "cf49b54",
-    "title": "[gha][docker] upgrade buildx version (#18617)",
-    "author": "ibalajiarun",
-    "date": "2026-02-05T23:39:39Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/cf49b5470b93c825f1ca54db69c223ab38587b4d",
-    "category": "Release"
-  },
-  {
-    "sha": "4dd6f78",
-    "title": "[gha][docker] use runs-on snapshots for caching (#18606)",
-    "author": "ibalajiarun",
-    "date": "2026-02-05T23:33:31Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/4dd6f782d41ce72fdf9894d9d2419ac700fa57af",
-    "category": "Performance"
   },
   {
     "sha": "c6d4caf",

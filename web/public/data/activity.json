@@ -1,6 +1,33 @@
 {
   "prs": [
     {
+      "number": 19625,
+      "title": "[storage] sequence kv before tree in snapshot restore",
+      "author": "wqfish",
+      "merged_at": "2026-05-04T17:27:10Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19625",
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
+    },
+    {
+      "number": 18723,
+      "title": "First-class StorageSlot type and derived StorageSlotOrInline ",
+      "author": "igor-aptos",
+      "merged_at": "2026-05-04T16:24:10Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/18723",
+      "labels": []
+    },
+    {
+      "number": 19627,
+      "title": "[vm] Use errors for invariant violations",
+      "author": "georgemitenkov",
+      "merged_at": "2026-05-04T15:17:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19627",
+      "labels": []
+    },
+    {
       "number": 19629,
       "title": "[aptos-release-v1.44] Bump version to 1.44.6",
       "author": "aptos-bot",
@@ -157,22 +184,6 @@
       "labels": [
         "mono-move"
       ]
-    },
-    {
-      "number": 19179,
-      "title": "Add onchain signer utilities",
-      "author": "igor-aptos",
-      "merged_at": "2026-04-30T02:23:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19179",
-      "labels": []
-    },
-    {
-      "number": 19547,
-      "title": "[storage] Persist hot-state promotions in epilogue",
-      "author": "wqfish",
-      "merged_at": "2026-04-30T00:03:42Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19547",
-      "labels": []
     }
   ],
   "issues": [
@@ -187,18 +198,7 @@
         "enhancement",
         "compiler-v2"
       ]
-    },
-    {
-      "number": 19623,
-      "title": "[Move Prover] State-label spec with ensures_of on |&mut T| closure params generates invalid Boogie (exists  ::)",
-      "author": "rahxephon89",
-      "state": "open",
-      "created_at": "2026-05-03T19:14:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19623",
-      "labels": [
-        "move-prover"
-      ]
     }
   ],
-  "lastUpdated": "2026-05-04T14:03:04.159Z"
+  "lastUpdated": "2026-05-04T17:42:07.267Z"
 }
