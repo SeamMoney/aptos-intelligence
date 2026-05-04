@@ -1,6 +1,26 @@
 {
   "prs": [
     {
+      "number": 19638,
+      "title": "[cp][aptos-release-v1.45] [consensus] Skip decryption when block has DKG-result vtxn",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-04T22:40:05Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19638",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19634,
+      "title": "[consensus] Skip decryption when block has DKG-result vtxn",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-04T21:35:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19634",
+      "labels": [
+        "v1.45"
+      ]
+    },
+    {
       "number": 19632,
       "title": "[cp][aptos-release-v1.44] [storage] sequence kv before tree in snapshot restore",
       "author": "aptos-bot",
@@ -187,5 +207,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-04T21:09:53.372Z"
+  "lastUpdated": "2026-05-04T22:57:38.024Z"
 }
