@@ -184,16 +184,8 @@
       "merged_at": "2026-04-30T19:00:15Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19602",
       "labels": []
-    },
-    {
-      "number": 19598,
-      "title": "[cherry-pick[[vm] Iterative Drop for nested Move values (security fix) (#415)",
-      "author": "vgao1996",
-      "merged_at": "2026-04-30T18:17:47Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19598",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-04T19:41:32.299Z"
+  "lastUpdated": "2026-05-04T21:09:53.372Z"
 }
