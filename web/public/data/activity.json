@@ -1,6 +1,34 @@
 {
   "prs": [
     {
+      "number": 19632,
+      "title": "[cp][aptos-release-v1.44] [storage] sequence kv before tree in snapshot restore",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-04T18:40:54Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19632",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19631,
+      "title": "fix: add short-circuit for sqrt(0)",
+      "author": "GotenJBZ",
+      "merged_at": "2026-05-04T18:26:49Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19631",
+      "labels": []
+    },
+    {
+      "number": 19633,
+      "title": "[cp][aptos-release-v1.45] [storage] sequence kv before tree in snapshot restore",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-04T18:24:15Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19633",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19625,
       "title": "[storage] sequence kv before tree in snapshot restore",
       "author": "wqfish",
@@ -164,41 +192,8 @@
       "merged_at": "2026-04-30T18:17:47Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19598",
       "labels": []
-    },
-    {
-      "number": 19557,
-      "title": "[mono-move] Eager interning of signatures",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-30T13:59:51Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19557",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19572,
-      "title": "[mono-move] Combine enum and struct types",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-28T20:18:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19572",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
-  "issues": [
-    {
-      "number": 19126,
-      "title": "[Feature Request] Cast `bool` as `u64` in Move",
-      "author": "alinush",
-      "state": "open",
-      "created_at": "2026-03-18T21:11:37Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19126",
-      "labels": [
-        "enhancement",
-        "compiler-v2"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-05-04T17:42:07.267Z"
+  "issues": [],
+  "lastUpdated": "2026-05-04T19:41:32.299Z"
 }
