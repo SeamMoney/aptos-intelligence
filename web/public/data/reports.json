@@ -12801,5 +12801,47 @@
     "eli5": "<p><strong>[prover] Improve spec inference: normalize exits, rewrite BPs over vector intrinsics (#19640)</strong> — a change by wrwg.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100153,
+    "githubId": "cbebe66",
+    "title": "[Prover] fix modifies-clause bugs and Boogie codegen for `exists S in *` + `|&mut T|` closures (#19611)",
+    "author": "rahxephon89",
+    "date": "2026-05-05T09:27:10Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/cbebe66379dc1b2dec95748a0f6340c634a7ac8d",
+    "advanced": "<h3>What Changed</h3><p><strong>[Prover] fix modifies-clause bugs and Boogie codegen for `exists S in *` + `|&mut T|` closures (#19611)</strong></p><p>by rahxephon89 on 5/5/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/cbebe66379dc1b2dec95748a0f6340c634a7ac8d\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[Prover] fix modifies-clause bugs and Boogie codegen for `exists S in *` + `|&mut T|` closures (#19611)</strong> — a change by rahxephon89.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100154,
+    "githubId": "4051a73",
+    "title": "[vm] Optimize Drop for values (#19628)",
+    "author": "georgemitenkov",
+    "date": "2026-05-05T09:25:09Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/4051a733202956b5dd9e47f3bb9b16a3b08c488f",
+    "advanced": "<h3>What Changed</h3><p><strong>[vm] Optimize Drop for values (#19628)</strong></p><p>by georgemitenkov on 5/5/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/4051a733202956b5dd9e47f3bb9b16a3b08c488f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[vm] Optimize Drop for values (#19628)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100155,
+    "githubId": "6a430a4",
+    "title": "[paper] Draft inference paper for FMCAD 2026 (#19641)",
+    "author": "wrwg",
+    "date": "2026-05-05T06:43:27Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/6a430a4873c9e29f9c8f34ab8db96d1047181ad7",
+    "advanced": "<h3>What Changed</h3><p><strong>[paper] Draft inference paper for FMCAD 2026 (#19641)</strong></p><p>by wrwg on 5/5/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/6a430a4873c9e29f9c8f34ab8db96d1047181ad7\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[paper] Draft inference paper for FMCAD 2026 (#19641)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

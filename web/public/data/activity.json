@@ -1,6 +1,33 @@
 {
   "prs": [
     {
+      "number": 19611,
+      "title": "[Prover] fix modifies-clause bugs and Boogie codegen for `exists S in *` + `|&mut T|` closures",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-05T09:27:11Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19611",
+      "labels": []
+    },
+    {
+      "number": 19628,
+      "title": "[vm] Optimize Drop for values",
+      "author": "georgemitenkov",
+      "merged_at": "2026-05-05T09:25:10Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19628",
+      "labels": [
+        "CICD:run-execution-performance-test",
+        "CICD:run-execution-performance-full-test"
+      ]
+    },
+    {
+      "number": 19641,
+      "title": "[paper] Draft inference paper for FMCAD 2026",
+      "author": "wrwg",
+      "merged_at": "2026-05-05T06:43:27Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19641",
+      "labels": []
+    },
+    {
       "number": 19640,
       "title": "[prover] Improve spec inference: normalize exits, rewrite BPs over vector intrinsics",
       "author": "wrwg",
@@ -114,60 +141,20 @@
       "merged_at": "2026-05-04T12:52:15Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19629",
       "labels": []
-    },
-    {
-      "number": 19619,
-      "title": "[block-executor] Run workers on std::thread::scope, not rayon",
-      "author": "zekun000",
-      "merged_at": "2026-05-01T23:42:34Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19619",
-      "labels": [
-        "CICD:run-forge-e2e-perf"
-      ]
-    },
-    {
-      "number": 19591,
-      "title": "[mono-move] flesh out u64 arithmetic / bitwise / shift micro-ops",
-      "author": "vgao1996",
-      "merged_at": "2026-05-02T00:42:06Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19591",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19589,
-      "title": "[mono-move] Encapsulate ObjectDescriptor and ObjectDescriptorTable",
-      "author": "vgao1996",
-      "merged_at": "2026-05-01T23:50:40Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19589",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19618,
-      "title": "[cp][aptos-release-v1.43] [vm] Fix par_exec deadlock in with_native_rayon",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-01T22:45:36Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19618",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [
     {
-      "number": 19151,
-      "title": "[decompiler] Function output ordering is unstable — depends on Symbol allocation order",
-      "author": "wrwg",
-      "state": "open",
-      "created_at": "2026-03-20T17:45:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19151",
+      "number": 19623,
+      "title": "[Move Prover] State-label spec with ensures_of on |&mut T| closure params generates invalid Boogie (exists  ::)",
+      "author": "rahxephon89",
+      "state": "closed",
+      "created_at": "2026-05-03T19:14:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19623",
       "labels": [
-        "Stale"
+        "move-prover"
       ]
     }
   ],
-  "lastUpdated": "2026-05-05T06:17:20.569Z"
+  "lastUpdated": "2026-05-05T10:03:45.058Z"
 }
