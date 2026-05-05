@@ -145,14 +145,6 @@
       "merged_at": "2026-05-04T16:24:10Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/18723",
       "labels": []
-    },
-    {
-      "number": 19627,
-      "title": "[vm] Use errors for invariant violations",
-      "author": "georgemitenkov",
-      "merged_at": "2026-05-04T15:17:23Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19627",
-      "labels": []
     }
   ],
   "issues": [
@@ -168,5 +160,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-05T21:04:05.933Z"
+  "lastUpdated": "2026-05-05T22:56:25.177Z"
 }
