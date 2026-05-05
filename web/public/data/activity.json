@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19640,
+      "title": "[prover] Improve spec inference: normalize exits, rewrite BPs over vector intrinsics",
+      "author": "wrwg",
+      "merged_at": "2026-05-05T05:11:37Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19640",
+      "labels": []
+    },
+    {
+      "number": 19645,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.7",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-05T03:46:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19645",
+      "labels": []
+    },
+    {
       "number": 19604,
       "title": "[ci] Calibrate single-node execution performance values",
       "author": "aptos-bot",
@@ -138,17 +154,6 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19615,
-      "title": "[vm] Fix par_exec deadlock in with_native_rayon",
-      "author": "zekun000",
-      "merged_at": "2026-05-01T20:22:57Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19615",
-      "labels": [
-        "CICD:build-performance-images",
-        "v1.43"
-      ]
     }
   ],
   "issues": [
@@ -164,5 +169,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-05T02:47:56.276Z"
+  "lastUpdated": "2026-05-05T06:17:20.569Z"
 }
