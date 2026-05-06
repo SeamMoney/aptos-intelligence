@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19652,
+      "title": "[compiler-v2] Type inference: allow more orthogonal constraints",
+      "author": "vineethk",
+      "merged_at": "2026-05-06T17:11:56Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19652",
+      "labels": []
+    },
+    {
       "number": 19496,
       "title": "[execution] Fix missing SnapshotModuleView method",
       "author": "xingyaner",
@@ -145,14 +153,6 @@
       "merged_at": "2026-05-05T01:48:44Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19604",
       "labels": []
-    },
-    {
-      "number": 19637,
-      "title": "[ts-deps] Upgrade ts deps",
-      "author": "gregnazario",
-      "merged_at": "2026-05-04T23:53:20Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19637",
-      "labels": []
     }
   ],
   "issues": [
@@ -168,5 +168,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-06T14:13:30.576Z"
+  "lastUpdated": "2026-05-06T17:42:11.102Z"
 }
