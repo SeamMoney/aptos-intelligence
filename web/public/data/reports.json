@@ -12857,5 +12857,47 @@
     "eli5": "<p><strong>[consensus] Cap encrypted decryption by block-execute limit and trusted-setup capacity (#19647)</strong> — a change by ibalajiarun.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100157,
+    "githubId": "a020d7b",
+    "title": "avoid recomputing next validator set (#19380)",
+    "author": "zjma",
+    "date": "2026-05-06T02:05:37Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/a020d7bff967e1d2abc6622ff56cd71a2ca25730",
+    "advanced": "<h3>What Changed</h3><p><strong>avoid recomputing next validator set (#19380)</strong></p><p>by zjma on 5/6/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/a020d7bff967e1d2abc6622ff56cd71a2ca25730\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>avoid recomputing next validator set (#19380)</strong> — a change by zjma.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100158,
+    "githubId": "ad7011f",
+    "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
+    "author": "wqfish",
+    "date": "2026-05-05T23:06:51Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/ad7011f7719c608b56ba6d6f8abbcff763d54ac5",
+    "advanced": "<h3>What Changed</h3><p><strong>[block-executor] replace rayon BlockSTM pool with plain std-thread pool</strong></p><p>by wqfish on 5/5/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/ad7011f7719c608b56ba6d6f8abbcff763d54ac5\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[block-executor] replace rayon BlockSTM pool with plain std-thread pool</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100159,
+    "githubId": "55fd2ea",
+    "title": "update draft (#19648)",
+    "author": "rahxephon89",
+    "date": "2026-05-05T23:05:22Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/55fd2ea8ec5ab0d303cb44355ac1f9a2975e5a98",
+    "advanced": "<h3>What Changed</h3><p><strong>update draft (#19648)</strong></p><p>by rahxephon89 on 5/5/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/55fd2ea8ec5ab0d303cb44355ac1f9a2975e5a98\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>update draft (#19648)</strong> — a change by rahxephon89.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

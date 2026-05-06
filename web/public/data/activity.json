@@ -1,6 +1,42 @@
 {
   "prs": [
     {
+      "number": 19380,
+      "title": "avoid recomputing next validator set",
+      "author": "zjma",
+      "merged_at": "2026-05-06T02:05:37Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19380",
+      "labels": []
+    },
+    {
+      "number": 19657,
+      "title": "[cp][aptos-release-v1.45] [block-executor] replace rayon BlockSTM pool with plain std-thread pool",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-06T00:38:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19657",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19643,
+      "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
+      "author": "wqfish",
+      "merged_at": "2026-05-05T23:49:17Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19643",
+      "labels": [
+        "v1.45"
+      ]
+    },
+    {
+      "number": 19648,
+      "title": "[paper] update the higher-order paper",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-05T23:05:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19648",
+      "labels": []
+    },
+    {
       "number": 19651,
       "title": "[cp][aptos-release-v1.45] [consensus] Cap encrypted decryption by block-execute limit and trusted-setup capacity",
       "author": "aptos-bot",
@@ -98,67 +134,8 @@
       "labels": [
         "v1.45"
       ]
-    },
-    {
-      "number": 19632,
-      "title": "[cp][aptos-release-v1.44] [storage] sequence kv before tree in snapshot restore",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-04T18:40:54Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19632",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19631,
-      "title": "fix: add short-circuit for sqrt(0)",
-      "author": "GotenJBZ",
-      "merged_at": "2026-05-04T18:26:49Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19631",
-      "labels": []
-    },
-    {
-      "number": 19633,
-      "title": "[cp][aptos-release-v1.45] [storage] sequence kv before tree in snapshot restore",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-04T18:24:15Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19633",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19625,
-      "title": "[storage] sequence kv before tree in snapshot restore",
-      "author": "wqfish",
-      "merged_at": "2026-05-04T17:27:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19625",
-      "labels": [
-        "v1.44",
-        "v1.45"
-      ]
-    },
-    {
-      "number": 18723,
-      "title": "First-class StorageSlot type and derived StorageSlotOrInline ",
-      "author": "igor-aptos",
-      "merged_at": "2026-05-04T16:24:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/18723",
-      "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 19650,
-      "title": "[compiler-v2] Changing public(package) fun entry to fun entry is not allowed, but it should",
-      "author": "igor-aptos",
-      "state": "open",
-      "created_at": "2026-05-05T16:43:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19650",
-      "labels": [
-        "compiler-v2"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-05-05T22:56:25.177Z"
+  "issues": [],
+  "lastUpdated": "2026-05-06T02:54:03.524Z"
 }
