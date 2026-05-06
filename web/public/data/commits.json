@@ -1,15 +1,31 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,36 +40,28 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
-    "category": "Feature Progress"
+    "sha": "1cc5068",
+    "title": "[ci] Bump .node-version to v22.22.2",
+    "author": "wqfish",
+    "date": "2026-05-06T18:51:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1cc5068c5de6efa20bad41be89484c2f2a57b08b",
+    "category": "Release"
   },
   {
     "sha": "12aa74b",
@@ -4669,14 +4677,6 @@
     "author": "ibalajiarun",
     "date": "2026-02-10T19:27:55Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/f3d060a6151bf16ff7728c83223c5bc08ae3b0e5",
-    "category": "Security"
-  },
-  {
-    "sha": "1c8726e",
-    "title": "[hotfix] Fix closure depth and unwrap in crypto natives (#371) (#18666)",
-    "author": "vgao1996",
-    "date": "2026-02-10T19:26:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/1c8726e0890c8aac97235659d4d8a08985c668c3",
     "category": "Security"
   },
   {

@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19666,
+      "title": "[ci] Bump .node-version to v22.22.2",
+      "author": "wqfish",
+      "merged_at": "2026-05-06T20:03:21Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19666",
+      "labels": []
+    },
+    {
       "number": 19665,
       "title": "[move-linter] Better user control on which lints to run",
       "author": "vineethk",
@@ -176,5 +184,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-06T19:47:19.531Z"
+  "lastUpdated": "2026-05-06T21:12:03.530Z"
 }
