@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19665,
+      "title": "[move-linter] Better user control on which lints to run",
+      "author": "vineethk",
+      "merged_at": "2026-05-06T18:14:17Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19665",
+      "labels": []
+    },
+    {
       "number": 19652,
       "title": "[compiler-v2] Type inference: allow more orthogonal constraints",
       "author": "vineethk",
@@ -168,5 +176,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-06T17:42:11.102Z"
+  "lastUpdated": "2026-05-06T19:47:19.531Z"
 }
