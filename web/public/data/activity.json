@@ -1,6 +1,35 @@
 {
   "prs": [
     {
+      "number": 19661,
+      "title": "[aptos-release-v1.45] Bump version to 1.45.0",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-06T06:17:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19661",
+      "labels": []
+    },
+    {
+      "number": 19659,
+      "title": "[admin-service] Allow overriding heap profile output path via query param",
+      "author": "wqfish",
+      "merged_at": "2026-05-06T03:59:08Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19659",
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
+    },
+    {
+      "number": 19660,
+      "title": "[cp][aptos-release-v1.45] [admin-service] Allow overriding heap profile output path via query param",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-06T05:24:52Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19660",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19380,
       "title": "avoid recomputing next validator set",
       "author": "zjma",
@@ -124,18 +153,8 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19634,
-      "title": "[consensus] Skip decryption when block has DKG-result vtxn",
-      "author": "ibalajiarun",
-      "merged_at": "2026-05-04T21:35:06Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19634",
-      "labels": [
-        "v1.45"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-06T02:54:03.524Z"
+  "lastUpdated": "2026-05-06T06:29:48.081Z"
 }
