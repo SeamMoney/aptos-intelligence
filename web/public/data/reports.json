@@ -12969,5 +12969,33 @@
     "eli5": "<p><strong>[ci] Bump .node-version to v22.22.2</strong> — a change by wqfish.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100165,
+    "githubId": "ae14cba",
+    "title": "[prover] Add e2e-tests crate + baseline-aware framework prover helper (#19664)",
+    "author": "wrwg",
+    "date": "2026-05-06T22:48:44Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/ae14cba8e1d257689164b319c56263a0b9d39249",
+    "advanced": "<h3>What Changed</h3><p><strong>[prover] Add e2e-tests crate + baseline-aware framework prover helper (#19664)</strong></p><p>by wrwg on 5/6/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/ae14cba8e1d257689164b319c56263a0b9d39249\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[prover] Add e2e-tests crate + baseline-aware framework prover helper (#19664)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100166,
+    "githubId": "12a9fbc",
+    "title": "[block-executor] Fix BlockSTMv2 concurrency and correctness issues (#19667)",
+    "author": "gelash",
+    "date": "2026-05-06T22:28:24Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/12a9fbcc44f69322a1b79cbbe5869103e0e65d96",
+    "advanced": "<h3>What Changed</h3><p><strong>[block-executor] Fix BlockSTMv2 concurrency and correctness issues (#19667)</strong></p><p>by gelash on 5/6/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/12a9fbcc44f69322a1b79cbbe5869103e0e65d96\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[block-executor] Fix BlockSTMv2 concurrency and correctness issues (#19667)</strong> — a change by gelash.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
