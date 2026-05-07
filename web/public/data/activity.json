@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19679,
+      "title": "[paper] add state dependent example",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-07T20:13:40Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19679",
+      "labels": []
+    },
+    {
       "number": 19643,
       "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
       "author": "wqfish",
@@ -189,16 +197,8 @@
       "merged_at": "2026-05-05T06:43:27Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19641",
       "labels": []
-    },
-    {
-      "number": 19640,
-      "title": "[prover] Improve spec inference: normalize exits, rewrite BPs over vector intrinsics",
-      "author": "wrwg",
-      "merged_at": "2026-05-05T05:11:37Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19640",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-07T19:43:54.487Z"
+  "lastUpdated": "2026-05-07T21:05:33.912Z"
 }
