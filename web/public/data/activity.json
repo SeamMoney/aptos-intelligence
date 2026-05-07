@@ -1,14 +1,6 @@
 {
   "prs": [
     {
-      "number": 19669,
-      "title": "[forge] Enable BlockSTM v2 on validators for all forge runs",
-      "author": "zekun000",
-      "merged_at": "2026-05-07T17:15:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19669",
-      "labels": []
-    },
-    {
       "number": 19643,
       "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
       "author": "wqfish",
@@ -19,6 +11,14 @@
         "CICD:run-execution-performance-full-test",
         "v1.45"
       ]
+    },
+    {
+      "number": 19669,
+      "title": "[forge] Enable BlockSTM v2 on validators for all forge runs",
+      "author": "zekun000",
+      "merged_at": "2026-05-07T17:15:52Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19669",
+      "labels": []
     },
     {
       "number": 19662,
@@ -200,5 +200,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-07T17:49:10.378Z"
+  "lastUpdated": "2026-05-07T19:43:54.487Z"
 }
