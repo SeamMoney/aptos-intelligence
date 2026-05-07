@@ -13011,5 +13011,19 @@
     "eli5": "<p><strong>[prover] fix some bugs in spec inference (#19493)</strong> — a change by rahxephon89.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100168,
+    "githubId": "18369d3",
+    "title": "[forge] Enable BlockSTM v2 on validators for all forge runs (#19669)",
+    "author": "zekun000",
+    "date": "2026-05-07T17:15:51Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/18369d3c0993a48f69ccfd4b13d1b0ca2c7aca1f",
+    "advanced": "<h3>What Changed</h3><p><strong>[forge] Enable BlockSTM v2 on validators for all forge runs (#19669)</strong></p><p>by zekun000 on 5/7/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/18369d3c0993a48f69ccfd4b13d1b0ca2c7aca1f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[forge] Enable BlockSTM v2 on validators for all forge runs (#19669)</strong> — a change by zekun000.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
