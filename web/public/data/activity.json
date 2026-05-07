@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19643,
+      "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
+      "author": "wqfish",
+      "merged_at": "2026-05-05T23:49:17Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19643",
+      "labels": [
+        "v1.45"
+      ]
+    },
+    {
       "number": 19662,
       "title": "[cp][aptos-release-v1.44] [admin-service] Allow overriding heap profile output path via query param",
       "author": "aptos-bot",
@@ -116,16 +126,6 @@
       ]
     },
     {
-      "number": 19643,
-      "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
-      "author": "wqfish",
-      "merged_at": "2026-05-05T23:49:17Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19643",
-      "labels": [
-        "v1.45"
-      ]
-    },
-    {
       "number": 19648,
       "title": "[paper] update the higher-order paper",
       "author": "rahxephon89",
@@ -187,6 +187,14 @@
       "merged_at": "2026-05-05T05:11:37Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19640",
       "labels": []
+    },
+    {
+      "number": 19645,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.7",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-05T03:46:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19645",
+      "labels": []
     }
   ],
   "issues": [
@@ -215,5 +223,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-07T06:35:29.576Z"
+  "lastUpdated": "2026-05-07T10:25:10.377Z"
 }
