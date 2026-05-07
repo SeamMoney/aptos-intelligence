@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19662,
+      "title": "[cp][aptos-release-v1.44] [admin-service] Allow overriding heap profile output path via query param",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-07T00:44:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19662",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19493,
+      "title": "[prover] fix some bugs in spec inference",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-07T00:30:30Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19493",
+      "labels": []
+    },
+    {
       "number": 19664,
       "title": "[prover] Add e2e-tests crate + baseline-aware framework prover helper",
       "author": "wrwg",
@@ -169,36 +187,33 @@
       "merged_at": "2026-05-05T05:11:37Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19640",
       "labels": []
-    },
-    {
-      "number": 19645,
-      "title": "[aptos-release-v1.44] Bump version to 1.44.7",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-05T03:46:19Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19645",
-      "labels": []
-    },
-    {
-      "number": 19604,
-      "title": "[ci] Calibrate single-node execution performance values",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-05T01:48:44Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19604",
-      "labels": []
     }
   ],
   "issues": [
     {
-      "number": 19650,
-      "title": "[compiler-v2] Changing public(package) fun entry to fun entry is not allowed, but it should",
-      "author": "igor-aptos",
-      "state": "open",
-      "created_at": "2026-05-05T16:43:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19650",
+      "number": 19518,
+      "title": "[Bug][prover] Invalid expression generated from an inferred spec",
+      "author": "rahxephon89",
+      "state": "closed",
+      "created_at": "2026-04-21T06:20:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19518",
       "labels": [
-        "compiler-v2"
+        "bug",
+        "move-prover"
+      ]
+    },
+    {
+      "number": 19514,
+      "title": "[Bug][prover] spec infer uses impure Move function in the generated spec",
+      "author": "rahxephon89",
+      "state": "closed",
+      "created_at": "2026-04-20T22:26:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19514",
+      "labels": [
+        "bug",
+        "move-prover"
       ]
     }
   ],
-  "lastUpdated": "2026-05-06T22:54:18.007Z"
+  "lastUpdated": "2026-05-07T02:55:00.314Z"
 }
