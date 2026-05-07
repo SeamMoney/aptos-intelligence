@@ -1,6 +1,17 @@
 {
   "prs": [
     {
+      "number": 19678,
+      "title": "[consensus] Avoid PipelinedBlock Arc cycle",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-07T22:44:34Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19678",
+      "labels": [
+        "CICD:build-performance-images",
+        "CICD:run-forge-e2e-perf"
+      ]
+    },
+    {
       "number": 19679,
       "title": "[paper] add state dependent example",
       "author": "rahxephon89",
@@ -189,16 +200,8 @@
         "CICD:run-execution-performance-test",
         "CICD:run-execution-performance-full-test"
       ]
-    },
-    {
-      "number": 19641,
-      "title": "[paper] Draft inference paper for FMCAD 2026",
-      "author": "wrwg",
-      "merged_at": "2026-05-05T06:43:27Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19641",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-07T21:05:33.912Z"
+  "lastUpdated": "2026-05-07T23:00:57.768Z"
 }
