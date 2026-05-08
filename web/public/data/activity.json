@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19685,
+      "title": "[storage] Skip drop-log for gen=0 SMTs",
+      "author": "wqfish",
+      "merged_at": "2026-05-08T03:28:46Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19685",
+      "labels": []
+    },
+    {
       "number": 19678,
       "title": "[consensus] Avoid PipelinedBlock Arc cycle",
       "author": "ibalajiarun",
@@ -209,5 +217,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-08T02:57:00.938Z"
+  "lastUpdated": "2026-05-08T05:57:34.246Z"
 }

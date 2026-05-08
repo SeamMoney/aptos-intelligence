@@ -13039,5 +13039,19 @@
     "eli5": "<p><strong>add state dependent example (#19679)</strong> — a change by rahxephon89.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100170,
+    "githubId": "1dfb36f",
+    "title": "[storage] Skip drop-log for gen=0 SMTs",
+    "author": "wqfish",
+    "date": "2026-05-08T02:04:42Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/1dfb36f644f5231ccab6b0445d4c3fc200a64499",
+    "advanced": "<h3>What Changed</h3><p><strong>[storage] Skip drop-log for gen=0 SMTs</strong></p><p>by wqfish on 5/8/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/1dfb36f644f5231ccab6b0445d4c3fc200a64499\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[storage] Skip drop-log for gen=0 SMTs</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
