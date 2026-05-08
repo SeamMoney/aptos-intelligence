@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19668,
+      "title": "[move-lint] Fix false positives for needless visibility lint by making test callers visible to the linter.",
+      "author": "vineethk",
+      "merged_at": "2026-05-08T15:51:08Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19668",
+      "labels": []
+    },
+    {
       "number": 19685,
       "title": "[storage] Skip drop-log for gen=0 SMTs",
       "author": "wqfish",
@@ -217,5 +225,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-08T15:23:44.379Z"
+  "lastUpdated": "2026-05-08T17:18:48.709Z"
 }
