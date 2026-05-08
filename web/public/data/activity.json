@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19690,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.8",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-08T20:07:09Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19690",
+      "labels": []
+    },
+    {
       "number": 19654,
       "title": "[replay-verify] Rework PVC pipeline; tune timeouts and concurrency",
       "author": "vgao1996",
@@ -29,14 +37,6 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19690,
-      "title": "[aptos-release-v1.44] Bump version to 1.44.8",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-08T20:07:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19690",
-      "labels": []
     },
     {
       "number": 19685,
@@ -210,5 +210,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-08T21:01:20.544Z"
+  "lastUpdated": "2026-05-08T22:55:53.323Z"
 }
