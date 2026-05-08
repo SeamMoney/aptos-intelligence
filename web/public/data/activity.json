@@ -181,27 +181,33 @@
       "labels": [
         "v1.45"
       ]
-    },
+    }
+  ],
+  "issues": [
     {
-      "number": 19611,
-      "title": "[Prover] fix modifies-clause bugs and Boogie codegen for `exists S in *` + `|&mut T|` closures",
-      "author": "rahxephon89",
-      "merged_at": "2026-05-05T09:27:11Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19611",
-      "labels": []
-    },
-    {
-      "number": 19628,
-      "title": "[vm] Optimize Drop for values",
-      "author": "georgemitenkov",
-      "merged_at": "2026-05-05T09:25:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19628",
+      "number": 18987,
+      "title": "[move compiler v2] Name clash in std::cmp when both test_mode and verify_mode are enabled",
+      "author": "junxzm1990",
+      "state": "closed",
+      "created_at": "2026-03-08T17:55:08Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18987",
       "labels": [
-        "CICD:run-execution-performance-test",
-        "CICD:run-execution-performance-full-test"
+        "Stale",
+        "compiler-v2"
+      ]
+    },
+    {
+      "number": 18991,
+      "title": "[Bug] [Docker] account resources endpoint requires an indexer",
+      "author": "kheil117",
+      "state": "closed",
+      "created_at": "2026-03-08T22:47:14Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18991",
+      "labels": [
+        "bug",
+        "Stale"
       ]
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-05-07T23:00:57.768Z"
+  "lastUpdated": "2026-05-08T02:57:00.938Z"
 }
