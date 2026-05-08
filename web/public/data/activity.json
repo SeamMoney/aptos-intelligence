@@ -1,6 +1,44 @@
 {
   "prs": [
     {
+      "number": 19654,
+      "title": "[replay-verify] Rework PVC pipeline; tune timeouts and concurrency",
+      "author": "vgao1996",
+      "merged_at": "2026-05-08T20:58:10Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19654",
+      "labels": [
+        "CICD:build-performance-images"
+      ]
+    },
+    {
+      "number": 19636,
+      "title": "[mono-move] Memory alignment design doc",
+      "author": "vgao1996",
+      "merged_at": "2026-05-08T20:24:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19636",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19689,
+      "title": "[cp][aptos-release-v1.45] [storage] Skip drop-log for gen=0 SMTs",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-08T20:02:38Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19689",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19690,
+      "title": "[aptos-release-v1.44] Bump version to 1.44.8",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-08T20:07:09Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19690",
+      "labels": []
+    },
+    {
       "number": 19685,
       "title": "[storage] Skip drop-log for gen=0 SMTs",
       "author": "wqfish",
@@ -169,34 +207,8 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19380,
-      "title": "avoid recomputing next validator set",
-      "author": "zjma",
-      "merged_at": "2026-05-06T02:05:37Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19380",
-      "labels": []
-    },
-    {
-      "number": 19657,
-      "title": "[cp][aptos-release-v1.45] [block-executor] replace rayon BlockSTM pool with plain std-thread pool",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-06T00:38:06Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19657",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19648,
-      "title": "[paper] update the higher-order paper",
-      "author": "rahxephon89",
-      "merged_at": "2026-05-05T23:05:23Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19648",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-08T19:19:22.958Z"
+  "lastUpdated": "2026-05-08T21:01:20.544Z"
 }
