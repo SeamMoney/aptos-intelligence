@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19696,
+      "title": "[paper] add calculator and e2e test for inference paper",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-09T19:22:43Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19696",
+      "labels": []
+    },
+    {
       "number": 19693,
       "title": "[paper] add evaluation for inference",
       "author": "rahxephon89",
@@ -194,16 +202,8 @@
       "labels": [
         "CICD:run-e2e-tests"
       ]
-    },
-    {
-      "number": 19661,
-      "title": "[aptos-release-v1.45] Bump version to 1.45.0",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-06T06:17:19Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19661",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-09T19:03:05.879Z"
+  "lastUpdated": "2026-05-09T20:44:08.336Z"
 }
