@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19693,
+      "title": "[paper] add evaluation for inference",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-09T05:31:45Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19693",
+      "labels": []
+    },
+    {
+      "number": 19670,
+      "title": "[cli] Allow aptos move replay to handle system transactions",
+      "author": "vgao1996",
+      "merged_at": "2026-05-09T03:13:54Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19670",
+      "labels": []
+    },
+    {
       "number": 19690,
       "title": "[aptos-release-v1.44] Bump version to 1.44.8",
       "author": "aptos-bot",
@@ -186,29 +202,8 @@
       "merged_at": "2026-05-06T06:17:19Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19661",
       "labels": []
-    },
-    {
-      "number": 19659,
-      "title": "[admin-service] Allow overriding heap profile output path via query param",
-      "author": "wqfish",
-      "merged_at": "2026-05-06T03:59:08Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19659",
-      "labels": [
-        "v1.44",
-        "v1.45"
-      ]
-    },
-    {
-      "number": 19660,
-      "title": "[cp][aptos-release-v1.45] [admin-service] Allow overriding heap profile output path via query param",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-06T05:24:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19660",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-09T02:52:33.729Z"
+  "lastUpdated": "2026-05-09T06:16:23.606Z"
 }

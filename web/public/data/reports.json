@@ -13123,5 +13123,33 @@
     "eli5": "<p><strong>[mono-move] Memory alignment design doc (#19636)</strong> — a change by vgao1996.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100176,
+    "githubId": "00f13ff",
+    "title": "add evaluation for inference (#19693)",
+    "author": "rahxephon89",
+    "date": "2026-05-09T05:31:44Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/00f13ff34bae4819f4726ef1b63db7b01da658e5",
+    "advanced": "<h3>What Changed</h3><p><strong>add evaluation for inference (#19693)</strong></p><p>by rahxephon89 on 5/9/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/00f13ff34bae4819f4726ef1b63db7b01da658e5\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>add evaluation for inference (#19693)</strong> — a change by rahxephon89.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100177,
+    "githubId": "6487158",
+    "title": "[cli] Allow aptos move replay to handle system transactions (#19670)",
+    "author": "vgao1996",
+    "date": "2026-05-09T03:13:54Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/6487158d2a0f2ed67bd5929e9e89d4c5c360a8bc",
+    "advanced": "<h3>What Changed</h3><p><strong>[cli] Allow aptos move replay to handle system transactions (#19670)</strong></p><p>by vgao1996 on 5/9/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/6487158d2a0f2ed67bd5929e9e89d4c5c360a8bc\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[cli] Allow aptos move replay to handle system transactions (#19670)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
