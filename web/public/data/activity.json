@@ -160,50 +160,21 @@
       "merged_at": "2026-05-06T22:48:45Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19664",
       "labels": []
-    },
+    }
+  ],
+  "issues": [
     {
-      "number": 19667,
-      "title": "[block-executor] Fix BlockSTMv2 concurrency and correctness issues",
-      "author": "gelash",
-      "merged_at": "2026-05-06T22:28:24Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19667",
-      "labels": []
-    },
-    {
-      "number": 19666,
-      "title": "[ci] Bump .node-version to v22.22.2",
-      "author": "wqfish",
-      "merged_at": "2026-05-06T20:03:21Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19666",
-      "labels": []
-    },
-    {
-      "number": 19665,
-      "title": "[move-linter] Better user control on which lints to run",
-      "author": "vineethk",
-      "merged_at": "2026-05-06T18:14:17Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19665",
-      "labels": []
-    },
-    {
-      "number": 19652,
-      "title": "[compiler-v2] Type inference: allow more orthogonal constraints",
-      "author": "vineethk",
-      "merged_at": "2026-05-06T17:11:56Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19652",
-      "labels": []
-    },
-    {
-      "number": 19496,
-      "title": "[execution] Fix missing SnapshotModuleView method",
-      "author": "xingyaner",
-      "merged_at": "2026-05-06T09:10:26Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19496",
+      "number": 18994,
+      "title": "[Bug]: Fetched staked amount is lower than actual transaction payload",
+      "author": "devlenardo",
+      "state": "open",
+      "created_at": "2026-03-09T09:08:26Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18994",
       "labels": [
-        "CICD:run-e2e-tests"
+        "bug",
+        "Stale"
       ]
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-05-09T22:45:35.139Z"
+  "lastUpdated": "2026-05-10T03:23:12.787Z"
 }
