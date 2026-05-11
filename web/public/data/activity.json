@@ -1,6 +1,24 @@
 {
   "prs": [
     {
+      "number": 19676,
+      "title": "[consensus] Enforce V2-only entries on V2 quorum store wire messages",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-11T19:06:05Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19676",
+      "labels": []
+    },
+    {
+      "number": 19709,
+      "title": "[cp][aptos-release-v1.45] [consensus] Avoid PipelinedBlock Arc cycle",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-11T18:35:04Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19709",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19688,
       "title": "[consensus] Avoid PipelinedBlock Arc cycle",
       "author": "ibalajiarun",
@@ -149,16 +167,8 @@
       "merged_at": "2026-05-08T17:53:43Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19677",
       "labels": []
-    },
-    {
-      "number": 19668,
-      "title": "[move-lint] Fix false positives for needless visibility lint by making test callers visible to the linter.",
-      "author": "vineethk",
-      "merged_at": "2026-05-08T15:51:08Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19668",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-11T17:54:47.635Z"
+  "lastUpdated": "2026-05-11T19:48:46.085Z"
 }
