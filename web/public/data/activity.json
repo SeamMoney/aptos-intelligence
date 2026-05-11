@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19698,
+      "title": "[prover] User-form behavioral predicates for &mut T parameters",
+      "author": "wrwg",
+      "merged_at": "2026-05-11T00:30:17Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19698",
+      "labels": []
+    },
+    {
       "number": 19696,
       "title": "[paper] add calculator and e2e test for inference paper",
       "author": "rahxephon89",
@@ -144,22 +152,6 @@
       "labels": [
         "cherry-pick"
       ]
-    },
-    {
-      "number": 19493,
-      "title": "[prover] fix some bugs in spec inference",
-      "author": "rahxephon89",
-      "merged_at": "2026-05-07T00:30:30Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19493",
-      "labels": []
-    },
-    {
-      "number": 19664,
-      "title": "[prover] Add e2e-tests crate + baseline-aware framework prover helper",
-      "author": "wrwg",
-      "merged_at": "2026-05-06T22:48:45Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19664",
-      "labels": []
     }
   ],
   "issues": [
@@ -176,5 +168,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-10T22:50:11.237Z"
+  "lastUpdated": "2026-05-11T03:35:44.435Z"
 }

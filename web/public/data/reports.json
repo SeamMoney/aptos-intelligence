@@ -13165,5 +13165,19 @@
     "eli5": "<p><strong>add calculator and e2e test for inference paper (#19696)</strong> — a change by rahxephon89.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100179,
+    "githubId": "131801f",
+    "title": "[prover] User-form behavioral predicates for &mut T parameters (#19698)",
+    "author": "wrwg",
+    "date": "2026-05-11T00:30:16Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/131801f700ba6b3582f52ad4421f0cd68e2243a9",
+    "advanced": "<h3>What Changed</h3><p><strong>[prover] User-form behavioral predicates for &mut T parameters (#19698)</strong></p><p>by wrwg on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/131801f700ba6b3582f52ad4421f0cd68e2243a9\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[prover] User-form behavioral predicates for &mut T parameters (#19698)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
