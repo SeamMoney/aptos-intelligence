@@ -13249,5 +13249,33 @@
     "eli5": "<p><strong>[consensus] Enforce V2-only entries on V2 quorum store wire messages (#19676)</strong> — a change by ibalajiarun.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100185,
+    "githubId": "21e6d63",
+    "title": "[mono-move] Survey doc: existing native functions and VM capability requirements (#19707)",
+    "author": "vgao1996",
+    "date": "2026-05-11T22:38:25Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/21e6d6347693bcfc1915db034cff6e8ce48cb8f0",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Survey doc: existing native functions and VM capability requirements (#19707)</strong></p><p>by vgao1996 on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/21e6d6347693bcfc1915db034cff6e8ce48cb8f0\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Survey doc: existing native functions and VM capability requirements (#19707)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100186,
+    "githubId": "b4a2cac",
+    "title": "Fiat-Shamir bugfix (#19711)",
+    "author": "alinush",
+    "date": "2026-05-11T22:03:02Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/b4a2cac4b8f814e05ea44d055afa1cf9e4224b35",
+    "advanced": "<h3>What Changed</h3><p><strong>Fiat-Shamir bugfix (#19711)</strong></p><p>by alinush on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/b4a2cac4b8f814e05ea44d055afa1cf9e4224b35\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>Fiat-Shamir bugfix (#19711)</strong> — a change by alinush.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

@@ -1,6 +1,27 @@
 {
   "prs": [
     {
+      "number": 19707,
+      "title": "[mono-move] Survey doc: existing native functions and VM capability requirements",
+      "author": "vgao1996",
+      "merged_at": "2026-05-11T22:38:26Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19707",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19711,
+      "title": "Fiat-Shamir bug fix",
+      "author": "alinush",
+      "merged_at": "2026-05-11T22:03:03Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19711",
+      "labels": [
+        "v1.44",
+        "v1.45"
+      ]
+    },
+    {
       "number": 19676,
       "title": "[consensus] Enforce V2-only entries on V2 quorum store wire messages",
       "author": "ibalajiarun",
@@ -151,24 +172,8 @@
       "labels": [
         "v1.45"
       ]
-    },
-    {
-      "number": 19373,
-      "title": "Prevent untrusted length-based allocation in PROXY protocol parsing",
-      "author": "jmestwa-coder",
-      "merged_at": "2026-05-08T18:19:33Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19373",
-      "labels": []
-    },
-    {
-      "number": 19677,
-      "title": "[move docs] Move book back to aptos-core, integrate spec/prover docs, add Aptos Framework Book",
-      "author": "wrwg",
-      "merged_at": "2026-05-08T17:53:43Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19677",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-11T21:18:03.616Z"
+  "lastUpdated": "2026-05-11T22:55:04.797Z"
 }
