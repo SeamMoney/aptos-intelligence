@@ -13193,5 +13193,47 @@
     "eli5": "<p><strong>[paper] Polish and revise higher-order and inference papers for submission (#19697)</strong> — a change by wrwg.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100181,
+    "githubId": "49dae34",
+    "title": "[consensus] Avoid PipelinedBlock Arc cycle (#19688)",
+    "author": "ibalajiarun",
+    "date": "2026-05-11T17:40:57Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/49dae34a96e80219362818e4ed6141b5ccba3123",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] Avoid PipelinedBlock Arc cycle (#19688)</strong></p><p>by ibalajiarun on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/49dae34a96e80219362818e4ed6141b5ccba3123\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] Avoid PipelinedBlock Arc cycle (#19688)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100182,
+    "githubId": "d91e323",
+    "title": "[prover] Update commmit hash (#19701)",
+    "author": "wrwg",
+    "date": "2026-05-11T17:13:59Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/d91e32348953785e80ed12cf3f2f9d0a79711e11",
+    "advanced": "<h3>What Changed</h3><p><strong>[prover] Update commmit hash (#19701)</strong></p><p>by wrwg on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/d91e32348953785e80ed12cf3f2f9d0a79711e11\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[prover] Update commmit hash (#19701)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100183,
+    "githubId": "512c108",
+    "title": "[forge] Probe txn-readiness before emitting + per-client failover in minter (#19588)",
+    "author": "wrwg",
+    "date": "2026-05-11T16:35:42Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/512c108502bd6cfcaad7020a0e0009913e8a0bdb",
+    "advanced": "<h3>What Changed</h3><p><strong>[forge] Probe txn-readiness before emitting + per-client failover in minter (#19588)</strong></p><p>by wrwg on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/512c108502bd6cfcaad7020a0e0009913e8a0bdb\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[forge] Probe txn-readiness before emitting + per-client failover in minter (#19588)</strong> — a change by wrwg.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

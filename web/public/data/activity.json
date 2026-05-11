@@ -1,6 +1,52 @@
 {
   "prs": [
     {
+      "number": 19688,
+      "title": "[consensus] Avoid PipelinedBlock Arc cycle",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-11T17:40:58Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19688",
+      "labels": [
+        "v1.45"
+      ]
+    },
+    {
+      "number": 19701,
+      "title": "[prover] Update commmit hash",
+      "author": "wrwg",
+      "merged_at": "2026-05-11T17:14:00Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19701",
+      "labels": []
+    },
+    {
+      "number": 19588,
+      "title": "[forge] Probe txn-readiness before emitting + per-client failover in minter",
+      "author": "wrwg",
+      "merged_at": "2026-05-11T16:35:43Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19588",
+      "labels": []
+    },
+    {
+      "number": 19557,
+      "title": "[mono-move] Eager interning of signatures",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-30T13:59:51Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19557",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19572,
+      "title": "[mono-move] Combine enum and struct types",
+      "author": "georgemitenkov",
+      "merged_at": "2026-04-28T20:18:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19572",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19697,
       "title": "[paper] Polish and revise higher-order and inference papers for submission",
       "author": "wrwg",
@@ -111,47 +157,8 @@
       "merged_at": "2026-05-08T15:51:08Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19668",
       "labels": []
-    },
-    {
-      "number": 19678,
-      "title": "[consensus] Avoid PipelinedBlock Arc cycle",
-      "author": "ibalajiarun",
-      "merged_at": "2026-05-07T22:44:34Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19678",
-      "labels": [
-        "CICD:build-performance-images",
-        "CICD:run-forge-e2e-perf"
-      ]
-    },
-    {
-      "number": 19679,
-      "title": "[paper] add state dependent example",
-      "author": "rahxephon89",
-      "merged_at": "2026-05-07T20:13:40Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19679",
-      "labels": []
-    },
-    {
-      "number": 19643,
-      "title": "[block-executor] replace rayon BlockSTM pool with plain std-thread pool",
-      "author": "wqfish",
-      "merged_at": "2026-05-05T23:49:17Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19643",
-      "labels": [
-        "CICD:run-execution-performance-test",
-        "CICD:run-execution-performance-full-test",
-        "v1.45"
-      ]
-    },
-    {
-      "number": 19669,
-      "title": "[forge] Enable BlockSTM v2 on validators for all forge runs",
-      "author": "zekun000",
-      "merged_at": "2026-05-07T17:15:52Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19669",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-11T14:54:15.866Z"
+  "lastUpdated": "2026-05-11T17:54:47.635Z"
 }
