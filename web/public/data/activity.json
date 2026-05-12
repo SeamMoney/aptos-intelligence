@@ -1,6 +1,16 @@
 {
   "prs": [
     {
+      "number": 19718,
+      "title": "[mono-move] Use u8 for shift amount; rename Xor → BitXor",
+      "author": "vgao1996",
+      "merged_at": "2026-05-12T10:47:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19718",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
       "number": 19722,
       "title": "fix gas schedule v64 comment",
       "author": "zjma",
@@ -148,16 +158,8 @@
       "merged_at": "2026-05-09T03:13:54Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19670",
       "labels": []
-    },
-    {
-      "number": 19690,
-      "title": "[aptos-release-v1.44] Bump version to 1.44.8",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-08T20:07:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19690",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-12T10:32:05.906Z"
+  "lastUpdated": "2026-05-12T14:27:06.716Z"
 }
