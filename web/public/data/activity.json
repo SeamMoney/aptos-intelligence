@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19710,
+      "title": "[jwk-consensus] Clean up state lookup in process_peer_request",
+      "author": "zjma",
+      "merged_at": "2026-05-12T00:14:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19710",
+      "labels": []
+    },
+    {
+      "number": 19686,
+      "title": "[gas] Source BN254 Fr::one() cost from the correct param",
+      "author": "zjma",
+      "merged_at": "2026-05-11T23:31:06Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19686",
+      "labels": []
+    },
+    {
       "number": 19707,
       "title": "[mono-move] Survey doc: existing native functions and VM capability requirements",
       "author": "vgao1996",
@@ -152,28 +168,8 @@
       "labels": [
         "mono-move"
       ]
-    },
-    {
-      "number": 19689,
-      "title": "[cp][aptos-release-v1.45] [storage] Skip drop-log for gen=0 SMTs",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-08T20:02:38Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19689",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19685,
-      "title": "[storage] Skip drop-log for gen=0 SMTs",
-      "author": "wqfish",
-      "merged_at": "2026-05-08T03:28:46Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19685",
-      "labels": [
-        "v1.45"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-11T22:55:04.797Z"
+  "lastUpdated": "2026-05-12T03:22:54.982Z"
 }

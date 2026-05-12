@@ -13277,5 +13277,33 @@
     "eli5": "<p><strong>Fiat-Shamir bugfix (#19711)</strong> — a change by alinush.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100187,
+    "githubId": "2423531",
+    "title": "[jwk-consensus] Clean up state lookup in process_peer_request (#19710)",
+    "author": "zjma",
+    "date": "2026-05-12T00:14:38Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/24235317427b6a489275307dcdc8e15b2532ff4a",
+    "advanced": "<h3>What Changed</h3><p><strong>[jwk-consensus] Clean up state lookup in process_peer_request (#19710)</strong></p><p>by zjma on 5/12/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/24235317427b6a489275307dcdc8e15b2532ff4a\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[jwk-consensus] Clean up state lookup in process_peer_request (#19710)</strong> — a change by zjma.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100188,
+    "githubId": "456588b",
+    "title": "[gas] Source BN254 Fr::one() cost from the correct param (#19686)",
+    "author": "zjma",
+    "date": "2026-05-11T23:31:05Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/456588bd7f2632f6e376836922dd9fe257c97bfa",
+    "advanced": "<h3>What Changed</h3><p><strong>[gas] Source BN254 Fr::one() cost from the correct param (#19686)</strong></p><p>by zjma on 5/11/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/456588bd7f2632f6e376836922dd9fe257c97bfa\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[gas] Source BN254 Fr::one() cost from the correct param (#19686)</strong> — a change by zjma.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
