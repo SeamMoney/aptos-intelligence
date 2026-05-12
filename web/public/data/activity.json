@@ -148,28 +148,8 @@
       "merged_at": "2026-05-08T20:07:09Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19690",
       "labels": []
-    },
-    {
-      "number": 19654,
-      "title": "[replay-verify] Rework PVC pipeline; tune timeouts and concurrency",
-      "author": "vgao1996",
-      "merged_at": "2026-05-08T20:58:10Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19654",
-      "labels": [
-        "CICD:build-performance-images"
-      ]
-    },
-    {
-      "number": 19636,
-      "title": "[mono-move] Memory alignment design doc",
-      "author": "vgao1996",
-      "merged_at": "2026-05-08T20:24:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19636",
-      "labels": [
-        "mono-move"
-      ]
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-12T03:22:54.982Z"
+  "lastUpdated": "2026-05-12T06:37:49.837Z"
 }
