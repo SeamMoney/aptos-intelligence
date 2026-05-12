@@ -13347,5 +13347,47 @@
     "eli5": "<p><strong>[consensus] Defer G1 decompression in randomness AugmentedData (#19712)</strong> — a change by danielxiangzl.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100192,
+    "githubId": "f79153e",
+    "title": "[mono-move] Move heap object headers to negative offsets (#19713)",
+    "author": "vgao1996",
+    "date": "2026-05-12T21:34:01Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/f79153e644d932f1614630fe06c8d1ed8f848f01",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Move heap object headers to negative offsets (#19713)</strong></p><p>by vgao1996 on 5/12/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/f79153e644d932f1614630fe06c8d1ed8f848f01\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Move heap object headers to negative offsets (#19713)</strong> — a change by vgao1996.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100193,
+    "githubId": "8968771",
+    "title": "[vm] Relax upgrade compatibility to allow changing friend/package entry to private entry (#19691)",
+    "author": "vineethk",
+    "date": "2026-05-12T21:25:41Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/896877163c85276098d6aad09c8094eaf0124f5c",
+    "advanced": "<h3>What Changed</h3><p><strong>[vm] Relax upgrade compatibility to allow changing friend/package entry to private entry (#19691)</strong></p><p>by vineethk on 5/12/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/896877163c85276098d6aad09c8094eaf0124f5c\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[vm] Relax upgrade compatibility to allow changing friend/package entry to private entry (#19691)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100194,
+    "githubId": "51481f9",
+    "title": "[storage] Seed hot state KV pruner progress on wipe",
+    "author": "wqfish",
+    "date": "2026-05-12T21:17:17Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/51481f9fd3e04f90ae58b59f55f43621d2801f39",
+    "advanced": "<h3>What Changed</h3><p><strong>[storage] Seed hot state KV pruner progress on wipe</strong></p><p>by wqfish on 5/12/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/51481f9fd3e04f90ae58b59f55f43621d2801f39\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[storage] Seed hot state KV pruner progress on wipe</strong> — a change by wqfish.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
