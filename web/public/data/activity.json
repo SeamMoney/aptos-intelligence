@@ -1,11 +1,11 @@
 {
   "prs": [
     {
-      "number": 19710,
-      "title": "[jwk-consensus] Clean up state lookup in process_peer_request",
+      "number": 19722,
+      "title": "fix gas schedule v64 comment",
       "author": "zjma",
-      "merged_at": "2026-05-12T00:14:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19710",
+      "merged_at": "2026-05-12T10:26:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19722",
       "labels": []
     },
     {
@@ -14,6 +14,14 @@
       "author": "zjma",
       "merged_at": "2026-05-11T23:31:06Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19686",
+      "labels": []
+    },
+    {
+      "number": 19710,
+      "title": "[jwk-consensus] Clean up state lookup in process_peer_request",
+      "author": "zjma",
+      "merged_at": "2026-05-12T00:14:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19710",
       "labels": []
     },
     {
@@ -151,5 +159,5 @@
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-12T06:37:49.837Z"
+  "lastUpdated": "2026-05-12T10:32:05.906Z"
 }
