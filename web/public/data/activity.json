@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19729,
+      "title": "[paper] Update citations to arXiv and add one-pager for higher-order and inference papers",
+      "author": "wrwg",
+      "merged_at": "2026-05-13T19:38:28Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19729",
+      "labels": []
+    },
+    {
       "number": 19733,
       "title": "[trading-native][schema] Add native-position storage schemas (hash-keyed)",
       "author": "grao1991",
@@ -220,14 +228,6 @@
       "merged_at": "2026-05-11T17:14:00Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19701",
       "labels": []
-    },
-    {
-      "number": 19588,
-      "title": "[forge] Probe txn-readiness before emitting + per-client failover in minter",
-      "author": "wrwg",
-      "merged_at": "2026-05-11T16:35:43Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19588",
-      "labels": []
     }
   ],
   "issues": [
@@ -244,5 +244,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-13T18:02:01.385Z"
+  "lastUpdated": "2026-05-13T21:26:06.832Z"
 }
