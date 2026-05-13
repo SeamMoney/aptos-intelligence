@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 18935,
+      "title": "[compiler] Add public/package/friend visibility to Move constants",
+      "author": "rahxephon89",
+      "merged_at": "2026-05-13T06:03:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/18935",
+      "labels": []
+    },
+    {
       "number": 19672,
       "title": "[mono-vm] Add support for references to locals, along with various bug fixes",
       "author": "vineethk",
@@ -204,14 +212,6 @@
       "merged_at": "2026-05-11T04:38:15Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19697",
       "labels": []
-    },
-    {
-      "number": 19698,
-      "title": "[prover] User-form behavioral predicates for &mut T parameters",
-      "author": "wrwg",
-      "merged_at": "2026-05-11T00:30:17Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19698",
-      "labels": []
     }
   ],
   "issues": [
@@ -227,5 +227,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-13T03:30:38.870Z"
+  "lastUpdated": "2026-05-13T06:48:34.587Z"
 }
