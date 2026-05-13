@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19704,
+      "title": "[docs] Document abort messages and new assert macros in Move book",
+      "author": "calintat",
+      "merged_at": "2026-05-13T13:31:47Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19704",
+      "labels": []
+    },
+    {
       "number": 18935,
       "title": "[compiler] Add public/package/friend visibility to Move constants",
       "author": "rahxephon89",
@@ -226,18 +234,7 @@
         "good first issue",
         "stale-exempt"
       ]
-    },
-    {
-      "number": 19650,
-      "title": "[compiler-v2] Changing public(package) fun entry to fun entry is not allowed, but it should",
-      "author": "igor-aptos",
-      "state": "closed",
-      "created_at": "2026-05-05T16:43:09Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19650",
-      "labels": [
-        "compiler-v2"
-      ]
     }
   ],
-  "lastUpdated": "2026-05-13T10:28:41.451Z"
+  "lastUpdated": "2026-05-13T14:35:40.954Z"
 }
