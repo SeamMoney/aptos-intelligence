@@ -230,19 +230,6 @@
       "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 10286,
-      "title": "[SDK] Ensure all tests are testing using hex string instead of hex Uint8Array",
-      "author": "0xmigo",
-      "state": "open",
-      "created_at": "2023-09-28T02:02:05Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/10286",
-      "labels": [
-        "good first issue",
-        "stale-exempt"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-05-13T21:26:06.832Z"
+  "issues": [],
+  "lastUpdated": "2026-05-13T23:05:32.984Z"
 }
