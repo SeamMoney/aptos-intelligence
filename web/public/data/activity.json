@@ -1,6 +1,26 @@
 {
   "prs": [
     {
+      "number": 19672,
+      "title": "[mono-vm] Add support for references to locals, along with various bug fixes",
+      "author": "vineethk",
+      "merged_at": "2026-05-13T01:47:39Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19672",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19728,
+      "title": "[cp][aptos-release-v1.45] [storage] Seed hot state KV pruner progress on wipe",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-13T00:52:18Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19728",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19726,
       "title": "[storage] Seed hot state KV pruner progress on wipe",
       "author": "wqfish",
@@ -207,5 +227,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-12T23:02:58.058Z"
+  "lastUpdated": "2026-05-13T03:30:38.870Z"
 }
