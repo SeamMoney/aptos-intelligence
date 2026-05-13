@@ -1,31 +1,15 @@
 [
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -40,20 +24,68 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "7336609",
+    "title": "[trading-native][schema] Add native-position storage schemas (hash-keyed) (#19733)",
+    "author": "grao1991",
+    "date": "2026-05-13T17:22:21Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/733660915e176950b9f67ea52dc0b4307efaaba1",
+    "category": "Release"
+  },
+  {
+    "sha": "6d78e46",
+    "title": "[mono-move] Type substitution & lowering for generics (#19705)",
+    "author": "georgemitenkov",
+    "date": "2026-05-13T17:18:16Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6d78e46fa569eca5e6aa71791e130475b09ca21d",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "1469810",
+    "title": "[mono-move] Loader lazy lowering integration and MS for functions (#19592)",
+    "author": "georgemitenkov",
+    "date": "2026-05-13T15:40:18Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1469810381be4e4a87a1819fc8a18e1f4f288798",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "b8edbb1",
+    "title": "[forge] handle deployer resource concurrency more gracefully (#19723)",
+    "author": "rustielin",
+    "date": "2026-05-13T15:35:22Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/b8edbb141f3056de46090ccb55a5a8497ed11031",
+    "category": "Infrastructure"
   },
   {
     "sha": "70dbf9e",
@@ -4680,30 +4712,6 @@
     "category": "Performance"
   },
   {
-    "sha": "41d77fb",
-    "title": "remove validations from aptos-trading (#18727)",
-    "author": "igor-aptos",
-    "date": "2026-02-12T21:30:28Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/41d77fb11e1723d4baae5107dd36ec07d1a53bb3",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "03b1b6b",
-    "title": "[State Sync] Reduce max client transaction and output request sizes.",
-    "author": "JoshLind",
-    "date": "2026-02-10T22:05:33Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/03b1b6bbe8286b90360b3496bc530faef13a55c8",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "f49a2ff",
-    "title": "[State Sync] Set default syncing mode to output syncing, and bump",
-    "author": "JoshLind",
-    "date": "2026-02-10T21:41:31Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/f49a2ff0914549e74a57a624254307e3371d493e",
-    "category": "Infrastructure"
-  },
-  {
     "sha": "ed3c164",
     "title": "network: address bugbot review findings",
     "author": "cursoragent",
@@ -4822,14 +4830,6 @@
     "date": "2026-02-06T10:58:23Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/57330b02e39ca3af6312112ea238f5ccdeb122d5",
     "category": "Security"
-  },
-  {
-    "sha": "c6d4caf",
-    "title": "[Peer Monitoring] Support metadata sanitization.",
-    "author": "cursoragent",
-    "date": "2026-01-29T17:58:37Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/c6d4caf158f86350ced930723c8ff2f532d40acf",
-    "category": "Infrastructure"
   },
   {
     "sha": "9ba8ed9",

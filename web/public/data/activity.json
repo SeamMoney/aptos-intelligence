@@ -1,6 +1,42 @@
 {
   "prs": [
     {
+      "number": 19733,
+      "title": "[trading-native][schema] Add native-position storage schemas (hash-keyed)",
+      "author": "grao1991",
+      "merged_at": "2026-05-13T17:22:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19733",
+      "labels": []
+    },
+    {
+      "number": 19705,
+      "title": "[mono-move] Type substitution APIs",
+      "author": "georgemitenkov",
+      "merged_at": "2026-05-13T17:18:17Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19705",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19592,
+      "title": "[mono-move] Loader lazy lowering integration and MS for functions",
+      "author": "georgemitenkov",
+      "merged_at": "2026-05-13T15:40:19Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19592",
+      "labels": [
+        "mono-move"
+      ]
+    },
+    {
+      "number": 19723,
+      "title": "[forge] handle deployer resource concurrency more gracefully",
+      "author": "rustielin",
+      "merged_at": "2026-05-13T15:35:23Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19723",
+      "labels": []
+    },
+    {
       "number": 19704,
       "title": "[docs] Document abort messages and new assert macros in Move book",
       "author": "calintat",
@@ -192,34 +228,6 @@
       "merged_at": "2026-05-11T16:35:43Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19588",
       "labels": []
-    },
-    {
-      "number": 19557,
-      "title": "[mono-move] Eager interning of signatures",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-30T13:59:51Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19557",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19572,
-      "title": "[mono-move] Combine enum and struct types",
-      "author": "georgemitenkov",
-      "merged_at": "2026-04-28T20:18:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19572",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19697,
-      "title": "[paper] Polish and revise higher-order and inference papers for submission",
-      "author": "wrwg",
-      "merged_at": "2026-05-11T04:38:15Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19697",
-      "labels": []
     }
   ],
   "issues": [
@@ -236,5 +244,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-05-13T14:35:40.954Z"
+  "lastUpdated": "2026-05-13T18:02:01.385Z"
 }

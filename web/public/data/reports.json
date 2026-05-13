@@ -13431,5 +13431,61 @@
     "eli5": "<p><strong>[docs] Document abort messages and new assert macros in Move book (#19704)</strong> — a change by calintat.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100198,
+    "githubId": "7336609",
+    "title": "[trading-native][schema] Add native-position storage schemas (hash-keyed) (#19733)",
+    "author": "grao1991",
+    "date": "2026-05-13T17:22:21Z",
+    "category": "Release",
+    "importance": 7,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/733660915e176950b9f67ea52dc0b4307efaaba1",
+    "advanced": "<h3>What Changed</h3><p><strong>[trading-native][schema] Add native-position storage schemas (hash-keyed) (#19733)</strong></p><p>by grao1991 on 5/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/733660915e176950b9f67ea52dc0b4307efaaba1\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[trading-native][schema] Add native-position storage schemas (hash-keyed) (#19733)</strong> — a change by grao1991.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100199,
+    "githubId": "6d78e46",
+    "title": "[mono-move] Type substitution & lowering for generics (#19705)",
+    "author": "georgemitenkov",
+    "date": "2026-05-13T17:18:16Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/6d78e46fa569eca5e6aa71791e130475b09ca21d",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Type substitution & lowering for generics (#19705)</strong></p><p>by georgemitenkov on 5/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/6d78e46fa569eca5e6aa71791e130475b09ca21d\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Type substitution & lowering for generics (#19705)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100200,
+    "githubId": "1469810",
+    "title": "[mono-move] Loader lazy lowering integration and MS for functions (#19592)",
+    "author": "georgemitenkov",
+    "date": "2026-05-13T15:40:18Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/1469810381be4e4a87a1819fc8a18e1f4f288798",
+    "advanced": "<h3>What Changed</h3><p><strong>[mono-move] Loader lazy lowering integration and MS for functions (#19592)</strong></p><p>by georgemitenkov on 5/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/1469810381be4e4a87a1819fc8a18e1f4f288798\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mono-move] Loader lazy lowering integration and MS for functions (#19592)</strong> — a change by georgemitenkov.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100201,
+    "githubId": "b8edbb1",
+    "title": "[forge] handle deployer resource concurrency more gracefully (#19723)",
+    "author": "rustielin",
+    "date": "2026-05-13T15:35:22Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/b8edbb141f3056de46090ccb55a5a8497ed11031",
+    "advanced": "<h3>What Changed</h3><p><strong>[forge] handle deployer resource concurrency more gracefully (#19723)</strong></p><p>by rustielin on 5/13/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/b8edbb141f3056de46090ccb55a5a8497ed11031\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[forge] handle deployer resource concurrency more gracefully (#19723)</strong> — a change by rustielin.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
