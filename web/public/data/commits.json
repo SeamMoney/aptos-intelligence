@@ -1,31 +1,15 @@
 [
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -40,19 +24,51 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "500b61b",
+    "title": "add visibility section for constants (#19755)",
+    "author": "rahxephon89",
+    "date": "2026-05-14T22:00:29Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/500b61b94c8bb94cfdd7565f12fa19e50d034895",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "c0e7e28",
+    "title": "[consensus] Dump StateComputeResult on commit_info mismatch panic (#19751)",
+    "author": "ibalajiarun",
+    "date": "2026-05-14T21:20:45Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c0e7e28025660ec88734e62a011cee61bcf4b282",
     "category": "Feature Progress"
   },
   {
@@ -61,6 +77,22 @@
     "author": "gregnazario",
     "date": "2026-05-14T21:02:43Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/af8bcb3e3f0c2a34dbfbfadbc261213bb13bd903",
+    "category": "Security"
+  },
+  {
+    "sha": "613463f",
+    "title": "[vm] derive needs_fee_payer_auth_check from serialized_signers",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T20:41:14Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/613463f662748f6e74ee2abd101d3f731c34c2d5",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "7f36565",
+    "title": "Fix serialized signers",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T20:17:15Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/7f36565f86dfe9740ac64d12558eca236cd8061e",
     "category": "Security"
   },
   {
@@ -110,6 +142,54 @@
     "date": "2026-05-14T16:54:40Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/135c42e8514b1840186af19172015e4b9cc60d31",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "f96b111",
+    "title": "Revert \"[forge] disable VERSIONED_TRANSACTION_VALIDATION in land-blocking tests\"",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T13:49:20Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f96b111b084ec1d0b33802732ed7d7237e0eafba",
+    "category": "Release"
+  },
+  {
+    "sha": "6c41438",
+    "title": "[framework] revert transaction_limits::new_tier back to friend",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T13:47:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6c414381aa0b6ac0a357993e5bb4c2057973e243",
+    "category": "Security"
+  },
+  {
+    "sha": "c590a94",
+    "title": "[format] refresh serde corpora for RequestedMultipliers field rename",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T13:43:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c590a9439f967133c9f11b72acc86cd9949d6a2a",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "6a96a8c",
+    "title": "[framework] keep transaction_limits::new_tier public",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T13:34:33Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/6a96a8cd60c44384976fb2492a65973ae030f910",
+    "category": "Infrastructure"
+  },
+  {
+    "sha": "5d9891a",
+    "title": "[forge] clear post-v1.45 flags from compat override; better panic in into_flag_vec",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T12:48:46Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/5d9891a5e26d910d380f7fef41a6e088ce1fd2f8",
+    "category": "Release"
+  },
+  {
+    "sha": "0107b9f",
+    "title": "debug",
+    "author": "georgemitenkov",
+    "date": "2026-05-14T11:15:52Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/0107b9f7b94e94d94ef49335018da5165d6c9771",
+    "category": "Infrastructure"
   },
   {
     "sha": "47de220",
@@ -214,6 +294,14 @@
     "date": "2026-05-12T21:17:17Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/51481f9fd3e04f90ae58b59f55f43621d2801f39",
     "category": "Release"
+  },
+  {
+    "sha": "c4013b2",
+    "title": "[move] High-limit txn fixes",
+    "author": "georgemitenkov",
+    "date": "2026-05-12T18:06:25Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/c4013b21cf6661e253cebbce90fd15f6935d8e9f",
+    "category": "Security"
   },
   {
     "sha": "3c1dc04",
@@ -4552,46 +4640,6 @@
     "category": "Infrastructure"
   },
   {
-    "sha": "9dd5044",
-    "title": "crypto native cleanup (#18713)",
-    "author": "zjma",
-    "date": "2026-02-17T18:57:07Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/9dd50444eac3899b32a0fc009418896f520be22a",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "b4585e5",
-    "title": "[Storage] Bump default number of low priority threads to 4",
-    "author": "wqfish",
-    "date": "2026-02-16T22:02:27Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/b4585e5a5c81bc9af98eb2d7063c20c2773b6e35",
-    "category": "Performance"
-  },
-  {
-    "sha": "7d932fe",
-    "title": "[storage] Disable compaction-based write stalling for append-only ledger sub-DBs",
-    "author": "wqfish",
-    "date": "2026-02-16T21:54:15Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/7d932feb0cadea2a8beab11c55ef8c5b2d3f9043",
-    "category": "Release"
-  },
-  {
-    "sha": "0136305",
-    "title": "Increase num orderless txns per user to 5000 (#18769)",
-    "author": "vusirikala",
-    "date": "2026-02-16T21:30:25Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/013630546ba76cf0b7451c9110103454f4f297c9",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "4e7ce10",
-    "title": "[Storage] Fix max background job setting",
-    "author": "wqfish",
-    "date": "2026-02-16T17:56:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/4e7ce1077749584bce0800db579f07674ae69084",
-    "category": "Security"
-  },
-  {
     "sha": "2b5e710",
     "title": "[vm][genesis][api] Wire encryption key through execution and genesis",
     "author": "ibalajiarun",
@@ -4662,54 +4710,6 @@
     "date": "2026-02-14T16:21:23Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/f4f33f45d4154f53fc16fe807a485c05746d7094",
     "category": "Feature Progress"
-  },
-  {
-    "sha": "0464815",
-    "title": "[prover] Remove dead CLI options and flags (#18743)",
-    "author": "wrwg",
-    "date": "2026-02-14T03:13:16Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/0464815b65655457d81fc04e4a67b382713667b8",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "29bf348",
-    "title": "[vm] Use async type checks as default (#18752)",
-    "author": "georgemitenkov",
-    "date": "2026-02-14T02:38:17Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/29bf3480dfc0cd6f295df9ca641f3e362aadcd92",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "db3cc03",
-    "title": "[compiler] Remove move-errmapgen crate (#18740)",
-    "author": "wrwg",
-    "date": "2026-02-14T01:45:16Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/db3cc033477e49ec6557b2b175e719591131087d",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "223549a",
-    "title": "[vm] Improve type depth tracking and async runtime checks (#18728)",
-    "author": "georgemitenkov",
-    "date": "2026-02-14T00:41:26Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/223549a4890710bee66f6acabf3ad428d6705bc3",
-    "category": "Release"
-  },
-  {
-    "sha": "516c64a",
-    "title": "Redesign PVSS traits (#18718)",
-    "author": "waamm",
-    "date": "2026-02-14T00:01:05Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/516c64a8ec3395a94f42f7690c18e670d20a7ffb",
-    "category": "Infrastructure"
-  },
-  {
-    "sha": "8e6d2ea",
-    "title": "[storage] Make is_descendant_of check strict by walking the parent chain",
-    "author": "wqfish",
-    "date": "2026-02-13T22:18:32Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/8e6d2eac028a5a8b1c189a49ccb6f0ab1aad557b",
-    "category": "Performance"
   },
   {
     "sha": "ed3c164",
