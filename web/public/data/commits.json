@@ -1,31 +1,15 @@
 [
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
-    "category": "Feature Progress"
-  },
-  {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -40,20 +24,52 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
     "category": "Feature Progress"
+  },
+  {
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "58478e9",
+    "title": "[consensus-observer] Decouple decrypted_txns from secret_shared_key in V2 deserialization (#19749)",
+    "author": "ibalajiarun",
+    "date": "2026-05-14T18:55:31Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/58478e990be3c01dec38c400e055841e177765fb",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "1ca05e5",
+    "title": "[forge] pin etna stable test to matching aptos-core SHA (#19756)",
+    "author": "ibalajiarun",
+    "date": "2026-05-14T18:44:49Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/1ca05e588c563f647400cd1d0bceccfc6dde9d77",
+    "category": "Infrastructure"
   },
   {
     "sha": "f68247a",
@@ -982,6 +998,14 @@
     "date": "2026-04-22T04:11:44Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/5267c48e19922c292c5102d6c696595f7435cd64",
     "category": "Release"
+  },
+  {
+    "sha": "7700454",
+    "title": "[Network] Tweak message count logic in rate limiter.",
+    "author": "JoshLind",
+    "date": "2026-04-22T00:43:09Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/77004547a76d9489dcf0ec836a208837790ae327",
+    "category": "Infrastructure"
   },
   {
     "sha": "e48def4",
@@ -4686,30 +4710,6 @@
     "date": "2026-02-13T21:29:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/906aaa339233bb312cc7529808c4aaa93a817d1f",
     "category": "Feature Progress"
-  },
-  {
-    "sha": "e867830",
-    "title": "[tools][cleanup] Move move-docgen out of move-prover into move/tools (#18741)",
-    "author": "wrwg",
-    "date": "2026-02-13T21:23:58Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/e8678300d03c3ec6834dcc95ce88fe69b02c082c",
-    "category": "Security"
-  },
-  {
-    "sha": "a818a43",
-    "title": "[stake] Prevent from empty validator set (#18280)",
-    "author": "lightmark",
-    "date": "2026-02-13T20:13:39Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/a818a43233607366735de19d53273bcb22b1ef4e",
-    "category": "Security"
-  },
-  {
-    "sha": "e535ddb",
-    "title": "[fix] cherry pick missed feature activation times (#18745)",
-    "author": "georgemitenkov",
-    "date": "2026-02-13T18:32:55Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/e535ddbda6f7fe874f11ea0a2053b0cc40204e7b",
-    "category": "Security"
   },
   {
     "sha": "ed3c164",

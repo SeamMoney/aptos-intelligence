@@ -13571,5 +13571,47 @@
     "eli5": "<p><strong>[prover] Align `result_of` and `ensures_of` for `&mut` parameters (#19743)</strong> — a change by wrwg.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100208,
+    "githubId": "58478e9",
+    "title": "[consensus-observer] Decouple decrypted_txns from secret_shared_key in V2 deserialization (#19749)",
+    "author": "ibalajiarun",
+    "date": "2026-05-14T18:55:31Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/58478e990be3c01dec38c400e055841e177765fb",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus-observer] Decouple decrypted_txns from secret_shared_key in V2 deserialization (#19749)</strong></p><p>by ibalajiarun on 5/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/58478e990be3c01dec38c400e055841e177765fb\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus-observer] Decouple decrypted_txns from secret_shared_key in V2 deserialization (#19749)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100209,
+    "githubId": "1ca05e5",
+    "title": "[forge] pin etna stable test to matching aptos-core SHA (#19756)",
+    "author": "ibalajiarun",
+    "date": "2026-05-14T18:44:49Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/1ca05e588c563f647400cd1d0bceccfc6dde9d77",
+    "advanced": "<h3>What Changed</h3><p><strong>[forge] pin etna stable test to matching aptos-core SHA (#19756)</strong></p><p>by ibalajiarun on 5/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/1ca05e588c563f647400cd1d0bceccfc6dde9d77\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[forge] pin etna stable test to matching aptos-core SHA (#19756)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100210,
+    "githubId": "7700454",
+    "title": "[Network] Tweak message count logic in rate limiter.",
+    "author": "JoshLind",
+    "date": "2026-04-22T00:43:09Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/77004547a76d9489dcf0ec836a208837790ae327",
+    "advanced": "<h3>What Changed</h3><p><strong>[Network] Tweak message count logic in rate limiter.</strong></p><p>by JoshLind on 4/22/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/77004547a76d9489dcf0ec836a208837790ae327\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[Network] Tweak message count logic in rate limiter.</strong> — a change by JoshLind.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
