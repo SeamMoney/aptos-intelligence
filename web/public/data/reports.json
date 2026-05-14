@@ -13613,5 +13613,33 @@
     "eli5": "<p><strong>[Network] Tweak message count logic in rate limiter.</strong> — a change by JoshLind.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100211,
+    "githubId": "af8bcb3",
+    "title": "[move docs] Use highlightjs-move for Move syntax (#19759)",
+    "author": "gregnazario",
+    "date": "2026-05-14T21:02:43Z",
+    "category": "Security",
+    "importance": 8,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/af8bcb3e3f0c2a34dbfbfadbc261213bb13bd903",
+    "advanced": "<h3>What Changed</h3><p><strong>[move docs] Use highlightjs-move for Move syntax (#19759)</strong></p><p>by gregnazario on 5/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/af8bcb3e3f0c2a34dbfbfadbc261213bb13bd903\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[move docs] Use highlightjs-move for Move syntax (#19759)</strong> — a change by gregnazario.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100212,
+    "githubId": "90eeda4",
+    "title": "add move book entries for the new match extensions (#19754)",
+    "author": "vineethk",
+    "date": "2026-05-14T19:46:43Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/90eeda4e5f38ad219abae40a00052c67fb3f75bc",
+    "advanced": "<h3>What Changed</h3><p><strong>add move book entries for the new match extensions (#19754)</strong></p><p>by vineethk on 5/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/90eeda4e5f38ad219abae40a00052c67fb3f75bc\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>add move book entries for the new match extensions (#19754)</strong> — a change by vineethk.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

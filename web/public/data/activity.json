@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19759,
+      "title": "[move docs] Use highlightjs-move for Move syntax",
+      "author": "gregnazario",
+      "merged_at": "2026-05-14T21:02:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19759",
+      "labels": []
+    },
+    {
+      "number": 19754,
+      "title": "[move-book] Add move book entries for various new match extensions",
+      "author": "vineethk",
+      "merged_at": "2026-05-14T19:46:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19754",
+      "labels": []
+    },
+    {
       "number": 19526,
       "title": "[Network] Tweak message count logic in rate limiter.",
       "author": "JoshLind",
@@ -184,29 +200,20 @@
       "labels": [
         "CICD:run-e2e-tests"
       ]
-    },
-    {
-      "number": 19715,
-      "title": "[cp][aptos-release-v1.45] Fiat-Shamir bug fix",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-12T16:22:50Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19715",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19714,
-      "title": "[cp][aptos-release-v1.44] Fiat-Shamir bug fix",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-12T16:08:15Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19714",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [
+    {
+      "number": 18043,
+      "title": "[Feature Request] Add ARM64 Docker image support for aptos-node in release process",
+      "author": "erikburt",
+      "state": "open",
+      "created_at": "2025-11-05T22:22:20Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/18043",
+      "labels": [
+        "enhancement"
+      ]
+    },
     {
       "number": 19753,
       "title": "[Bug] TypeTag parser lexer rejects identifiers with leading underscore — divergence from Identifier::is_valid",
@@ -217,5 +224,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-05-14T19:46:42.609Z"
+  "lastUpdated": "2026-05-14T21:10:57.222Z"
 }
