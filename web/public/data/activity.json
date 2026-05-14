@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19730,
+      "title": "admin-service: return symbolized pprof from /malloc/dump_profile",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-14T05:12:51Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19730",
+      "labels": []
+    },
+    {
       "number": 19716,
       "title": "[dkg] Validate inbound transcript size before deserialization",
       "author": "zjma",
@@ -200,24 +208,6 @@
         "v1.44",
         "v1.45"
       ]
-    },
-    {
-      "number": 19676,
-      "title": "[consensus] Enforce V2-only entries on V2 quorum store wire messages",
-      "author": "ibalajiarun",
-      "merged_at": "2026-05-11T19:06:05Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19676",
-      "labels": []
-    },
-    {
-      "number": 19709,
-      "title": "[cp][aptos-release-v1.45] [consensus] Avoid PipelinedBlock Arc cycle",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-11T18:35:04Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19709",
-      "labels": [
-        "cherry-pick"
-      ]
     }
   ],
   "issues": [
@@ -231,5 +221,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-05-14T03:30:32.222Z"
+  "lastUpdated": "2026-05-14T06:46:56.430Z"
 }
