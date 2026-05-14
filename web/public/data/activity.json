@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19716,
+      "title": "[dkg] Validate inbound transcript size before deserialization",
+      "author": "zjma",
+      "merged_at": "2026-05-14T01:57:55Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19716",
+      "labels": []
+    },
+    {
       "number": 19729,
       "title": "[paper] Update citations to arXiv and add one-pager for higher-order and inference papers",
       "author": "wrwg",
@@ -210,26 +218,18 @@
       "labels": [
         "cherry-pick"
       ]
-    },
+    }
+  ],
+  "issues": [
     {
-      "number": 19688,
-      "title": "[consensus] Avoid PipelinedBlock Arc cycle",
-      "author": "ibalajiarun",
-      "merged_at": "2026-05-11T17:40:58Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19688",
-      "labels": [
-        "v1.45"
-      ]
-    },
-    {
-      "number": 19701,
-      "title": "[prover] Update commmit hash",
-      "author": "wrwg",
-      "merged_at": "2026-05-11T17:14:00Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19701",
+      "number": 19742,
+      "title": "Deployment security check: DeFi-Audit-Suite",
+      "author": "librellito",
+      "state": "open",
+      "created_at": "2026-05-14T02:20:27Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19742",
       "labels": []
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-05-13T23:05:32.984Z"
+  "lastUpdated": "2026-05-14T03:30:32.222Z"
 }

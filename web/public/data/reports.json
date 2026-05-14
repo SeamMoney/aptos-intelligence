@@ -13501,5 +13501,19 @@
     "eli5": "<p><strong>[paper] Update citations to arXiv and add one-pager for higher-order and inference papers (#19729)</strong> — a change by wrwg.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100203,
+    "githubId": "2e49a51",
+    "title": "[dkg] Validate inbound transcript size before deserialization (#19716)",
+    "author": "zjma",
+    "date": "2026-05-14T01:57:55Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/2e49a51317b1050a8824208a5f2a408233fc56b4",
+    "advanced": "<h3>What Changed</h3><p><strong>[dkg] Validate inbound transcript size before deserialization (#19716)</strong></p><p>by zjma on 5/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/2e49a51317b1050a8824208a5f2a408233fc56b4\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[dkg] Validate inbound transcript size before deserialization (#19716)</strong> — a change by zjma.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
