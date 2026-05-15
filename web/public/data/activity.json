@@ -1,6 +1,32 @@
 {
   "prs": [
     {
+      "number": 19737,
+      "title": "[trading-native][types] Add native-position StateKey variant + per-block NativeTransactionWrites",
+      "author": "grao1991",
+      "merged_at": "2026-05-15T19:22:33Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19737",
+      "labels": []
+    },
+    {
+      "number": 19767,
+      "title": "[prover] fix unsound result_of/write_of axioms on &mut",
+      "author": "wrwg",
+      "merged_at": "2026-05-15T18:58:18Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19767",
+      "labels": []
+    },
+    {
+      "number": 19758,
+      "title": "[cp][aptos-release-v1.45] [consensus-observer] Preserve decrypted_txns when secret_shared_key is absent",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-15T17:34:17Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19758",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19760,
       "title": "[dkg] Publish blake3 hash of digest key and public params",
       "author": "ibalajiarun",
@@ -159,24 +185,8 @@
       "merged_at": "2026-05-14T01:57:55Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19716",
       "labels": []
-    },
-    {
-      "number": 19729,
-      "title": "[paper] Update citations to arXiv and add one-pager for higher-order and inference papers",
-      "author": "wrwg",
-      "merged_at": "2026-05-13T19:38:28Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19729",
-      "labels": []
-    },
-    {
-      "number": 19733,
-      "title": "[trading-native][schema] Add native-position storage schemas (hash-keyed)",
-      "author": "grao1991",
-      "merged_at": "2026-05-13T17:22:22Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19733",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-15T17:28:13.938Z"
+  "lastUpdated": "2026-05-15T19:39:08.841Z"
 }
