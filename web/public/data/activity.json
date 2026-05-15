@@ -1,6 +1,22 @@
 {
   "prs": [
     {
+      "number": 19760,
+      "title": "[dkg] Publish blake3 hash of digest key and public params",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-15T16:50:44Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19760",
+      "labels": []
+    },
+    {
+      "number": 19757,
+      "title": "Release 1.44.2 framework to mainnet.",
+      "author": "grao1991",
+      "merged_at": "2026-05-15T16:30:32Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19757",
+      "labels": []
+    },
+    {
       "number": 19663,
       "title": "[ci] Calibrate single-node execution performance values",
       "author": "aptos-bot",
@@ -159,54 +175,8 @@
       "merged_at": "2026-05-13T17:22:22Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19733",
       "labels": []
-    },
-    {
-      "number": 19705,
-      "title": "[mono-move] Type substitution APIs",
-      "author": "georgemitenkov",
-      "merged_at": "2026-05-13T17:18:17Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19705",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19592,
-      "title": "[mono-move] Loader lazy lowering integration and MS for functions",
-      "author": "georgemitenkov",
-      "merged_at": "2026-05-13T15:40:19Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19592",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19723,
-      "title": "[forge] handle deployer resource concurrency more gracefully",
-      "author": "rustielin",
-      "merged_at": "2026-05-13T15:35:23Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19723",
-      "labels": []
-    },
-    {
-      "number": 19704,
-      "title": "[docs] Document abort messages and new assert macros in Move book",
-      "author": "calintat",
-      "merged_at": "2026-05-13T13:31:47Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19704",
-      "labels": []
     }
   ],
-  "issues": [
-    {
-      "number": 19765,
-      "title": "[Bug] Identifier::Deserialize bypasses is_valid — BCS creates invalid Identifiers",
-      "author": "Esorat",
-      "state": "open",
-      "created_at": "2026-05-15T07:28:18Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/19765",
-      "labels": []
-    }
-  ],
-  "lastUpdated": "2026-05-15T14:08:22.378Z"
+  "issues": [],
+  "lastUpdated": "2026-05-15T17:28:13.938Z"
 }
