@@ -197,6 +197,16 @@
       "labels": []
     }
   ],
-  "issues": [],
-  "lastUpdated": "2026-05-15T06:56:27.726Z"
+  "issues": [
+    {
+      "number": 19765,
+      "title": "[Bug] Identifier::Deserialize bypasses is_valid — BCS creates invalid Identifiers",
+      "author": "Esorat",
+      "state": "open",
+      "created_at": "2026-05-15T07:28:18Z",
+      "url": "https://github.com/aptos-labs/aptos-core/issues/19765",
+      "labels": []
+    }
+  ],
+  "lastUpdated": "2026-05-15T10:24:36.347Z"
 }
