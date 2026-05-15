@@ -1,6 +1,32 @@
 {
   "prs": [
     {
+      "number": 19673,
+      "title": "[consensus] tighten BatchProofQueue ingress checks",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-15T00:17:36Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19673",
+      "labels": []
+    },
+    {
+      "number": 19744,
+      "title": "[forge] Add configurable gas-price multiplier for encrypted txn emitter traffic",
+      "author": "ibalajiarun",
+      "merged_at": "2026-05-14T23:30:58Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19744",
+      "labels": []
+    },
+    {
+      "number": 19762,
+      "title": "[cp][aptos-release-v1.45] [move] High-limit txn fixes",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-14T23:08:08Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19762",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
       "number": 19755,
       "title": "[move-book] add visibility section for constants",
       "author": "rahxephon89",
@@ -169,50 +195,8 @@
       "merged_at": "2026-05-13T06:03:39Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/18935",
       "labels": []
-    },
-    {
-      "number": 19672,
-      "title": "[mono-vm] Add support for references to locals, along with various bug fixes",
-      "author": "vineethk",
-      "merged_at": "2026-05-13T01:47:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19672",
-      "labels": [
-        "mono-move"
-      ]
-    },
-    {
-      "number": 19728,
-      "title": "[cp][aptos-release-v1.45] [storage] Seed hot state KV pruner progress on wipe",
-      "author": "aptos-bot",
-      "merged_at": "2026-05-13T00:52:18Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19728",
-      "labels": [
-        "cherry-pick"
-      ]
-    },
-    {
-      "number": 19726,
-      "title": "[storage] Seed hot state KV pruner progress on wipe",
-      "author": "wqfish",
-      "merged_at": "2026-05-12T22:20:59Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19726",
-      "labels": [
-        "v1.45"
-      ]
     }
   ],
-  "issues": [
-    {
-      "number": 18043,
-      "title": "[Feature Request] Add ARM64 Docker image support for aptos-node in release process",
-      "author": "erikburt",
-      "state": "open",
-      "created_at": "2025-11-05T22:22:20Z",
-      "url": "https://github.com/aptos-labs/aptos-core/issues/18043",
-      "labels": [
-        "enhancement"
-      ]
-    }
-  ],
-  "lastUpdated": "2026-05-14T22:57:08.462Z"
+  "issues": [],
+  "lastUpdated": "2026-05-15T03:34:07.826Z"
 }

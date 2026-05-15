@@ -13795,5 +13795,33 @@
     "eli5": "<p><strong>[move] High-limit txn fixes</strong> — a change by georgemitenkov.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100224,
+    "githubId": "14dfd48",
+    "title": "[consensus] tighten BatchProofQueue ingress checks (#19673)",
+    "author": "ibalajiarun",
+    "date": "2026-05-15T00:17:35Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/14dfd48dabc9dd4356c4c1c84d19cb7b7a0f63b9",
+    "advanced": "<h3>What Changed</h3><p><strong>[consensus] tighten BatchProofQueue ingress checks (#19673)</strong></p><p>by ibalajiarun on 5/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/14dfd48dabc9dd4356c4c1c84d19cb7b7a0f63b9\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[consensus] tighten BatchProofQueue ingress checks (#19673)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100225,
+    "githubId": "4304bac",
+    "title": "[forge] Add configurable gas-price multiplier for encrypted txn emitter traffic (#19744)",
+    "author": "ibalajiarun",
+    "date": "2026-05-14T23:30:57Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/4304baca65197dc326e10f3f726b26caf044209f",
+    "advanced": "<h3>What Changed</h3><p><strong>[forge] Add configurable gas-price multiplier for encrypted txn emitter traffic (#19744)</strong></p><p>by ibalajiarun on 5/14/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/4304baca65197dc326e10f3f726b26caf044209f\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[forge] Add configurable gas-price multiplier for encrypted txn emitter traffic (#19744)</strong> — a change by ibalajiarun.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]
