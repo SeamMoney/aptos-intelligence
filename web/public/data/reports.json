@@ -13879,5 +13879,33 @@
     "eli5": "<p><strong>[prover] fix unsound result_of/write_of axioms on &mut (#19767)</strong> — a change by wrwg.</p>",
     "relatedFeatures": [],
     "labels": []
+  },
+  {
+    "id": 100230,
+    "githubId": "881422b",
+    "title": "[backpressure] tuning per block gas limit (#19770)",
+    "author": "zekun000",
+    "date": "2026-05-15T20:57:47Z",
+    "category": "Infrastructure",
+    "importance": 4,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/881422b4a72a8edbc85a83c62b9c77ebd46426fa",
+    "advanced": "<h3>What Changed</h3><p><strong>[backpressure] tuning per block gas limit (#19770)</strong></p><p>by zekun000 on 5/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/881422b4a72a8edbc85a83c62b9c77ebd46426fa\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[backpressure] tuning per block gas limit (#19770)</strong> — a change by zekun000.</p>",
+    "relatedFeatures": [],
+    "labels": []
+  },
+  {
+    "id": 100231,
+    "githubId": "f4b5ce9",
+    "title": "[mempool] add pull_count label and prev-block latency metric (#19771)",
+    "author": "zekun000",
+    "date": "2026-05-15T19:45:02Z",
+    "category": "Feature Progress",
+    "importance": 6,
+    "sourceUrl": "https://github.com/aptos-labs/aptos-core/commit/f4b5ce98fc99ca101cb3f8814591d06901ca3236",
+    "advanced": "<h3>What Changed</h3><p><strong>[mempool] add pull_count label and prev-block latency metric (#19771)</strong></p><p>by zekun000 on 5/15/2026</p><p><a href=\"https://github.com/aptos-labs/aptos-core/commit/f4b5ce98fc99ca101cb3f8814591d06901ca3236\" target=\"_blank\">View on GitHub →</a></p>",
+    "eli5": "<p><strong>[mempool] add pull_count label and prev-block latency metric (#19771)</strong> — a change by zekun000.</p>",
+    "relatedFeatures": [],
+    "labels": []
   }
 ]

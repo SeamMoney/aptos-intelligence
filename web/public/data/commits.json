@@ -1,15 +1,31 @@
 [
   {
-    "sha": "ans-deep-dive",
-    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
-    "author": "0xChucky",
-    "date": "2026-04-08T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-names-contracts",
+    "sha": "scheduled-transactions-deep-dive",
+    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
+    "author": "aptos-labs",
+    "date": "2026-04-20T00:00:00Z",
+    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
     "category": "Feature Progress"
   },
   {
-    "sha": "aggregator-nft-deep-dive",
-    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
+    "sha": "shardines-deep-dive",
+    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
+    "author": "aptos-labs",
+    "date": "2026-04-17T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "confidential-assets-deep-dive",
+    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
+    "author": "alinush",
+    "date": "2026-04-10T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "category": "Feature Progress"
+  },
+  {
+    "sha": "randomness-deep-dive",
+    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
@@ -24,35 +40,35 @@
     "category": "Feature Progress"
   },
   {
-    "sha": "randomness-deep-dive",
-    "title": "Aptos On-Chain Randomness — Pinkas WVUF, DKG, and the State of the Art",
+    "sha": "aggregator-nft-deep-dive",
+    "title": "How Aptos Minted 1M NFTs in 90 Seconds — Aggregators Explained",
     "author": "aptos-labs",
     "date": "2026-04-09T00:00:00Z",
     "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources/aggregator",
     "category": "Feature Progress"
   },
   {
-    "sha": "confidential-assets-deep-dive",
-    "title": "Alin Tomescu's Confidential Assets -- From UTT Theory to Deployed Encryption on Aptos",
-    "author": "alinush",
-    "date": "2026-04-10T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources/confidential_asset",
+    "sha": "ans-deep-dive",
+    "title": "Aptos Names Service (ANS) — Complete Deep Dive",
+    "author": "0xChucky",
+    "date": "2026-04-08T00:00:00Z",
+    "url": "https://github.com/aptos-labs/aptos-names-contracts",
     "category": "Feature Progress"
   },
   {
-    "sha": "shardines-deep-dive",
-    "title": "Shardines — How Aptos Plans to Hit 1M+ TPS on a Single Logical Validator",
-    "author": "aptos-labs",
-    "date": "2026-04-17T00:00:00Z",
-    "url": "https://github.com/aptos-labs/aptos-core",
-    "category": "Feature Progress"
+    "sha": "881422b",
+    "title": "[backpressure] tuning per block gas limit (#19770)",
+    "author": "zekun000",
+    "date": "2026-05-15T20:57:47Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/881422b4a72a8edbc85a83c62b9c77ebd46426fa",
+    "category": "Infrastructure"
   },
   {
-    "sha": "scheduled-transactions-deep-dive",
-    "title": "Scheduled Transactions (AIP-125) — Native On-Chain Automation, End of Keeper Networks",
-    "author": "aptos-labs",
-    "date": "2026-04-20T00:00:00Z",
-    "url": "https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-125-scheduled-transactions.md",
+    "sha": "f4b5ce9",
+    "title": "[mempool] add pull_count label and prev-block latency metric (#19771)",
+    "author": "zekun000",
+    "date": "2026-05-15T19:45:02Z",
+    "url": "https://github.com/aptos-labs/aptos-core/commit/f4b5ce98fc99ca101cb3f8814591d06901ca3236",
     "category": "Feature Progress"
   },
   {
@@ -4661,22 +4677,6 @@
     "author": "wqfish",
     "date": "2026-02-18T17:18:41Z",
     "url": "https://github.com/aptos-labs/aptos-core/commit/70f4ff603e329a8e606deee13bd265a6d44e74d5",
-    "category": "Performance"
-  },
-  {
-    "sha": "2b5e710",
-    "title": "[vm][genesis][api] Wire encryption key through execution and genesis",
-    "author": "ibalajiarun",
-    "date": "2026-02-15T04:08:43Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/2b5e710ed6c11169f1be171e255882c70bb0aa99",
-    "category": "Release"
-  },
-  {
-    "sha": "efe004a",
-    "title": "[framework] Add PerEpochEncryptionKey to decryption module",
-    "author": "ibalajiarun",
-    "date": "2026-02-15T04:08:34Z",
-    "url": "https://github.com/aptos-labs/aptos-core/commit/efe004ad26cb68d98c083eb7fc40a69d6c3ea618",
     "category": "Performance"
   },
   {

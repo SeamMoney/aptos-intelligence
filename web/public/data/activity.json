@@ -1,6 +1,53 @@
 {
   "prs": [
     {
+      "number": 19770,
+      "title": "[backpressure] tuning per block gas limit",
+      "author": "zekun000",
+      "merged_at": "2026-05-15T20:57:48Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19770",
+      "labels": [
+        "CICD:run-forge-e2e-perf"
+      ]
+    },
+    {
+      "number": 19771,
+      "title": "[mempool] add pull_count label and prev-block latency metric",
+      "author": "zekun000",
+      "merged_at": "2026-05-15T19:45:03Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19771",
+      "labels": [
+        "v1.45",
+        "v1.46"
+      ]
+    },
+    {
+      "number": 19777,
+      "title": "[cp][aptos-release-v1.45] [mempool] add pull_count label and prev-block latency metric",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-15T20:49:16Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19777",
+      "labels": [
+        "cherry-pick"
+      ]
+    },
+    {
+      "number": 19776,
+      "title": "[aptos-release-v1.45] Bump version to 1.45.1",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-15T20:32:24Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19776",
+      "labels": []
+    },
+    {
+      "number": 19773,
+      "title": "[cherry-pick][vm] Prevent Display recursion stack overflow on deep Values (1.45)",
+      "author": "vgao1996",
+      "merged_at": "2026-05-15T20:18:22Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19773",
+      "labels": []
+    },
+    {
       "number": 19737,
       "title": "[trading-native][types] Add native-position StateKey variant + per-block NativeTransactionWrites",
       "author": "grao1991",
@@ -169,24 +216,8 @@
       "merged_at": "2026-05-14T16:54:41Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19743",
       "labels": []
-    },
-    {
-      "number": 19730,
-      "title": "admin-service: return symbolized pprof from /malloc/dump_profile",
-      "author": "ibalajiarun",
-      "merged_at": "2026-05-14T05:12:51Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19730",
-      "labels": []
-    },
-    {
-      "number": 19716,
-      "title": "[dkg] Validate inbound transcript size before deserialization",
-      "author": "zjma",
-      "merged_at": "2026-05-14T01:57:55Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/19716",
-      "labels": []
     }
   ],
   "issues": [],
-  "lastUpdated": "2026-05-15T19:39:08.841Z"
+  "lastUpdated": "2026-05-15T21:01:49.740Z"
 }
