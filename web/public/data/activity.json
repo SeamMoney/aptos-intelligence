@@ -1,6 +1,14 @@
 {
   "prs": [
     {
+      "number": 19663,
+      "title": "[ci] Calibrate single-node execution performance values",
+      "author": "aptos-bot",
+      "merged_at": "2026-05-15T12:12:01Z",
+      "url": "https://github.com/aptos-labs/aptos-core/pull/19663",
+      "labels": []
+    },
+    {
       "number": 19673,
       "title": "[consensus] tighten BatchProofQueue ingress checks",
       "author": "ibalajiarun",
@@ -187,14 +195,6 @@
       "merged_at": "2026-05-13T13:31:47Z",
       "url": "https://github.com/aptos-labs/aptos-core/pull/19704",
       "labels": []
-    },
-    {
-      "number": 18935,
-      "title": "[compiler] Add public/package/friend visibility to Move constants",
-      "author": "rahxephon89",
-      "merged_at": "2026-05-13T06:03:39Z",
-      "url": "https://github.com/aptos-labs/aptos-core/pull/18935",
-      "labels": []
     }
   ],
   "issues": [
@@ -208,5 +208,5 @@
       "labels": []
     }
   ],
-  "lastUpdated": "2026-05-15T10:24:36.347Z"
+  "lastUpdated": "2026-05-15T14:08:22.378Z"
 }
